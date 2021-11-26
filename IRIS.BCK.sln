@@ -3,9 +3,44 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31911.196
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{CA9FF0D3-8CA8-4D2A-A008-072B93AAB8F8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{0C0F9E9E-A8D3-4BFF-825A-552ECBD3B1E1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{D7879663-8038-4085-9929-C289DD672BBA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{33EC3AF1-917D-4DFB-BCEB-0AB9BB517938}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{11DB7CFE-D916-46DD-82F5-C94D9792B9DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IRIS.BCK.Domain", "IRIS.BCK.Domain\IRIS.BCK.Domain.csproj", "{AE60CB67-7573-49EE-98D9-E3124749E8BD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IRIS.BCK.Application", "IRIS.BCK.Application\IRIS.BCK.Application.csproj", "{BA12BB10-B187-44CE-93D3-FDFCE73EED9C}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AE60CB67-7573-49EE-98D9-E3124749E8BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE60CB67-7573-49EE-98D9-E3124749E8BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE60CB67-7573-49EE-98D9-E3124749E8BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE60CB67-7573-49EE-98D9-E3124749E8BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA12BB10-B187-44CE-93D3-FDFCE73EED9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA12BB10-B187-44CE-93D3-FDFCE73EED9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA12BB10-B187-44CE-93D3-FDFCE73EED9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA12BB10-B187-44CE-93D3-FDFCE73EED9C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D7879663-8038-4085-9929-C289DD672BBA} = {CA9FF0D3-8CA8-4D2A-A008-072B93AAB8F8}
+		{33EC3AF1-917D-4DFB-BCEB-0AB9BB517938} = {CA9FF0D3-8CA8-4D2A-A008-072B93AAB8F8}
+		{11DB7CFE-D916-46DD-82F5-C94D9792B9DB} = {CA9FF0D3-8CA8-4D2A-A008-072B93AAB8F8}
+		{AE60CB67-7573-49EE-98D9-E3124749E8BD} = {33EC3AF1-917D-4DFB-BCEB-0AB9BB517938}
+		{BA12BB10-B187-44CE-93D3-FDFCE73EED9C} = {33EC3AF1-917D-4DFB-BCEB-0AB9BB517938}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7DF24848-3454-466A-A96B-09D97D4D05AD}
