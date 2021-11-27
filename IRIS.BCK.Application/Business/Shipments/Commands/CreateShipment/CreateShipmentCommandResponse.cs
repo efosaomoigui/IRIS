@@ -1,5 +1,5 @@
 ﻿using IRIS.BCK.Application.DTO;
-using MediatR;
+using IRIS.BCK.Application.Responses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,9 +8,13 @@ using System.Threading.Tasks;
 
 namespace IRIS.BCK.Application.Business.Shipments.Commands.CreateShipment
 {
-    class CreateShipmentCommand : IRequest<CreateShipmentCommandResponse>
+    public class CreateShipmentCommandResponse : BaseResponse
     {
-        public int Id { get; set; }
-        public string waybill { get; set; }
+        public CreateShipmentCommandResponse() : base()
+        {
+
+        }
+
+        public ShipmentDto Shipmentdto { get; set; }
     }
 }
