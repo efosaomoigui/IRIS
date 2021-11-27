@@ -9,6 +9,6 @@ namespace IRIS.BCK.Domain.Entities
 {
     public class Shipment : Auditable
     {
-
+        public int Id { get; set; }
     }
 }
