@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using IRIS.BCK.Application.Interfaces.Pesistence;
+using IRIS.BCK.Application.Interfaces.IRepository;
 using IRIS.BCK.Core.Domain.Entities.ShimentEntities;
 using MediatR;
 using System;

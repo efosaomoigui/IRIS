@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IRIS.BCK.Application.Interfaces.Pesistence
+namespace IRIS.BCK.Application.Interfaces.IRepository
 {
     interface IGenericRepository<T> where T:class  
     {

@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
 using IRIS.BCK.Application.DTO;
-using IRIS.BCK.Application.Exceptions;
-using IRIS.BCK.Application.Interfaces.Pesistence;
-using IRIS.BCK.Application.Interfaces.Pesistence.IShipment;
+using IRIS.BCK.Application.Interfaces.IRepository.IShipmentRepositories;
 using IRIS.BCK.Core.Domain.Entities.ShimentEntities;
 using MediatR;
 using System;

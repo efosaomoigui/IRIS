@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using IRIS.BCK.Application.Interfaces.Pesistence.IShipment;
+using IRIS.BCK.Application.Interfaces.IRepository.IShipmentRepositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
