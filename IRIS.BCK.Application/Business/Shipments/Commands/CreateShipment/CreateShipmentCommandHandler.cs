@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using IRIS.BCK.Application.DTO;
 using IRIS.BCK.Application.Interfaces.IRepository.IShipmentRepositories;
+using IRIS.BCK.Core.Application.DTO.Message;
 using IRIS.BCK.Core.Application.Interfaces.IMessage;
 using IRIS.BCK.Core.Domain.Entities.ShimentEntities;
 using MediatR;
@@ -44,10 +45,27 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateShipment
                 }
             }
 
+            var email = new Email
+            {
+                To = "efe.omoigui@gmail.com",
+                Body = "Test Message",
+                Subject = "Test Email"
+            };
+
             if (CreateShipmentCommandResponse.Success)
             {
                 var shipment = _mapper.Map<Shipment>(request);
                 shipment = await _shipmentRepository.AddAsync(shipment);
+
+                try
+                {
+                    await _emailService.SendEmail(email);
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+
                 CreateShipmentCommandResponse.Shipmentdto = _mapper.Map<ShipmentDto>(shipment);
             }
 
