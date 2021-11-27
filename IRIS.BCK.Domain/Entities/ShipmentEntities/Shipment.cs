@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IRIS.BCK.Domain.Entities
+namespace IRIS.BCK.Core.Domain.Entities.ShimentEntities
 {
     public class Shipment : Auditable
     {

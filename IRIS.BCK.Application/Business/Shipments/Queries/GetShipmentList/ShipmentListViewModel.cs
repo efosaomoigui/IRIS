@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IRIS.BCK.Application.Business.Shipments.Queries.GetShipmentList
+namespace IRIS.BCK.Core.Application.Business.Shipments.Queries.GetShipmentList
 {
     class ShipmentListViewModel 
     {

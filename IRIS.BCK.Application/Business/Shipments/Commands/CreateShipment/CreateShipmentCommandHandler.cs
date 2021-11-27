@@ -3,7 +3,7 @@ using IRIS.BCK.Application.DTO;
 using IRIS.BCK.Application.Exceptions;
 using IRIS.BCK.Application.Interfaces.Pesistence;
 using IRIS.BCK.Application.Interfaces.Pesistence.IShipment;
-using IRIS.BCK.Domain.Entities;
+using IRIS.BCK.Core.Domain.Entities.ShimentEntities;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace IRIS.BCK.Application.Business.Shipments.Commands.CreateShipment
+namespace IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateShipment
 {
     class CreateShipmentCommandHandler : IRequestHandler<CreateShipmentCommand, CreateShipmentCommandResponse>
     {

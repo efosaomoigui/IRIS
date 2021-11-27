@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IRIS.BCK.Application.Business.Shipments.Commands.CreateShipment
+namespace IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateShipment
 {
     public class CreateShipmentCommandResponse : BaseResponse
     {

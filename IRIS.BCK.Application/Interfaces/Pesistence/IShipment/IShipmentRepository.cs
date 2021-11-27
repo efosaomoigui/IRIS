@@ -1,4 +1,4 @@
-﻿using IRIS.BCK.Domain.Entities;
+﻿using IRIS.BCK.Core.Domain.Entities.ShimentEntities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +10,6 @@ namespace IRIS.BCK.Application.Interfaces.Pesistence.IShipment
     interface IShipmentRepository : IGenericRepository<Shipment>
     {
         Task<bool> CheckUniqueWaybillNumber(string waybill);
+        Task<Shipment> AddAsync(Shipment shipment);
     }
 }

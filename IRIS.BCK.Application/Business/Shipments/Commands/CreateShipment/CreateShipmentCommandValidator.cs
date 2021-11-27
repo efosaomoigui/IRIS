@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace IRIS.BCK.Application.Business.Shipments.Commands.CreateShipment
+namespace IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateShipment
 {
     class CreateShipmentCommandValidator : AbstractValidator<CreateShipmentCommand>
     {

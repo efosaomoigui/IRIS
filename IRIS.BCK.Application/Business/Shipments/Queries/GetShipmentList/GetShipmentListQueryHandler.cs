@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using IRIS.BCK.Application.Interfaces.Pesistence;
-using IRIS.BCK.Domain.Entities;
+using IRIS.BCK.Core.Domain.Entities.ShimentEntities;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace IRIS.BCK.Application.Business.Shipments.Queries.GetShipmentList
+namespace IRIS.BCK.Core.Application.Business.Shipments.Queries.GetShipmentList
 {
     class GetShipmentListQueryHandler : IRequestHandler<GetShipmentListQuery, List<ShipmentListViewModel>>
     {
