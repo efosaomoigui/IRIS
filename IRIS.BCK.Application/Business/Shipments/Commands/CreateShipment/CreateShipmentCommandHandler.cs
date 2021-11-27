@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using IRIS.BCK.Application.DTO;
 using IRIS.BCK.Application.Interfaces.IRepository.IShipmentRepositories;
+using IRIS.BCK.Core.Application.Interfaces.IMessage;
 using IRIS.BCK.Core.Domain.Entities.ShimentEntities;
 using MediatR;
 using System;
@@ -16,11 +17,13 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateShipment
     {
         private readonly IShipmentRepository _shipmentRepository;
         private readonly IMapper _mapper;
+        private readonly IEmailService _emailService;
 
-        public CreateShipmentCommandHandler(IShipmentRepository shipmentRepository, IMapper mapper)
+        public CreateShipmentCommandHandler(IShipmentRepository shipmentRepository, IMapper mapper, IEmailService emailService)
         {
             _shipmentRepository = shipmentRepository;
             _mapper = mapper;
+            _emailService = emailService;
         }
 
         public async Task<CreateShipmentCommandResponse> Handle(CreateShipmentCommand request, CancellationToken cancellationToken)

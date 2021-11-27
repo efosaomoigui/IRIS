@@ -11,10 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Repository\Shipment\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\IRIS.BCK.Application\IRIS.BCK.Core.Application.csproj" />
     <ProjectReference Include="..\IRIS.BCK.Domain\IRIS.BCK.Core.Domain.csproj" />
   </ItemGroup>
 

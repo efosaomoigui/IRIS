@@ -19,6 +19,7 @@
     <Folder Include="Business\Shipments\Commands\DeleteShipment\" />
     <Folder Include="Business\Shipments\Commands\UpdateShipment\" />
     <Folder Include="Enums\" />
+    <Folder Include="Message\SMS\" />
   </ItemGroup>
 
 </Project>
