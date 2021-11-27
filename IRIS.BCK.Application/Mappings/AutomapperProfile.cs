@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using IRIS.BCK.Application.Business.Shipments.Commands.CreateShipment;
 using IRIS.BCK.Application.Business.Shipments.Queries.GetShipmentList;
 using IRIS.BCK.Domain.Entities;
 using System;
@@ -15,6 +16,7 @@ namespace IRIS.BCK.Application.Mappings
         public AutomapperProfile()
         {
             CreateMap<Shipment, ShipmentListViewModel>();
+            CreateMap<Shipment, CreateShipmentCommand>();
         }
     }
 }

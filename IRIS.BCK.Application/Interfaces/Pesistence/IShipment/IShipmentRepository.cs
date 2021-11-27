@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace IRIS.BCK.Application.Interfaces.Pesistence.IShipment 
 {
-    interface IShipmentRepository: IGenericRepository<Shipment>
+    interface IShipmentRepository : IGenericRepository<Shipment>
     {
+        Task<bool> CheckUniqueWaybillNumber(string waybill);
     }
 }
