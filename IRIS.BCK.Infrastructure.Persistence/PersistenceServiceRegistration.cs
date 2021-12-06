@@ -5,11 +5,6 @@ using IRIS.BCK.Infrastructure.Persistence.Repositories.Shipments;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IRIS.BCK.Infrastructure.Persistence
 {

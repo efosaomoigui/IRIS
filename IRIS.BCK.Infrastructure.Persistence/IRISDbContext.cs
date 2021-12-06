@@ -21,7 +21,7 @@ namespace IRIS.BCK.Infrastructure.Persistence
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-             
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(IRISDbContext).Assembly);
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
