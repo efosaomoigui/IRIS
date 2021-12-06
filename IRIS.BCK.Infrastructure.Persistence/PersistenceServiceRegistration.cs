@@ -12,7 +12,7 @@ namespace IRIS.BCK.Infrastructure.Persistence
     {
         public static IServiceCollection AddPersistenceService(this IServiceCollection service, IConfiguration configuration)
         {
-            service.AddDbContext<IRISDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("IRISDbConnection")));
+            service.AddDbContext<IRISDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("IRISDbConnectionString")));
             service.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
             service.AddScoped<IShipmentRepository, ShipmentRepository>();
