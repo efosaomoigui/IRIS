@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IRIS.BCK.Core.Application.Business.Shipments.Queries.GetShipmentList
 {
-    class ShipmentListViewModel 
+    public class ShipmentListViewModel 
     {
         public int Id { get; set; }
     }

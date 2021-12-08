@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace IRIS.BCK.Core.Application.Business.Shipments.Queries.GetShipmentList
 {
-    class GetShipmentListQuery : IRequest<List<ShipmentListViewModel>>
+    public class GetShipmentListQuery : IRequest<List<ShipmentListViewModel>>
     {
     }
 }
