@@ -18,6 +18,7 @@ namespace IRIS.BCK.Api.Controllers.Shipment
         {
             _mediator = mediator;
         }
+
         [HttpGet("all", Name = "GetAllShipments")]
         public async Task<ActionResult<List<ShipmentListViewModel>>> GetAllShipments()
         {
