@@ -22,7 +22,7 @@ namespace IRIS.BCK.Api.Controllers.Shipment
         [HttpGet("all", Name = "GetAllShipments")]
         public async Task<ActionResult<List<ShipmentListViewModel>>> GetAllShipments()
         {
-            var shipments = _mediator.Send(new GetShipmentListQuery());
+            var shipments = await _mediator.Send(new GetShipmentListQuery());
             return Ok(shipments);
         }
     }
