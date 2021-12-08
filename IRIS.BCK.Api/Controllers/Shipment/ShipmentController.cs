@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 
 namespace IRIS.BCK.Api.Controllers.Shipment
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class ShipmentController : ControllerBase
     {
         private readonly IMediator _mediator;
