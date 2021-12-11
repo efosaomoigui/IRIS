@@ -1,6 +1,8 @@
 ﻿using IRIS.BCK.Core.Application.DTO.Message;
-using IRIS.BCK.Core.Application.Interfaces.IMessage;
-using IRIS.BCK.Core.Application.Message.Email;
+using IRIS.BCK.Core.Application.DTO.Message.EmailMessage;
+using IRIS.BCK.Core.Application.Interfaces.IMessages;
+using IRIS.BCK.Core.Application.Interfaces.IMessages.IEmail;
+using IRIS.BCK.Core.Application.Messages.EmailMessage;
 using Microsoft.Extensions.Options;
 using SendGrid;
 using SendGrid.Helpers.Mail;
@@ -10,7 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IRIS.BCK.Infrastructure.Persistence.Messaging.Emails 
+namespace IRIS.BCK.Infrastructure.Messaging.EmailMessages   
 {
     public class EmailService : IEmailService 
     {
@@ -45,5 +47,6 @@ namespace IRIS.BCK.Infrastructure.Persistence.Messaging.Emails
 
             return false;
         }
+
     }
 }

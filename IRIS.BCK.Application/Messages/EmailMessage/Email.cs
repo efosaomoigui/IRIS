@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IRIS.BCK.Core.Application.DTO.Message
+namespace IRIS.BCK.Core.Application.DTO.Message.EmailMessage
 {
     public class Email
     {

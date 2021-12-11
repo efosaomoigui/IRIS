@@ -1,6 +1,6 @@
-﻿using IRIS.BCK.Core.Application.Interfaces.IMessage;
-using IRIS.BCK.Core.Application.Message.Email;
-using IRIS.BCK.Infrastructure.Persistence.Messaging.Emails;
+﻿using IRIS.BCK.Core.Application.Interfaces.IMessages.IEmail;
+using IRIS.BCK.Core.Application.Messages.EmailMessage;
+using IRIS.BCK.Infrastructure.Messaging.EmailMessages;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 

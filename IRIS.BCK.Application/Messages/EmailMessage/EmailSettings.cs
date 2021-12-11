@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IRIS.BCK.Core.Application.Message.Email
+namespace IRIS.BCK.Core.Application.Messages.EmailMessage 
 {
     public class EmailSettings
     {

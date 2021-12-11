@@ -12,6 +12,12 @@ namespace IRIS.BCK.Application.Responses
         public string Message { get; set; }
         public List<string> ValidationErrors { get; set; }
 
+        public BaseResponse(string message = null)
+        {
+            Success = true;
+            Message = message;
+        }
+
         public BaseResponse()
         {
             Success = true;

@@ -2,7 +2,8 @@
 using IRIS.BCK.Application.DTO;
 using IRIS.BCK.Application.Interfaces.IRepository.IShipmentRepositories;
 using IRIS.BCK.Core.Application.DTO.Message;
-using IRIS.BCK.Core.Application.Interfaces.IMessage;
+using IRIS.BCK.Core.Application.DTO.Message.EmailMessage;
+using IRIS.BCK.Core.Application.Interfaces.IMessages.IEmail;
 using IRIS.BCK.Core.Domain.Entities.ShimentEntities;
 using MediatR;
 using System;

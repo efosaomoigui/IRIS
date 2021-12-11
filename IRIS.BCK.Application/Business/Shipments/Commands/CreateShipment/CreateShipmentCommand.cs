@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateShipment
 {
-    class CreateShipmentCommand : IRequest<CreateShipmentCommandResponse>
+    public class CreateShipmentCommand : IRequest<CreateShipmentCommandResponse>
     {
         public int Id { get; set; }
         public string waybill { get; set; }
