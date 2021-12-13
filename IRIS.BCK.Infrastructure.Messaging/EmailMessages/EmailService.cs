@@ -26,6 +26,7 @@ namespace IRIS.BCK.Infrastructure.Messaging.EmailMessages
         public async Task<bool> SendEmail(Email email)
         {
             var client = new SendGridClient(_emailSettings.ApiKey);
+            //var client = new SimpleEmailS(_emailSettings.ApiKey); //AWS Email
 
             var subject = email.Subject;
             var to = new EmailAddress();

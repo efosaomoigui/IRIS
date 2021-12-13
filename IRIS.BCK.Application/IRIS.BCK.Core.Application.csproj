@@ -21,9 +21,9 @@
     <Folder Include="Business\Fleets\Queries\" />
     <Folder Include="Business\Shipments\Commands\DeleteShipment\" />
     <Folder Include="Business\Shipments\Commands\UpdateShipment\" />
+    <Folder Include="DTO\Files\Pdf\" />
     <Folder Include="Enums\" />
     <Folder Include="Interfaces\IFiles\IPdf\" />
-    <Folder Include="Interfaces\IFiles\ICsv\" />
     <Folder Include="Interfaces\IMessages\ISms\" />
     <Folder Include="Interfaces\IMessages\INotification\" />
     <Folder Include="Interfaces\IThirdPartyServices\IPaymentProviders\IPayStack\" />
