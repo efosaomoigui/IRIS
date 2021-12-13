@@ -32,6 +32,7 @@ namespace IRIS.BCK.Api
             services.AddApplicationServices(Configuration);
             services.AddMessagingServiceRegistration(Configuration);
             services.AddPersistenceService(Configuration);
+            services.AddFileInfrastructureService(Configuration); 
 
             services.AddControllers();
 
