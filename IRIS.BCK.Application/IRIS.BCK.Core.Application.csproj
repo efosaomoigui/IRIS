@@ -21,6 +21,11 @@
     <Folder Include="Business\Fleets\Queries\" />
     <Folder Include="Business\Shipments\Commands\DeleteShipment\" />
     <Folder Include="Business\Shipments\Commands\UpdateShipment\" />
+    <Folder Include="Business\Trip\Commands\" />
+    <Folder Include="Business\Trip\Queries\GetFleetQueries\" />
+    <Folder Include="Business\Trip\Queries\GetShipmentQueries\" />
+    <Folder Include="Business\Trip\Queries\GetPaymentParametersQueries\" />
+    <Folder Include="Business\Trip\Queries\" />
     <Folder Include="DTO\Files\Pdf\" />
     <Folder Include="Enums\" />
     <Folder Include="Interfaces\IFiles\IPdf\" />

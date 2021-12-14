@@ -21,11 +21,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IRIS.BCK.Infrastructure.Per
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IRIS.BCK.Infrastructure.Messaging", "IRIS.BCK.Infrastructure.Messaging\IRIS.BCK.Infrastructure.Messaging.csproj", "{484DA8C0-8F61-4941-807E-9FB90AFA74AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IRIS.BCK.Api", "IRIS.BCK.Api\IRIS.BCK.Api.csproj", "{7ED88F37-101A-45CF-9A36-39572C8DA032}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IRIS.BCK.Api", "IRIS.BCK.Api\IRIS.BCK.Api.csproj", "{7ED88F37-101A-45CF-9A36-39572C8DA032}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IRIS.BCK.Infrastructure.FileManagement", "IRIS.BCK.Infrastructure.Files\IRIS.BCK.Infrastructure.FileManagement.csproj", "{47835D9D-9DC0-485A-8716-5FC8D11FF894}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IRIS.BCK.Infrastructure.FileManagement", "IRIS.BCK.Infrastructure.Files\IRIS.BCK.Infrastructure.FileManagement.csproj", "{47835D9D-9DC0-485A-8716-5FC8D11FF894}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IRIS.BCK.Infrastructure.Payment", "IRIS.BCK.Infrastructure.Payment\IRIS.BCK.Infrastructure.Payment.csproj", "{127D01DE-AA5B-4589-BFA8-F316D9013D90}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IRIS.BCK.Infrastructure.Payment", "IRIS.BCK.Infrastructure.Payment\IRIS.BCK.Infrastructure.Payment.csproj", "{127D01DE-AA5B-4589-BFA8-F316D9013D90}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IRIS.BCK.Test", "IRIS.BCK.Test\IRIS.BCK.Test.csproj", "{D53392C3-5B0B-46E3-8A20-C69E1557EEE6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,6 +63,10 @@ Global
 		{127D01DE-AA5B-4589-BFA8-F316D9013D90}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{127D01DE-AA5B-4589-BFA8-F316D9013D90}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{127D01DE-AA5B-4589-BFA8-F316D9013D90}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D53392C3-5B0B-46E3-8A20-C69E1557EEE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D53392C3-5B0B-46E3-8A20-C69E1557EEE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D53392C3-5B0B-46E3-8A20-C69E1557EEE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D53392C3-5B0B-46E3-8A20-C69E1557EEE6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -76,6 +82,7 @@ Global
 		{7ED88F37-101A-45CF-9A36-39572C8DA032} = {D7879663-8038-4085-9929-C289DD672BBA}
 		{47835D9D-9DC0-485A-8716-5FC8D11FF894} = {11DB7CFE-D916-46DD-82F5-C94D9792B9DB}
 		{127D01DE-AA5B-4589-BFA8-F316D9013D90} = {11DB7CFE-D916-46DD-82F5-C94D9792B9DB}
+		{D53392C3-5B0B-46E3-8A20-C69E1557EEE6} = {0C0F9E9E-A8D3-4BFF-825A-552ECBD3B1E1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7DF24848-3454-466A-A96B-09D97D4D05AD}
