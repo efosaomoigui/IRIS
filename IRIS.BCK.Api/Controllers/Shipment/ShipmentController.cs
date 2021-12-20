@@ -10,9 +10,7 @@ using System.Threading.Tasks;
 
 namespace IRIS.BCK.Api.Controllers.Shipment
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class ShipmentController : ControllerBase
+    public class ShipmentController : BaseApiController
     {
         private readonly IMediator _mediator;
         public ShipmentController(IMediator mediator)

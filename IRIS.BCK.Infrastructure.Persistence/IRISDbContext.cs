@@ -17,7 +17,7 @@ namespace IRIS.BCK.Infrastructure.Persistence
 
         }
 
-        public DbSet<Shipment> Shipment { get; set; }
+        public DbSet<Shipment> Shipments { get; set; } 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
