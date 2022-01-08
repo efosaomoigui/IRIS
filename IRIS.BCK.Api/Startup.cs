@@ -13,6 +13,7 @@ using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace IRIS.BCK.Api
@@ -29,6 +30,11 @@ namespace IRIS.BCK.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //adding the authentication handler to the service container
+            services.AddAuthentication("MyCookieAuth").AddCookie("MyCookieAuth", option => {
+                option.Cookie.Name = "MyCookieAuth"; 
+            });
+
             services.AddApplicationServices(Configuration);
             services.AddMessagingServiceRegistration(Configuration);
             services.AddPersistenceService(Configuration);
@@ -37,12 +43,17 @@ namespace IRIS.BCK.Api
             services.AddControllers();
 
             services.AddCors(options => {
-                options.AddPolicy("Open", builder => builder.AllowAnyOrigin().AllowAnyMethod());
+                options.AddPolicy("IrisCors", builder => builder.WithOrigins("http://localhost").AllowAnyMethod());
             });
 
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "IRIS.BCK.Api", Version = "v1" });
+            });
+
+            services.AddHttpClient("IRISAPI", client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:44323/");
             });
         }
 
@@ -59,8 +70,9 @@ namespace IRIS.BCK.Api
             app.UseHttpsRedirection();
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
-            app.UseCors("Open");
+            app.UseCors("IrisCors");
 
             app.UseEndpoints(endpoints =>
             {

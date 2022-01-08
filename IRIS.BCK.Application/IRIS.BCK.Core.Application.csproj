@@ -17,6 +17,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Business\Accounts\Commands\CreateRole\" />
+    <Folder Include="Business\Accounts\Commands\CreateClaims\" />
+    <Folder Include="Business\Accounts\Commands\UpdateUser\" />
+    <Folder Include="Business\Accounts\Queries\GetUser\" />
     <Folder Include="Business\Fleets\Commands\" />
     <Folder Include="Business\Fleets\Queries\" />
     <Folder Include="Business\Shipments\Commands\DeleteShipment\" />

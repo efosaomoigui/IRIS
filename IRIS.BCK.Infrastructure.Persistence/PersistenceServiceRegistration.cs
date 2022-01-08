@@ -1,6 +1,8 @@
 ﻿using IRIS.BCK.Application.Interfaces.IRepository;
 using IRIS.BCK.Application.Interfaces.IRepository.IShipmentRepositories;
+using IRIS.BCK.Core.Application.Interfaces.IRepositories.IAccount;
 using IRIS.BCK.Infrastructure.Persistence.Repositories;
+using IRIS.BCK.Infrastructure.Persistence.Repositories.Accounts;
 using IRIS.BCK.Infrastructure.Persistence.Repositories.Shipments;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -19,6 +21,7 @@ namespace IRIS.BCK.Infrastructure.Persistence
 
             service.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             service.AddScoped<IShipmentRepository, ShipmentRepository>();
+            service.AddScoped<IUserRepository, UserRepository>();
             return service;
         }
 
