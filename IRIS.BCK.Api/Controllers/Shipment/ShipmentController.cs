@@ -26,7 +26,7 @@ namespace IRIS.BCK.Api.Controllers.Shipment
         }
 
         [HttpPost(Name ="AddShipment")]
-        public async Task<ActionResult<CreateShipmentCommandResponse>> Create([FromBody] CreateShipmentCommand createShipmentCommand)
+        public async Task<ActionResult<CreateShipmentCommandResponse>> Create([FromBody] ShipmentDto createShipmentCommand)
         {
             var response = await _mediator.Send(createShipmentCommand);
             return Ok(response);

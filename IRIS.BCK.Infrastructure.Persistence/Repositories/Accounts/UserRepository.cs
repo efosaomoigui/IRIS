@@ -22,5 +22,12 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Accounts
             //To be changed to implementation of proper password requirement
             return Task.FromResult(password.GetType() == typeof(string));
         }
+
+        public async Task<User> GetUserWithCredentials(string username, string password)
+        {
+            var user = await GetAllAsync();
+            var userresult = user.FirstOrDefault(s => s.Username == username && s.Password == password);
+            return userresult;
+        }
     }
 }

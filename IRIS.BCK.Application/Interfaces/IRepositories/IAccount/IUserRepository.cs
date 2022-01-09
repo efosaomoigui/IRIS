@@ -12,5 +12,6 @@ namespace IRIS.BCK.Core.Application.Interfaces.IRepositories.IAccount
     public interface IUserRepository : IGenericRepository<User>
     {
         Task<bool> CheckPasswordRequirement(string password, CancellationToken token);
+        Task<User> GetUserWithCredentials(string username, string password);
     }
 }

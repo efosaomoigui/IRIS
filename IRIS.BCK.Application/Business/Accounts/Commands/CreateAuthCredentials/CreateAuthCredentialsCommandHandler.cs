@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using IRIS.BCK.Core.Application.DTO.Message.EmailMessage;
-using IRIS.BCK.Core.Application.DTO.Users;
 using IRIS.BCK.Core.Application.Interfaces.IMessages.IEmail;
 using IRIS.BCK.Core.Application.Interfaces.IRepositories.IAccount;
 using IRIS.BCK.Core.Domain.Entities.AccountEntities;
@@ -12,36 +11,36 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUser
+namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateAuthCredentials
 {
-    public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, CreateUserCommandResponse>
+    class CreateAuthCredentialsCommandHandler : IRequestHandler<CreateAuthCredentialsCommand, CreateAuthCredentialsCommandResponse>
     {
         private IUserRepository _userRepository;
         private readonly IMapper _mapper;
         private readonly IEmailService _emailService;
 
-        public CreateUserCommandHandler(IUserRepository userRepository, IMapper mapper, IEmailService emailService)
+        public CreateAuthCredentialsCommandHandler(IUserRepository userRepository, IMapper mapper, IEmailService emailService)
         {
             _userRepository = userRepository;
-            _mapper = mapper;
+            _mapper = mapper; 
             _emailService = emailService;
         }
 
-        public async Task<CreateUserCommandResponse> Handle(CreateUserCommand request, CancellationToken cancellationToken)
+        public async Task<CreateAuthCredentialsCommandResponse> Handle(CreateAuthCredentialsCommand request, CancellationToken cancellationToken)
         {
-            var CreateUserCommandResponse = new CreateUserCommandResponse();
-            var validator = new CreateUserCommandValidator(_userRepository);
+            var createAuthCredentialsCommandResponse = new CreateAuthCredentialsCommandResponse();
+            var validator = new CreateAuthCredentialsCommandValidator(_userRepository);
             var validationResult = await validator.ValidateAsync(request);
 
             if (validationResult.Errors.Count > 0)
             {
                 //throw new ValidationException(validationResult);
-                CreateUserCommandResponse.Success = false;
-                CreateUserCommandResponse.ValidationErrors = new List<string>();
+                createAuthCredentialsCommandResponse.Success = false;
+                createAuthCredentialsCommandResponse.ValidationErrors = new List<string>();
 
                 foreach (var error in validationResult.Errors)
                 {
-                    CreateUserCommandResponse.ValidationErrors.Add(error.ErrorMessage);
+                    createAuthCredentialsCommandResponse.ValidationErrors.Add(error.ErrorMessage);
                 }
             }
 
@@ -52,12 +51,12 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUser
                 Subject = "Test Email"
             };
 
-            if (CreateUserCommandResponse.Success)
+            if (createAuthCredentialsCommandResponse.Success)
             {
                 //var user = _mapper.Map<User>(request);
                 var user = new User()
                 {
-                    Username = request.Username,
+                    Username = request.UserName,
                     Password = request.Password
                 };
 
@@ -72,10 +71,10 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUser
                     throw;
                 }
 
-                CreateUserCommandResponse.Userdto = _mapper.Map<UserDto>(user);
+                //createAuthCredentialsCommandResponse.authresponsedto = _mapper.Map<UserDto>(user);
             }
 
-            return CreateUserCommandResponse;
+            return createAuthCredentialsCommandResponse;
         }
     }
 }

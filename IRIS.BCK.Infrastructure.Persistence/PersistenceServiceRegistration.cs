@@ -7,6 +7,7 @@ using IRIS.BCK.Infrastructure.Persistence.Repositories.Shipments;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
 
 namespace IRIS.BCK.Infrastructure.Persistence
 {
@@ -16,7 +17,8 @@ namespace IRIS.BCK.Infrastructure.Persistence
         {
             service.AddDbContext<IRISDbContext>(options =>
             {
-                options.UseSqlServer(configuration.GetConnectionString("IRISDbConnectionString"));
+                options.UseSqlServer(configuration.GetConnectionString("IRISDbConnectionString"),
+                    sqlserveroptions => sqlserveroptions.MigrationsAssembly(Assembly.GetExecutingAssembly().GetName().Name));
             });
 
             service.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));

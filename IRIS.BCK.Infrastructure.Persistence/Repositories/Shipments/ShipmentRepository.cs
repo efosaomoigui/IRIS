@@ -14,9 +14,9 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Shipments
         {
         }
 
-        public Task<bool> CheckUniqueWaybillNumber(string waybill)
+        public async Task<bool> CheckUniqueWaybillNumber(string waybill)
         {
-            throw new NotImplementedException();
+            return true;
         }
     }
 }
