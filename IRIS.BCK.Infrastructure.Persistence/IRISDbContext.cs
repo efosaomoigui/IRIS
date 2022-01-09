@@ -23,6 +23,7 @@ namespace IRIS.BCK.Infrastructure.Persistence
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(IRISDbContext).Assembly);
         }
 

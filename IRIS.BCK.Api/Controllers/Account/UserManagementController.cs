@@ -18,36 +18,36 @@ namespace IRIS.BCK.Api.Controllers.Account
             _mediator = mediator;
         }
 
-        [HttpPost(Name = "Login")]
-        public Task<ActionResult<CreateUserCommandResponse>> Authenticate([FromBody] LoginCredentialsModelDto loginCredentials) 
-        {
+        //[HttpPost(Name = "Login")]
+        //public Task<ActionResult<CreateUserCommandResponse>> Authenticate([FromBody] LoginCredentialsModelDto loginCredentials) 
+        //{
 
-            //Try to get the user from the database
-            if (loginCredentials.UserName == "efe" && loginCredentials.Password == "fineboy20x")
-            {
-                var claims = new List<Claim> { 
-                    new Claim(ClaimTypes.Name, "Admin"),
-                    new Claim(ClaimTypes.Email, "Admin@chiscoexpress.com"),
-                    new Claim("Department", "IT")
-                };
-            }
+        //    //Try to get the user from the database
+        //    if (loginCredentials.UserName == "efe" && loginCredentials.Password == "fineboy20x")
+        //    {
+        //        var claims = new List<Claim> { 
+        //            new Claim(ClaimTypes.Name, "Admin"),
+        //            new Claim(ClaimTypes.Email, "Admin@chiscoexpress.com"),
+        //            new Claim("Department", "IT")
+        //        };
+        //    }
 
-            var expiresAt = DateTime.UtcNow.AddMinutes(10);
-            return null;
-
-
-            //if he doesnt exit, return unathourize
-
-            //if he does exist call, get his claims from the db if he has 
-
-            //if he doesnt have claims return unauthorize
-
-            //if he does take the claims and expirationdate and generate a token
-
-            //return the token to the user
+        //    var expiresAt = DateTime.UtcNow.AddMinutes(10);
+        //    return null;
 
 
-        }
+        //    //if he doesnt exit, return unathourize
+
+        //    //if he does exist call, get his claims from the db if he has 
+
+        //    //if he doesnt have claims return unauthorize
+
+        //    //if he does take the claims and expirationdate and generate a token
+
+        //    //return the token to the user
+
+
+        //}
 
         [HttpPost(Name = "AddUser")]
         public async Task<ActionResult<CreateUserCommandResponse>> Create([FromBody] CreateUserCommand createUserCommand)
