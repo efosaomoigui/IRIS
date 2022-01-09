@@ -26,7 +26,7 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Accounts
         public async Task<User> GetUserWithCredentials(string username, string password)
         {
             var user = await GetAllAsync();
-            var userresult = user.FirstOrDefault(s => s.Username == username && s.Password == password);
+            var userresult = user.FirstOrDefault(s => s.UserName == username && s.Password == password);
             return userresult;
         }
     }

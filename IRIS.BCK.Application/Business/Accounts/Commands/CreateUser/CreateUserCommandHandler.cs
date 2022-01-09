@@ -57,7 +57,7 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUser
                 //var user = _mapper.Map<User>(request);
                 var user = new User()
                 {
-                    Username = request.Username,
+                    UserName = request.Username,
                     Password = request.Password
                 };
 

@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateAuthCredentials
 {
-    class CreateAuthCredentialsCommandHandler : IRequestHandler<CreateAuthCredentialsCommand, CreateAuthCredentialsCommandResponse>
+    public class CreateAuthCredentialsCommandHandler : IRequestHandler<CreateAuthCredentialsCommand, CreateAuthCredentialsCommandResponse>
     {
         private IUserRepository _userRepository;
         private readonly IMapper _mapper;
@@ -34,7 +34,6 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateAuthCredent
 
             if (validationResult.Errors.Count > 0)
             {
-                //throw new ValidationException(validationResult);
                 createAuthCredentialsCommandResponse.Success = false;
                 createAuthCredentialsCommandResponse.ValidationErrors = new List<string>();
 
@@ -56,7 +55,7 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateAuthCredent
                 //var user = _mapper.Map<User>(request);
                 var user = new User()
                 {
-                    Username = request.UserName,
+                    UserName = request.UserName,
                     Password = request.Password
                 };
 

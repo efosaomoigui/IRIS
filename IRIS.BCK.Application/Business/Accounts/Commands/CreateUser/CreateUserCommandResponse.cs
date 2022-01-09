@@ -6,7 +6,7 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUser
 
     public class CreateUserCommandResponse : BaseResponse
     {
-        public CreateUserCommandResponse() : base()
+        public CreateUserCommandResponse() : base() 
         {
 
         } 
