@@ -1,10 +1,10 @@
 using IRIS.BCK.Application;
+using IRIS.BCK.Core.Application.Business.Accounts.AccountEntities;
 using IRIS.BCK.Infrastructure.Messaging;
 using IRIS.BCK.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -52,7 +52,7 @@ namespace IRIS.BCK.Api
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "IRIS.BCK.Api", Version = "v1" });
             });
 
-            services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            services.AddIdentity<User, AppRole>(options =>
             {
                 options.Password.RequiredLength = 8;
             }).AddEntityFrameworkStores<IRISDbContext>();

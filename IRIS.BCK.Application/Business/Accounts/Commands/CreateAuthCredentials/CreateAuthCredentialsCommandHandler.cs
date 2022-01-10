@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
+using IRIS.BCK.Core.Application.Business.Accounts.AccountEntities;
 using IRIS.BCK.Core.Application.DTO.Message.EmailMessage;
 using IRIS.BCK.Core.Application.Interfaces.IMessages.IEmail;
 using IRIS.BCK.Core.Application.Interfaces.IRepositories.IAccount;
-using IRIS.BCK.Core.Domain.Entities.AccountEntities;
 using MediatR;
 using System;
 using System.Collections.Generic;

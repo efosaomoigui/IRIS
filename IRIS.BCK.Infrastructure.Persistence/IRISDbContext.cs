@@ -1,4 +1,5 @@
-﻿using IRIS.BCK.Core.Domain.Entities.ShimentEntities;
+﻿using IRIS.BCK.Core.Application.Business.Accounts.AccountEntities;
+using IRIS.BCK.Core.Domain.Entities.ShimentEntities;
 using IRIS.BCK.Domain.Common;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace IRIS.BCK.Infrastructure.Persistence
 {
-    public class IRISDbContext : IdentityDbContext
+    public class IRISDbContext : IdentityDbContext<User>
     {
         public IRISDbContext(DbContextOptions<IRISDbContext> options) : base(options)
         {

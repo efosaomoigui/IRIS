@@ -1,6 +1,6 @@
 ﻿using IRIS.BCK.Application.Interfaces.IRepository.IShipmentRepositories;
+using IRIS.BCK.Core.Application.Business.Accounts.AccountEntities;
 using IRIS.BCK.Core.Application.Interfaces.IRepositories.IAccount;
-using IRIS.BCK.Core.Domain.Entities.AccountEntities;
 using IRIS.BCK.Core.Domain.Entities.ShimentEntities;
 using System;
 using System.Collections.Generic;

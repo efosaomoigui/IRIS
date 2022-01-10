@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 
-namespace IRIS.BCK.Core.Domain.Entities.AccountEntities
+namespace IRIS.BCK.Core.Application.Business.Accounts.AccountEntities
 {
-    public class User : IdentityUser<string>
+    public class User : IdentityUser
     {
         public string Password { get; set; }
         public string FirstName { get; set; }
@@ -31,7 +31,22 @@ namespace IRIS.BCK.Core.Domain.Entities.AccountEntities
         public DateTime PasswordExpireDate { get; set; }
         //User Active CountryId
         public string IdentificationImage { get; set; }
-        public string WalletAddress { get; set; }
+        public int WalletNumber { get; set; } 
 
+    }
+
+    public class AppRole : IdentityRole
+    {
+        public AppRole() : base() { }
+        public AppRole(string name) : base(name) { }
+        public DateTime DateCreated { get; set; }
+        public DateTime DateModified { get; set; }
+        public bool IsDeleted { get; set; }
+    }
+
+    public class AppUserClaim : IdentityUserClaim<string>
+    {
+        public AppUserClaim() : base() { }
+        public string SystemRoleId { get; set; }
     }
 }

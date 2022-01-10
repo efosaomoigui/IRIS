@@ -1,5 +1,5 @@
 ﻿using IRIS.BCK.Application.Interfaces.IRepository;
-using IRIS.BCK.Core.Domain.Entities.AccountEntities;
+using IRIS.BCK.Core.Application.Business.Accounts.AccountEntities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
