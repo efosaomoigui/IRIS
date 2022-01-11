@@ -11,6 +11,9 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.AccountEntities
 {
     public class User : IdentityUser
     {
+        [Key]
+        public Guid UserId { get; set; }
+
         public string Password { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -24,12 +27,9 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.AccountEntities
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }
         public bool IsDeleted { get; set; }
-
-        //for system user
         public string SystemUserId { get; set; }
         public string SystemUserRole { get; set; }
         public DateTime PasswordExpireDate { get; set; }
-        //User Active CountryId
         public string IdentificationImage { get; set; }
         public int WalletNumber { get; set; } 
 

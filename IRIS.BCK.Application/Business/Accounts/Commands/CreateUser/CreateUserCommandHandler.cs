@@ -1,10 +1,11 @@
 ﻿using AutoMapper;
 using IRIS.BCK.Core.Application.Business.Accounts.AccountEntities;
+using IRIS.BCK.Core.Application.DTO.Account;
 using IRIS.BCK.Core.Application.DTO.Message.EmailMessage;
-using IRIS.BCK.Core.Application.DTO.Users;
 using IRIS.BCK.Core.Application.Interfaces.IMessages.IEmail;
 using IRIS.BCK.Core.Application.Interfaces.IRepositories.IAccount;
 using MediatR;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,12 +20,14 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUser
         private IUserRepository _userRepository;
         private readonly IMapper _mapper;
         private readonly IEmailService _emailService;
+        private readonly UserManager<User> _userManager;
 
-        public CreateUserCommandHandler(IUserRepository userRepository, IMapper mapper, IEmailService emailService)
+        public CreateUserCommandHandler(IUserRepository userRepository, IMapper mapper, IEmailService emailService, UserManager<User> userManager)
         {
             _userRepository = userRepository;
             _mapper = mapper;
             _emailService = emailService;
+            _userManager = userManager;
         }
 
         public async Task<CreateUserCommandResponse> Handle(CreateUserCommand request, CancellationToken cancellationToken)
@@ -35,7 +38,6 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUser
 
             if (validationResult.Errors.Count > 0)
             {
-                //throw new ValidationException(validationResult);
                 CreateUserCommandResponse.Success = false;
                 CreateUserCommandResponse.ValidationErrors = new List<string>();
 
@@ -58,18 +60,30 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUser
                 var user = new User()
                 {
                     UserName = request.Username,
-                    Password = request.Password
+                    Password = request.Password,
+                    Email = request.Email
                 };
 
-                user = await _userRepository.AddAsync(user);
+                //user = await _userRepository.AddAsync(user);
+                var result =  await _userManager.CreateAsync(user, request.Password);
 
-                try
+                if (result.Succeeded)
                 {
-                    await _emailService.SendEmail(email);
+                    try
+                    {
+                        await _emailService.SendEmail(email);
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
                 }
-                catch (Exception)
+                else
                 {
-                    throw;
+                    foreach (var error in result.Errors)
+                    {
+                        CreateUserCommandResponse.ValidationErrors.Add(error.Description);
+                    }
                 }
 
                 CreateUserCommandResponse.Userdto = _mapper.Map<UserDto>(user);

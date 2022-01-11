@@ -10,6 +10,7 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateAuthCredent
 
         }
 
+        
         public AuthResponseDto authresponsedto { get; set; } 
     }
 }

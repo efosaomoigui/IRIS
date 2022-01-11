@@ -38,12 +38,15 @@
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="10.3.4" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="5.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.15.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Business\Finance\" />
+    <Folder Include="Business\Wallet\" />
     <Folder Include="Business\Shipments\Commands\DeleteShipment\" />
     <Folder Include="Business\Shipments\Commands\UpdateShipment\" />
     <Folder Include="DTO\Files\Pdf\" />

@@ -2,6 +2,7 @@ using IRIS.BCK.Application;
 using IRIS.BCK.Core.Application.Business.Accounts.AccountEntities;
 using IRIS.BCK.Infrastructure.Messaging;
 using IRIS.BCK.Infrastructure.Persistence;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -10,11 +11,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace IRIS.BCK.Api
@@ -31,9 +34,24 @@ namespace IRIS.BCK.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //adding the authentication handler to the service container
-            services.AddAuthentication("MyCookieAuth").AddCookie("MyCookieAuth", option => {
-                option.Cookie.Name = "MyCookieAuth"; 
+            services.AddControllers();
+
+            //adding the authentication handler & configuration (called Scheme) for app.UseAthentication to use
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration["SecretKey"])),
+                    ValidateLifetime = true,
+                    ValidateAudience = false,
+                    ValidateIssuer = false,
+                    ClockSkew = TimeSpan.Zero
+                };
             });
 
             services.AddApplicationServices(Configuration);
@@ -41,10 +59,9 @@ namespace IRIS.BCK.Api
             services.AddPersistenceService(Configuration);
             services.AddFileInfrastructureService(Configuration); 
 
-            services.AddControllers();
-
             services.AddCors(options => {
-                options.AddPolicy("IrisCors", builder => builder.WithOrigins("http://localhost").AllowAnyMethod());
+                options.AddPolicy("IrisCors", builder => 
+                builder.WithOrigins(Configuration["HostUrl"]).AllowAnyMethod());
             });
 
             services.AddSwaggerGen(c =>
@@ -55,12 +72,16 @@ namespace IRIS.BCK.Api
             services.AddIdentity<User, AppRole>(options =>
             {
                 options.Password.RequiredLength = 8;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireUppercase = true;
+
+                options.Lockout.MaxFailedAccessAttempts = 5;
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
+                options.User.RequireUniqueEmail = true;
+                //options.SignIn.RequireConfirmedEmail = true;
+
             }).AddEntityFrameworkStores<IRISDbContext>();
 
-            services.AddHttpClient("IRISAPI", client =>
-            {
-                client.BaseAddress = new Uri("https://localhost:44323/");
-            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

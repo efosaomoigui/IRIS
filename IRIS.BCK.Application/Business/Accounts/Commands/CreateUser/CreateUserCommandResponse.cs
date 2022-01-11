@@ -1,5 +1,5 @@
 ﻿using IRIS.BCK.Application.Responses;
-using IRIS.BCK.Core.Application.DTO.Users;
+using IRIS.BCK.Core.Application.DTO.Account;
 
 namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUser
 {

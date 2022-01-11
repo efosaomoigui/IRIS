@@ -2,6 +2,7 @@
 using IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateShipment;
 using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetShipmentList;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,7 @@ namespace IRIS.BCK.Api.Controllers.Shipment
             _mediator = mediator;
         }
 
+        //[Authorize(AuthenticationSchemes = "Bearer")]
         [HttpGet("all", Name = "GetAllShipments")]
         public async Task<ActionResult<List<ShipmentListViewModel>>> GetAllShipments()
         {

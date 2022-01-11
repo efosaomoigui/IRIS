@@ -2,6 +2,7 @@
 using IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUser;
 using IRIS.BCK.Core.Application.DTO.Account;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -19,14 +20,15 @@ namespace IRIS.BCK.Api.Controllers.Account
             _mediator = mediator;
         }
 
-        [HttpPost("AddLogin")]
+        [AllowAnonymous]
+        [HttpPost("Login")]
         public async Task<ActionResult<CreateUserCommandResponse>> Authenticate([FromBody] CreateAuthCredentialsCommand loginCredentials)
         {
             var response = await _mediator.Send(loginCredentials);
             return Ok(response);
         }
 
-        [HttpPost("AddUser")]
+        [HttpPost("Register")]
         public async Task<ActionResult<CreateUserCommandResponse>> Create([FromBody] CreateUserCommand createUserCommand)
         {
             var response = await _mediator.Send(createUserCommand);
