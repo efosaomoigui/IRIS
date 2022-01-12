@@ -34,8 +34,6 @@ namespace IRIS.BCK.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
-
             //adding the authentication handler & configuration (called Scheme) for app.UseAthentication to use
             services.AddAuthentication(options =>
             {
@@ -69,6 +67,7 @@ namespace IRIS.BCK.Api
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "IRIS.BCK.Api", Version = "v1" });
             });
 
+            services.AddControllers();
             services.AddIdentity<User, AppRole>(options =>
             {
                 options.Password.RequiredLength = 8;
@@ -81,7 +80,6 @@ namespace IRIS.BCK.Api
                 //options.SignIn.RequireConfirmedEmail = true;
 
             }).AddEntityFrameworkStores<IRISDbContext>();
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

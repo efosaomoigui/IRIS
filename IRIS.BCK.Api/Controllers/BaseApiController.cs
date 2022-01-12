@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace IRIS.BCK.Api.Controllers
 {
-    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class BaseApiController : ControllerBase

@@ -19,7 +19,6 @@ namespace IRIS.BCK.Api.Controllers.Shipment
             _mediator = mediator;
         }
 
-        //[Authorize(AuthenticationSchemes = "Bearer")]
         [HttpGet("all", Name = "GetAllShipments")]
         public async Task<ActionResult<List<ShipmentListViewModel>>> GetAllShipments()
         {
@@ -28,7 +27,7 @@ namespace IRIS.BCK.Api.Controllers.Shipment
         }
 
         [HttpPost(Name ="AddShipment")]
-        public async Task<ActionResult<CreateShipmentCommandResponse>> Create([FromBody] ShipmentDto createShipmentCommand)
+        public async Task<ActionResult<CreateShipmentCommandResponse>> Create([FromBody] CreateShipmentCommand createShipmentCommand)
         {
             var response = await _mediator.Send(createShipmentCommand);
             return Ok(response);
