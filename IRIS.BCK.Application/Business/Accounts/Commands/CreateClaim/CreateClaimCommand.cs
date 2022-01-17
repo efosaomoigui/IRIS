@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateClaim
 {
-    class CreateClaimCommand
+    class CreateClaimCommand 
     {
     }
 }
