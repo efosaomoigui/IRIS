@@ -1,5 +1,4 @@
 #!/bin/bash
-
-echo "stopping Testr.API application now"
+cd /home/ubuntu/
 pm2 stop all
-pm2 delete all  
+pm2 delete all
