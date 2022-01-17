@@ -31,7 +31,7 @@ namespace IRIS.BCK.Api
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        //1. This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             //adding the authentication handler & configuration (called Scheme) for app.UseAthentication to use
