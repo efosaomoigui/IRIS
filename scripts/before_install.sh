@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DIR="/home/ubuntu/dotnet-project"
+DIR="/home/ubuntu/Iris"
  if [ -d "$DIR" ]; then
     echo "S{DIR} exists"
  else
