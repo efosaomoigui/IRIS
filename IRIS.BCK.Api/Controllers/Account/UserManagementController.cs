@@ -34,5 +34,12 @@ namespace IRIS.BCK.Api.Controllers.Account
             var response = await _mediator.Send(createUserCommand);
             return Ok(response);
         }
+
+        [HttpGet("GetUsers")]
+        public async Task<ActionResult<CreateUserCommandResponse>> GetUsers([FromBody] CreateUserCommand createUserCommand)
+        {
+            var response = await _mediator.Send(createUserCommand); 
+            return Ok(response);
+        }
     }
 }
