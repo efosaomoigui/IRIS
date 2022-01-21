@@ -59,7 +59,8 @@ namespace IRIS.BCK.Api
 
             services.AddCors(options => {
                 options.AddPolicy("IrisCors", builder => 
-                builder.WithOrigins(Configuration["HostUrl"] ).AllowAnyMethod());
+                //builder.WithOrigins(Configuration["HostUrl"]).AllowAnyMethod().AllowAnyOrigin());
+                builder.AllowAnyMethod().AllowAnyOrigin());
             });
 
             services.AddSwaggerGen(c =>
@@ -92,7 +93,6 @@ namespace IRIS.BCK.Api
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "IRIS.BCK.Api v1"));
             }
 
-            //app.UseCors("IrisCors"); 
             app.UseCors(x => x
                            .AllowAnyMethod()
                            .AllowAnyOrigin()
