@@ -73,11 +73,14 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateAuthCredent
                     var claims = await _userManager.GetClaimsAsync(user);
                     var expiresAt = DateTime.UtcNow.AddMinutes(10);
 
-                    createAuthCredentialsCommandResponse.authresponsedto = new AuthResponseDto()
-                    {
-                        AccessToken = CreateToken(claims, expiresAt),
-                        ExpireAt = expiresAt
-                    };
+                    //createAuthCredentialsCommandResponse.authresponsedto = new AuthResponseDto()
+                    //{
+                    //    AccessToken = CreateToken(claims, expiresAt),
+                    //    ExpireAt = expiresAt
+                    //};
+
+                    createAuthCredentialsCommandResponse.AccessToken = CreateToken(claims, expiresAt);
+                    createAuthCredentialsCommandResponse.ExpireAt = expiresAt;
 
                     try
                     {

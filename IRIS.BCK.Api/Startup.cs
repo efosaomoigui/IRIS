@@ -97,7 +97,14 @@ namespace IRIS.BCK.Api
 
             app.UseAuthentication();
             app.UseAuthorization();
-            app.UseCors("IrisCors");
+            //app.UseCors("IrisCors"); 
+            app.UseCors(builder =>
+            {
+                builder
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+            });
 
             app.UseEndpoints(endpoints =>
             {
