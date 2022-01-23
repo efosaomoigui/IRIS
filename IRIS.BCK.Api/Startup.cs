@@ -97,10 +97,10 @@ namespace IRIS.BCK.Api
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "IRIS.BCK.Api v1"));
             }
 
-            app.UseCors("IrisCors");
 
             app.UseHttpsRedirection();
             app.UseRouting();
+            app.UseCors("IrisCors");
 
             app.UseAuthentication();
             app.UseAuthorization();
