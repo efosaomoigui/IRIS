@@ -34,6 +34,16 @@ namespace IRIS.BCK.Api
         //1. This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options => {
+                options.AddPolicy("IrisCors", builder =>
+                builder.WithOrigins(
+                    Configuration["HostUrlEfe"],
+                    Configuration["HostUrlVal"]
+                )
+                .AllowAnyMethod()
+                .AllowAnyOrigin());
+            });
+
             //adding the authentication handler & configuration (called Scheme) for app.UseAthentication to use
             services.AddAuthentication(options =>
             {
@@ -56,16 +66,6 @@ namespace IRIS.BCK.Api
             services.AddMessagingServiceRegistration(Configuration);
             services.AddPersistenceService(Configuration);
             services.AddFileInfrastructureService(Configuration); 
-
-            services.AddCors(options => {
-                options.AddPolicy("IrisCors", builder => 
-                builder.WithOrigins(
-                    Configuration["HostUrlEfe"], 
-                    Configuration["HostUrlVal"]
-                )
-                .AllowAnyMethod()
-                .AllowAnyOrigin());
-            });
 
             services.AddSwaggerGen(c =>
             {
