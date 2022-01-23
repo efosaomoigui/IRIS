@@ -37,10 +37,9 @@ namespace IRIS.BCK.Api
         {
             services.AddCors(options => {
                 options.AddPolicy(ApiCorsPolicy, builder =>
-                    builder.WithOrigins("http://localhost:3011"
-                )
+                builder.AllowAnyOrigin().WithOrigins("http://localhost:3011/")
                 .AllowAnyMethod()
-                .AllowAnyOrigin());
+                );
             });
 
             //adding the authentication handler & configuration (called Scheme) for app.UseAthentication to use
@@ -95,11 +94,10 @@ namespace IRIS.BCK.Api
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "IRIS.BCK.Api v1"));
             }
-
-
-            app.UseHttpsRedirection();
-            app.UseCors(ApiCorsPolicy);
+            
+            //app.UseHttpsRedirection();
             app.UseRouting();
+            app.UseCors(ApiCorsPolicy);
 
             app.UseAuthentication();
             app.UseAuthorization();
