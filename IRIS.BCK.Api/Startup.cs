@@ -99,8 +99,8 @@ namespace IRIS.BCK.Api
 
 
             app.UseHttpsRedirection();
-            app.UseRouting();
             app.UseCors("IrisCors");
+            app.UseRouting();
 
             app.UseAuthentication();
             app.UseAuthorization();
