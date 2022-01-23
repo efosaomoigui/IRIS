@@ -30,15 +30,14 @@ namespace IRIS.BCK.Api
         }
 
         public IConfiguration Configuration { get; }
+        readonly string ApiCorsPolicy = "_apiCorsPolicy";
 
         //1. This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors(options => {
-                options.AddPolicy("IrisCors", builder =>
-                builder.WithOrigins(
-                    Configuration["HostUrlEfe"],
-                    Configuration["HostUrlVal"]
+                options.AddPolicy(ApiCorsPolicy, builder =>
+                    builder.WithOrigins("http://localhost:3011"
                 )
                 .AllowAnyMethod()
                 .AllowAnyOrigin());
@@ -99,7 +98,7 @@ namespace IRIS.BCK.Api
 
 
             app.UseHttpsRedirection();
-            app.UseCors("IrisCors");
+            app.UseCors(ApiCorsPolicy);
             app.UseRouting();
 
             app.UseAuthentication();
