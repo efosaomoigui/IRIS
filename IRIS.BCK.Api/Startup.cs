@@ -37,8 +37,9 @@ namespace IRIS.BCK.Api
         {
             services.AddCors(options => {
                 options.AddPolicy(ApiCorsPolicy, builder =>
-                builder.AllowAnyOrigin().WithOrigins("http://localhost:3011/")
+                builder.AllowAnyOrigin()
                 .AllowAnyMethod()
+                .AllowAnyHeader()
                 );
             });
 
