@@ -1,5 +1,6 @@
 ﻿using IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateAuthCredentials;
 using IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUser;
+using IRIS.BCK.Core.Application.Business.Accounts.Queries.GetShipmentList;
 using IRIS.BCK.Core.Application.DTO.Account;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -36,10 +37,24 @@ namespace IRIS.BCK.Api.Controllers.Account
         }
 
         [HttpGet("GetUsers")]
-        public async Task<ActionResult<CreateUserCommandResponse>> GetUsers([FromBody] CreateUserCommand createUserCommand)
+        public async Task<ActionResult<List<UserListViewModel>>> GetAllUsers()
+        { 
+            var users = await _mediator.Send(new GetUserListQuery());
+            return Ok(users);
+        }
+
+        [HttpGet("GetUser/{id}")]
+        public async Task<ActionResult<UserListViewModel>> GetUser([FromQuery]int id)
         {
-            var response = await _mediator.Send(createUserCommand); 
-            return Ok(response);
+            var user = await _mediator.Send(new GetUserQuery(id));
+            return Ok(user);
+        }
+
+        [HttpGet("AddRole")]
+        public async Task<ActionResult<UserListViewModel>> AddRole(int id) 
+        {
+            var user = await _mediator.Send(new GetUserQuery(id));
+            return Ok(user);
         }
     }
 }

@@ -1,6 +1,6 @@
-﻿namespace IRIS.BCK.Core.Application.Business.Shipments.Queries.GetShipmentList
+﻿namespace IRIS.BCK.Core.Application.Business.Accounts.Queries.GetShipmentList
 {
-    public class ShipmentExportFileVm 
+    public class UserExportFileVm
     {
         public string ShipmentExportFileName { get; set; }
         public string ContentType { get; set; }

@@ -4,6 +4,7 @@ using IRIS.BCK.Core.Application.DTO.Account;
 using IRIS.BCK.Core.Application.DTO.Message.EmailMessage;
 using IRIS.BCK.Core.Application.Interfaces.IMessages.IEmail;
 using IRIS.BCK.Core.Application.Interfaces.IRepositories.IAccount;
+using IRIS.BCK.Core.Application.Mappings.Users;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using System;
@@ -47,22 +48,14 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUser
                 }
             }
 
-            var email = new Email
-            {
-                To = "efe.omoigui@gmail.com",
-                Body = "Test Message",
-                Subject = "Test Email"
-            };
+            var body = "message to user";
+            var subject = "Subject to email";
+            var email = UserMapsCommand.CreateUserEmailMessage(request.Email, body, subject);
 
             if (CreateUserCommandResponse.Success)
             {
-                //var user = _mapper.Map<User>(request);
-                var user = new User()
-                {
-                    UserName = request.Username,
-                    Password = request.Password,
-                    Email = request.Email
-                };
+
+                var user = UserMapsCommand.CreateUserMapsCommand(request);
 
                 //user = await _userRepository.AddAsync(user);
                 var result =  await _userManager.CreateAsync(user, request.Password);

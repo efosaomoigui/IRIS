@@ -9,11 +9,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
+using System.Threading.Tasks; 
 
-namespace IRIS.BCK.Core.Application.Business.Shipments.Queries.GetShipmentList
+namespace IRIS.BCK.Core.Application.Business.Accounts.Queries.GetShipmentList
 {
-    class GetUserExportQueryHandler : IRequestHandler<GetShipmentExportQuery, ShipmentExportFileVm>
+    class GetUserExportQueryHandler : IRequestHandler<GetUserExportQuery, UserExportFileVm>
     {
         private readonly IGenericRepository<Shipment> _shipmentRepository;
         private readonly IMapper _mapper;
@@ -27,13 +27,13 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Queries.GetShipmentList
             _csvexporter = csvexporter;
         }
 
-        public async Task<ShipmentExportFileVm> Handle(GetShipmentExportQuery request, CancellationToken cancellationToken)
+        public async Task<UserExportFileVm> Handle(GetUserExportQuery request, CancellationToken cancellationToken)
         {
             var shipmentResult = (await _shipmentRepository.GetAllAsync()).OrderBy(x => x.CreatedDate);
             var allShipments = _mapper.Map<List<ShipmentExportDto>>(shipmentResult);
 
             var fileData = _csvexporter.ExportFilesToCsv(allShipments);
-            var shipmentexportdto = new ShipmentExportFileVm()
+            var shipmentexportdto = new UserExportFileVm()
             {
                 ContentType = "Text/csv",
                 data = fileData,

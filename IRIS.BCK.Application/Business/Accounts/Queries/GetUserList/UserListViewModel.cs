@@ -1,21 +1,16 @@
-﻿using MediatR;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUser
+namespace IRIS.BCK.Core.Application.Business.Accounts.Queries.GetShipmentList
 {
-    public class CreateUserCommand : IRequest<CreateUserCommandResponse>
+    public class UserListViewModel 
     {
-        public string Username { get; set; }
-        public string Password { get; set; }
-        public string Email { get; set; }
-        public string PhoneNumber { get; set; } 
-
         public Guid UserId { get; set; }
 
+        public string Password { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public int Age { get; set; }
@@ -28,12 +23,9 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUser
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }
         public bool IsDeleted { get; set; }
-
-        //for system user
         public string SystemUserId { get; set; }
         public string SystemUserRole { get; set; }
         public DateTime PasswordExpireDate { get; set; }
-        //User Active CountryId
         public string IdentificationImage { get; set; }
         public int WalletNumber { get; set; }
     }

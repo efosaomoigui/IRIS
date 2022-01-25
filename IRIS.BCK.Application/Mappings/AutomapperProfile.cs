@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using IRIS.BCK.Core.Application.Business.Accounts.AccountEntities;
 using IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUser;
+using IRIS.BCK.Core.Application.Business.Accounts.Queries.GetShipmentList;
 using IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateShipment;
 using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetShipmentList;
 using IRIS.BCK.Core.Application.DTO.Account;
@@ -21,6 +22,7 @@ namespace IRIS.BCK.Core.Application.Mappings
         public AutomapperProfile()
         {
             CreateMap<Shipment, ShipmentListViewModel>();
+            CreateMap<User, UserListViewModel>();
             CreateMap<CreateShipmentCommand, Shipment>();
             CreateMap<Shipment, CreateShipmentCommand>();
             CreateMap<User, UserDto>();
