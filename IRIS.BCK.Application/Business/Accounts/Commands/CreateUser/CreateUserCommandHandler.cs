@@ -5,6 +5,7 @@ using IRIS.BCK.Core.Application.DTO.Message.EmailMessage;
 using IRIS.BCK.Core.Application.Interfaces.IMessages.IEmail;
 using IRIS.BCK.Core.Application.Interfaces.IRepositories.IAccount;
 using IRIS.BCK.Core.Application.Mappings.Users;
+using IRIS.BCK.Core.Application.Shared;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using System;
@@ -54,32 +55,40 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUser
 
             if (CreateUserCommandResponse.Success)
             {
-
                 var user = UserMapsCommand.CreateUserMapsCommand(request);
-
                 //user = await _userRepository.AddAsync(user);
-                var result =  await _userManager.CreateAsync(user, request.Password);
 
-                if (result.Succeeded)
+                var userExist = await _userManager.FindByNameAsync(user.UserName) ?? await _userManager.FindByEmailAsync(user.UserName); 
+
+                if (userExist == null)
                 {
-                    try
+                    var result = await _userManager.CreateAsync(user, request.Password);
+
+                    if (result.Succeeded)
                     {
-                        await _emailService.SendEmail(email);
+                        try
+                        {
+                            //await _emailService.SendEmail(email);
+                        }
+                        catch (Exception)
+                        {
+                            throw;
+                        }
                     }
-                    catch (Exception)
+                    else
                     {
-                        throw;
+                        foreach (var error in result.Errors)
+                        {
+                            CreateUserCommandResponse.ValidationErrors.Add(error.Description);
+                        }
                     }
+
+                    CreateUserCommandResponse.Userdto = _mapper.Map<UserDto>(user);
                 }
                 else
                 {
-                    foreach (var error in result.Errors)
-                    {
-                        CreateUserCommandResponse.ValidationErrors.Add(error.Description);
-                    }
+                    CreateUserCommandResponse.ValidationErrors.Add(StaticMessages.UserExist);
                 }
-
-                CreateUserCommandResponse.Userdto = _mapper.Map<UserDto>(user);
             }
 
             return CreateUserCommandResponse;

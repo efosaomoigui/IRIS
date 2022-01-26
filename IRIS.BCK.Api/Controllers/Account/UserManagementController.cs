@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -26,9 +27,10 @@ namespace IRIS.BCK.Api.Controllers.Account
         public async Task<ActionResult<CreateUserCommandResponse>> Authenticate([FromBody] CreateAuthCredentialsCommand loginCredentials)
         {
             var response = await _mediator.Send(loginCredentials);
-            return Ok(response);  //test file
+            return Ok(response);
         }
 
+        [AllowAnonymous]
         [HttpPost("Register")]
         public async Task<ActionResult<CreateUserCommandResponse>> Create([FromBody] CreateUserCommand createUserCommand)
         {

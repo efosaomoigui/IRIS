@@ -8,6 +8,7 @@ namespace IRIS.BCK.Application.Responses
 {
     public class BaseResponse
     {
+        public int Code { get; set; }
         public bool Success { get; set; }
         public string Message { get; set; }
         public List<string> ValidationErrors { get; set; } = new List<string>();

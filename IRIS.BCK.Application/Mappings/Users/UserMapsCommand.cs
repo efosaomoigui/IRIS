@@ -16,6 +16,7 @@ namespace IRIS.BCK.Core.Application.Mappings.Users
         {
             return new User
             {
+                UserId = request.Id,
                 UserName = request.Username,
                 Password = request.Password,
                 Email = request.Email,

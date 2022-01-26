@@ -64,7 +64,7 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateAuthCredent
             if (createAuthCredentialsCommandResponse.Success)
             {
                 // Verify the credential
-                var user = await _userManager.FindByNameAsync(request.UserName);
+                var user = await _userManager.FindByNameAsync(request.UserName) ?? await _userManager.FindByEmailAsync(request.UserName);
                 var result = await _userManager.CheckPasswordAsync(user, request.Password);
 
                 if (result)
