@@ -73,18 +73,16 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateAuthCredent
                     var claims = await _userManager.GetClaimsAsync(user);
                     var expiresAt = DateTime.UtcNow.AddMinutes(10);
 
-                    //createAuthCredentialsCommandResponse.authresponsedto = new AuthResponseDto()
-                    //{
-                    //    AccessToken = CreateToken(claims, expiresAt),
-                    //    ExpireAt = expiresAt
-                    //};
+                    //Add claims based on the role
+                    var newclaim = new Claim("UserId", user.UserId.ToString()); 
+                    claims.Add(newclaim);
 
                     createAuthCredentialsCommandResponse.AccessToken = CreateToken(claims, expiresAt);
                     createAuthCredentialsCommandResponse.ExpireAt = expiresAt;
 
                     try
                     {
-                        await _emailService.SendEmail(email);
+                        //await _emailService.SendEmail(email);
                     }
                     catch (Exception)
                     {
@@ -93,7 +91,7 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateAuthCredent
                 }
                 else
                 {
-                    createAuthCredentialsCommandResponse.ValidationErrors.Add("You are not authorized to access the endpoint.");
+                    createAuthCredentialsCommandResponse.ValidationErrors.Add("You are not authorized to access this endpoint.");
                 }
             }
 

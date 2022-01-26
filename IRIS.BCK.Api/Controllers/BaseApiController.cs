@@ -9,6 +9,7 @@ namespace IRIS.BCK.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     public class BaseApiController : ControllerBase
     {
 

@@ -34,11 +34,6 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories
             return await _dbContext.Set<T>().FindAsync(id);
         }
 
-        public async Task<T> GetByUserIdAsync(Guid userid)
-        {
-            return await _dbContext.Set<T>().First; 
-        }
-
         public async Task UpdateAsync(T entity)
         {
             _dbContext.Entry(entity).State = EntityState.Modified;

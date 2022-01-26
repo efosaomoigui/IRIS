@@ -43,18 +43,39 @@ namespace IRIS.BCK.Api.Controllers.Account
             return Ok(users);
         }
 
-        [HttpGet("GetUser/{id}")]
-        public async Task<ActionResult<UserListViewModel>> GetUser([FromQuery]int id)
+        [HttpGet("GetUser")]
+        public async Task<ActionResult<UserViewModel>> GetUser()
         {
-            var user = await _mediator.Send(new GetUserQuery(id));
+            var userid = HttpContext.User.FindFirstValue("UserId");
+            var user = new UserViewModel();
+
+            if (userid != null)
+            {
+                user = await _mediator.Send(new GetUserQuery(userid));
+            }
+
             return Ok(user);
         }
 
         [HttpGet("AddRole")]
         public async Task<ActionResult<UserListViewModel>> AddRole(int id) 
         {
-            var user = await _mediator.Send(new GetUserQuery(id));
+            var user = await _mediator.Send(new GetUserQuery(""));
             return Ok(user);
         }
+
+        [HttpGet("AddUserToRole")]
+        public async Task<ActionResult<UserListViewModel>> AddUserToRole(int id)
+        {
+            var user = await _mediator.Send(new GetUserQuery(""));
+            return Ok(user);
+        }
+
+        //[HttpGet("AddUserToRole")]
+        //public async Task<ActionResult<UserListViewModel>> AddUserToRole(int id)
+        //{
+        //    var user = await _mediator.Send(new GetUserQuery(id));
+        //    return Ok(user);
+        //}
     }
 }
