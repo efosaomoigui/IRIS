@@ -73,6 +73,8 @@ namespace IRIS.BCK.Api
             services.AddPersistenceService(Configuration);
             services.AddFileInfrastructureService(Configuration);
 
+            #region Swagger
+
             services.AddSwaggerGen(swagger =>
             {
                 swagger.SwaggerDoc("v1", new OpenApiInfo { Title = "IRIS.BACKEND.Api", Version = "v1" });
@@ -101,6 +103,8 @@ namespace IRIS.BCK.Api
                     }
                 });
             });
+
+            #endregion
 
             services.AddControllers();
             services.AddIdentity<User, AppRole>(options =>

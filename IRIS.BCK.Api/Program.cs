@@ -16,7 +16,24 @@ namespace IRIS.BCK.Api
     {
         public static void Main(string[] args)
         {
-            var host = CreateHostBuilder(args).Build().MigrateDatabase();
+            //var host = CreateHostBuilder(args).Build().MigrateDatabase();
+            //host.Run();
+
+            var host = CreateHostBuilder(args).Build();
+            using var scope = host.Services.CreateScope();
+            var services = scope.ServiceProvider;
+
+            try
+            {
+                var context = services.GetRequiredService<IRISDbContext>();
+                context.Database.Migrate();
+            }
+            catch (Exception ex)
+            {
+                var logger = services.GetRequiredService<ILogger<Program>>();
+                logger.LogError(ex, "An error has occurred during migration");
+            }
+
             host.Run();
         }
 
