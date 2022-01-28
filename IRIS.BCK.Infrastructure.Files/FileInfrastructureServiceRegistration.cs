@@ -16,7 +16,8 @@ namespace IRIS.BCK.Infrastructure.Persistence
             service.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
             service.AddScoped<IShipmentRepository, ShipmentRepository>();
-            service.AddScoped<ICsvExporter, CsvExporter>();
+            service.AddScoped<ICsvExporter, CsvExporter>(); 
+            service.AddScoped<ICsvExporterForRoles, CsvExporterForRoles>();
             return service;
         }
 

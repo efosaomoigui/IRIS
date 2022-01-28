@@ -1,5 +1,9 @@
 ﻿using IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateAuthCredentials;
+using IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateClaimForRole;
+using IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateRole;
 using IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUser;
+using IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUserRole;
+using IRIS.BCK.Core.Application.Business.Accounts.Queries.GetRoles;
 using IRIS.BCK.Core.Application.Business.Accounts.Queries.GetShipmentList;
 using IRIS.BCK.Core.Application.DTO.Account;
 using MediatR;
@@ -59,25 +63,36 @@ namespace IRIS.BCK.Api.Controllers.Account
             return Ok(user);
         }
 
-        [HttpGet("AddRole")]
-        public async Task<ActionResult<UserListViewModel>> AddRole(int id) 
+        [AllowAnonymous]
+        [HttpPost("AddRole")]
+        public async Task<ActionResult<CreateRoleCommandResponse>> AddRole([FromBody] CreateRoleCommand createroleCommand)   
         {
-            var user = await _mediator.Send(new GetUserQuery(""));
-            return Ok(user);
+            var role = await _mediator.Send(createroleCommand);
+            return Ok(role);
         }
 
-        [HttpGet("AddUserToRole")]
-        public async Task<ActionResult<UserListViewModel>> AddUserToRole(int id)
+        [AllowAnonymous]
+        [HttpGet("GetRoles")]
+        public async Task<ActionResult<List<RoleListViewModel>>> GetAllRoles() 
         {
-            var user = await _mediator.Send(new GetUserQuery(""));
-            return Ok(user);
+            var roles = await _mediator.Send(new GetRoleListQuery());
+            return Ok(roles);
         }
 
-        //[HttpGet("AddUserToRole")]
-        //public async Task<ActionResult<UserListViewModel>> AddUserToRole(int id)
-        //{
-        //    var user = await _mediator.Send(new GetUserQuery(id));
-        //    return Ok(user);
-        //}
+        [HttpPost("AddPermissionToRole")]
+        public async Task<ActionResult<CreateClaimForRoleCommandResponse>> AddClaimToRole([FromBody] CreateClaimForRoleCommand createclaimforroleCommand)
+        {
+            var roleclaim = await _mediator.Send(createclaimforroleCommand);
+            return Ok(roleclaim);
+        }
+
+        [AllowAnonymous]
+        [HttpPost("AddUserToRole")]
+        public async Task<ActionResult<CreateUserRoleCommandResponse>> AddUserToRole([FromBody] CreateUserRoleCommand createuserroleCommand)
+        {
+            var roleclaim = await _mediator.Send(createuserroleCommand);
+            return Ok(roleclaim);
+        }
+
     }
 }

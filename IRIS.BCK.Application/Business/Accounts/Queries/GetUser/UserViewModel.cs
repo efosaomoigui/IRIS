@@ -8,8 +8,8 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Queries.GetShipmentList
 {
     public class UserViewModel  
     {
+        public Guid Id { get; set; }
         public Guid UserId { get; set; }
-
         public string Password { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }

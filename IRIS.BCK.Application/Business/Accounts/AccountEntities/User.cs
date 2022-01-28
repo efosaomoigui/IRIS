@@ -47,6 +47,15 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.AccountEntities
     public class AppUserClaim : IdentityUserClaim<string>
     {
         public AppUserClaim() : base() { }
-        public string SystemRoleId { get; set; }
+    }
+
+    public class AppUserRole : IdentityUserRole<string>
+    {
+        public AppUserRole() : base() { }
+    }
+
+    public class AppRoleClaim : IdentityRoleClaim<string>
+    {
+        public AppRoleClaim() : base() { } 
     }
 }

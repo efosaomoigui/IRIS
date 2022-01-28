@@ -11,12 +11,13 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Queries.GetShipmentList
     {
 
         public Guid UserId { get; set; }
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         public GetUserQuery(string userid)
         {
             Guid UserGuid = new Guid(userid);
             UserId = UserGuid;
+            Id = UserGuid;
         }
     }
 }

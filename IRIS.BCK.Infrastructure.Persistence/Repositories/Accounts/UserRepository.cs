@@ -30,4 +30,11 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Accounts
             return userresult;
         }
     }
+
+    public class RoleClaimRepository : GenericRepository<AppRoleClaim>, IRoleClaimRepository
+    {
+        public RoleClaimRepository(IRISDbContext dbContext) : base(dbContext)
+        {
+        }
+    }
 }

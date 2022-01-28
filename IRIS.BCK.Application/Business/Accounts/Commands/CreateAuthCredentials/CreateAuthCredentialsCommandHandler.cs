@@ -74,7 +74,7 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateAuthCredent
                     var expiresAt = DateTime.UtcNow.AddMinutes(10);
 
                     //Add claims based on the role
-                    var newclaim = new Claim("UserId", user.UserId.ToString()); 
+                    var newclaim = new Claim("UserId", user.Id.ToString());  
                     claims.Add(newclaim);
 
                     createAuthCredentialsCommandResponse.AccessToken = CreateToken(claims, expiresAt);

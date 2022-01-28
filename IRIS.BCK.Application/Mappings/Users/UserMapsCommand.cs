@@ -1,5 +1,8 @@
 ﻿using IRIS.BCK.Core.Application.Business.Accounts.AccountEntities;
+using IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateClaimForRole;
+using IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateRole;
 using IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUser;
+using IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUserRole;
 using IRIS.BCK.Core.Application.DTO.Message.EmailMessage;
 using System;
 using System.Collections.Generic;
@@ -40,6 +43,25 @@ namespace IRIS.BCK.Core.Application.Mappings.Users
             };
         }
 
+        public static AppRole CreateRoleMapsCommand(CreateRoleCommand request)
+        {
+            return new AppRole
+            {
+                Name = request.Name
+            };
+        }
+
+        public static AppRoleClaim CreateClaimForRoleMapsCommand(CreateClaimForRoleCommand request) 
+        {
+            return new AppRoleClaim
+            {
+                RoleId = request.RoleId,
+                Id = request.Id,
+                ClaimType = request.ClaimType,
+                ClaimValue = request.ClaimValue,
+            };
+        }
+
         public static Email CreateUserEmailMessage(string to, string body, string subject)
         {
             return new Email
@@ -49,5 +71,15 @@ namespace IRIS.BCK.Core.Application.Mappings.Users
                 Subject = subject
             };
         }
+
+        public static AppUserRole CreateUserRoleMapsCommand(CreateUserRoleCommand request) 
+        {
+            return new AppUserRole
+            {
+                UserId = request.UserId,
+                RoleId = request.RoleName
+            };
+        }
+
     }
 }

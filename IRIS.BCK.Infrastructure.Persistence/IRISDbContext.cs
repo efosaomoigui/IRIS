@@ -1,6 +1,7 @@
 ﻿using IRIS.BCK.Core.Application.Business.Accounts.AccountEntities;
 using IRIS.BCK.Core.Domain.Entities.ShimentEntities;
 using IRIS.BCK.Domain.Common;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -12,7 +13,8 @@ using System.Threading.Tasks;
 
 namespace IRIS.BCK.Infrastructure.Persistence
 {
-    public class IRISDbContext : IdentityDbContext<User>
+    public class IRISDbContext : IdentityDbContext<User, AppRole, string, IdentityUserClaim<string>, IdentityUserRole<string>,
+    IdentityUserLogin<string>, AppRoleClaim, IdentityUserToken<string>>
     {
         public IRISDbContext(DbContextOptions<IRISDbContext> options) : base(options)
         {
@@ -20,6 +22,7 @@ namespace IRIS.BCK.Infrastructure.Persistence
         }
 
         public DbSet<Shipment> Shipment { get; set; }
+        public DbSet<AppRoleClaim> RoleClaim { get; set; } 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

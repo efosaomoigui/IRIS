@@ -15,37 +15,39 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateRole
+namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUserRole 
 {
-    public class CreateRoleCommandHandler : IRequestHandler<CreateRoleCommand, CreateRoleCommandResponse>
+    public class CreateUserRoleCommandHandler : IRequestHandler<CreateUserRoleCommand, CreateUserRoleCommandResponse>
     {
         private IUserRepository _userRepository;
         private readonly IMapper _mapper;
         private readonly IEmailService _emailService;
-        private readonly RoleManager<AppRole> _roleManager; 
+        private readonly RoleManager<AppRole> _roleManager;  
+        private readonly UserManager<User> _userManager;
 
-        public CreateRoleCommandHandler(IUserRepository userRepository, IMapper mapper, IEmailService emailService, RoleManager<AppRole> roleManager)
+        public CreateUserRoleCommandHandler(IUserRepository userRepository, IMapper mapper, IEmailService emailService, RoleManager<AppRole> roleManager, UserManager<User> userManager)
         {
             _userRepository = userRepository;
             _mapper = mapper;
             _emailService = emailService;
             _roleManager = roleManager;
+            _userManager = userManager;
         }
 
-        public async Task<CreateRoleCommandResponse> Handle(CreateRoleCommand request, CancellationToken cancellationToken)
+        public async Task<CreateUserRoleCommandResponse> Handle(CreateUserRoleCommand request, CancellationToken cancellationToken)
         {
-            var CreateRoleCommandResponse = new CreateRoleCommandResponse();
-            var validator = new CreateRoleCommandValidator(_userRepository);
+            var CreateUserRoleCommandResponse = new CreateUserRoleCommandResponse();
+            var validator = new CreateUserRoleCommandValidator(_userRepository);
             var validationResult = await validator.ValidateAsync(request);
 
             if (validationResult.Errors.Count > 0)
             {
-                CreateRoleCommandResponse.Success = false;
-                CreateRoleCommandResponse.ValidationErrors = new List<string>();
+                CreateUserRoleCommandResponse.Success = false;
+                CreateUserRoleCommandResponse.ValidationErrors = new List<string>();
 
                 foreach (var error in validationResult.Errors)
                 {
-                    CreateRoleCommandResponse.ValidationErrors.Add(error.ErrorMessage);
+                    CreateUserRoleCommandResponse.ValidationErrors.Add(error.ErrorMessage);
                 }
             }
 
@@ -53,14 +55,12 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateRole
             var subject = "Subject to email";
             //var email = UserMapsCommand.CreateUserEmailMessage(request.Email, body, subject);
 
-            if (CreateRoleCommandResponse.Success)
+            if (CreateUserRoleCommandResponse.Success)
             {
-                var role = UserMapsCommand.CreateRoleMapsCommand(request);
-                var roleExist = await _roleManager.FindByNameAsync(role.Name);
+                var role = UserMapsCommand.CreateUserRoleMapsCommand(request);
+                var user = await _userManager.FindByIdAsync(request.UserId); 
 
-                if (roleExist == null)
-                {
-                    var result = await _roleManager.CreateAsync(role);
+                    var result = await _userManager.AddToRoleAsync(user, request.RoleName);
 
                     if (result.Succeeded)
                     {
@@ -77,19 +77,15 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateRole
                     {
                         foreach (var error in result.Errors)
                         {
-                            CreateRoleCommandResponse.ValidationErrors.Add(error.Description);
+                        CreateUserRoleCommandResponse.ValidationErrors.Add(error.Description);
                         }
                     }
 
-                    CreateRoleCommandResponse.roledto = _mapper.Map<RoleDto>(role);
-                }
-                else
-                {
-                    CreateRoleCommandResponse.ValidationErrors.Add(StaticMessages.RoleExist);
-                }
+                CreateUserRoleCommandResponse.roledto = _mapper.Map<UserRoleDto>(role);
+
             }
 
-            return CreateRoleCommandResponse;
+            return CreateUserRoleCommandResponse;
         }
     }
 }

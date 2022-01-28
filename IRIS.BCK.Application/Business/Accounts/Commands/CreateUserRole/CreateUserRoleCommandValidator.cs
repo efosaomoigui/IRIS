@@ -6,17 +6,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateRole
+namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUserRole 
 {
-    public class CreateRoleCommandValidator : AbstractValidator<CreateRoleCommand>
+    public class CreateUserRoleCommandValidator : AbstractValidator<CreateUserRoleCommand>
     {
         private IUserRepository _userRepository;
 
-        public CreateRoleCommandValidator(IUserRepository userRepository)
+        public CreateUserRoleCommandValidator(IUserRepository userRepository)
         {
             _userRepository = userRepository;
 
-            RuleFor(p => p.Name)
+            RuleFor(p => p.RoleName)
+                .NotEmpty().WithMessage("{PropertyName} is required")
+                .NotNull();
+
+            RuleFor(p => p.UserId)
                 .NotEmpty().WithMessage("{PropertyName} is required")
                 .NotNull();
         }

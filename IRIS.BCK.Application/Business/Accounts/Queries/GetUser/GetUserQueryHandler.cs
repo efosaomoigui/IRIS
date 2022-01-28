@@ -29,7 +29,7 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Queries.GetShipmentList
         public async Task<UserViewModel> Handle(GetUserQuery request, CancellationToken cancellationToken)
         {
             //var user = (await _userRepository.GetByUserIdAsync(request.UserId));
-            var userid = request.UserId.ToString(); 
+            var userid = request.Id.ToString(); 
             var user = await _userManager.FindByIdAsync(userid);
 
             return _mapper.Map<UserViewModel>(user);

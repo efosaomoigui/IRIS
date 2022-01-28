@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateClaim
+namespace IRIS.BCK.Core.Application.DTO.Account
 {
-    class CreateClaimCommand 
+    public class RoleDto
     {
+        public string Name { get; set; }
     }
 }
