@@ -1,5 +1,6 @@
 #!/bin/bash
 
 cd /home/ubuntu
-npm install -g pm2
+sudo pm2 stop all
+sudo pm2 delete all
 
