@@ -1,5 +1,6 @@
 #!/bin/bash
 
+ sudo mv -r !(Iris) /home/ubuntu/Iris
  cd ./Iris/IRIS.BCK.Api
  sudo rm -rf bin/
  sudo rm -rf obj/
