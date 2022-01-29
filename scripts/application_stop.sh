@@ -1,5 +1,5 @@
 #!/bin/bash
 
 cd /home/ubuntu
-pkill all
+npm install -g pm2
 
