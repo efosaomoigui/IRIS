@@ -1,7 +1,7 @@
 #!/bin/bash
 
  
- cd ./IRIS.BCK.Api
+ cd /home/ubuntu/IRIS.BCK.Api
  sudo rm -rf bin/
  sudo rm -rf obj/
  sudo dotnet build
