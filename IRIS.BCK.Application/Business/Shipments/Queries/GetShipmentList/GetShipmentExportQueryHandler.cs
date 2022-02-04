@@ -13,14 +13,14 @@ using System.Threading.Tasks;
 
 namespace IRIS.BCK.Core.Application.Business.Shipments.Queries.GetShipmentList
 {
-    class GetShipmentExportQueryHandler : IRequestHandler<GetShipmentExportQuery, ShipmentExportFileVm>
+    class GetUserExportQueryHandler : IRequestHandler<GetShipmentExportQuery, ShipmentExportFileVm>
     {
         private readonly IGenericRepository<Shipment> _shipmentRepository;
         private readonly IMapper _mapper;
         private readonly ICsvExporter _csvexporter; 
 
          
-        public GetShipmentExportQueryHandler(IGenericRepository<Shipment> shipmentRepository, IMapper mapper, ICsvExporter csvexporter)
+        public GetUserExportQueryHandler(IGenericRepository<Shipment> shipmentRepository, IMapper mapper, ICsvExporter csvexporter)
         {
             _shipmentRepository = shipmentRepository;
             _mapper = mapper;

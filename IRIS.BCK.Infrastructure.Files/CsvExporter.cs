@@ -25,4 +25,19 @@ namespace IRIS.BCK.Infrastructure.FileManagement
             return memoryStream.ToArray();
         }
     }
+
+    public class CsvExporterForRoles : ICsvExporterForRoles 
+    {
+        public byte[] ExportFilesToCsv(List<RoleExportDto> fileexportdto)
+        {
+            using var memoryStream = new MemoryStream();
+            using (var streamWriter = new StreamWriter(memoryStream))
+            {
+                using var csvWriter = new CsvWriter(streamWriter);
+                csvWriter.WriteRecord(fileexportdto);
+            }
+
+            return memoryStream.ToArray();
+        }
+    }
 }

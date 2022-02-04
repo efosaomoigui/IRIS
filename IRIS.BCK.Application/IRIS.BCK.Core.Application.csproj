@@ -7,22 +7,13 @@
   <ItemGroup>
     <Compile Remove="Business\Accounts\Commands\CreateClaims\**" />
     <Compile Remove="Business\Accounts\Commands\UpdateUser\**" />
-    <Compile Remove="Business\Accounts\Queries\**" />
-    <Compile Remove="Business\Fleets\**" />
     <Compile Remove="Business\Trip\**" />
-    <Compile Remove="Enums\**" />
     <EmbeddedResource Remove="Business\Accounts\Commands\CreateClaims\**" />
     <EmbeddedResource Remove="Business\Accounts\Commands\UpdateUser\**" />
-    <EmbeddedResource Remove="Business\Accounts\Queries\**" />
-    <EmbeddedResource Remove="Business\Fleets\**" />
     <EmbeddedResource Remove="Business\Trip\**" />
-    <EmbeddedResource Remove="Enums\**" />
     <None Remove="Business\Accounts\Commands\CreateClaims\**" />
     <None Remove="Business\Accounts\Commands\UpdateUser\**" />
-    <None Remove="Business\Accounts\Queries\**" />
-    <None Remove="Business\Fleets\**" />
     <None Remove="Business\Trip\**" />
-    <None Remove="Enums\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -43,6 +34,8 @@
 
   <ItemGroup>
     <Folder Include="Business\Finance\" />
+    <Folder Include="Business\Fleets\Commands\" />
+    <Folder Include="Business\Routes\" />
     <Folder Include="Business\Wallet\" />
     <Folder Include="Business\Shipments\Commands\DeleteShipment\" />
     <Folder Include="Business\Shipments\Commands\UpdateShipment\" />

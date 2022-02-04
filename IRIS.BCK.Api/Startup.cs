@@ -30,15 +30,26 @@ namespace IRIS.BCK.Api
         }
 
         public IConfiguration Configuration { get; }
+        readonly string ApiCorsPolicy = "_apiCorsPolicy";
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        //1. This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy(ApiCorsPolicy, builder =>
+                builder.AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                );
+            });
+
             //adding the authentication handler & configuration (called Scheme) for app.UseAthentication to use
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultSignInScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(options =>
             {
                 options.TokenValidationParameters = new TokenValidationParameters
@@ -52,20 +63,48 @@ namespace IRIS.BCK.Api
                 };
             });
 
+            //services.AddAuthorization(options =>
+            //{
+            //    options.AddPolicy("AdminPolicy", policy => policy.RequireClaim("Claimname", "ClainValue"));
+            //});
+
             services.AddApplicationServices(Configuration);
             services.AddMessagingServiceRegistration(Configuration);
             services.AddPersistenceService(Configuration);
-            services.AddFileInfrastructureService(Configuration); 
+            services.AddFileInfrastructureService(Configuration);
 
-            services.AddCors(options => {
-                options.AddPolicy("IrisCors", builder => 
-                builder.WithOrigins(Configuration["HostUrl"]).AllowAnyMethod());
-            });
+            #region Swagger
 
-            services.AddSwaggerGen(c =>
+            services.AddSwaggerGen(swagger =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "IRIS.BCK.Api", Version = "v1" });
+                swagger.SwaggerDoc("v1", new OpenApiInfo { Title = "IRIS.BACKEND.Api", Version = "v1" });
+
+                //To Enable authorization using Swagger (JWT)
+                swagger.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+                {
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey,
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                    Description = "Enter 'Bearer' [space] and then your valid token in the text input below.\r\n\r\nExample: \" Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9\"",
+                });
+
+                swagger.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },new string[] {}
+                    }
+                });
             });
+
+            #endregion
 
             services.AddControllers();
             services.AddIdentity<User, AppRole>(options =>
@@ -89,15 +128,16 @@ namespace IRIS.BCK.Api
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "IRIS.BCK.Api v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "IRIS.BACKEND.Api v1"));
             }
 
             app.UseHttpsRedirection();
             app.UseRouting();
+            app.UseCors(ApiCorsPolicy);
 
             app.UseAuthentication();
             app.UseAuthorization();
-            app.UseCors("IrisCors");
+
 
             app.UseEndpoints(endpoints =>
             {

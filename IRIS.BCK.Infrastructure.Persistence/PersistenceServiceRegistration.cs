@@ -24,6 +24,7 @@ namespace IRIS.BCK.Infrastructure.Persistence
             service.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             service.AddScoped<IShipmentRepository, ShipmentRepository>();
             service.AddScoped<IUserRepository, UserRepository>();
+            service.AddScoped<IRoleClaimRepository, RoleClaimRepository>();
             return service;
         }
 

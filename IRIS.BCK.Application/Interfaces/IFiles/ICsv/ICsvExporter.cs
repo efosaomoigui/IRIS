@@ -12,4 +12,9 @@ namespace IRIS.BCK.Core.Application.Interfaces.IFiles.ICsv
     {
         byte[] ExportFilesToCsv(List<ShipmentExportDto> fileexportdto); 
     }
+
+    public interface ICsvExporterForRoles
+    {
+        byte[] ExportFilesToCsv(List<RoleExportDto> fileexportdto); 
+    }
 }

@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using IRIS.BCK.Application.Responses;
+using IRIS.BCK.Core.Application.DTO.Account;
 
-namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateRole
+namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUser
 {
-    class CreateRoleCommandResponse
+
+    public class CreateRoleCommandResponse : BaseResponse
     {
+        public CreateRoleCommandResponse() : base() 
+        {
+
+        }
+
+        public RoleDto roledto { get; set; } 
     }
 }
