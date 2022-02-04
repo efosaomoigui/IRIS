@@ -1,4 +1,6 @@
 #!/bin/bash
-cd /home/ubuntu/
-pm2 stop all
-pm2 delete all
+
+cd /home/ubuntu
+sudo pm2 stop all
+sudo pm2 delete all
+
