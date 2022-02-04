@@ -1,5 +1,4 @@
-﻿using GIGL.GIGLS.Core.Domain;
-using GIGLS.Core.Enums;
+﻿using GIGLS.Core.Enums;
 using IRIS.BCK.Domain.Common;
 using System;
 using System.Collections.Generic;
@@ -38,6 +37,5 @@ namespace TEST.Core.Domain.Route
         ////public bool AvailableOnline { get; set; }
 
         //public RouteType RouteType { get; set; }
-
     }
 }

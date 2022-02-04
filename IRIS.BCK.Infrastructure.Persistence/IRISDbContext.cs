@@ -1,4 +1,5 @@
 ﻿using IRIS.BCK.Core.Application.Business.Accounts.AccountEntities;
+using IRIS.BCK.Core.Domain.Entities.RouteEntities;
 using IRIS.BCK.Core.Domain.Entities.ShimentEntities;
 using IRIS.BCK.Domain.Common;
 using Microsoft.AspNetCore.Identity;
@@ -18,11 +19,11 @@ namespace IRIS.BCK.Infrastructure.Persistence
     {
         public IRISDbContext(DbContextOptions<IRISDbContext> options) : base(options)
         {
-
         }
 
         public DbSet<Shipment> Shipment { get; set; }
-        public DbSet<AppRoleClaim> RoleClaim { get; set; } 
+        public DbSet<Route> Route { get; set; }
+        public DbSet<AppRoleClaim> RoleClaim { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -39,6 +40,7 @@ namespace IRIS.BCK.Infrastructure.Persistence
                     case EntityState.Added:
                         entry.Entity.CreatedDate = DateTime.Now;
                         break;
+
                     case EntityState.Modified:
                         entry.Entity.LastModifiedDate = DateTime.Now;
                         break;
@@ -47,7 +49,5 @@ namespace IRIS.BCK.Infrastructure.Persistence
 
             return base.SaveChangesAsync(cancellationToken);
         }
-
-
     }
 }

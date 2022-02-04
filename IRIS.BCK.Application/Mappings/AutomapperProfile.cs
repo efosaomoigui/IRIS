@@ -3,10 +3,13 @@ using IRIS.BCK.Core.Application.Business.Accounts.AccountEntities;
 using IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUser;
 using IRIS.BCK.Core.Application.Business.Accounts.Queries.GetRoles;
 using IRIS.BCK.Core.Application.Business.Accounts.Queries.GetShipmentList;
+using IRIS.BCK.Core.Application.Business.Routes.Commands.CreateRoutes;
+using IRIS.BCK.Core.Application.Business.Routes.Queries.GetRoutes;
 using IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateShipment;
 using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetShipmentList;
 using IRIS.BCK.Core.Application.DTO.Account;
 using IRIS.BCK.Core.Domain.Entities;
+using IRIS.BCK.Core.Domain.Entities.RouteEntities;
 using IRIS.BCK.Core.Domain.Entities.ShimentEntities;
 using MediatR;
 using System;
@@ -17,7 +20,6 @@ using System.Threading.Tasks;
 
 namespace IRIS.BCK.Core.Application.Mappings
 {
-
     public class AutomapperProfile : Profile
     {
         public AutomapperProfile()
@@ -27,6 +29,12 @@ namespace IRIS.BCK.Core.Application.Mappings
 
             CreateMap<CreateShipmentCommand, Shipment>();
             CreateMap<Shipment, CreateShipmentCommand>();
+
+            CreateMap<CreateRouteCommand, Route>();
+            CreateMap<Route, CreateRouteCommand>();
+
+            CreateMap<Route, RouteViewModel>();
+            CreateMap<User, UserListViewModel>();
 
             CreateMap<User, UserDto>();
             CreateMap<UserDto, User>();

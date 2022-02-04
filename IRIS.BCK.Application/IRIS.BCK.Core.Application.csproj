@@ -35,7 +35,6 @@
   <ItemGroup>
     <Folder Include="Business\Finance\" />
     <Folder Include="Business\Fleets\Commands\" />
-    <Folder Include="Business\Routes\" />
     <Folder Include="Business\Wallet\" />
     <Folder Include="Business\Shipments\Commands\DeleteShipment\" />
     <Folder Include="Business\Shipments\Commands\UpdateShipment\" />

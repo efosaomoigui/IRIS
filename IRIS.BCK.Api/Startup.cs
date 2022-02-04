@@ -1,7 +1,9 @@
 using IRIS.BCK.Application;
 using IRIS.BCK.Core.Application.Business.Accounts.AccountEntities;
+using IRIS.BCK.Core.Application.Interfaces.IRepositories.IRouteRepository;
 using IRIS.BCK.Infrastructure.Messaging;
 using IRIS.BCK.Infrastructure.Persistence;
+using IRIS.BCK.Infrastructure.Persistence.Repositories.Routes;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -30,7 +32,7 @@ namespace IRIS.BCK.Api
         }
 
         public IConfiguration Configuration { get; }
-        readonly string ApiCorsPolicy = "_apiCorsPolicy";
+        private readonly string ApiCorsPolicy = "_apiCorsPolicy";
 
         //1. This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -104,9 +106,10 @@ namespace IRIS.BCK.Api
                 });
             });
 
-            #endregion
+            #endregion Swagger
 
             services.AddControllers();
+            services.AddSingleton<IRouteRepository, RouteRepository>();
             services.AddIdentity<User, AppRole>(options =>
             {
                 options.Password.RequiredLength = 8;
@@ -117,7 +120,6 @@ namespace IRIS.BCK.Api
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
                 options.User.RequireUniqueEmail = true;
                 //options.SignIn.RequireConfirmedEmail = true;
-
             }).AddEntityFrameworkStores<IRISDbContext>();
         }
 
@@ -137,7 +139,6 @@ namespace IRIS.BCK.Api
 
             app.UseAuthentication();
             app.UseAuthorization();
-
 
             app.UseEndpoints(endpoints =>
             {

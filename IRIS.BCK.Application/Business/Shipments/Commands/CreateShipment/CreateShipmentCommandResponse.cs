@@ -12,7 +12,6 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateShipment
     {
         public CreateShipmentCommandResponse() : base()
         {
-
         }
 
         public ShipmentDto Shipmentdto { get; set; }

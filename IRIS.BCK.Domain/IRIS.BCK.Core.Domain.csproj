@@ -13,7 +13,6 @@
   <ItemGroup>
     <Folder Include="Entities\FleetEntities\" />
     <Folder Include="Entities\PriceEntities\" />
-    <Folder Include="Entities\RouteEntities\" />
     <Folder Include="UsefulEntities\" />
   </ItemGroup>
 
