@@ -1,5 +1,6 @@
 #!/bin/bash
 
+DIR="/home/ubuntu/Iris"
 
 
 DIR="/home/ubuntu/Iris"
