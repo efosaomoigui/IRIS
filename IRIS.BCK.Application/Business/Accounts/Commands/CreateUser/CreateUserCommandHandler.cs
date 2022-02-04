@@ -23,6 +23,7 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUser
         private readonly IMapper _mapper;
         private readonly IEmailService _emailService;
         private readonly UserManager<User> _userManager;
+        private readonly RoleManager<AppRole> _roleManager; 
 
         public CreateUserCommandHandler(IUserRepository userRepository, IMapper mapper, IEmailService emailService, UserManager<User> userManager)
         {
@@ -35,6 +36,7 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUser
         public async Task<CreateUserCommandResponse> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
             var CreateUserCommandResponse = new CreateUserCommandResponse();
+
             var validator = new CreateUserCommandValidator(_userRepository);
             var validationResult = await validator.ValidateAsync(request);
 

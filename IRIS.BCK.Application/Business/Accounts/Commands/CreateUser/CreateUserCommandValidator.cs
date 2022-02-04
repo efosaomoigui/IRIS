@@ -20,6 +20,10 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUser
 
             RuleFor(p => p.Password) // Custom Validation for unique waybills
                 .MustAsync(_userRepository.CheckPasswordRequirement).WithMessage("{PropertyName} must be unique");
+
+            RuleFor(p => p.FirstName)
+                .NotEmpty().WithMessage("{PropertyName} is required")
+                .NotNull();
         }
 
     }

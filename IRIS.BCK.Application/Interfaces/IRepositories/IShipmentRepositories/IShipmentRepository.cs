@@ -11,5 +11,6 @@ namespace IRIS.BCK.Application.Interfaces.IRepository.IShipmentRepositories
     public interface IShipmentRepository : IGenericRepository<Shipment>
     {
         Task<bool> CheckUniqueWaybillNumber(string waybill);
+        Task<bool> CheckUniqueWaybillNumberFiftyCharacterslong(string waybill); 
     }
 }

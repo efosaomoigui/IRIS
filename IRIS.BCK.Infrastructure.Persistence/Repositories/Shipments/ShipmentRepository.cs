@@ -18,5 +18,10 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Shipments
         {
             return true;
         }
+
+        public async Task<bool> CheckUniqueWaybillNumberFiftyCharacterslong(string waybill)
+        {
+            return true;
+        }
     }
 }

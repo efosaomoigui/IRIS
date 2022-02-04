@@ -20,12 +20,6 @@ namespace IRIS.BCK.Api.Controllers.Account
 {
     public class UserManagementController : BaseApiController
     {
-        private readonly IMediator _mediator;
-        public UserManagementController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
-
         [AllowAnonymous]
         [HttpPost("Login")]
         public async Task<ActionResult<CreateUserCommandResponse>> Authenticate([FromBody] CreateAuthCredentialsCommand loginCredentials)
