@@ -10,14 +10,14 @@ namespace IRIS.BCK.Api.Controllers.Route
 {
     public class RouteController : BaseApiController
     {
-        [HttpGet("all", Name = "GetAllRoutes")]
-        public async Task<ActionResult<List<RouteViewModel>>> GetAllRoutes()
+        [HttpGet("all", Name = "GetEntireRoutes")]
+        public async Task<ActionResult<List<RouteViewModel>>> GetEntireRoutes()
         {
             var routes = await _mediator.Send(new GetRouteQuery());
             return Ok(routes);
         }
 
-        [HttpPost(Name = "AddRoute")]
+        [HttpPost(Name = "AddShipmentRoute")]
         public async Task<ActionResult<CreateRouteCommandResponse>> Create([FromBody] CreateRouteCommand createRouteCommand)
         {
             var response = await _mediator.Send(createRouteCommand);

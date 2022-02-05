@@ -109,7 +109,7 @@ namespace IRIS.BCK.Api
             #endregion Swagger
 
             services.AddControllers();
-            services.AddSingleton<IRouteRepository, RouteRepository>();
+            services.AddScoped<IRouteRepository, RouteRepository>();
             services.AddIdentity<User, AppRole>(options =>
             {
                 options.Password.RequiredLength = 8;
