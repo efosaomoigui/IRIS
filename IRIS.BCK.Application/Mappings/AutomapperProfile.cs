@@ -3,12 +3,15 @@ using IRIS.BCK.Core.Application.Business.Accounts.AccountEntities;
 using IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUser;
 using IRIS.BCK.Core.Application.Business.Accounts.Queries.GetRoles;
 using IRIS.BCK.Core.Application.Business.Accounts.Queries.GetShipmentList;
+using IRIS.BCK.Core.Application.Business.Fleets.Commands.CreateFleets;
+using IRIS.BCK.Core.Application.Business.Fleets.Queries;
 using IRIS.BCK.Core.Application.Business.Routes.Commands.CreateRoutes;
 using IRIS.BCK.Core.Application.Business.Routes.Queries.GetRoutes;
 using IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateShipment;
 using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetShipmentList;
 using IRIS.BCK.Core.Application.DTO.Account;
 using IRIS.BCK.Core.Domain.Entities;
+using IRIS.BCK.Core.Domain.Entities.FleetEntities;
 using IRIS.BCK.Core.Domain.Entities.RouteEntities;
 using IRIS.BCK.Core.Domain.Entities.ShimentEntities;
 using MediatR;
@@ -34,6 +37,12 @@ namespace IRIS.BCK.Core.Application.Mappings
             CreateMap<Route, CreateRouteCommand>();
 
             CreateMap<Route, RouteViewModel>();
+            CreateMap<User, UserListViewModel>();
+
+            CreateMap<CreateFleetCommand, Fleet>();
+            CreateMap<Fleet, CreateFleetCommand>();
+
+            CreateMap<Fleet, FleetListViewModel>();
             CreateMap<User, UserListViewModel>();
 
             CreateMap<User, UserDto>();

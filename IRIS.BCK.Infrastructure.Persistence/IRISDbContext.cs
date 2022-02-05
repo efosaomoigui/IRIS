@@ -1,4 +1,5 @@
 ﻿using IRIS.BCK.Core.Application.Business.Accounts.AccountEntities;
+using IRIS.BCK.Core.Domain.Entities.FleetEntities;
 using IRIS.BCK.Core.Domain.Entities.RouteEntities;
 using IRIS.BCK.Core.Domain.Entities.ShimentEntities;
 using IRIS.BCK.Domain.Common;
@@ -23,6 +24,7 @@ namespace IRIS.BCK.Infrastructure.Persistence
 
         public DbSet<Shipment> Shipment { get; set; }
         public DbSet<Route> Route { get; set; }
+        public DbSet<Fleet> Fleet { get; set; }
         public DbSet<AppRoleClaim> RoleClaim { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

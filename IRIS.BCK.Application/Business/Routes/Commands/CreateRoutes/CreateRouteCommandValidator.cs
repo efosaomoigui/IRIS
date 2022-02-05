@@ -60,6 +60,10 @@ namespace IRIS.BCK.Core.Application.Business.Routes.Commands.CreateRoutes
             RuleFor(p => p.RouteName)
                 .NotEmpty().WithMessage("{PropertyName} is required")
                 .NotNull();
+
+            RuleFor(p => p.RouteType)
+                .NotEmpty().WithMessage("{PropertyName} is required")
+                .NotNull();
         }
 
         //implement custom error checks using methods here

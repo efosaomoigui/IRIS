@@ -1,4 +1,5 @@
-﻿using IRIS.BCK.Domain.Common;
+﻿using GIGLS.Core.Enums;
+using IRIS.BCK.Domain.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,6 +37,6 @@ namespace IRIS.BCK.Core.Domain.Entities.RouteEntities
 
         public bool AvailableOnline { get; set; }
 
-        // public RouteType RouteType { get; set; }
+        public RouteType RouteType { get; set; }
     }
 }

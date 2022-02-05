@@ -12,30 +12,31 @@ namespace TEST.Core.Domain.Route
     {
         public int RouteId { get; set; }
 
-        //public string RouteName { get; set; }
+        public string RouteName { get; set; }
 
-        //public int DepartureCentreId { get; set; }
+        public int DepartureCentreId { get; set; }
 
-        //public ServiceCentre DepartureCenter { get; set; }
+        // public ServiceCentre DepartureCenter { get; set; }
 
-        //public int DestinationCentreId { get; set; }
+        public int DestinationCentreId { get; set; }
 
         //public ServiceCentre DestinationCenter { get; set; }
 
-        //public bool IsSubRoute { get; set; }
+        public bool IsSubRoute { get; set; }
 
-        //public decimal DispatchFee { get; set; }
+        public decimal DispatchFee { get; set; }
 
-        //public decimal LoaderFee { get; set; }
+        public decimal LoaderFee { get; set; }
 
-        //public decimal CaptainFee { get; set; }
-        ////parentRoute
-        //public int? MainRouteId { get; set; }
+        public decimal CaptainFee { get; set; }
 
-        ////public bool AvailableAtTerminal { get; set; }
+        //parentRoute
+        public int? MainRouteId { get; set; }
 
-        ////public bool AvailableOnline { get; set; }
+        public bool AvailableAtTerminal { get; set; }
 
-        //public RouteType RouteType { get; set; }
+        public bool AvailableOnline { get; set; }
+
+        public RouteType RouteType { get; set; }
     }
 }

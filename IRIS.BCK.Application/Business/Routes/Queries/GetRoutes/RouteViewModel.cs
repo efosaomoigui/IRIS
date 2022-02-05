@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GIGLS.Core.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,5 +27,6 @@ namespace IRIS.BCK.Core.Application.Business.Routes.Queries.GetRoutes
         public bool AvailableAtTerminal { get; set; }
 
         public bool AvailableOnline { get; set; }
+        public RouteType RouteType { get; set; }
     }
 }

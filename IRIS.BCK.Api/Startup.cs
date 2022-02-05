@@ -1,8 +1,10 @@
 using IRIS.BCK.Application;
 using IRIS.BCK.Core.Application.Business.Accounts.AccountEntities;
+using IRIS.BCK.Core.Application.Interfaces.IRepositories.IFleetRepositories;
 using IRIS.BCK.Core.Application.Interfaces.IRepositories.IRouteRepository;
 using IRIS.BCK.Infrastructure.Messaging;
 using IRIS.BCK.Infrastructure.Persistence;
+using IRIS.BCK.Infrastructure.Persistence.Repositories.Fleets;
 using IRIS.BCK.Infrastructure.Persistence.Repositories.Routes;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -110,6 +112,7 @@ namespace IRIS.BCK.Api
 
             services.AddControllers();
             services.AddScoped<IRouteRepository, RouteRepository>();
+            services.AddScoped<IFleetRepository, FleetRepository>();
             services.AddIdentity<User, AppRole>(options =>
             {
                 options.Password.RequiredLength = 8;

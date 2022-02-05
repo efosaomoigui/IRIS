@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using GIGLS.Core.Enums;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,5 +28,6 @@ namespace IRIS.BCK.Core.Application.Business.Routes.Commands.CreateRoutes
         public bool AvailableAtTerminal { get; set; }
 
         public bool AvailableOnline { get; set; }
+        public RouteType RouteType { get; set; }
     }
 }
