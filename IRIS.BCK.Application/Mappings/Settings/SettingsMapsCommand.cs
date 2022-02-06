@@ -12,7 +12,7 @@ namespace IRIS.BCK.Core.Application.Mappings.Settings
 {
     public static class SettingsMapsCommand
     {
-        public static Fleet CreateUserMapsCommand(CreateFleetCommand request)
+        public static Fleet CreateFleetMapsCommand(CreateFleetCommand request)
         {
             return new Fleet
             {
