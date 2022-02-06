@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using IRIS.BCK.Application.Interfaces.IRepository;
+using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetFleets;
 using IRIS.BCK.Core.Domain.Entities.FleetEntities;
 using MediatR;
 using System;

@@ -1,21 +1,15 @@
 ﻿using IRIS.BCK.Core.Domain.EntityEnums;
-using MediatR;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace IRIS.BCK.Core.Application.Business.Fleets.Commands.CreateFleets
+namespace IRIS.BCK.Core.Application.Business.Shipments.Queries.GetFleets
 {
-    public class CreateFleetCommand : IRequest<CreateFleetCommandResponse>
+    public class FleetListViewModel
     {
-        public int FleetId { get; set; }
+        public int Id { get; set; }
+        public string waybill { get; set; }
+        public int FirstName { get; set; }
 
-        [MaxLength(100)]
         public string RegistrationNumber { get; set; }
-
         public string ChassisNumber { get; set; }
         public string EngineNumber { get; set; }
         public bool Status { get; set; }

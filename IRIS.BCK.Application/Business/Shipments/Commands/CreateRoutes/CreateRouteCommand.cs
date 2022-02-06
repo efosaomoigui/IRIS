@@ -1,13 +1,14 @@
 ﻿using GIGLS.Core.Enums;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IRIS.BCK.Core.Application.Business.Routes.Queries.GetRoutes
+namespace IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateRoutes
 {
-    public class RouteViewModel
+    public class CreateRouteCommand : IRequest<CreateRouteCommandResponse>
     {
         public int RouteId { get; set; }
 

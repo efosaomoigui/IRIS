@@ -1,12 +1,7 @@
-﻿using IRIS.BCK.Core.Application.Business.Fleets.Commands.CreateFleets;
-using IRIS.BCK.Core.Application.Business.Routes.Commands.CreateRoutes;
+﻿using IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateFleets;
+using IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateRoutes;
 using IRIS.BCK.Core.Domain.Entities.FleetEntities;
 using IRIS.BCK.Core.Domain.Entities.RouteEntities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IRIS.BCK.Core.Application.Mappings.Settings
 {

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IRIS.BCK.Core.Application.Business.Fleets.Commands.CreateFleets
+namespace IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateFleets 
 {
     public class CreateFleetCommandValidator : AbstractValidator<CreateFleetCommand>
     {
@@ -32,9 +32,9 @@ namespace IRIS.BCK.Core.Application.Business.Fleets.Commands.CreateFleets
                 .NotEmpty().WithMessage("{PropertyName} is required")
                 .NotNull();
 
-            RuleFor(p => p.FleetId)
-                .NotEmpty().WithMessage("{PropertyName} is required")
-                .NotNull();
+            //RuleFor(p => p.FleetId)
+            //    .NotEmpty().WithMessage("{PropertyName} is required")
+            //    .NotNull();
 
             RuleFor(p => p.FleetMake)
                 .NotEmpty().WithMessage("{PropertyName} is required")

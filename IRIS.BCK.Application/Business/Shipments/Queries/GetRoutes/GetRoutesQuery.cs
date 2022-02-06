@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IRIS.BCK.Core.Application.Business.Fleets.Queries.GetFleets
+namespace IRIS.BCK.Core.Application.Business.Shipments.Queries.GetRoutes
 {
-    public class GetFleetQuery : IRequest<List<FleetListViewModel>>
+    public class GetRouteQuery : IRequest<List<RouteViewModel>>
     {
     }
 }

@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace IRIS.BCK.Core.Application.Business.Routes.Queries.GetRoutes
+namespace IRIS.BCK.Core.Application.Business.Shipments.Queries.GetRoutes
 {
     public class GetRouteQueryHandler : IRequestHandler<GetRouteQuery, List<RouteViewModel>>
     {

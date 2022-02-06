@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IRIS.BCK.Core.Application.Business.Routes.Commands.CreateRoutes
+namespace IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateRoutes
 {
     public class CreateRouteCommandResponse : BaseResponse
     {
