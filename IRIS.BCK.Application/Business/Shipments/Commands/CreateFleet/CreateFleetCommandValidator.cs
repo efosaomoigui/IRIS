@@ -32,9 +32,9 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateFleets
                 .NotEmpty().WithMessage("{PropertyName} is required")
                 .NotNull();
 
-            RuleFor(p => p.FleetId)
-                .NotEmpty().WithMessage("{PropertyName} is required")
-                .NotNull();
+            //RuleFor(p => p.FleetId)
+            //    .NotEmpty().WithMessage("{PropertyName} is required")
+            //    .NotNull();
 
             RuleFor(p => p.FleetMake)
                 .NotEmpty().WithMessage("{PropertyName} is required")

@@ -21,15 +21,15 @@ namespace IRIS.BCK.Api.Controllers.Shipment
     {
         #region Route
 
-        [HttpGet("all", Name = "GetEntireRoutes")]
+        [HttpGet("Route/all", Name = "GetEntireRoutes")]
         public async Task<ActionResult<List<RouteViewModel>>> GetEntireRoutes()
         {
             var routes = await _mediator.Send(new GetRouteQuery());
             return Ok(routes);
         }
 
-        [HttpPost(Name = "AddShipmentRoute")]
-        public async Task<ActionResult<CreateRouteCommandResponse>> Create([FromBody] CreateRouteCommand createRouteCommand)
+        [HttpPost("Route", Name = "AddShipmentRoute")]
+        public async Task<ActionResult<CreateRouteCommandResponse>> AddShipmentRoute([FromBody] CreateRouteCommand createRouteCommand)
         {
             var response = await _mediator.Send(createRouteCommand);
             return Ok(response);
@@ -46,15 +46,15 @@ namespace IRIS.BCK.Api.Controllers.Shipment
 
         #region Fleet
 
-        [HttpGet("all", Name = "GetAllFleet")]
+        [HttpGet("Fleet/all", Name = "GetAllFleet")]
         public async Task<ActionResult<List<FleetListViewModel>>> GetAllFleet()
         {
             var fleet = await _mediator.Send(new GetFleetQuery());
             return Ok(fleet);
         }
 
-        [HttpPost(Name = "AddFleet")]
-        public async Task<ActionResult<CreateFleetCommandResponse>> Create([FromBody] CreateFleetCommand createFleetCommand)
+        [HttpPost("Fleet", Name = "AddFleet")] 
+        public async Task<ActionResult<CreateFleetCommandResponse>> AddFleet([FromBody] CreateFleetCommand createFleetCommand)
         {
             var response = await _mediator.Send(createFleetCommand);
             return Ok(response);
