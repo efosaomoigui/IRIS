@@ -12,7 +12,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace IRIS.BCK.Core.Application.Business.Fleets.Commands.CreateFleets
+namespace IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateFleets
 {
     public class CreateFleetCommandHandler : IRequestHandler<CreateFleetCommand, CreateFleetCommandResponse>
     {

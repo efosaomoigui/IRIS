@@ -1,5 +1,11 @@
 ﻿using IRIS.BCK.Application.DTO;
+using IRIS.BCK.Core.Application.Business.Fleets.Queries;
+using IRIS.BCK.Core.Application.Business.Fleets.Queries.GetFleets;
+using IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateFleets;
+using IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateRoutes;
 using IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateShipment;
+using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetFleets;
+using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetRoutes;
 using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetShipmentList;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -15,18 +21,18 @@ namespace IRIS.BCK.Api.Controllers.Shipment
     {
         #region Route
 
-        [HttpPost("Route", Name = "AddRoute")]
-        public async Task<ActionResult<CreateShipmentCommandResponse>> AddRoute([FromBody] CreateShipmentCommand createShipmentCommand)
+        [HttpGet("all", Name = "GetEntireRoutes")]
+        public async Task<ActionResult<List<RouteViewModel>>> GetEntireRoutes()
         {
-            var response = await _mediator.Send(createShipmentCommand);
-            return Ok(response);
+            var routes = await _mediator.Send(new GetRouteQuery());
+            return Ok(routes);
         }
 
-        [HttpGet("Route/all", Name = "GetAllRoutes")]
-        public async Task<ActionResult<List<ShipmentListViewModel>>> GetAllRoutes()
+        [HttpPost(Name = "AddShipmentRoute")]
+        public async Task<ActionResult<CreateRouteCommandResponse>> Create([FromBody] CreateRouteCommand createRouteCommand)
         {
-            var shipments = await _mediator.Send(new GetShipmentListQuery());
-            return Ok(shipments);
+            var response = await _mediator.Send(createRouteCommand);
+            return Ok(response);
         }
 
         [HttpGet("Route/GetRouteById/{routeid}")]
@@ -34,6 +40,24 @@ namespace IRIS.BCK.Api.Controllers.Shipment
         {
             var shipments = await _mediator.Send(new GetShipmentListQuery());
             return Ok(shipments);
+        }
+
+        #endregion
+
+        #region Fleet
+
+        [HttpGet("all", Name = "GetAllFleet")]
+        public async Task<ActionResult<List<FleetListViewModel>>> GetAllFleet()
+        {
+            var fleet = await _mediator.Send(new GetFleetQuery());
+            return Ok(fleet);
+        }
+
+        [HttpPost(Name = "AddFleet")]
+        public async Task<ActionResult<CreateFleetCommandResponse>> Create([FromBody] CreateFleetCommand createFleetCommand)
+        {
+            var response = await _mediator.Send(createFleetCommand);
+            return Ok(response);
         }
 
         #endregion

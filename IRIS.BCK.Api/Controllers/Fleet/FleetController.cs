@@ -1,6 +1,7 @@
-﻿using IRIS.BCK.Core.Application.Business.Fleets.Commands.CreateFleets;
-using IRIS.BCK.Core.Application.Business.Fleets.Queries;
+﻿using IRIS.BCK.Core.Application.Business.Fleets.Queries;
 using IRIS.BCK.Core.Application.Business.Fleets.Queries.GetFleets;
+using IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateFleets;
+using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetFleets;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;

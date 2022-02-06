@@ -1,5 +1,5 @@
-﻿using IRIS.BCK.Core.Application.Business.Routes.Commands.CreateRoutes;
-using IRIS.BCK.Core.Application.Business.Routes.Queries.GetRoutes;
+﻿using IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateRoutes;
+using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetRoutes;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
