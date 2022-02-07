@@ -12,8 +12,6 @@
 
   <ItemGroup>
     <Folder Include="Entities\FleetEntities\" />
-    <Folder Include="Entities\PriceEntities\" />
-    <Folder Include="UsefulEntities\" />
   </ItemGroup>
 
 </Project>

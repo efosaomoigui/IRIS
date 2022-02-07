@@ -3,6 +3,7 @@ using IRIS.BCK.Core.Application.DTO.Message.EmailMessage;
 using IRIS.BCK.Core.Application.DTO.Routes;
 using IRIS.BCK.Core.Application.Interfaces.IMessages.IEmail;
 using IRIS.BCK.Core.Application.Interfaces.IRepositories.IRouteRepository;
+using IRIS.BCK.Core.Application.Mappings.Settings;
 using IRIS.BCK.Core.Domain.Entities.RouteEntities;
 using MediatR;
 using System;
@@ -54,7 +55,8 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateRoutes
 
             if (CreateRouteCommandResponse.Success)
             {
-                var route = _mapper.Map<Route>(request);
+                var route = SettingsMapsCommand.CreateRouteMapsCommand(request);
+                //var route = _mapper.Map<Route>(request);
                 route = await _routeRepository.AddAsync(route);
 
                 try
