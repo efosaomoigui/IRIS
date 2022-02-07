@@ -4,6 +4,8 @@
  sudo dotnet build
  
  cd /home/ubuntu/IRIS.BCK.Api
+ sudo rm -rf bin/
+ sudo rm -rf obj/
  sudo dotnet build
  sudo chown -R ubuntu:ubuntu ./bin
  sudo chown -R ubuntu:ubuntu ./obj
