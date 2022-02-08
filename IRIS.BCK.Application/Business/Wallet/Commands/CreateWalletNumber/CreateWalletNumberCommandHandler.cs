@@ -68,12 +68,12 @@ namespace IRIS.BCK.Core.Application.Business.Wallet.Commands.CreateWalletNumber
                     throw;
                 }
 
-                CreateWalletNumberCommandResponse.Walletdto = _mapper.Map<WalletDto>(walletNumber);
+                CreateWalletNumberCommandResponse.Walletdto = _mapper.Map<WalletNumberDto>(walletNumber);
 
                 return CreateWalletNumberCommandResponse;
             }
 
-            CreateWalletNumberCommandResponse.Walletdto = new WalletDto();
+            CreateWalletNumberCommandResponse.Walletdto = new WalletNumberDto();
             return CreateWalletNumberCommandResponse;
         }
     }

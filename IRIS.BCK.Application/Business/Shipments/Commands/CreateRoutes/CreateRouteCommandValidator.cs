@@ -53,10 +53,6 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateRoutes
                 .NotEmpty().WithMessage("{PropertyName} is required")
                 .NotNull();
 
-            RuleFor(p => p.RouteId)
-                .NotEmpty().WithMessage("{PropertyName} is required")
-                .NotNull();
-
             RuleFor(p => p.RouteName)
                 .NotEmpty().WithMessage("{PropertyName} is required")
                 .NotNull();
