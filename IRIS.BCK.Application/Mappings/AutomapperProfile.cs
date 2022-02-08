@@ -10,11 +10,16 @@ using IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateShipment;
 using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetFleets;
 using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetRoutes;
 using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetShipmentList;
+using IRIS.BCK.Core.Application.Business.Wallet.Queries.GetWalletByWalletNumberQuery;
 using IRIS.BCK.Core.Application.DTO.Account;
+using IRIS.BCK.Core.Application.DTO.Fleets;
+using IRIS.BCK.Core.Application.DTO.Routes;
+using IRIS.BCK.Core.Application.DTO.Wallet;
 using IRIS.BCK.Core.Domain.Entities;
 using IRIS.BCK.Core.Domain.Entities.FleetEntities;
 using IRIS.BCK.Core.Domain.Entities.RouteEntities;
 using IRIS.BCK.Core.Domain.Entities.ShimentEntities;
+using IRIS.BCK.Core.Domain.Entities.WalletEntities;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -34,8 +39,14 @@ namespace IRIS.BCK.Core.Application.Mappings
             CreateMap<CreateShipmentCommand, Shipment>();
             CreateMap<Shipment, CreateShipmentCommand>();
 
-            CreateMap<CreateRouteCommand, Route>();
-            CreateMap<Route, CreateRouteCommand>();
+            CreateMap<WalletNumberDto, WalletNumber>();
+            CreateMap<WalletNumber, WalletNumberDto>();
+
+            CreateMap<WalletNumberViewModel, WalletNumber>();
+            CreateMap<WalletNumber, WalletNumberViewModel>();
+
+            CreateMap<WalletTransactionDto, WalletTransaction>();
+            CreateMap<WalletTransaction, WalletTransactionDto>();
 
             CreateMap<Route, RouteViewModel>();
             CreateMap<User, UserListViewModel>();
@@ -63,6 +74,12 @@ namespace IRIS.BCK.Core.Application.Mappings
 
             CreateMap<UserRoleDto, AppUserRole>();
             CreateMap<AppUserRole, UserRoleDto>();
+
+            CreateMap<RouteDto, Route>();
+            CreateMap<Route, RouteDto>();
+
+            CreateMap<FleetDto, Fleet>();
+            CreateMap<Fleet, FleetDto>();
         }
     }
 }

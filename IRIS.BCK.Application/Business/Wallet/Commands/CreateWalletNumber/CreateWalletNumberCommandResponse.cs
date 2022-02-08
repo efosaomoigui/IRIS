@@ -14,6 +14,6 @@ namespace IRIS.BCK.Core.Application.Business.Wallet.Commands.CreateWalletNumberC
         {
         }
 
-        public WalletDto Walletdto { get; set; }
+        public WalletNumberDto Walletdto { get; set; }
     }
 }

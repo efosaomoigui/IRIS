@@ -29,10 +29,6 @@ namespace IRIS.BCK.Core.Application.Business.Wallet.Commands.CreateWalletNumber
             RuleFor(p => p.UserId)
                 .NotEmpty().WithMessage("{PropertyName} is required")
                 .NotNull();
-
-            RuleFor(p => p.WalletNumberId)
-                .NotEmpty().WithMessage("{PropertyName} is required")
-                .NotNull();
         }
     }
 }
