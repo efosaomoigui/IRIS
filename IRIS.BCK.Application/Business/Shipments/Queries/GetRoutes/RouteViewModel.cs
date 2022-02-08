@@ -13,8 +13,8 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Queries.GetRoutes
 
         public string RouteName { get; set; }
 
-        public int DepartureCentreId { get; set; }
-        public int DestinationCentreId { get; set; }
+        public string Destination { get; set; }
+        public string Departure { get; set; }
         public bool IsSubRoute { get; set; }
 
         public decimal DispatchFee { get; set; }
