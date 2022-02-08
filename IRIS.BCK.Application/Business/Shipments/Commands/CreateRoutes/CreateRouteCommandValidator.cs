@@ -29,11 +29,11 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateRoutes
                 .NotEmpty().WithMessage("{PropertyName} is required")
                 .NotNull();
 
-            RuleFor(p => p.DepartureCentreId)
+            RuleFor(p => p.Departure)
                 .NotEmpty().WithMessage("{PropertyName} is required")
                 .NotNull();
 
-            RuleFor(p => p.DestinationCentreId)
+            RuleFor(p => p.Destination)
                 .NotEmpty().WithMessage("{PropertyName} is required")
                 .NotNull();
 

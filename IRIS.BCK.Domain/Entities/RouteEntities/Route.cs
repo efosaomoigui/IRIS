@@ -14,11 +14,11 @@ namespace IRIS.BCK.Core.Domain.Entities.RouteEntities
 
         public string RouteName { get; set; }
 
-        public int DepartureCentreId { get; set; }
+        public string Departure { get; set; }
 
         // public ServiceCentre DepartureCenter { get; set; }
 
-        public int DestinationCentreId { get; set; }
+        public string Destination { get; set; }
 
         // public ServiceCentre DestinationCenter { get; set; }
 
