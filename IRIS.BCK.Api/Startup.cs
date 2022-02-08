@@ -1,11 +1,15 @@
 using IRIS.BCK.Application;
 using IRIS.BCK.Core.Application.Business.Accounts.AccountEntities;
 using IRIS.BCK.Core.Application.Interfaces.IRepositories.IFleetRepositories;
+using IRIS.BCK.Core.Application.Interfaces.IRepositories.IPriceRepositories;
 using IRIS.BCK.Core.Application.Interfaces.IRepositories.IRouteRepository;
+using IRIS.BCK.Core.Application.Interfaces.IRepositories.IWalletRepositories;
 using IRIS.BCK.Infrastructure.Messaging;
 using IRIS.BCK.Infrastructure.Persistence;
 using IRIS.BCK.Infrastructure.Persistence.Repositories.Fleets;
+using IRIS.BCK.Infrastructure.Persistence.Repositories.Price;
 using IRIS.BCK.Infrastructure.Persistence.Repositories.Routes;
+using IRIS.BCK.Infrastructure.Persistence.Repositories.Wallets;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -112,7 +116,10 @@ namespace IRIS.BCK.Api
 
             services.AddControllers();
             services.AddScoped<IRouteRepository, RouteRepository>();
+            services.AddScoped<IWalletRepository, WalletRepository>();
             services.AddScoped<IFleetRepository, FleetRepository>();
+            services.AddScoped<IWalletTransactionRepository, WalletTransactionRepository>();
+            services.AddScoped<ISpecialDomesticZonePriceRepository, SpecialDomesticZonePriceRepository>();
             services.AddIdentity<User, AppRole>(options =>
             {
                 options.Password.RequiredLength = 8;

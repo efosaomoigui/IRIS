@@ -2,6 +2,7 @@
 using IRIS.BCK.Core.Domain.Entities.FleetEntities;
 using IRIS.BCK.Core.Domain.Entities.RouteEntities;
 using IRIS.BCK.Core.Domain.Entities.ShimentEntities;
+using IRIS.BCK.Core.Domain.Entities.WalletEntities;
 using IRIS.BCK.Domain.Common;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -25,6 +26,9 @@ namespace IRIS.BCK.Infrastructure.Persistence
         public DbSet<Shipment> Shipment { get; set; }
         public DbSet<Route> Route { get; set; }
         public DbSet<Fleet> Fleet { get; set; }
+        public DbSet<WalletNumber> WalletNumber { get; set; }
+        public DbSet<WalletTransaction> WalletTransaction { get; set; }
+
         public DbSet<AppRoleClaim> RoleClaim { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -23,7 +23,7 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUser
         private readonly IMapper _mapper;
         private readonly IEmailService _emailService;
         private readonly UserManager<User> _userManager;
-        private readonly RoleManager<AppRole> _roleManager; 
+        private readonly RoleManager<AppRole> _roleManager;
 
         public CreateUserCommandHandler(IUserRepository userRepository, IMapper mapper, IEmailService emailService, UserManager<User> userManager)
         {
@@ -60,10 +60,13 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUser
                 var user = UserMapsCommand.CreateUserMapsCommand(request);
                 //user = await _userRepository.AddAsync(user);
 
-                var userExist = await _userManager.FindByNameAsync(user.UserName) ?? await _userManager.FindByEmailAsync(user.UserName); 
+                var userExist = await _userManager.FindByNameAsync(user.UserName) ?? await _userManager.FindByEmailAsync(user.UserName);
 
                 if (userExist == null)
                 {
+                    //generate a wallet number ---> getwallnumber
+                    var walletnumber = 0000000000;
+                    user.WalletNumber = walletnumber;
                     var result = await _userManager.CreateAsync(user, request.Password);
 
                     if (result.Succeeded)

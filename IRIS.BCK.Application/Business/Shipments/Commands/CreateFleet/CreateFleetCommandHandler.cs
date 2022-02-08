@@ -3,6 +3,7 @@ using IRIS.BCK.Core.Application.DTO.Fleets;
 using IRIS.BCK.Core.Application.DTO.Message.EmailMessage;
 using IRIS.BCK.Core.Application.Interfaces.IMessages.IEmail;
 using IRIS.BCK.Core.Application.Interfaces.IRepositories.IFleetRepositories;
+using IRIS.BCK.Core.Application.Mappings.Settings;
 using IRIS.BCK.Core.Domain.Entities.FleetEntities;
 using MediatR;
 using System;
@@ -54,7 +55,8 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateFleets
 
             if (CreateFleetCommandResponse.Success)
             {
-                var fleet = _mapper.Map<Fleet>(request);
+                var fleet = SettingsMapsCommand.CreateFleetMapsCommand(request);
+                //var fleet = _mapper.Map<Fleet>(request);
                 fleet = await _fleetRepository.AddAsync(fleet);
 
                 try

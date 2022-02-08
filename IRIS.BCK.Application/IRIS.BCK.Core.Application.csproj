@@ -40,7 +40,10 @@
 
   <ItemGroup>
     <Folder Include="Business\Finance\" />
-    <Folder Include="Business\Wallet\" />
+    <Folder Include="Business\Wallet\Queries\GetWalletNumberQuery\" />
+    <Folder Include="Business\Wallet\Queries\GetWalletListQuery\" />
+    <Folder Include="Business\Wallet\Queries\GetWalletTransactionListQuery\" />
+    <Folder Include="Business\Wallet\Queries\GetLastWalletNumberQuery\" />
     <Folder Include="DTO\Files\Pdf\" />
     <Folder Include="Interfaces\IFiles\IPdf\" />
     <Folder Include="Interfaces\IMessages\ISms\" />

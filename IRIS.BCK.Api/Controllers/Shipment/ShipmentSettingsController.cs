@@ -1,6 +1,8 @@
 ﻿using IRIS.BCK.Application.DTO;
 using IRIS.BCK.Core.Application.Business.Fleets.Queries;
 using IRIS.BCK.Core.Application.Business.Fleets.Queries.GetFleets;
+using IRIS.BCK.Core.Application.Business.Price.Commands.SpecialDomesticZonePrice;
+using IRIS.BCK.Core.Application.Business.Price.Queries.GetSpecialDomesticZonePriceQuery;
 using IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateFleets;
 using IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateRoutes;
 using IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateShipment;
@@ -42,7 +44,7 @@ namespace IRIS.BCK.Api.Controllers.Shipment
             return Ok(shipments);
         }
 
-        #endregion
+        #endregion Route
 
         #region Fleet
 
@@ -53,14 +55,14 @@ namespace IRIS.BCK.Api.Controllers.Shipment
             return Ok(fleet);
         }
 
-        [HttpPost("Fleet", Name = "AddFleet")] 
+        [HttpPost("Fleet", Name = "AddFleet")]
         public async Task<ActionResult<CreateFleetCommandResponse>> AddFleet([FromBody] CreateFleetCommand createFleetCommand)
         {
             var response = await _mediator.Send(createFleetCommand);
             return Ok(response);
         }
 
-        #endregion
+        #endregion Fleet
 
         #region Price
 
@@ -72,22 +74,33 @@ namespace IRIS.BCK.Api.Controllers.Shipment
         }
 
         [HttpGet("Price/all", Name = "GetAllPrice")]
-        public async Task<ActionResult<List<ShipmentListViewModel>>> GetAllPrice() 
+        public async Task<ActionResult<List<ShipmentListViewModel>>> GetAllPrice()
         {
             var shipments = await _mediator.Send(new GetShipmentListQuery());
             return Ok(shipments);
+        }
+
+        [HttpGet("all", Name = "GetAllSpecialDomesticZonePrice")]
+        public async Task<ActionResult<List<SpecialDomesticZonePriceViewModel>>> GetAllSpecialDomesticZonePrice()
+        {
+            var shipments = await _mediator.Send(new GetSpecialDomesticZonePriceQuery());
+            return Ok(shipments);
+        }
+
+        [HttpPost(Name = "AddSpecialDomesticZonePrice")]
+        public async Task<ActionResult<CreateSpecialDomesticZonePriceCommandResponse>> Create([FromBody] CreateSpecialDomesticZonePriceCommand createSpecialDomesticZonePriceCommand)
+        {
+            var response = await _mediator.Send(createSpecialDomesticZonePriceCommand);
+            return Ok(response);
         }
 
         [HttpGet("Price/GetPriceById/{priceid}")]
-        public async Task<ActionResult<List<ShipmentListViewModel>>> GetPriceById(string routeid) 
+        public async Task<ActionResult<List<ShipmentListViewModel>>> GetPriceById(string routeid)
         {
             var shipments = await _mediator.Send(new GetShipmentListQuery());
             return Ok(shipments);
         }
 
-        #endregion
-
-
-
+        #endregion Price
     }
 }
