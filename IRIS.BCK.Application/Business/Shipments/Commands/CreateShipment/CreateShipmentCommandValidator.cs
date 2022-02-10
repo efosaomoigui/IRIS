@@ -9,14 +9,19 @@ using System.Threading.Tasks;
 
 namespace IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateShipment
 {
-    class CreateShipmentCommandValidator : AbstractValidator<CreateShipmentCommand>
+    internal class CreateShipmentCommandValidator : AbstractValidator<CreateShipmentCommand>
     {
         public IShipmentRepository _ShipmentRepository { get; set; }
+
         public CreateShipmentCommandValidator(IShipmentRepository shipmentRepository)
         {
             _ShipmentRepository = shipmentRepository;
 
             RuleFor(p => p.waybill)
+                .NotEmpty().WithMessage("{PropertyName} is required")
+                .NotNull();
+
+            RuleFor(p => p.FirstName)
                 .NotEmpty().WithMessage("{PropertyName} is required")
                 .NotNull();
 
@@ -29,6 +34,5 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateShipment
         {
             return _ShipmentRepository.CheckUniqueWaybillNumber(waybill);
         }
-
     }
 }

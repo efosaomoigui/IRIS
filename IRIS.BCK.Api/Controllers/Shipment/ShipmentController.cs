@@ -1,5 +1,7 @@
 ﻿using IRIS.BCK.Application.DTO;
 using IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateShipment;
+using IRIS.BCK.Core.Application.Business.Shipments.Commands.DeleteShipment;
+using IRIS.BCK.Core.Application.Business.Shipments.Commands.UpdateShipments;
 using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetShipmentList;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -20,10 +22,24 @@ namespace IRIS.BCK.Api.Controllers.Shipment
             return Ok(shipments);
         }
 
-        [HttpPost(Name ="AddShipment")]
+        [HttpPost(Name = "AddShipment")]
         public async Task<ActionResult<CreateShipmentCommandResponse>> Create([FromBody] CreateShipmentCommand createShipmentCommand)
         {
             var response = await _mediator.Send(createShipmentCommand);
+            return Ok(response);
+        }
+
+        [HttpPost(Name = "UpdateShipment")]
+        public async Task<ActionResult<CreateShipmentCommandResponse>> UpdateShipment([FromBody] UpdateShipmentCommand updateShipmentCommand)
+        {
+            var response = await _mediator.Send(updateShipmentCommand);
+            return Ok(response);
+        }
+
+        [HttpPost(Name = "DeleteShipment")]
+        public async Task<ActionResult<CreateShipmentCommandResponse>> DeleteShipment([FromBody] DeleteShipmentCommand deleteShipmentCommand)
+        {
+            var response = await _mediator.Send(deleteShipmentCommand);
             return Ok(response);
         }
     }

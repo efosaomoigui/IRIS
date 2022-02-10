@@ -4,11 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IRIS.BCK.Core.Domain.EntityEnums
+namespace IRIS.BCK.Core.Application.Business.Shipments.Commands.UpdateShipment
 {
-    public enum TransactionType
+    class UpdateShipmentCommand
     {
-        Credit,
-        Debit
     }
 }

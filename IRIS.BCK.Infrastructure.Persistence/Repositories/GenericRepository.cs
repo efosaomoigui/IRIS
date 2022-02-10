@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using IRIS.BCK.Application.Interfaces.IRepository;
@@ -11,10 +12,12 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
         public IRISDbContext _dbContext { get; set; }
+        public DbSet<T> _db;
 
         public GenericRepository(IRISDbContext dbContext)
         {
             _dbContext = dbContext;
+            _db = dbContext.Set<T>();
         }
 
         public async Task<T> AddAsync(T entity)
@@ -32,6 +35,19 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories
         public async Task<T> GetByIdAsync(int id)
         {
             return await _dbContext.Set<T>().FindAsync(id);
+        }
+
+        public async Task<T> Get(Expression<Func<T, bool>> expression, List<string> includes = null)
+        {
+            IQueryable<T> query = _db;
+            if (includes != null)
+            {
+                foreach (var includeProperty in includes)
+                {
+                    query = query.Include(includeProperty);
+                }
+            }
+            return await query.AsNoTracking().FirstOrDefaultAsync(expression);
         }
 
         public async Task UpdateAsync(T entity)

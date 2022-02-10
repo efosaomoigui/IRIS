@@ -4,6 +4,7 @@ using IRIS.BCK.Core.Application.DTO.Account;
 using IRIS.BCK.Core.Application.DTO.Message.EmailMessage;
 using IRIS.BCK.Core.Application.Interfaces.IMessages.IEmail;
 using IRIS.BCK.Core.Application.Interfaces.IRepositories.IAccount;
+using IRIS.BCK.Core.Application.Interfaces.IRepositories.IWalletRepositories;
 using IRIS.BCK.Core.Application.Mappings.Users;
 using IRIS.BCK.Core.Application.Shared;
 using MediatR;
@@ -24,13 +25,15 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUser
         private readonly IEmailService _emailService;
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<AppRole> _roleManager;
+        private readonly IWalletRepository _walletRepository;
 
-        public CreateUserCommandHandler(IUserRepository userRepository, IMapper mapper, IEmailService emailService, UserManager<User> userManager)
+        public CreateUserCommandHandler(IUserRepository userRepository, IMapper mapper, IEmailService emailService, UserManager<User> userManager, IWalletRepository walletRepository)
         {
             _userRepository = userRepository;
             _mapper = mapper;
             _emailService = emailService;
             _userManager = userManager;
+            _walletRepository = walletRepository;
         }
 
         public async Task<CreateUserCommandResponse> Handle(CreateUserCommand request, CancellationToken cancellationToken)
@@ -64,9 +67,13 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUser
 
                 if (userExist == null)
                 {
+                    //generate last Wallet number
+                    var wallet = _walletRepository.GetWalletNumber();
+                    wallet = user.WalletNumber.ToString();
+
                     //generate a wallet number ---> getwallnumber
-                    var walletnumber = 0000000000;
-                    user.WalletNumber = walletnumber;
+                    //var walletnumber = 0000000000;
+                    //user.WalletNumber = walletnumber;
                     var result = await _userManager.CreateAsync(user, request.Password);
 
                     if (result.Succeeded)

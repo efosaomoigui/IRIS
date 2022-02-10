@@ -1,14 +1,13 @@
-﻿using IRIS.BCK.Application.DTO;
-using MediatR;
+﻿using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateShipment
+namespace IRIS.BCK.Core.Application.Business.Shipments.Commands.DeleteShipment
 {
-    public class CreateShipmentCommand : IRequest<CreateShipmentCommandResponse>
+    public class DeleteShipmentCommand : IRequest<DeleteShipmentCommandResponse>
     {
         public int Id { get; set; }
         public string waybill { get; set; }

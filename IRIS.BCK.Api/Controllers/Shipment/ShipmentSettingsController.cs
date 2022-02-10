@@ -6,6 +6,8 @@ using IRIS.BCK.Core.Application.Business.Price.Queries.GetSpecialDomesticZonePri
 using IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateFleets;
 using IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateRoutes;
 using IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateShipment;
+using IRIS.BCK.Core.Application.Business.Shipments.Commands.DeleteFleet;
+using IRIS.BCK.Core.Application.Business.Shipments.Commands.UpdateFleet;
 using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetFleets;
 using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetRoutes;
 using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetShipmentList;
@@ -59,6 +61,18 @@ namespace IRIS.BCK.Api.Controllers.Shipment
         public async Task<ActionResult<CreateFleetCommandResponse>> AddFleet([FromBody] CreateFleetCommand createFleetCommand)
         {
             var response = await _mediator.Send(createFleetCommand);
+            return Ok(response);
+        }
+
+        public async Task<ActionResult<CreateFleetCommandResponse>> UpdateFleet([FromBody] UpdateFleetCommand updateFleetCommand)
+        {
+            var response = await _mediator.Send(updateFleetCommand);
+            return Ok(response);
+        }
+
+        public async Task<ActionResult<CreateFleetCommandResponse>> DeleteFleet([FromBody] DeleteFleetCommand deleteFleetCommand)
+        {
+            var response = await _mediator.Send(deleteFleetCommand);
             return Ok(response);
         }
 
