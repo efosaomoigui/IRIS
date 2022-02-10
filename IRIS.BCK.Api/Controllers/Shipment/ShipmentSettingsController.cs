@@ -7,7 +7,9 @@ using IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateFleets;
 using IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateRoutes;
 using IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateShipment;
 using IRIS.BCK.Core.Application.Business.Shipments.Commands.DeleteFleet;
+using IRIS.BCK.Core.Application.Business.Shipments.Commands.DeleteRoute;
 using IRIS.BCK.Core.Application.Business.Shipments.Commands.UpdateFleet;
+using IRIS.BCK.Core.Application.Business.Shipments.Commands.UpdateRoute;
 using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetFleets;
 using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetRoutes;
 using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetShipmentList;
@@ -44,6 +46,20 @@ namespace IRIS.BCK.Api.Controllers.Shipment
         {
             var shipments = await _mediator.Send(new GetShipmentListQuery());
             return Ok(shipments);
+        }
+
+        [HttpPut("Route", Name = "EditRoute")]
+        public async Task<ActionResult<CreateRouteCommandResponse>> UpdateRoute([FromBody] UpdateRouteCommand updateRouteCommand)
+        {
+            var response = await _mediator.Send(updateRouteCommand);
+            return Ok(response);
+        }
+
+        [HttpDelete("Route", Name = "DeleteRoute")]
+        public async Task<ActionResult<CreateRouteCommandResponse>> DeleteRoute([FromBody] DeleteRouteCommand deleteRouteCommand)
+        {
+            var response = await _mediator.Send(deleteRouteCommand);
+            return Ok(response);
         }
 
         #endregion Route
