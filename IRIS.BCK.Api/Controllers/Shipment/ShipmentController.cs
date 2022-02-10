@@ -29,14 +29,14 @@ namespace IRIS.BCK.Api.Controllers.Shipment
             return Ok(response);
         }
 
-        [HttpPost(Name = "UpdateShipment")]
+        [HttpPut(Name = "UpdateShipment")]
         public async Task<ActionResult<CreateShipmentCommandResponse>> UpdateShipment([FromBody] UpdateShipmentCommand updateShipmentCommand)
         {
             var response = await _mediator.Send(updateShipmentCommand);
             return Ok(response);
         }
 
-        [HttpPost(Name = "DeleteShipment")]
+        [HttpDelete(Name = "DeleteShipment")]
         public async Task<ActionResult<CreateShipmentCommandResponse>> DeleteShipment([FromBody] DeleteShipmentCommand deleteShipmentCommand)
         {
             var response = await _mediator.Send(deleteShipmentCommand);

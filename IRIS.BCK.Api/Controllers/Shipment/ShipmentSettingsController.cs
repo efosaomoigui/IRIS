@@ -64,12 +64,14 @@ namespace IRIS.BCK.Api.Controllers.Shipment
             return Ok(response);
         }
 
+        [HttpPut("Fleet", Name = "EditFleet")]
         public async Task<ActionResult<CreateFleetCommandResponse>> UpdateFleet([FromBody] UpdateFleetCommand updateFleetCommand)
         {
             var response = await _mediator.Send(updateFleetCommand);
             return Ok(response);
         }
 
+        [HttpDelete("Fleet", Name = "DeleteFleet")]
         public async Task<ActionResult<CreateFleetCommandResponse>> DeleteFleet([FromBody] DeleteFleetCommand deleteFleetCommand)
         {
             var response = await _mediator.Send(deleteFleetCommand);
