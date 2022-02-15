@@ -4,6 +4,7 @@ using IRIS.BCK.Application.Interfaces.IRepository.IShipmentRepositories;
 using IRIS.BCK.Core.Application.DTO.Message;
 using IRIS.BCK.Core.Application.DTO.Message.EmailMessage;
 using IRIS.BCK.Core.Application.Interfaces.IMessages.IEmail;
+using IRIS.BCK.Core.Application.Mappings.Shipments;
 using IRIS.BCK.Core.Domain.Entities.ShimentEntities;
 using MediatR;
 using System;
@@ -15,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateShipment
 {
-    class CreateShipmentCommandHandler : IRequestHandler<CreateShipmentCommand, CreateShipmentCommandResponse>
+    internal class CreateShipmentCommandHandler : IRequestHandler<CreateShipmentCommand, CreateShipmentCommandResponse>
     {
         private readonly IShipmentRepository _shipmentRepository;
         private readonly IMapper _mapper;
@@ -55,7 +56,7 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateShipment
 
             if (CreateShipmentCommandResponse.Success)
             {
-                var shipment = _mapper.Map<Shipment>(request);
+                var shipment = ShipmentMapsCommand.CreateShipmentMapsCommand(request);
                 shipment = await _shipmentRepository.AddAsync(shipment);
 
                 try
@@ -74,10 +75,6 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateShipment
 
             CreateShipmentCommandResponse.Shipmentdto = new ShipmentDto();
             return CreateShipmentCommandResponse;
-
-
         }
-
     }
 }
-    

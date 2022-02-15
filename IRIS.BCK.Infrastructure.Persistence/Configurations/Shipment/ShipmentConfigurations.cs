@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace IRIS.BCK.Infrastructure.Persistence.Configurations
 {
-    class ShipmentConfigurations : IEntityTypeConfiguration<Shipment>
+    internal class ShipmentConfigurations : IEntityTypeConfiguration<Shipment>
     {
         public void Configure(EntityTypeBuilder<Shipment> builder)
         {
-            builder.Property(e => e.Id)
+            builder.Property(e => e.ShipmentId)
                 .IsRequired()
-                .HasMaxLength(100); 
+                .HasMaxLength(100);
         }
     }
 }

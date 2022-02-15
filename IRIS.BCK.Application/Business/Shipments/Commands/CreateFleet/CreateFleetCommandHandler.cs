@@ -21,9 +21,9 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateFleets
         private readonly IMapper _mapper;
         private readonly IEmailService _emailService;
 
-        public CreateFleetCommandHandler(IFleetRepository routeRepository, IMapper mapper, IEmailService emailService)
+        public CreateFleetCommandHandler(IFleetRepository fleetRepository, IMapper mapper, IEmailService emailService)
         {
-            _fleetRepository = routeRepository;
+            _fleetRepository = fleetRepository;
             _mapper = mapper;
             _emailService = emailService;
         }

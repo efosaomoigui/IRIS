@@ -32,7 +32,7 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Shipments
 
         public async Task<Shipment> Get(int id)
         {
-            return await Get(x => x.Id == id);
+            return await Get(x => x.ShipmentId == id);
         }
     }
 }

@@ -15,28 +15,28 @@ namespace IRIS.BCK.Api.Controllers.Shipment
 {
     public class ShipmentController : BaseApiController
     {
-        [HttpGet("all", Name = "GetAllShipments")]
+        [HttpGet("Shipment/all", Name = "GetAllShipments")]
         public async Task<ActionResult<List<ShipmentListViewModel>>> GetAllShipments()
         {
             var shipments = await _mediator.Send(new GetShipmentListQuery());
             return Ok(shipments);
         }
 
-        [HttpPost(Name = "AddShipment")]
+        [HttpPost("Shipment", Name = "AddShipment")]
         public async Task<ActionResult<CreateShipmentCommandResponse>> Create([FromBody] CreateShipmentCommand createShipmentCommand)
         {
             var response = await _mediator.Send(createShipmentCommand);
             return Ok(response);
         }
 
-        [HttpPut(Name = "UpdateShipment")]
+        [HttpPut("Shipment", Name = "UpdateShipment")]
         public async Task<ActionResult<CreateShipmentCommandResponse>> UpdateShipment([FromBody] UpdateShipmentCommand updateShipmentCommand)
         {
             var response = await _mediator.Send(updateShipmentCommand);
             return Ok(response);
         }
 
-        [HttpDelete(Name = "DeleteShipment")]
+        [HttpDelete("Shipment", Name = "DeleteShipment")]
         public async Task<ActionResult<CreateShipmentCommandResponse>> DeleteShipment([FromBody] DeleteShipmentCommand deleteShipmentCommand)
         {
             var response = await _mediator.Send(deleteShipmentCommand);

@@ -37,7 +37,6 @@
 
   <ItemGroup>
     <Folder Include="Business\Finance\" />
-    <Folder Include="Business\Shipments\Commands\DeleteRoute\" />
     <Folder Include="Business\Wallet\Queries\GetWalletNumberQuery\" />
     <Folder Include="Business\Wallet\Queries\GetWalletListQuery\" />
     <Folder Include="Business\Wallet\Queries\GetWalletTransactionListQuery\" />

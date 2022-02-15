@@ -23,4 +23,9 @@
     <ProjectReference Include="..\IRIS.BCK.Infrastructure.Persistence\IRIS.BCK.Infrastructure.Persistence.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\Monitoring\" />
+    <Folder Include="Controllers\Payment\" />
+  </ItemGroup>
+
 </Project>

@@ -119,6 +119,7 @@ namespace IRIS.BCK.Api
             services.AddScoped<IWalletRepository, WalletRepository>();
             services.AddScoped<IFleetRepository, FleetRepository>();
             services.AddScoped<IWalletTransactionRepository, WalletTransactionRepository>();
+            services.AddScoped<IPriceEntRepository, PriceEntRepository>();
             services.AddScoped<ISpecialDomesticZonePriceRepository, SpecialDomesticZonePriceRepository>();
             services.AddIdentity<User, AppRole>(options =>
             {

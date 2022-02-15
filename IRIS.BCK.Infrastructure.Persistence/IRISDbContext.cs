@@ -1,5 +1,6 @@
 ﻿using IRIS.BCK.Core.Application.Business.Accounts.AccountEntities;
 using IRIS.BCK.Core.Domain.Entities.FleetEntities;
+using IRIS.BCK.Core.Domain.Entities.PriceEntities;
 using IRIS.BCK.Core.Domain.Entities.RouteEntities;
 using IRIS.BCK.Core.Domain.Entities.ShimentEntities;
 using IRIS.BCK.Core.Domain.Entities.WalletEntities;
@@ -28,6 +29,7 @@ namespace IRIS.BCK.Infrastructure.Persistence
         public DbSet<Fleet> Fleet { get; set; }
         public DbSet<WalletNumber> WalletNumber { get; set; }
         public DbSet<WalletTransaction> WalletTransaction { get; set; }
+        public DbSet<PriceEnt> PriceEnt { get; set; }
 
         public DbSet<AppRoleClaim> RoleClaim { get; set; }
 

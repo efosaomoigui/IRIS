@@ -12,7 +12,7 @@ namespace IRIS.BCK.Core.Application.Mappings.Settings
             return new Fleet
             {
                 Capacity = request.Capacity,
-                ChassisNumber = request.ChassisNumber,
+                ChasisNumber = request.ChassisNumber,
                 OwnerId = request.OwnerId,
                 Description = request.Description,
                 EngineNumber = request.EngineNumber,

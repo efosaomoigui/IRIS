@@ -4,6 +4,8 @@ using IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUser;
 using IRIS.BCK.Core.Application.Business.Accounts.Queries.GetRoles;
 using IRIS.BCK.Core.Application.Business.Accounts.Queries.GetShipmentList;
 using IRIS.BCK.Core.Application.Business.Fleets.Queries;
+using IRIS.BCK.Core.Application.Business.Price.Commands.CreatePrice;
+using IRIS.BCK.Core.Application.Business.Price.Queries.GetPrice;
 using IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateFleets;
 using IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateRoutes;
 using IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateShipment;
@@ -13,10 +15,12 @@ using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetShipmentList;
 using IRIS.BCK.Core.Application.Business.Wallet.Queries.GetWalletByWalletNumberQuery;
 using IRIS.BCK.Core.Application.DTO.Account;
 using IRIS.BCK.Core.Application.DTO.Fleets;
+using IRIS.BCK.Core.Application.DTO.Price;
 using IRIS.BCK.Core.Application.DTO.Routes;
 using IRIS.BCK.Core.Application.DTO.Wallet;
 using IRIS.BCK.Core.Domain.Entities;
 using IRIS.BCK.Core.Domain.Entities.FleetEntities;
+using IRIS.BCK.Core.Domain.Entities.PriceEntities;
 using IRIS.BCK.Core.Domain.Entities.RouteEntities;
 using IRIS.BCK.Core.Domain.Entities.ShimentEntities;
 using IRIS.BCK.Core.Domain.Entities.WalletEntities;
@@ -54,6 +58,12 @@ namespace IRIS.BCK.Core.Application.Mappings
             CreateMap<CreateFleetCommand, Fleet>();
             CreateMap<Fleet, CreateFleetCommand>();
 
+            CreateMap<CreatePriceCommand, PriceEnt>();
+            CreateMap<PriceEnt, CreatePriceCommand>();
+
+            CreateMap<PriceEnt, PriceListViewModel>();
+            CreateMap<User, UserListViewModel>();
+
             CreateMap<Fleet, FleetListViewModel>();
             CreateMap<User, UserListViewModel>();
 
@@ -80,6 +90,9 @@ namespace IRIS.BCK.Core.Application.Mappings
 
             CreateMap<FleetDto, Fleet>();
             CreateMap<Fleet, FleetDto>();
+
+            CreateMap<PriceDto, PriceEnt>();
+            CreateMap<PriceEnt, PriceDto>();
         }
     }
 }

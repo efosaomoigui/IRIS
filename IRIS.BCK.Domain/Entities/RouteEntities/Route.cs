@@ -12,7 +12,7 @@ namespace IRIS.BCK.Core.Domain.Entities.RouteEntities
     {
         public int RouteId { get; set; }
 
-        public string RouteName { get; set; }
+        public string RouteName { get; set; } 
 
         public string Departure { get; set; }
 

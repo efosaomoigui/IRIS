@@ -17,16 +17,56 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateShipment
         {
             _ShipmentRepository = shipmentRepository;
 
-            RuleFor(p => p.waybill)
+            RuleFor(p => p.ShipmentItems)
                 .NotEmpty().WithMessage("{PropertyName} is required")
                 .NotNull();
 
-            RuleFor(p => p.FirstName)
+            RuleFor(p => p.breadth)
                 .NotEmpty().WithMessage("{PropertyName} is required")
                 .NotNull();
 
-            RuleFor(p => p.waybill) // Custom Validation for unique waybills
+            RuleFor(p => p.Waybill) // Custom Validation for unique waybills
                 .MustAsync(CheckUniqueWaybillNumber).WithMessage("{PropertyName} must be unique");
+
+            RuleFor(p => p.Customer)
+                .NotEmpty().WithMessage("{PropertyName} is required")
+                .NotNull();
+
+            RuleFor(p => p.CustomerAddress)
+                .NotEmpty().WithMessage("{PropertyName} is required")
+                .NotNull();
+
+            RuleFor(p => p.DeclarationOfValueCheck)
+                .NotEmpty().WithMessage("{PropertyName} is required")
+                .NotNull();
+
+            RuleFor(p => p.DimensionUnit)
+                .NotEmpty().WithMessage("{PropertyName} is required")
+                .NotNull();
+            RuleFor(p => p.Height)
+                .NotEmpty().WithMessage("{PropertyName} is required")
+                .NotNull();
+            RuleFor(p => p.IsdeclaredVal)
+                .NotEmpty().WithMessage("{PropertyName} is required")
+                .NotNull();
+            RuleFor(p => p.IsWeightEstimated)
+                .NotEmpty().WithMessage("{PropertyName} is required")
+                .NotNull();
+            RuleFor(p => p.ItemsWeight)
+                .NotEmpty().WithMessage("{PropertyName} is required")
+                .NotNull();
+            RuleFor(p => p.length)
+                .NotEmpty().WithMessage("{PropertyName} is required")
+                .NotNull();
+            RuleFor(p => p.PickupOptions)
+                .NotEmpty().WithMessage("{PropertyName} is required")
+                .NotNull();
+            RuleFor(p => p.Reciever)
+                .NotEmpty().WithMessage("{PropertyName} is required")
+                .NotNull();
+            RuleFor(p => p.RecieverAddress)
+                .NotEmpty().WithMessage("{PropertyName} is required")
+                .NotNull();
         }
 
         //implement custom error checks using methods here
