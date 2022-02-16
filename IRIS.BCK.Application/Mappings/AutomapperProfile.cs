@@ -6,6 +6,7 @@ using IRIS.BCK.Core.Application.Business.Accounts.Queries.GetShipmentList;
 using IRIS.BCK.Core.Application.Business.Fleets.Queries;
 using IRIS.BCK.Core.Application.Business.Price.Commands.CreatePrice;
 using IRIS.BCK.Core.Application.Business.Price.Queries.GetPrice;
+using IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateCollectionCenter;
 using IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateFleets;
 using IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateRoutes;
 using IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateShipment;
@@ -17,12 +18,14 @@ using IRIS.BCK.Core.Application.DTO.Account;
 using IRIS.BCK.Core.Application.DTO.Fleets;
 using IRIS.BCK.Core.Application.DTO.Price;
 using IRIS.BCK.Core.Application.DTO.Routes;
+using IRIS.BCK.Core.Application.DTO.Shipments;
 using IRIS.BCK.Core.Application.DTO.Wallet;
 using IRIS.BCK.Core.Domain.Entities;
 using IRIS.BCK.Core.Domain.Entities.FleetEntities;
 using IRIS.BCK.Core.Domain.Entities.PriceEntities;
 using IRIS.BCK.Core.Domain.Entities.RouteEntities;
 using IRIS.BCK.Core.Domain.Entities.ShimentEntities;
+using IRIS.BCK.Core.Domain.Entities.ShipmentEntities;
 using IRIS.BCK.Core.Domain.Entities.WalletEntities;
 using MediatR;
 using System;
@@ -42,6 +45,9 @@ namespace IRIS.BCK.Core.Application.Mappings
 
             CreateMap<CreateShipmentCommand, Shipment>();
             CreateMap<Shipment, CreateShipmentCommand>();
+
+            CreateMap<CreateCollectionCenterCommand, CollectionCenter>();
+            CreateMap<CollectionCenter, CreateCollectionCenterCommand>();
 
             CreateMap<WalletNumberDto, WalletNumber>();
             CreateMap<WalletNumber, WalletNumberDto>();
@@ -65,6 +71,9 @@ namespace IRIS.BCK.Core.Application.Mappings
             CreateMap<User, UserListViewModel>();
 
             CreateMap<Fleet, FleetListViewModel>();
+            CreateMap<User, UserListViewModel>();
+
+            CreateMap<CollectionCenter, FleetListViewModel>();
             CreateMap<User, UserListViewModel>();
 
             CreateMap<User, UserDto>();
@@ -93,6 +102,9 @@ namespace IRIS.BCK.Core.Application.Mappings
 
             CreateMap<PriceDto, PriceEnt>();
             CreateMap<PriceEnt, PriceDto>();
+
+            CreateMap<CollectionCenterDto, CollectionCenter>();
+            CreateMap<CollectionCenter, CollectionCenterDto>();
         }
     }
 }

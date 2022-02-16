@@ -3,6 +3,7 @@ using IRIS.BCK.Core.Domain.Entities.FleetEntities;
 using IRIS.BCK.Core.Domain.Entities.PriceEntities;
 using IRIS.BCK.Core.Domain.Entities.RouteEntities;
 using IRIS.BCK.Core.Domain.Entities.ShimentEntities;
+using IRIS.BCK.Core.Domain.Entities.ShipmentEntities;
 using IRIS.BCK.Core.Domain.Entities.WalletEntities;
 using IRIS.BCK.Domain.Common;
 using Microsoft.AspNetCore.Identity;
@@ -32,6 +33,7 @@ namespace IRIS.BCK.Infrastructure.Persistence
         public DbSet<PriceEnt> PriceEnt { get; set; }
 
         public DbSet<AppRoleClaim> RoleClaim { get; set; }
+        public DbSet<CollectionCenter> CollectionCenter { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -1,7 +1,11 @@
 ﻿using IRIS.BCK.Application.DTO;
+using IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateCollectionCenter;
 using IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateShipment;
+using IRIS.BCK.Core.Application.Business.Shipments.Commands.DeleteCollectionCenter;
 using IRIS.BCK.Core.Application.Business.Shipments.Commands.DeleteShipment;
+using IRIS.BCK.Core.Application.Business.Shipments.Commands.UpdateCollectionCenter;
 using IRIS.BCK.Core.Application.Business.Shipments.Commands.UpdateShipments;
+using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetCollectionCenter;
 using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetShipmentList;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -42,5 +46,37 @@ namespace IRIS.BCK.Api.Controllers.Shipment
             var response = await _mediator.Send(deleteShipmentCommand);
             return Ok(response);
         }
+
+        #region CollectionCenter
+
+        [HttpGet("CollectionCenter/all", Name = "GetAllCollectionCenter")]
+        public async Task<ActionResult<List<CollectionCenterListViewModel>>> GetAllCollectionCenter()
+        {
+            var center = await _mediator.Send(new GetCollectionCenterQuery());
+            return Ok(center);
+        }
+
+        [HttpPost("CollectionCenter", Name = "AddCollectionCenter")]
+        public async Task<ActionResult<CreateCollectionCenterCommandResponse>> Create([FromBody] CreateCollectionCenterCommand createCollectionCenterCommand)
+        {
+            var response = await _mediator.Send(createCollectionCenterCommand);
+            return Ok(response);
+        }
+
+        [HttpPut("CollectionCenter", Name = "UpdateCollectionCenter")]
+        public async Task<ActionResult<UpdateCollectionCenterCommandResponse>> UpdateShipment([FromBody] UpdateCollectionCenterCommand updateCollectionCenterCommand)
+        {
+            var response = await _mediator.Send(updateCollectionCenterCommand);
+            return Ok(response);
+        }
+
+        [HttpDelete("CollectionCenter", Name = "DeleteCollectionCenter")]
+        public async Task<ActionResult<CreateCollectionCenterCommandResponse>> DeleteCollectionCenter([FromBody] DeleteCollectionCenterCommand deleteCollectionCenterCommand)
+        {
+            var response = await _mediator.Send(deleteCollectionCenterCommand);
+            return Ok(response);
+        }
+
+        #endregion CollectionCenter
     }
 }
