@@ -1,5 +1,6 @@
 ﻿using IRIS.BCK.Core.Application.Business.Accounts.AccountEntities;
 using IRIS.BCK.Core.Domain.Entities.FleetEntities;
+using IRIS.BCK.Core.Domain.Entities.PaymentEntities;
 using IRIS.BCK.Core.Domain.Entities.PriceEntities;
 using IRIS.BCK.Core.Domain.Entities.RouteEntities;
 using IRIS.BCK.Core.Domain.Entities.ShimentEntities;
@@ -34,6 +35,7 @@ namespace IRIS.BCK.Infrastructure.Persistence
 
         public DbSet<AppRoleClaim> RoleClaim { get; set; }
         public DbSet<CollectionCenter> CollectionCenter { get; set; }
+        public DbSet<Payments> Payments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
