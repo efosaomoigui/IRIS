@@ -1,5 +1,6 @@
 ﻿using GIGLS.Core.Enums;
 using IRIS.BCK.Application.DTO;
+using IRIS.BCK.Core.Domain.Entities.AddressEntities;
 using IRIS.BCK.Core.Domain.EntityEnums;
 using MediatR;
 using System;

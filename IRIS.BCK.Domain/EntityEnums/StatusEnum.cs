@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace IRIS.BCK.Core.Domain.EntityEnums
 {
-    public enum PaymentMethod
+    public enum StatusEnum
     {
-        Wallet,
-        Cash,
-        Transfer
+        Paid,
+        Pending
     }
 }

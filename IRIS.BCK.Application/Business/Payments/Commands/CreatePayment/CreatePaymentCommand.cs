@@ -11,10 +11,12 @@ namespace IRIS.BCK.Core.Application.Business.Payments.Commands.CreatePayment
 {
     public class CreatePaymentCommand : IRequest<CreatePaymentCommandResponse>
     {
+        public Guid Id { get; set; }
         public string InvoiceCode { get; set; }
-        public int ShipmentId { get; set; }
+
+        public Guid ShipmentId { get; set; }
         public Shipment Shipment { get; set; }
-        public PaymentMethod PaymentMethod { get; set; }
-        public bool Status { get; set; }
+        public PaymentMethod PaymentMethod { get; set; } //wallet, Cash, Transfer
+        public StatusEnum Status { get; set; } // paid/pending
     }
 }

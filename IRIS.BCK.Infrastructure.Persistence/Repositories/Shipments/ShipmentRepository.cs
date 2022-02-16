@@ -24,15 +24,5 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Shipments
         {
             return true;
         }
-
-        public Task DeleteAsync(Shipment shipment)
-        {
-            return DeleteAsync(shipment);
-        }
-
-        public async Task<Shipment> Get(int id)
-        {
-            return await Get(x => x.ShipmentId == id);
-        }
     }
 }

@@ -11,10 +11,11 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateCollection
 {
     public class CreateCollectionCenterCommand : IRequest<CreateCollectionCenterCommandResponse>
     {
-        public int ShipmentId { get; set; }
+        public Guid Id { get; set; }
+        public Guid ShipmentId { get; set; }
 
-        public Shipment Shipment { get; set; }
-        public bool CollectionStatus { get; set; }
+        public virtual Shipment Shipment { get; set; }
+        public CollectionCenterEnum CollectionStatus { get; set; }
         public User UserId { get; set; }
     }
 }

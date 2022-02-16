@@ -1,4 +1,5 @@
 ﻿using GIGLS.Core.Enums;
+using IRIS.BCK.Core.Domain.Entities.AddressEntities;
 using IRIS.BCK.Core.Domain.EntityEnums;
 using IRIS.BCK.Domain.Common;
 using System;
@@ -11,7 +12,7 @@ namespace IRIS.BCK.Core.Domain.Entities.ShimentEntities
 {
     public class Shipment : Auditable
     {
-        public int ShipmentId { get; set; }
+        public Guid ShipmentId { get; set; }
         public string Waybill { get; set; }
 
         //Customer Information

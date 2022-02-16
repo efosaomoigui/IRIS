@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 
 namespace IRIS.BCK.Core.Domain.Entities.PaymentEntities
 {
-    public class Payments : Auditable
+    public class Payment : Auditable
     {
-        //public GUID Id { get; set; }
+        public Guid Id { get; set; }
         public string InvoiceCode { get; set; }
 
-        public int ShipmentId { get; set; }
-        public Shipment Shipment { get; set; }
+        public Guid ShipmentId { get; set; }
+        public virtual Shipment Shipment { get; set; }
         public PaymentMethod PaymentMethod { get; set; } //wallet, Cash, Transfer
-        public bool Status { get; set; } // paid/pending
+        public StatusEnum Status { get; set; } // paid/pending
     }
 }

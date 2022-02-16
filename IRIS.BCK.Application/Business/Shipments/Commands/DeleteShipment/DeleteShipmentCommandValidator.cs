@@ -16,7 +16,7 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Commands.DeleteShipment
         {
             _ShipmentRepository = shipmentRepository;
 
-            RuleFor(p => p.Id)
+            RuleFor(p => p.ShipmentId)
                 .NotEmpty().WithMessage("{PropertyName} is required")
                 .NotNull();
         }

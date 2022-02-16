@@ -11,9 +11,5 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Commands.DeleteCollection
     public class DeleteCollectionCenterCommand
     {
         public int ShipmentId { get; set; }
-
-        public Shipment Shipment { get; set; }
-        public bool CollectionStatus { get; set; }
-        public User UserId { get; set; }
     }
 }

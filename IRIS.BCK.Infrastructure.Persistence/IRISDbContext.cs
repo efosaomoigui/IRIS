@@ -35,7 +35,7 @@ namespace IRIS.BCK.Infrastructure.Persistence
 
         public DbSet<AppRoleClaim> RoleClaim { get; set; }
         public DbSet<CollectionCenter> CollectionCenter { get; set; }
-        public DbSet<Payments> Payments { get; set; }
+        public DbSet<Payment> Payment { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

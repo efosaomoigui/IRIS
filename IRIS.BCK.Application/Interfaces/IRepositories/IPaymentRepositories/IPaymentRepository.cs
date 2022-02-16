@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace IRIS.BCK.Core.Application.Interfaces.IRepositories.IPaymentRepositories
 {
-    public interface IPaymentRepository : IGenericRepository<Payments>
+    public interface IPaymentRepository : IGenericRepository<Payment>
     {
     }
 }

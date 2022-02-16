@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Payment
 {
-    public class PaymentRepository : GenericRepository<Payments>, IPaymentRepository
+    public class PaymentRepository : GenericRepository<Core.Domain.Entities.PaymentEntities.Payment>, IPaymentRepository
     {
         public PaymentRepository(IRISDbContext dbContext) : base(dbContext)
         {

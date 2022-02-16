@@ -39,7 +39,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Business\Payments\Queries\GetPayment\" />
+    <Folder Include="Business\Payments\NewFolder\" />
     <Folder Include="Business\Wallet\Queries\GetWalletNumberQuery\" />
     <Folder Include="Business\Wallet\Queries\GetWalletListQuery\" />
     <Folder Include="Business\Wallet\Queries\GetWalletTransactionListQuery\" />

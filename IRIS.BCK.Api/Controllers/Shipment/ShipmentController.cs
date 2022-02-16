@@ -33,15 +33,15 @@ namespace IRIS.BCK.Api.Controllers.Shipment
             return Ok(response);
         }
 
-        [HttpPut("Shipment", Name = "UpdateShipment")]
+        [HttpPut("Shipment/edit", Name = "UpdateShipment")]
         public async Task<ActionResult<CreateShipmentCommandResponse>> UpdateShipment([FromBody] UpdateShipmentCommand updateShipmentCommand)
         {
             var response = await _mediator.Send(updateShipmentCommand);
             return Ok(response);
         }
 
-        [HttpDelete("Shipment", Name = "DeleteShipment")]
-        public async Task<ActionResult<CreateShipmentCommandResponse>> DeleteShipment([FromBody] DeleteShipmentCommand deleteShipmentCommand)
+        [HttpDelete("Shipment/delete", Name = "DeleteShipment")]
+        public async Task<ActionResult<DeleteShipmentCommandResponse>> DeleteShipment([FromBody] DeleteShipmentCommand deleteShipmentCommand)
         {
             var response = await _mediator.Send(deleteShipmentCommand);
             return Ok(response);
@@ -63,14 +63,14 @@ namespace IRIS.BCK.Api.Controllers.Shipment
             return Ok(response);
         }
 
-        [HttpPut("CollectionCenter", Name = "UpdateCollectionCenter")]
-        public async Task<ActionResult<UpdateCollectionCenterCommandResponse>> UpdateShipment([FromBody] UpdateCollectionCenterCommand updateCollectionCenterCommand)
+        [HttpPut("CollectionCenter/edit", Name = "UpdateCollectionCenter")]
+        public async Task<ActionResult<UpdateCollectionCenterCommandResponse>> UpdateCollectionCenter([FromBody] UpdateCollectionCenterCommand updateCollectionCenterCommand)
         {
             var response = await _mediator.Send(updateCollectionCenterCommand);
             return Ok(response);
         }
 
-        [HttpDelete("CollectionCenter", Name = "DeleteCollectionCenter")]
+        [HttpDelete("CollectionCenter/delete", Name = "DeleteCollectionCenter")]
         public async Task<ActionResult<CreateCollectionCenterCommandResponse>> DeleteCollectionCenter([FromBody] DeleteCollectionCenterCommand deleteCollectionCenterCommand)
         {
             var response = await _mediator.Send(deleteCollectionCenterCommand);

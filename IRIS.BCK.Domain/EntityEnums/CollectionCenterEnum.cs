@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace IRIS.BCK.Core.Domain.EntityEnums
 {
-    public enum Address
+    public enum CollectionCenterEnum
     {
-        regular
+        Collected,
+        AwaitingCollection,
+        Processing
     }
 }

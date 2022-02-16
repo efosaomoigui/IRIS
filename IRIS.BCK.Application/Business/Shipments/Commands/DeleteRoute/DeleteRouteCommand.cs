@@ -9,6 +9,6 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Commands.DeleteRoute
 {
     public class DeleteRouteCommand : IRequest<DeleteRouteCommandResponse>
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
     }
 }

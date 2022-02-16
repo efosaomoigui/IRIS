@@ -54,7 +54,7 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Commands.DeleteShipment
 
             if (DeleteShipmentCommandResponse.Success)
             {
-                var deleteShipment = await _shipmentRepository.Get(x => x.ShipmentId == request.Id);
+                var deleteShipment = await _shipmentRepository.Get(x => x.ShipmentId == request.ShipmentId);
                 if (deleteShipment == null) return DeleteShipmentCommandResponse;
 
                 await _shipmentRepository.DeleteAsync(deleteShipment);

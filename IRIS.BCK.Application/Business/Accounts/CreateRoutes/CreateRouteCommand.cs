@@ -10,7 +10,7 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateRoutes
 {
     public class CreateRouteCommand : IRequest<CreateRouteCommandResponse>
     {
-        public int RouteId { get; set; }
+        public Guid RouteId { get; set; }
 
         public string RouteName { get; set; }
 

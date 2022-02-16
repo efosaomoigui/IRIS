@@ -11,15 +11,14 @@ namespace IRIS.BCK.Core.Domain.Entities.PriceEntities
 {
     public class PriceEnt : Auditable
     {
-        //public GUID Id { get; set; }
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         public PriceCategory Category { get; set; }
 
-        public int RouteId { get; set; }
+        public Guid RouteId { get; set; }
 
-        public Route Route { get; set; }
-        public int UnitWeight { get; set; }
+        public virtual Route Route { get; set; }
+        public decimal UnitWeight { get; set; }
         public decimal PricePerUnit { get; set; }
     }
 }
