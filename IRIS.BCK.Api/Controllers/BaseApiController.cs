@@ -17,6 +17,18 @@ namespace IRIS.BCK.Api.Controllers
         private IMediator mediator;
 
         protected IMediator _mediator => mediator ??= HttpContext.RequestServices.GetService<IMediator>();  
+
+        protected ActionResult HandleQueryResult<T>(T result) where T:class 
+        {
+            if (result != null) return Ok(result);
+            return BadRequest(result);
+        }
+
+        protected ActionResult HandleCommandResult<T>(T result) where T : Application.Responses.BaseResponse
+        {
+            if (result.Success) return Ok(result.ValidationErrors);
+            return BadRequest(result);
+        }
     }
 
 }

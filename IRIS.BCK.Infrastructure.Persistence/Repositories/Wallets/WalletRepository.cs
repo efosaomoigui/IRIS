@@ -19,5 +19,12 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Wallets
         {
             return true;
         }
+
+        public Task<bool> GetLastWalletNumber()
+        {
+            throw new NotImplementedException();
+        }
+
+
     }
 }

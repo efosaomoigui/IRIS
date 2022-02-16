@@ -17,14 +17,16 @@ namespace IRIS.BCK.Api.Controllers.Shipment
         public async Task<ActionResult<List<ShipmentListViewModel>>> GetAllShipments()
         {
             var shipments = await _mediator.Send(new GetShipmentListQuery());
-            return Ok(shipments);
+            return HandleQueryResult(shipments);
+            //return Ok(shipments);
         }
 
         [HttpPost(Name ="AddShipment")]
         public async Task<ActionResult<CreateShipmentCommandResponse>> Create([FromBody] CreateShipmentCommand createShipmentCommand)
         {
             var response = await _mediator.Send(createShipmentCommand);
-            return Ok(response);
+            return HandleCommandResult(response);
+            //return Ok(response);
         }
     }
 }

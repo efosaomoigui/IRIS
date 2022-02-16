@@ -11,5 +11,6 @@ namespace IRIS.BCK.Core.Application.Interfaces.IRepositories.IWalletRepositories
     public interface IWalletRepository : IGenericRepository<WalletNumber>
     {
         Task<bool> CheckUniqueWalletNumber(string walletNumber);
+        Task<bool> GetLastWalletNumber(); 
     }
 }

@@ -13,7 +13,6 @@ namespace IRIS.BCK.Core.Application.Business.Wallet.Commands.CreateWalletTransac
         public int WaybillTransactionId { get; set; }
         public string Amount { get; set; }
         public TransactionType TransactionType { get; set; }
-
         public string UserId { get; set; }
         public string WalletNumber { get; set; }
     }
