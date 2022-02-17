@@ -2,6 +2,7 @@
 using IRIS.BCK.Domain.Common;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +11,9 @@ namespace IRIS.BCK.Core.Domain.Entities.AddressEntities
 {
     public class Address : Auditable
     {
+        [Key]
         public Guid AddressId { get; set; }
+
         public User User { get; set; }
         public string StreetName { get; set; }
         public string City { get; set; }

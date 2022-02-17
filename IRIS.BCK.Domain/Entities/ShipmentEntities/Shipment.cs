@@ -18,7 +18,7 @@ namespace IRIS.BCK.Core.Domain.Entities.ShimentEntities
         //Customer Information
         public User Customer { get; set; }
 
-        public Address AddressId { get; set; }
+        public Guid AddressId { get; set; }
         public Address CustomerAddress { get; set; }
 
         //Receivers Information

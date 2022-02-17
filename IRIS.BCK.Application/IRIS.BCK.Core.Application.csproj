@@ -45,6 +45,7 @@
     <Folder Include="Business\Wallet\Queries\GetWalletTransactionListQuery\" />
     <Folder Include="Business\Wallet\Queries\GetLastWalletNumberQuery\" />
     <Folder Include="DTO\Files\Pdf\" />
+    <Folder Include="DTO\ShipmentProcessing\" />
     <Folder Include="Interfaces\IFiles\IPdf\" />
     <Folder Include="Interfaces\IMessages\ISms\" />
     <Folder Include="Interfaces\IMessages\INotification\" />
@@ -52,6 +53,7 @@
     <Folder Include="Interfaces\IThirdPartyServices\IPaymentProviders\IInterSwitch\" />
     <Folder Include="Interfaces\IThirdPartyServices\IPaymentProviders\IStripe\" />
     <Folder Include="Interfaces\IThirdPartyServices\OtherLogisticsPlatforms\" />
+    <Folder Include="Mappings\ShipmentProcessing\" />
     <Folder Include="Messages\SMSMessage\" />
   </ItemGroup>
 

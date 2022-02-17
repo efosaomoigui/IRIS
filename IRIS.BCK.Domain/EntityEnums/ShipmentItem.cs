@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace IRIS.BCK.Core.Domain.EntityEnums
 {
-    public enum ShipmentItem
+    public class ShipmentItem
     {
-        regular
     }
 }
