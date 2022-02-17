@@ -55,7 +55,6 @@ namespace IRIS.BCK.Core.Application.Business.Payments.Commands.CreatePayment
             if (CreatePaymentCommandResponse.Success)
             {
                 var payment = PaymentMapsCommand.CreatePaymentMapsCommand(request);
-                //var fleet = _mapper.Map<Fleet>(request);
                 payment = await _paymentRepository.AddAsync(payment);
 
                 try

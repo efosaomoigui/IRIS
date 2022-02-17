@@ -16,21 +16,14 @@ namespace IRIS.BCK.Core.Application.Mappings.Shipments
             return new Shipment
             {
                 AddressId = request.AddressId,
-                breadth = request.breadth,
                 Customer = request.Customer,
                 CustomerAddress = request.CustomerAddress,
-                DeclarationOfValueCheck = request.DeclarationOfValueCheck,
-                DimensionUnit = request.DimensionUnit,
-                Height = request.Height,
-                IsdeclaredVal = request.IsdeclaredVal,
-                IsWeightEstimated = request.IsWeightEstimated,
-                ItemsWeight = request.ItemsWeight,
-                length = request.length,
                 PickupOptions = request.PickupOptions,
                 Reciever = request.Reciever,
                 RecieverAddress = request.RecieverAddress,
                 ShipmentItems = request.ShipmentItems,
-                Waybill = request.Waybill
+                Waybill = request.Waybill,
+                GrandTotal = request.GrandTotal
             };
         }
     }

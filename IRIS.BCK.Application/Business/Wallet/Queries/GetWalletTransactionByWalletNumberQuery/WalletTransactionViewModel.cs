@@ -1,4 +1,5 @@
-﻿using IRIS.BCK.Core.Domain.EntityEnums;
+﻿using IRIS.BCK.Core.Domain.Entities.WalletEntities;
+using IRIS.BCK.Core.Domain.EntityEnums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,11 @@ namespace IRIS.BCK.Core.Application.Business.Wallet.Queries.GetWalletTransaction
 {
     public class WalletTransactionViewModel
     {
-        public int WaybillTransactionId { get; set; }
+        public Guid Id { get; set; }
         public string Amount { get; set; }
         public TransactionType TransactionType { get; set; }
-
-        public string UserId { get; set; }
-        public string WalletNumber { get; set; }
+        public string Description { get; set; }
+        public WalletNumber WalletNumber { get; set; }
+        public DateTime DateCreated { get; set; }
     }
 }

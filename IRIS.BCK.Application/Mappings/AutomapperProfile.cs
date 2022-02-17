@@ -58,6 +58,9 @@ namespace IRIS.BCK.Core.Application.Mappings
             CreateMap<WalletTransactionDto, WalletTransaction>();
             CreateMap<WalletTransaction, WalletTransactionDto>();
 
+            CreateMap<WalletTransaction, WalletNumberViewModel>();
+            CreateMap<User, UserListViewModel>();
+
             CreateMap<Route, RouteViewModel>();
             CreateMap<User, UserListViewModel>();
 

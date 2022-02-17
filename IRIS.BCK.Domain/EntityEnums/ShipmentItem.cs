@@ -8,5 +8,15 @@ namespace IRIS.BCK.Core.Domain.EntityEnums
 {
     public class ShipmentItem
     {
+        public double length { get; set; }
+        public double breadth { get; set; }
+        public double Height { get; set; }
+        public string DimensionUnit { get; set; } //cm / in
+
+        public double ItemsWeight { get; set; }
+        public bool IsWeightEstimated { get; set; }
+
+        public bool IsdeclaredVal { get; set; }
+        public decimal? DeclarationOfValueCheck { get; set; }
     }
 }
