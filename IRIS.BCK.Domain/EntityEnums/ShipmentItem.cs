@@ -18,5 +18,7 @@ namespace IRIS.BCK.Core.Domain.EntityEnums
 
         public bool IsdeclaredVal { get; set; }
         public decimal? DeclarationOfValueCheck { get; set; }
+
+        public Guid ShipmentItemId { get; set; }
     }
 }

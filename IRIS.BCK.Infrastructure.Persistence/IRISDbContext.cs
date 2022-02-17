@@ -32,7 +32,6 @@ namespace IRIS.BCK.Infrastructure.Persistence
         public DbSet<Fleet> Fleet { get; set; }
         public DbSet<WalletNumber> WalletNumber { get; set; }
         public DbSet<WalletTransaction> WalletTransaction { get; set; }
-        public DbSet<PriceEnt> PriceEnt { get; set; }
 
         public DbSet<AppRoleClaim> RoleClaim { get; set; }
         public DbSet<CollectionCenter> CollectionCenter { get; set; }
@@ -43,6 +42,19 @@ namespace IRIS.BCK.Infrastructure.Persistence
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(IRISDbContext).Assembly);
+            modelBuilder.Entity<PriceEnt>().Property(p => p.PricePerUnit).HasColumnType("decimal(18,4)");
+            modelBuilder.Entity<PriceEnt>().Property(p => p.UnitWeight).HasColumnType("decimal(18,4)");
+            modelBuilder.Entity<Route>().Property(p => p.CaptainFee).HasColumnType("decimal(18,4)");
+            modelBuilder.Entity<Route>().Property(p => p.LoaderFee).HasColumnType("decimal(18,4)");
+            modelBuilder.Entity<Shipment>().Property(p => p.ShipmentId).HasColumnType("decimal(18,4)");
+
+            //foreach (var property in modelBuilder.Model.GetEntityTypes()
+            //   .SelectMany(t => t.GetProperties())
+            //   .Where(p => p.ClrType == typeof(decimal) || p.ClrType == typeof(decimal?)))
+            //{
+            //    property.Relational().ColumnType = "decimal(18,2)";
+
+            //}
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())

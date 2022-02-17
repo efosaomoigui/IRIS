@@ -16,8 +16,7 @@ namespace IRIS.BCK.Core.Application.Mappings.Shipments
             return new Shipment
             {
                 AddressId = request.AddressId,
-                Customer = request.Customer,
-                CustomerAddress = request.CustomerAddress,
+                //AddressId = request.AddressId,
                 PickupOptions = request.PickupOptions,
                 Reciever = request.Reciever,
                 RecieverAddress = request.RecieverAddress,

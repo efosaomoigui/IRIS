@@ -15,7 +15,6 @@ namespace IRIS.BCK.Application.Responses
         public string AccessToken { get; set; }
         public DateTime ExpireAt { get; set; }
 
-
         public BaseResponse(string message = null)
         {
             Success = true;
