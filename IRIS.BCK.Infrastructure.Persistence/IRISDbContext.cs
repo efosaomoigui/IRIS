@@ -1,11 +1,8 @@
 ﻿using IRIS.BCK.Core.Application.Business.Accounts.AccountEntities;
-using IRIS.BCK.Core.Domain.Entities.AddressEntities;
 using IRIS.BCK.Core.Domain.Entities.FleetEntities;
-using IRIS.BCK.Core.Domain.Entities.PaymentEntities;
 using IRIS.BCK.Core.Domain.Entities.PriceEntities;
 using IRIS.BCK.Core.Domain.Entities.RouteEntities;
 using IRIS.BCK.Core.Domain.Entities.ShimentEntities;
-using IRIS.BCK.Core.Domain.Entities.ShipmentEntities;
 using IRIS.BCK.Core.Domain.Entities.WalletEntities;
 using IRIS.BCK.Domain.Common;
 using Microsoft.AspNetCore.Identity;
@@ -32,20 +29,28 @@ namespace IRIS.BCK.Infrastructure.Persistence
         public DbSet<Fleet> Fleet { get; set; }
         public DbSet<WalletNumber> WalletNumber { get; set; }
         public DbSet<WalletTransaction> WalletTransaction { get; set; }
-        public DbSet<PriceEnt> PriceEnt { get; set; }
 
         public DbSet<AppRoleClaim> RoleClaim { get; set; }
-        public DbSet<CollectionCenter> CollectionCenter { get; set; }
-        public DbSet<Payment> Payment { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(IRISDbContext).Assembly);
+            modelBuilder.Entity<PriceEnt>().Property(p => p.PricePerUnit).HasColumnType("decimal(18,4)");
+            modelBuilder.Entity<PriceEnt>().Property(p => p.UnitWeight).HasColumnType("decimal(18,4)");
+            modelBuilder.Entity<Route>().Property(p => p.CaptainFee).HasColumnType("decimal(18,4)");
+            modelBuilder.Entity<Route>().Property(p => p.LoaderFee).HasColumnType("decimal(18,4)");
+            modelBuilder.Entity<Shipment>().Property(p => p.dec).HasColumnType("decimal(18,4)");
 
-            modelBuilder.Entity<Shipment>()
-           .HasMany(a => a.CustomerAddress)
-           .WithOne(b => b.Shipment);
+            //foreach (var property in modelBuilder.Model.GetEntityTypes()
+            //   .SelectMany(t => t.GetProperties())
+            //   .Where(p => p.ClrType == typeof(decimal) || p.ClrType == typeof(decimal?)))
+            //{
+
+            //    property.Relational().ColumnType = "decimal(18,2)";
+
+
+            //}
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())

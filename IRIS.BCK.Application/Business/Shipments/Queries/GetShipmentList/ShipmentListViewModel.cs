@@ -41,6 +41,6 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Queries.GetShipmentList
         public bool IsWeightEstimated { get; set; }
 
         public bool IsdeclaredVal { get; set; }
-        public decimal? DeclarationOfValueCheck { get; set; }
+        public decimal DeclarationOfValueCheck { get; set; }
     }
 }

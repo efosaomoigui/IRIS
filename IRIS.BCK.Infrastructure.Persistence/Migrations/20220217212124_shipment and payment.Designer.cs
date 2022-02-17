@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IRIS.BCK.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(IRISDbContext))]
-    [Migration("20220217194902_shipment and payment")]
+    [Migration("20220217212124_shipment and payment")]
     partial class shipmentandpayment
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
