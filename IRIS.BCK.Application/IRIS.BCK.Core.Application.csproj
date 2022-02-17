@@ -7,17 +7,17 @@
   <ItemGroup>
     <Compile Remove="Business\Accounts\Commands\CreateClaims\**" />
     <Compile Remove="Business\Accounts\Commands\UpdateUser\**" />
-    <Compile Remove="Business\Shipments\Commands\DeleteShipment\**" />
+    <Compile Remove="Business\Finance\**" />
     <Compile Remove="Business\Shipments\Commands\UpdateShipment\**" />
     <Compile Remove="Business\Trip\**" />
     <EmbeddedResource Remove="Business\Accounts\Commands\CreateClaims\**" />
     <EmbeddedResource Remove="Business\Accounts\Commands\UpdateUser\**" />
-    <EmbeddedResource Remove="Business\Shipments\Commands\DeleteShipment\**" />
+    <EmbeddedResource Remove="Business\Finance\**" />
     <EmbeddedResource Remove="Business\Shipments\Commands\UpdateShipment\**" />
     <EmbeddedResource Remove="Business\Trip\**" />
     <None Remove="Business\Accounts\Commands\CreateClaims\**" />
     <None Remove="Business\Accounts\Commands\UpdateUser\**" />
-    <None Remove="Business\Shipments\Commands\DeleteShipment\**" />
+    <None Remove="Business\Finance\**" />
     <None Remove="Business\Shipments\Commands\UpdateShipment\**" />
     <None Remove="Business\Trip\**" />
   </ItemGroup>
@@ -39,12 +39,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Business\Finance\" />
+    <Folder Include="Business\Payments\NewFolder\" />
     <Folder Include="Business\Wallet\Queries\GetWalletNumberQuery\" />
     <Folder Include="Business\Wallet\Queries\GetWalletListQuery\" />
     <Folder Include="Business\Wallet\Queries\GetWalletTransactionListQuery\" />
     <Folder Include="Business\Wallet\Queries\GetLastWalletNumberQuery\" />
     <Folder Include="DTO\Files\Pdf\" />
+    <Folder Include="DTO\ShipmentProcessing\" />
     <Folder Include="Interfaces\IFiles\IPdf\" />
     <Folder Include="Interfaces\IMessages\ISms\" />
     <Folder Include="Interfaces\IMessages\INotification\" />
@@ -52,6 +53,7 @@
     <Folder Include="Interfaces\IThirdPartyServices\IPaymentProviders\IInterSwitch\" />
     <Folder Include="Interfaces\IThirdPartyServices\IPaymentProviders\IStripe\" />
     <Folder Include="Interfaces\IThirdPartyServices\OtherLogisticsPlatforms\" />
+    <Folder Include="Mappings\ShipmentProcessing\" />
     <Folder Include="Messages\SMSMessage\" />
   </ItemGroup>
 

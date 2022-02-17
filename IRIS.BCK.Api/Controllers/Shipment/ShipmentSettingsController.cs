@@ -1,11 +1,19 @@
 ﻿using IRIS.BCK.Application.DTO;
 using IRIS.BCK.Core.Application.Business.Fleets.Queries;
 using IRIS.BCK.Core.Application.Business.Fleets.Queries.GetFleets;
+using IRIS.BCK.Core.Application.Business.Price.Commands.CreatePrice;
+using IRIS.BCK.Core.Application.Business.Price.Commands.DeletePrice;
 using IRIS.BCK.Core.Application.Business.Price.Commands.SpecialDomesticZonePrice;
+using IRIS.BCK.Core.Application.Business.Price.Commands.UpdatePrice;
+using IRIS.BCK.Core.Application.Business.Price.Queries.GetPrice;
 using IRIS.BCK.Core.Application.Business.Price.Queries.GetSpecialDomesticZonePriceQuery;
 using IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateFleets;
 using IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateRoutes;
 using IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateShipment;
+using IRIS.BCK.Core.Application.Business.Shipments.Commands.DeleteFleet;
+using IRIS.BCK.Core.Application.Business.Shipments.Commands.DeleteRoute;
+using IRIS.BCK.Core.Application.Business.Shipments.Commands.UpdateFleet;
+using IRIS.BCK.Core.Application.Business.Shipments.Commands.UpdateRoute;
 using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetFleets;
 using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetRoutes;
 using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetShipmentList;
@@ -44,6 +52,20 @@ namespace IRIS.BCK.Api.Controllers.Shipment
             return Ok(shipments);
         }
 
+        [HttpPut("Route", Name = "EditRoute")]
+        public async Task<ActionResult<CreateRouteCommandResponse>> UpdateRoute([FromBody] UpdateRouteCommand updateRouteCommand)
+        {
+            var response = await _mediator.Send(updateRouteCommand);
+            return Ok(response);
+        }
+
+        [HttpDelete("Route", Name = "DeleteRoute")]
+        public async Task<ActionResult<CreateRouteCommandResponse>> DeleteRoute([FromBody] DeleteRouteCommand deleteRouteCommand)
+        {
+            var response = await _mediator.Send(deleteRouteCommand);
+            return Ok(response);
+        }
+
         #endregion Route
 
         #region Fleet
@@ -62,22 +84,50 @@ namespace IRIS.BCK.Api.Controllers.Shipment
             return Ok(response);
         }
 
+        [HttpPut("Fleet", Name = "EditFleet")]
+        public async Task<ActionResult<CreateFleetCommandResponse>> UpdateFleet([FromBody] UpdateFleetCommand updateFleetCommand)
+        {
+            var response = await _mediator.Send(updateFleetCommand);
+            return Ok(response);
+        }
+
+        [HttpDelete("Fleet", Name = "DeleteFleet")]
+        public async Task<ActionResult<CreateFleetCommandResponse>> DeleteFleet([FromBody] DeleteFleetCommand deleteFleetCommand)
+        {
+            var response = await _mediator.Send(deleteFleetCommand);
+            return Ok(response);
+        }
+
         #endregion Fleet
 
         #region Price
 
         [HttpPost("Price", Name = "AddPrice")]
-        public async Task<ActionResult<CreateShipmentCommandResponse>> AddPrice([FromBody] CreateShipmentCommand createShipmentCommand)
+        public async Task<ActionResult<CreatePriceCommandResponse>> AddPrice([FromBody] CreatePriceCommand createPriceCommand)
         {
-            var response = await _mediator.Send(createShipmentCommand);
+            var response = await _mediator.Send(createPriceCommand);
             return Ok(response);
         }
 
         [HttpGet("Price/all", Name = "GetAllPrice")]
-        public async Task<ActionResult<List<ShipmentListViewModel>>> GetAllPrice()
+        public async Task<ActionResult<List<PriceListViewModel>>> GetAllPrice()
         {
-            var shipments = await _mediator.Send(new GetShipmentListQuery());
-            return Ok(shipments);
+            var price = await _mediator.Send(new GetPriceQuery());
+            return Ok(price);
+        }
+
+        [HttpPut("Price", Name = "EditPrice")]
+        public async Task<ActionResult<CreatePriceCommandResponse>> UpdatePrice([FromBody] UpdatePriceCommand updatePriceCommand)
+        {
+            var response = await _mediator.Send(updatePriceCommand);
+            return Ok(response);
+        }
+
+        [HttpDelete("Price", Name = "DeletePrice")]
+        public async Task<ActionResult<CreatePriceCommandResponse>> DeletePrice([FromBody] DeletePriceCommand deletePriceCommand)
+        {
+            var response = await _mediator.Send(deletePriceCommand);
+            return Ok(response);
         }
 
         [HttpGet("all", Name = "GetAllSpecialDomesticZonePrice")]

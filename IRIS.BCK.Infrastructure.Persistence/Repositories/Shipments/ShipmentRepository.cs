@@ -1,4 +1,5 @@
-﻿using IRIS.BCK.Application.Interfaces.IRepository.IShipmentRepositories;
+﻿using IRIS.BCK.Application.DTO;
+using IRIS.BCK.Application.Interfaces.IRepository.IShipmentRepositories;
 using IRIS.BCK.Core.Domain.Entities.ShimentEntities;
 using System;
 using System.Collections.Generic;

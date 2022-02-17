@@ -8,6 +8,7 @@ namespace IRIS.BCK.Core.Domain.EntityEnums
 {
     public enum TransactionType
     {
-        TransactionId
+        Credit,
+        Debit
     }
 }

@@ -17,9 +17,9 @@ namespace IRIS.BCK.Core.Application.Business.Fleets.Queries.GetFleets
         private readonly IGenericRepository<Fleet> _fleetRepository;
         private readonly IMapper _mapper;
 
-        public GetFleetQueryHandler(IGenericRepository<Fleet> routeRepository, IMapper mapper)
+        public GetFleetQueryHandler(IGenericRepository<Fleet> fleetRepository, IMapper mapper)
         {
-            _fleetRepository = routeRepository;
+            _fleetRepository = fleetRepository;
             _mapper = mapper;
         }
 
