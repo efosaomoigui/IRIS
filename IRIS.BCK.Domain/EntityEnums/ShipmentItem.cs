@@ -8,5 +8,7 @@ namespace IRIS.BCK.Core.Domain.EntityEnums
 {
     public class ShipmentItem
     {
+        public Guid ShipmentItemId { get; set; } 
+
     }
 }

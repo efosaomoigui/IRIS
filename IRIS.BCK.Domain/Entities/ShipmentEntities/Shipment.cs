@@ -4,6 +4,8 @@ using IRIS.BCK.Core.Domain.EntityEnums;
 using IRIS.BCK.Domain.Common;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +14,7 @@ namespace IRIS.BCK.Core.Domain.Entities.ShimentEntities
 {
     public class Shipment : Auditable
     {
+        [Key]
         public Guid ShipmentId { get; set; }
         public string Waybill { get; set; }
 
@@ -19,13 +22,15 @@ namespace IRIS.BCK.Core.Domain.Entities.ShimentEntities
         public User Customer { get; set; }
 
         public Guid AddressId { get; set; }
-        public Address CustomerAddress { get; set; }
+
+        public List<Address> CustomerAddress { get; set; }
 
         //Receivers Information
         public User Reciever { get; set; }
 
         // public Address AddressId { get; set; }
-        public Address RecieverAddress { get; set; }
+        [ForeignKey("ShipmentId")]
+        public List<Address> RecieverAddress { get; set; }
 
         //PickUp Options
         public PickupOptions PickupOptions { get; set; }

@@ -1,4 +1,5 @@
 ﻿using IRIS.BCK.Core.Application.Business.Accounts.AccountEntities;
+using IRIS.BCK.Core.Domain.Entities.AddressEntities;
 using IRIS.BCK.Core.Domain.Entities.FleetEntities;
 using IRIS.BCK.Core.Domain.Entities.PaymentEntities;
 using IRIS.BCK.Core.Domain.Entities.PriceEntities;
@@ -41,6 +42,10 @@ namespace IRIS.BCK.Infrastructure.Persistence
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(IRISDbContext).Assembly);
+
+            modelBuilder.Entity<Shipment>()
+           .HasMany(a => a.CustomerAddress)
+           .WithOne(b => b.Shipment);
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())

@@ -15,7 +15,7 @@ namespace IRIS.BCK.Core.Application.Mappings.Shipments
         {
             return new Shipment
             {
-                AddressId = request.AddressId,
+                //AddressId = request.AddressId,
                 breadth = request.breadth,
                 Customer = request.Customer,
                 CustomerAddress = request.CustomerAddress,
