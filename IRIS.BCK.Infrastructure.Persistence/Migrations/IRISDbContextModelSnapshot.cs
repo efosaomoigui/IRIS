@@ -534,9 +534,6 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                     b.Property<Guid>("ShipmentId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ShipmentId");
