@@ -36,7 +36,7 @@ namespace IRIS.BCK.Api.Controllers.Account
             return Ok(response);
         }
 
-        [HttpGet("GetUsers")]
+        [HttpGet("GetUsers")]   
         public async Task<ActionResult<List<UserListViewModel>>> GetAllUsers()
         { 
             var users = await _mediator.Send(new GetUserListQuery());
