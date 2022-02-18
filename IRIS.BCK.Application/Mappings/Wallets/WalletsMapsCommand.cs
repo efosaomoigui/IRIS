@@ -17,7 +17,7 @@ namespace IRIS.BCK.Core.Application.Mappings.Wallets
                 //Id = request.WalletNumberId,
                 Number = request.Number,
                 IsActive = request.IsActive,
-                UserId = request.UserId
+                WalletBalance = request.WalletBalance
             };
         }
     }

@@ -1,4 +1,5 @@
-﻿using IRIS.BCK.Core.Application.Business.Wallet.Commands.CreateWalletNumberCommand;
+﻿using IRIS.BCK.Core.Application.Business.Accounts.AccountEntities;
+using IRIS.BCK.Core.Application.Business.Wallet.Commands.CreateWalletNumberCommand;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -10,10 +11,11 @@ namespace IRIS.BCK.Core.Application.Business.Wallet.Commands.CreateWalletNumber
 {
     public class CreateWalletNumberCommand : IRequest<CreateWalletNumberCommandResponse>
     {
-        public int WalletNumberId { get; set; }
+        public Guid Id { get; set; }
         public string Number { get; set; }
         public bool IsActive { get; set; }
+        public string WalletBalance { get; set; }
 
-        public string UserId { get; set; }
+        //public User UserId { get; set; }
     }
 }

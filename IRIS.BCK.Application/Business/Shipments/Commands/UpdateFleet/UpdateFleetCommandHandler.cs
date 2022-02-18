@@ -54,8 +54,8 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Commands.UpdateFleet
 
             if (UpdateFleetCommandResponse.Success)
             {
-                var updateShipment = _mapper.Map<Fleet>(request);
-                await _fleetRepository.UpdateAsync(updateShipment);
+                var updateFleet = _mapper.Map<Fleet>(request);
+                await _fleetRepository.UpdateAsync(updateFleet);
 
                 try
                 {
@@ -66,7 +66,7 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Commands.UpdateFleet
                     throw;
                 }
 
-                UpdateFleetCommandResponse.Fleetdto = _mapper.Map<FleetDto>(updateShipment);
+                UpdateFleetCommandResponse.Fleetdto = _mapper.Map<FleetDto>(updateFleet);
 
                 return UpdateFleetCommandResponse;
             }

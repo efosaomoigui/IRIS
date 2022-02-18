@@ -6,15 +6,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IRIS.BCK.Core.Domain.Entities.WalletEntities
+namespace IRIS.BCK.Core.Domain.Entities.ShipmentProcessing
 {
-    public class WalletNumber : Auditable
+    public class Manifest : Auditable
     {
         public Guid Id { get; set; }
-        public string Number { get; set; }
-        public bool IsActive { get; set; }
-        public string WalletBalance { get; set; }
-
+        public string ManifestCode { get; set; }
+        public int GroupWayBillId { get; set; }
+        public GroupWayBill GroupWayBill { get; set; }
         public User UserId { get; set; }
     }
 }

@@ -1,8 +1,11 @@
 ﻿using IRIS.BCK.Core.Application.Business.Accounts.AccountEntities;
 using IRIS.BCK.Core.Domain.Entities.FleetEntities;
+using IRIS.BCK.Core.Domain.Entities.PaymentEntities;
 using IRIS.BCK.Core.Domain.Entities.PriceEntities;
 using IRIS.BCK.Core.Domain.Entities.RouteEntities;
 using IRIS.BCK.Core.Domain.Entities.ShimentEntities;
+using IRIS.BCK.Core.Domain.Entities.ShipmentEntities;
+using IRIS.BCK.Core.Domain.Entities.ShipmentProcessing;
 using IRIS.BCK.Core.Domain.Entities.WalletEntities;
 using IRIS.BCK.Domain.Common;
 using Microsoft.AspNetCore.Identity;
@@ -31,6 +34,9 @@ namespace IRIS.BCK.Infrastructure.Persistence
         public DbSet<WalletTransaction> WalletTransaction { get; set; }
 
         public DbSet<AppRoleClaim> RoleClaim { get; set; }
+        public DbSet<CollectionCenter> CollectionCenter { get; set; }
+        public DbSet<Payment> Payment { get; set; }
+        public DbSet<Manifest> Manifest { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -51,9 +57,7 @@ namespace IRIS.BCK.Infrastructure.Persistence
             //   .SelectMany(t => t.GetProperties())
             //   .Where(p => p.ClrType == typeof(decimal) || p.ClrType == typeof(decimal?)))
             //{
-
             //    property.Relational().ColumnType = "decimal(18,2)";
-
 
             //}
         }

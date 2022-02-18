@@ -27,8 +27,4 @@
     <ProjectReference Include="..\IRIS.BCK.Domain\IRIS.BCK.Core.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Repositories\ShipmentProcessing\" />
-  </ItemGroup>
-
 </Project>

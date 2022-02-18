@@ -55,7 +55,6 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateCollection
             if (CreateCollectionCenterCommandResponse.Success)
             {
                 var center = CollectionCenterMapsCommand.CreateCollectionCenterMapsCommand(request);
-                //var fleet = _mapper.Map<Fleet>(request);
                 center = await _collectionCenterRepository.AddAsync(center);
 
                 try

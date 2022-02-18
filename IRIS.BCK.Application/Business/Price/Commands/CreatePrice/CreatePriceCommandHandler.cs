@@ -55,7 +55,6 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.CreatePrice
             if (CreatePriceCommandResponse.Success)
             {
                 var price = PriceMapsCommand.CreatePriceMapsCommand(request);
-                //var fleet = _mapper.Map<Fleet>(request);
                 price = await _priceRepository.AddAsync(price);
 
                 try
