@@ -40,7 +40,7 @@ namespace IRIS.BCK.Infrastructure.Persistence
             modelBuilder.Entity<PriceEnt>().Property(p => p.UnitWeight).HasColumnType("decimal(18,4)");
             modelBuilder.Entity<Route>().Property(p => p.CaptainFee).HasColumnType("decimal(18,4)");
             modelBuilder.Entity<Route>().Property(p => p.LoaderFee).HasColumnType("decimal(18,4)");
-            modelBuilder.Entity<Shipment>().Property(p => p.dec).HasColumnType("decimal(18,4)");
+            modelBuilder.Entity<Shipment>().Property(p => p.DeclarationOfValueCheck).HasColumnType("decimal(18,4)");
 
             //foreach (var property in modelBuilder.Model.GetEntityTypes()
             //   .SelectMany(t => t.GetProperties())
