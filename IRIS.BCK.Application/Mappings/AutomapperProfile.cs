@@ -6,6 +6,7 @@ using IRIS.BCK.Core.Application.Business.Accounts.Queries.GetShipmentList;
 using IRIS.BCK.Core.Application.Business.Fleets.Queries;
 using IRIS.BCK.Core.Application.Business.Price.Commands.CreatePrice;
 using IRIS.BCK.Core.Application.Business.Price.Queries.GetPrice;
+using IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.CreateGroupWayBill;
 using IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateCollectionCenter;
 using IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateFleets;
 using IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateRoutes;
@@ -16,8 +17,10 @@ using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetShipmentList;
 using IRIS.BCK.Core.Application.Business.Wallet.Queries.GetWalletByWalletNumberQuery;
 using IRIS.BCK.Core.Application.DTO.Account;
 using IRIS.BCK.Core.Application.DTO.Fleets;
+using IRIS.BCK.Core.Application.DTO.Payments;
 using IRIS.BCK.Core.Application.DTO.Price;
 using IRIS.BCK.Core.Application.DTO.Routes;
+using IRIS.BCK.Core.Application.DTO.ShipmentProcessing;
 using IRIS.BCK.Core.Application.DTO.Shipments;
 using IRIS.BCK.Core.Application.DTO.Wallet;
 using IRIS.BCK.Core.Domain.Entities;
@@ -26,6 +29,7 @@ using IRIS.BCK.Core.Domain.Entities.PriceEntities;
 using IRIS.BCK.Core.Domain.Entities.RouteEntities;
 using IRIS.BCK.Core.Domain.Entities.ShimentEntities;
 using IRIS.BCK.Core.Domain.Entities.ShipmentEntities;
+using IRIS.BCK.Core.Domain.Entities.ShipmentProcessing;
 using IRIS.BCK.Core.Domain.Entities.WalletEntities;
 using MediatR;
 using System;
@@ -48,6 +52,9 @@ namespace IRIS.BCK.Core.Application.Mappings
 
             CreateMap<CreateCollectionCenterCommand, CollectionCenter>();
             CreateMap<CollectionCenter, CreateCollectionCenterCommand>();
+
+            CreateMap<CreateGroupWayBillCommand, GroupWayBill>();
+            CreateMap<GroupWayBill, CreateGroupWayBillCommand>();
 
             CreateMap<WalletNumberDto, WalletNumber>();
             CreateMap<WalletNumber, WalletNumberDto>();
@@ -108,6 +115,12 @@ namespace IRIS.BCK.Core.Application.Mappings
 
             CreateMap<CollectionCenterDto, CollectionCenter>();
             CreateMap<CollectionCenter, CollectionCenterDto>();
+
+            CreateMap<GroupWayBillDto, GroupWayBill>();
+            CreateMap<GroupWayBill, GroupWayBillDto>();
+
+            CreateMap<ManifestDto, Manifest>();
+            CreateMap<Manifest, ManifestDto>();
         }
     }
 }

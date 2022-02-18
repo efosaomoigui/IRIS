@@ -37,6 +37,7 @@ namespace IRIS.BCK.Infrastructure.Persistence
         public DbSet<CollectionCenter> CollectionCenter { get; set; }
         public DbSet<Payment> Payment { get; set; }
         public DbSet<Manifest> Manifest { get; set; }
+        public DbSet<GroupWayBill> GroupWayBill { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
