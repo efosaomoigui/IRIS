@@ -1,14 +1,15 @@
 ﻿using IRIS.BCK.Core.Domain.Entities.ShimentEntities;
-using IRIS.BCK.Domain.Common;
+using IRIS.BCK.Core.Domain.EntityEnums;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IRIS.BCK.Core.Domain.Entities.ShipmentProcessing
+namespace IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.CreateGroupWayBill
 {
-    public class GroupWayBill : Auditable
+    public class CreateGroupWayBillCommand : IRequest<CreateGroupWayBillCommandResponse>
     {
         public Guid Id { get; set; }
         public string GroupCode { get; set; }
