@@ -1,16 +1,15 @@
 ﻿using IRIS.BCK.Core.Domain.Entities.FleetEntities;
 using IRIS.BCK.Core.Domain.Entities.ShipmentProcessing;
 using IRIS.BCK.Core.Domain.EntityEnums;
-using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.CreateTrips
+namespace IRIS.BCK.Core.Application.Business.ShipmentProcessing.Queries.GetTrips
 {
-    public class CreateTripCommand : IRequest<CreateTripCommandResponse>
+    public class TripListViewModel
     {
         public Guid Id { get; set; }
         public int TripReference { get; set; }

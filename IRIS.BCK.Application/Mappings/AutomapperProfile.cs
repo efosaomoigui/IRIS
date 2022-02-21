@@ -7,6 +7,7 @@ using IRIS.BCK.Core.Application.Business.Fleets.Queries;
 using IRIS.BCK.Core.Application.Business.Price.Commands.CreatePrice;
 using IRIS.BCK.Core.Application.Business.Price.Queries.GetPrice;
 using IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.CreateGroupWayBill;
+using IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.CreateTrips;
 using IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateCollectionCenter;
 using IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateFleets;
 using IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateRoutes;
@@ -55,6 +56,9 @@ namespace IRIS.BCK.Core.Application.Mappings
 
             CreateMap<CreateGroupWayBillCommand, GroupWayBill>();
             CreateMap<GroupWayBill, CreateGroupWayBillCommand>();
+
+            CreateMap<CreateTripCommand, Trips>();
+            CreateMap<Trips, CreateTripCommand>();
 
             CreateMap<WalletNumberDto, WalletNumber>();
             CreateMap<WalletNumber, WalletNumberDto>();
@@ -121,6 +125,9 @@ namespace IRIS.BCK.Core.Application.Mappings
 
             CreateMap<ManifestDto, Manifest>();
             CreateMap<Manifest, ManifestDto>();
+
+            CreateMap<TripDto, Trips>();
+            CreateMap<Trips, TripDto>();
         }
     }
 }

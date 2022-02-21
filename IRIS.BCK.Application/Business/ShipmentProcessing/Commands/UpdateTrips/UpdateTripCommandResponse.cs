@@ -6,11 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.CreateTrips
+namespace IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.UpdateTrips
 {
-    public class CreateTripCommandResponse : BaseResponse
+    public class UpdateTripCommandResponse : BaseResponse
     {
-        public CreateTripCommandResponse() : base()
+        public UpdateTripCommandResponse() : base()
         {
         }
 

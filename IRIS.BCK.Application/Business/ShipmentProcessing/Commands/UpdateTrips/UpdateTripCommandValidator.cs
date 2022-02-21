@@ -6,13 +6,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.CreateTrips
+namespace IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.UpdateTrips
 {
-    public class CreateTripCommandValidator : AbstractValidator<CreateTripCommand>
+    public class UpdateTripCommandValidator : AbstractValidator<UpdateTripCommand>
     {
         public ITripRepository _tripRepository { get; set; }
 
-        public CreateTripCommandValidator(ITripRepository tripRepository)
+        public UpdateTripCommandValidator(ITripRepository tripRepository)
         {
             _tripRepository = tripRepository;
 

@@ -8,9 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.CreateTrips
+namespace IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.UpdateTrips
 {
-    public class CreateTripCommand : IRequest<CreateTripCommandResponse>
+    public class UpdateTripCommand : IRequest<UpdateTripCommandResponse>
     {
         public Guid Id { get; set; }
         public int TripReference { get; set; }

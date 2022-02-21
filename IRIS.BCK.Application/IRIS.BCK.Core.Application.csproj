@@ -39,8 +39,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Business\ShipmentProcessing\Commands\DeleteTrips\" />
-    <Folder Include="Business\ShipmentProcessing\Commands\UpdateTrips\" />
     <Folder Include="Business\Wallet\Queries\GetWalletNumberQuery\" />
     <Folder Include="Business\Wallet\Queries\GetWalletListQuery\" />
     <Folder Include="Business\Wallet\Queries\GetWalletTransactionListQuery\" />

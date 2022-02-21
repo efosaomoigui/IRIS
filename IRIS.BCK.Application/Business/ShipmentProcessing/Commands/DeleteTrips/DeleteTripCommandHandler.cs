@@ -3,7 +3,6 @@ using IRIS.BCK.Core.Application.DTO.Message.EmailMessage;
 using IRIS.BCK.Core.Application.DTO.ShipmentProcessing;
 using IRIS.BCK.Core.Application.Interfaces.IMessages.IEmail;
 using IRIS.BCK.Core.Application.Interfaces.IRepositories.IShipmentProcessingRepositories;
-using IRIS.BCK.Core.Application.Mappings.ShipmentProcessing;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -12,36 +11,36 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.CreateTrips
+namespace IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.DeleteTrips
 {
-    public class CreateTripCommandHandler : IRequestHandler<CreateTripCommand, CreateTripCommandResponse>
+    public class DeleteTripCommandHandler : IRequestHandler<DeleteTripCommand, DeleteTripCommandResponse>
     {
         private readonly ITripRepository _tripRepository;
         private readonly IMapper _mapper;
         private readonly IEmailService _emailService;
 
-        public CreateTripCommandHandler(ITripRepository tripRepository, IMapper mapper, IEmailService emailService)
+        public DeleteTripCommandHandler(ITripRepository tripRepository, IMapper mapper, IEmailService emailService)
         {
             _tripRepository = tripRepository;
             _mapper = mapper;
             _emailService = emailService;
         }
 
-        public async Task<CreateTripCommandResponse> Handle(CreateTripCommand request, CancellationToken cancellationToken)
+        public async Task<DeleteTripCommandResponse> Handle(DeleteTripCommand request, CancellationToken cancellationToken)
         {
-            var CreateTripCommandResponse = new CreateTripCommandResponse();
-            var validator = new CreateTripCommandValidator(_tripRepository);
+            var DeleteTripCommandResponse = new DeleteTripCommandResponse();
+            var validator = new DeleteTripCommandValidator(_tripRepository);
             var validationResult = await validator.ValidateAsync(request);
 
             if (validationResult.Errors.Count > 0)
             {
                 //throw new ValidationException(validationResult);
-                CreateTripCommandResponse.Success = false;
-                CreateTripCommandResponse.ValidationErrors = new List<string>();
+                DeleteTripCommandResponse.Success = false;
+                DeleteTripCommandResponse.ValidationErrors = new List<string>();
 
                 foreach (var error in validationResult.Errors)
                 {
-                    CreateTripCommandResponse.ValidationErrors.Add(error.ErrorMessage);
+                    DeleteTripCommandResponse.ValidationErrors.Add(error.ErrorMessage);
                 }
             }
 
@@ -52,10 +51,12 @@ namespace IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.CreateT
                 Subject = "Test Email"
             };
 
-            if (CreateTripCommandResponse.Success)
+            if (DeleteTripCommandResponse.Success)
             {
-                var trip = TripMapsCommand.CreateTripMapsCommand(request);
-                trip = await _tripRepository.AddAsync(trip);
+                var deleteTrip = await _tripRepository.Get(x => x.Id == request.Id);
+                if (deleteTrip == null) return DeleteTripCommandResponse;
+
+                await _tripRepository.DeleteAsync(deleteTrip);
 
                 try
                 {
@@ -66,13 +67,13 @@ namespace IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.CreateT
                     throw;
                 }
 
-                CreateTripCommandResponse.Tripdto = _mapper.Map<TripDto>(trip);
+                DeleteTripCommandResponse.Tripdto = _mapper.Map<TripDto>(deleteTrip);
 
-                return CreateTripCommandResponse;
+                return DeleteTripCommandResponse;
             }
 
-            CreateTripCommandResponse.Tripdto = new TripDto();
-            return CreateTripCommandResponse;
+            DeleteTripCommandResponse.Tripdto = new TripDto();
+            return DeleteTripCommandResponse;
         }
     }
 }
