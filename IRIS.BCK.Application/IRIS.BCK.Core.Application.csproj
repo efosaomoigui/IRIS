@@ -39,6 +39,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Business\Monitoring\Commands\DeleteTrackHistory\" />
+    <Folder Include="Business\Monitoring\Queries\" />
     <Folder Include="Business\Wallet\Queries\GetWalletNumberQuery\" />
     <Folder Include="Business\Wallet\Queries\GetWalletListQuery\" />
     <Folder Include="Business\Wallet\Queries\GetWalletTransactionListQuery\" />
