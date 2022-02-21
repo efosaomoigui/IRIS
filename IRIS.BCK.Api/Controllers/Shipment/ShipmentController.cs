@@ -36,7 +36,7 @@ namespace IRIS.BCK.Api.Controllers.Shipment
         }
 
         [HttpPut("Shipment/edit", Name = "UpdateShipment")]
-        public async Task<ActionResult<CreateShipmentCommandResponse>> UpdateShipment([FromBody] UpdateShipmentCommand updateShipmentCommand)
+        public async Task<ActionResult<UpdateShipmentCommandResponse>> UpdateShipment([FromBody] UpdateShipmentCommand updateShipmentCommand)
         {
             var response = await _mediator.Send(updateShipmentCommand);
             return Ok(response);
