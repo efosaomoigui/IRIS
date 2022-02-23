@@ -20,6 +20,27 @@ namespace IRIS.BCK.Api.Controllers.ShipmentProcessing
             return HandleQueryResult(trips);
         }
 
+        [HttpGet("Trip/GetTripByTripId/{tripid}")]
+        public async Task<ActionResult<List<TripListViewModel>>> GetTripByTripId(string tripid)
+        {
+            var trip = await _mediator.Send(new GetTripQuery());
+            return Ok(trip);
+        }
+
+        [HttpGet("Trip/GetTripByManifestCode/{manifestcode}")]
+        public async Task<ActionResult<List<TripListViewModel>>> GetTripByManifestCode(string manifestcode)
+        {
+            var code = await _mediator.Send(new GetTripQuery());
+            return Ok(code);
+        }
+
+        [HttpGet("Trip/GetTripByFleetNumber/{fleetnumber}")]
+        public async Task<ActionResult<List<TripListViewModel>>> GetTripByFleetNumber(string fleetnumber)
+        {
+            var fleet = await _mediator.Send(new GetTripQuery());
+            return Ok(fleet);
+        }
+
         [HttpPost("Trip/Add", Name = "Add/Trip")]
         public async Task<ActionResult<CreateTripCommandResponse>> Create([FromBody] CreateTripCommand createTripCommand)
         {

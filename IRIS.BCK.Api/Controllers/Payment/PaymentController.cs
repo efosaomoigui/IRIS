@@ -20,6 +20,20 @@ namespace IRIS.BCK.Api.Controllers.Payment
             return Ok(payments);
         }
 
+        [HttpGet("Invoice/GetInvoiceByInvoiceCode/{invoicecode}")]
+        public async Task<ActionResult<List<PaymentListViewModel>>> GetInvoiceByInvoiceCode(string invoicecode)
+        {
+            var code = await _mediator.Send(new GetPaymentQuery());
+            return Ok(code);
+        }
+
+        [HttpGet("Invoice/GetInvoiceByInvoiceId/{invoiceid}")]
+        public async Task<ActionResult<List<PaymentListViewModel>>> GetInvoiceByInvoiceId(string invoiceid)
+        {
+            var invoice = await _mediator.Send(new GetPaymentQuery());
+            return Ok(invoice);
+        }
+
         [HttpPost("Payment", Name = "AddPayment")]
         public async Task<ActionResult<CreatePaymentCommandResponse>> Create([FromBody] CreatePaymentCommand createPaymentCommand)
         {

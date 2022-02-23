@@ -72,6 +72,13 @@ namespace IRIS.BCK.Api.Controllers.Shipment
             return Ok(center);
         }
 
+        [HttpGet("ShipmentCollection/GetShipmentCollectionByWayBill/{waybill}")]
+        public async Task<ActionResult<List<CollectionCenterListViewModel>>> GetTrackHistoryByTripId(string waybill)
+        {
+            var collection = await _mediator.Send(new GetCollectionCenterQuery());
+            return Ok(collection);
+        }
+
         [HttpPost("CollectionCenter", Name = "AddCollectionCenter")]
         public async Task<ActionResult<CreateCollectionCenterCommandResponse>> Create([FromBody] CreateCollectionCenterCommand createCollectionCenterCommand)
         {
