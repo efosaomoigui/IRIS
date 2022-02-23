@@ -91,7 +91,7 @@ namespace IRIS.BCK.Api.Controllers.Account
         }
 
         [HttpGet("GetPermissions")]
-        public async Task<ActionResult<UserViewModel>> GetPermissions()
+        public async Task<ActionResult<ClaimViewModel>> GetPermissions()
         {
             var roleid = HttpContext.User.FindFirstValue("RoleId");
             var role = new ClaimViewModel();
