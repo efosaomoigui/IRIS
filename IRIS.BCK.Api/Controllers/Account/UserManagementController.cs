@@ -4,6 +4,7 @@ using IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateRole;
 using IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUser;
 using IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUserRole;
 using IRIS.BCK.Core.Application.Business.Accounts.Commands.UpdateUsers;
+using IRIS.BCK.Core.Application.Business.Accounts.Queries.GetClaimForRole;
 using IRIS.BCK.Core.Application.Business.Accounts.Queries.GetRoles;
 using IRIS.BCK.Core.Application.Business.Accounts.Queries.GetShipmentList;
 using IRIS.BCK.Core.Application.DTO.Account;
@@ -87,6 +88,20 @@ namespace IRIS.BCK.Api.Controllers.Account
         {
             var roleclaim = await _mediator.Send(createclaimforroleCommand);
             return Ok(roleclaim);
+        }
+
+        [HttpGet("GetPermissions")]
+        public async Task<ActionResult<UserViewModel>> GetPermissions()
+        {
+            var roleid = HttpContext.User.FindFirstValue("RoleId");
+            var role = new ClaimViewModel();
+
+            if (roleid != null)
+            {
+                role = await _mediator.Send(new GetClaimForRoleQuery(roleid));
+            }
+
+            return Ok(role);
         }
 
         [AllowAnonymous]
