@@ -21,6 +21,20 @@ namespace IRIS.BCK.Api.Controllers.Wallet
             return Ok(walletNumber);
         }
 
+        [HttpGet("Wallets/GetWalletById/{walletid}")]
+        public async Task<ActionResult<List<WalletNumberViewModel>>> GetWalletById(string walletid)
+        {
+            var wallet = await _mediator.Send(new GetWalletNumberQuery());
+            return Ok(wallet);
+        }
+
+        [HttpGet("Wallets/GetWalletByAccountNumber/{accountnumber}")]
+        public async Task<ActionResult<List<WalletNumberViewModel>>> GetWalletByAccountNumber(string accountnumber)
+        {
+            var wallet = await _mediator.Send(new GetWalletNumberQuery());
+            return Ok(wallet);
+        }
+
         [HttpPost("WalletNumber", Name = "AddWalletNumber")]
         public async Task<ActionResult<CreateWalletNumberCommandResponse>> Create([FromBody] CreateWalletNumberCommand createWalletNumberCommand)
         {
@@ -33,6 +47,13 @@ namespace IRIS.BCK.Api.Controllers.Wallet
         {
             var walletTransaction = await _mediator.Send(new GetWalletTransactionQuery());
             return Ok(walletTransaction);
+        }
+
+        [HttpGet("WalletTransaction/GetWalletTransactionById/{transactionid}")]
+        public async Task<ActionResult<List<WalletNumberViewModel>>> GetTransactionByTransactionId(string transactionid)
+        {
+            var transaction = await _mediator.Send(new GetWalletTransactionQuery());
+            return Ok(transaction);
         }
 
         [HttpPost("WalletTransaction", Name = "AddWalletTransaction")]

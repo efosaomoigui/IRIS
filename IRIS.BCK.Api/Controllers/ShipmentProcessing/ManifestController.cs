@@ -22,6 +22,20 @@ namespace IRIS.BCK.Api.Controllers.ShipmentProcessing
             return Ok(manifest);
         }
 
+        [HttpGet("Manifest/GetManifestByManifestCode/{manifestcode}")]
+        public async Task<ActionResult<List<ManifestListViewModel>>> GetManifestByManifestCode(string manifestcode)
+        {
+            var code = await _mediator.Send(new GetManifestQuery());
+            return Ok(code);
+        }
+
+        [HttpGet("Manifest/GetManifestByGroupWayBillNumber/{groupwaybillnumber}")]
+        public async Task<ActionResult<List<ManifestListViewModel>>> GetManifestByGroupWayBillNumber(string groupwaybillnumber)
+        {
+            var group = await _mediator.Send(new GetManifestQuery());
+            return Ok(group);
+        }
+
         [HttpPost("Manifest", Name = "AddManifest")]
         public async Task<ActionResult<CreateManifestCommandResponse>> Create([FromBody] CreateManifestCommand createManifestCommand)
         {

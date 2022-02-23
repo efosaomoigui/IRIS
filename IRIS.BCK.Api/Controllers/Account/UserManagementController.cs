@@ -104,6 +104,13 @@ namespace IRIS.BCK.Api.Controllers.Account
             return Ok(role);
         }
 
+        [HttpGet("Permissions/GetPermissionsByRoleId/{roleid}")]
+        public async Task<ActionResult<List<ClaimViewModel>>> GetPermissionsById(string roleid)
+        {
+            var permissions = await _mediator.Send(new GetClaimForRoleQuery(roleid));
+            return Ok(permissions);
+        }
+
         [AllowAnonymous]
         [HttpPost("AddUserToRole")]
         public async Task<ActionResult<CreateUserRoleCommandResponse>> AddUserToRole([FromBody] CreateUserRoleCommand createuserroleCommand)

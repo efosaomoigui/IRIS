@@ -27,6 +27,20 @@ namespace IRIS.BCK.Api.Controllers.Shipment
             //return Ok(shipments);
         }
 
+        [HttpGet("Shipment/GetShipmentById/{shipmentid}")]
+        public async Task<ActionResult<List<ShipmentListViewModel>>> GetShipmentById(string shipmentid)
+        {
+            var shipment = await _mediator.Send(new GetShipmentListQuery());
+            return Ok(shipment);
+        }
+
+        [HttpGet("Shipment/GetShipmentByWayBillNumber/{waybillnumber}")]
+        public async Task<ActionResult<List<ShipmentListViewModel>>> GetShipmentByWayBillNumber(string waybillnumber)
+        {
+            var waybill = await _mediator.Send(new GetShipmentListQuery());
+            return Ok(waybill);
+        }
+
         [HttpPost("Shipment", Name = "AddShipment")]
         public async Task<ActionResult<CreateShipmentCommandResponse>> Create([FromBody] CreateShipmentCommand createShipmentCommand)
         {
