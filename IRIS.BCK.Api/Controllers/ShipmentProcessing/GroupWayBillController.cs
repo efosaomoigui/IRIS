@@ -13,14 +13,14 @@ namespace IRIS.BCK.Api.Controllers.ShipmentProcessing
 {
     public class GroupWayBillController : BaseApiController
     {
-        [HttpGet("GroupWayBill/all", Name = "GetAllGroupWayBill")]
+        [HttpGet("GroupWayBill/Getall", Name = "GetAllGroupWayBill")]
         public async Task<ActionResult<List<GroupWayBillListViewModel>>> GetAllGroupWayBill()
         {
             var group = await _mediator.Send(new GetGroupWayBillQuery());
             return Ok(group);
         }
 
-        [HttpPost("GroupWayBill/all", Name = "AddGroup")]
+        [HttpPost("CreateGroupWayBill", Name = "AddGroup")]
         public async Task<ActionResult<CreateGroupWayBillCommandResponse>> Create([FromBody] CreateGroupWayBillCommand createGroupWayBillCommand)
         {
             var response = await _mediator.Send(createGroupWayBillCommand);

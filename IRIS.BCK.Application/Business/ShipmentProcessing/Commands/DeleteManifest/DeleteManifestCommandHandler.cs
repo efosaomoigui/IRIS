@@ -53,10 +53,10 @@ namespace IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.DeleteM
 
             if (DeleteManifestCommandResponse.Success)
             {
-                var deleteFleet = await _manifestRepository.Get(x => x.Id == request.Id);
-                if (deleteFleet == null) return DeleteManifestCommandResponse;
+                var deleteManifest = await _manifestRepository.Get(x => x.Id == request.Id);
+                if (deleteManifest == null) return DeleteManifestCommandResponse;
 
-                await _manifestRepository.DeleteAsync(deleteFleet);
+                await _manifestRepository.DeleteAsync(deleteManifest);
 
                 try
                 {
@@ -67,7 +67,7 @@ namespace IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.DeleteM
                     throw;
                 }
 
-                DeleteManifestCommandResponse.Manifestdto = _mapper.Map<ManifestDto>(deleteFleet);
+                DeleteManifestCommandResponse.Manifestdto = _mapper.Map<ManifestDto>(deleteManifest);
 
                 return DeleteManifestCommandResponse;
             }

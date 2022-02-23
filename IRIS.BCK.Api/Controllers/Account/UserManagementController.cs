@@ -3,6 +3,8 @@ using IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateClaimForRole;
 using IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateRole;
 using IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUser;
 using IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUserRole;
+using IRIS.BCK.Core.Application.Business.Accounts.Commands.UpdateUsers;
+using IRIS.BCK.Core.Application.Business.Accounts.Queries.GetClaimForRole;
 using IRIS.BCK.Core.Application.Business.Accounts.Queries.GetRoles;
 using IRIS.BCK.Core.Application.Business.Accounts.Queries.GetShipmentList;
 using IRIS.BCK.Core.Application.DTO.Account;
@@ -36,9 +38,17 @@ namespace IRIS.BCK.Api.Controllers.Account
             return Ok(response);
         }
 
-        [HttpGet("GetUsers")]   
+        [AllowAnonymous]
+        [HttpPut("UpdateUser")]
+        public async Task<ActionResult<UpdateUserCommandResponse>> Update([FromBody] UpdateUserCommand updateUserCommand)
+        {
+            var response = await _mediator.Send(updateUserCommand);
+            return Ok(response);
+        }
+
+        [HttpGet("GetUsers")]
         public async Task<ActionResult<List<UserListViewModel>>> GetAllUsers()
-        { 
+        {
             var users = await _mediator.Send(new GetUserListQuery());
             return Ok(users);
         }
@@ -72,7 +82,7 @@ namespace IRIS.BCK.Api.Controllers.Account
 
         [AllowAnonymous]
         [HttpPost("AddRole")]
-        public async Task<ActionResult<CreateRoleCommandResponse>> AddRole([FromBody] CreateRoleCommand createroleCommand)   
+        public async Task<ActionResult<CreateRoleCommandResponse>> AddRole([FromBody] CreateRoleCommand createroleCommand)
         {
             var role = await _mediator.Send(createroleCommand);
             return Ok(role);
@@ -80,7 +90,7 @@ namespace IRIS.BCK.Api.Controllers.Account
 
         [AllowAnonymous]
         [HttpGet("GetRoles")]
-        public async Task<ActionResult<List<RoleListViewModel>>> GetAllRoles() 
+        public async Task<ActionResult<List<RoleListViewModel>>> GetAllRoles()
         {
             var roles = await _mediator.Send(new GetRoleListQuery());
             return Ok(roles);
@@ -93,6 +103,20 @@ namespace IRIS.BCK.Api.Controllers.Account
             return Ok(roleclaim);
         }
 
+        [HttpGet("GetPermissions")]
+        public async Task<ActionResult<ClaimViewModel>> GetPermissions()
+        {
+            var roleid = HttpContext.User.FindFirstValue("RoleId");
+            var role = new ClaimViewModel();
+
+            if (roleid != null)
+            {
+                role = await _mediator.Send(new GetClaimForRoleQuery(roleid));
+            }
+
+            return Ok(role);
+        }
+
         [AllowAnonymous]
         [HttpPost("AddUserToRole")]
         public async Task<ActionResult<CreateUserRoleCommandResponse>> AddUserToRole([FromBody] CreateUserRoleCommand createuserroleCommand)
@@ -100,6 +124,5 @@ namespace IRIS.BCK.Api.Controllers.Account
             var roleclaim = await _mediator.Send(createuserroleCommand);
             return Ok(roleclaim);
         }
-
     }
 }
