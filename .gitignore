@@ -10,6 +10,7 @@
 *.userosscache
 *.sln.docstates
 
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
@@ -159,6 +160,9 @@ nCrunchTemp_*
 # MightyMoose
 *.mm.*
 AutoTest.Net/
+
+#appsettings
+appsettings.json
 
 # Web workbench (sass)
 .sass-cache/

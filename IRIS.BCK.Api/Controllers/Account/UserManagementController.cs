@@ -57,6 +57,19 @@ namespace IRIS.BCK.Api.Controllers.Account
             return Ok(user);
         }
 
+        [HttpGet("GetUser/{userid}")]
+        public async Task<ActionResult<UserViewModel>> GetUserById([FromRoute]string userid){
+            //var userid = HttpContext.User.FindFirstValue("UserId");
+            var user = new UserViewModel();
+
+            if (userid != null)
+            {
+                user = await _mediator.Send(new GetUserQuery(userid));
+            }
+
+            return Ok(user);
+        }
+
         [AllowAnonymous]
         [HttpPost("AddRole")]
         public async Task<ActionResult<CreateRoleCommandResponse>> AddRole([FromBody] CreateRoleCommand createroleCommand)   
