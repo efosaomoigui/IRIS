@@ -17,6 +17,6 @@ namespace IRIS.BCK.Core.Application.DTO.Price
 
         public Route Route { get; set; }
         public int UnitWeight { get; set; }
-        public decimal PricePErUnit { get; set; }
+        public decimal PricePerUnit { get; set; }
     }
 }
