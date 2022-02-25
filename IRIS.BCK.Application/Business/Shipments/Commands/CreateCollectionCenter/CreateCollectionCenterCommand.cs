@@ -16,6 +16,6 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateCollection
 
         public virtual Shipment Shipment { get; set; }
         public CollectionCenterEnum CollectionStatus { get; set; }
-        public User UserId { get; set; }
+        public Guid UserId { get; set; }
     }
 }

@@ -15,13 +15,13 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Queries.GetShipmentList
         public string Waybill { get; set; }
 
         //Customer Information
-        public User Customer { get; set; }
+        public Guid Customer { get; set; }
 
         public Address AddressId { get; set; }
         public Address CustomerAddress { get; set; }
 
         //Receivers Information
-        public User Reciever { get; set; }
+        public Guid Reciever { get; set; }
 
         // public Address AddressId { get; set; }
         public Address RecieverAddress { get; set; }
