@@ -8,6 +8,7 @@ using IRIS.BCK.Core.Domain.Entities.ShimentEntities;
 using IRIS.BCK.Core.Domain.Entities.ShipmentEntities;
 using IRIS.BCK.Core.Domain.Entities.ShipmentProcessing;
 using IRIS.BCK.Core.Domain.Entities.WalletEntities;
+using IRIS.BCK.Core.Domain.EntityEnums;
 using IRIS.BCK.Domain.Common;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -52,6 +53,7 @@ namespace IRIS.BCK.Infrastructure.Persistence
             modelBuilder.Entity<Route>().Property(p => p.LoaderFee).HasColumnType("decimal(18,4)");
             modelBuilder.Entity<Route>().Property(p => p.DispatchFee).HasColumnType("decimal(18,4)");
             modelBuilder.Entity<Shipment>().Property(p => p.GrandTotal).HasColumnType("decimal(18,4)");
+            modelBuilder.Entity<ShipmentItem>().Property(p => p.DeclarationOfValueCheck).HasColumnType("decimal(18,4)");
 
             modelBuilder.Entity<Shipment>()
        .HasMany(a => a.CustomerAddress)
