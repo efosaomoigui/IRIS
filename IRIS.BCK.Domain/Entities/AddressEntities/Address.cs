@@ -22,7 +22,20 @@ namespace IRIS.BCK.Core.Domain.Entities.AddressEntities
         public string State { get; set; }
         public string Country { get; set; }
 
-        public Guid ShipmentId { get; set; }
-        public Shipment Shipment { get; set; }
+        public Guid? customershipmentAddressId { get; set; }  
+        public Shipment customershipmentAddress { get; set; }
+
+        public Guid? recievershipmentAddressId { get; set; }
+        public Shipment recievershipmentAddress { get; set; }  
+    }
+
+
+    public class CustomerAddress : Auditable
+    {
+        [Key]
+        public Guid AddressId { get; set; }
+        public Guid User { get; set; } 
+        public List<Address> Addresses { get; set; }  
+
     }
 }

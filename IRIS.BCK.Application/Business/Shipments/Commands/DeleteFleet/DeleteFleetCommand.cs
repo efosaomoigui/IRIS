@@ -9,6 +9,6 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Commands.DeleteFleet
 {
     public class DeleteFleetCommand : IRequest<DeleteFleetCommandResponse>
     {
-        public int FleetId { get; set; }
+        public Guid FleetId { get; set; }
     }
 }

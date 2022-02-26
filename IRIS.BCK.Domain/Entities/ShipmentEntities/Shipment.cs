@@ -22,23 +22,21 @@ namespace IRIS.BCK.Core.Domain.Entities.ShimentEntities
         //Customer Information
         public Guid Customer { get; set; }
 
-        public Guid AddressId { get; set; }
-
         public decimal GrandTotal { get; set; }
 
-        public List<Address> CustomerAddress { get; set; }
+        public virtual ICollection<Address> CustomerAddress { get; set; }
 
         //Receivers Information
         public Guid Reciever { get; set; }
 
-        // public Address AddressId { get; set; }
-        [ForeignKey("ShipmentId")]
-        public List<Address> RecieverAddress { get; set; }
+        public virtual ICollection<Address> RecieverAddress { get; set; }
 
         //PickUp Options
         public PickupOptions PickupOptions { get; set; }
 
         //Shipment Items && pricing
         public virtual List<ShipmentItem> ShipmentItems { get; set; }
+
     }
+
 }

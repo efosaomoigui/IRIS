@@ -14,6 +14,7 @@ namespace IRIS.BCK.Core.Domain.EntityEnums
         public string DimensionUnit { get; set; } //cm / in
 
         public double ItemsWeight { get; set; }
+        public bool IsVolumnWeight { get; set; } 
         public bool IsWeightEstimated { get; set; }
 
         public bool IsdeclaredVal { get; set; }

@@ -11,7 +11,7 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateFleets
 {
     public class CreateFleetCommand : IRequest<CreateFleetCommandResponse>
     {
-        public int FleetId { get; set; }
+        public Guid FleetId { get; set; }
 
         [MaxLength(100)]
         public string RegistrationNumber { get; set; }
