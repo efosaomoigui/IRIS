@@ -2,11 +2,8 @@
 using IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.DeleteGroupWayBill;
 using IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.UpdateGroupWayBill;
 using IRIS.BCK.Core.Application.Business.ShipmentProcessing.Queries.GetGroupWayBill;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace IRIS.BCK.Api.Controllers.ShipmentProcessing
