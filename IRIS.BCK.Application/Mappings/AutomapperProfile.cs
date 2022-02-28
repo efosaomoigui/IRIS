@@ -60,6 +60,18 @@ namespace IRIS.BCK.Core.Application.Mappings
             CreateMap<CreateTripCommand, Trips>();
             CreateMap<Trips, CreateTripCommand>();
 
+            CreateMap<CreatePriceCommand, PriceEnt>();
+            CreateMap<Trips, CreateTripCommand>();
+
+            CreateMap<GetShipmentListQuery, ShipmentListViewModel>();
+            CreateMap<ShipmentListViewModel, GetShipmentListQuery>();
+
+            CreateMap<GetPriceQuery, PriceListViewModel>();
+            CreateMap<PriceListViewModel, GetPriceQuery>();
+
+            CreateMap<GetRouteQuery, RouteViewModel>();
+            CreateMap<RouteViewModel, GetRouteQuery>();
+
             CreateMap<WalletNumberDto, WalletNumber>();
             CreateMap<WalletNumber, WalletNumberDto>();
 
