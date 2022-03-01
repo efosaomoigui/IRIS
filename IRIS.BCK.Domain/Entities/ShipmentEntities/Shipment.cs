@@ -20,7 +20,7 @@ namespace IRIS.BCK.Core.Domain.Entities.ShimentEntities
         public string Waybill { get; set; }
 
         //Customer Information
-        public User Customer { get; set; }
+        public Guid Customer { get; set; }
 
         public Guid AddressId { get; set; }
 
@@ -29,7 +29,7 @@ namespace IRIS.BCK.Core.Domain.Entities.ShimentEntities
         public List<Address> CustomerAddress { get; set; }
 
         //Receivers Information
-        public User Reciever { get; set; }
+        public Guid Reciever { get; set; }
 
         // public Address AddressId { get; set; }
         [ForeignKey("ShipmentId")]

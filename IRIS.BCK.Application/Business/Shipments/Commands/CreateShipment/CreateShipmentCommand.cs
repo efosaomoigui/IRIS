@@ -18,7 +18,7 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateShipment
         public string Waybill { get; set; }
 
         //Customer Information
-        public User Customer { get; set; }
+        public Guid Customer { get; set; }
 
         //[ForeignKey]
         public Guid AddressId { get; set; }
@@ -29,7 +29,7 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateShipment
         //public List<Address> CustomerAddress { get; set; }
 
         //Receivers Information
-        public User Reciever { get; set; }
+        public Guid Reciever { get; set; }
 
         // public Address AddressId { get; set; }
         public List<Address> RecieverAddress { get; set; }

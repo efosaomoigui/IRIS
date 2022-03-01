@@ -68,13 +68,14 @@ namespace IRIS.BCK.Api.Controllers.Account
         }
 
         [HttpGet("GetUser/{userid}")]
-        public async Task<ActionResult<UserViewModel>> GetUserById([FromRoute]string userid){
+        public async Task<ActionResult<UserViewModel>> GetUserById([FromRoute] Guid userid)
+        {
             //var userid = HttpContext.User.FindFirstValue("UserId");
             var user = new UserViewModel();
 
             if (userid != null)
             {
-                user = await _mediator.Send(new GetUserQuery(userid));
+                user = await _mediator.Send(new GetUserQuery(userid.ToString()));
             }
 
             return Ok(user);

@@ -14,6 +14,6 @@ namespace IRIS.BCK.Core.Domain.Entities.ShipmentProcessing
         public string ManifestCode { get; set; }
         public int GroupWayBillId { get; set; }
         public GroupWayBill GroupWayBill { get; set; }
-        public User UserId { get; set; }
+        public Guid UserId { get; set; }
     }
 }

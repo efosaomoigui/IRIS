@@ -16,7 +16,7 @@ namespace IRIS.BCK.Core.Domain.Entities.AddressEntities
         [Key]
         public Guid AddressId { get; set; }
 
-        public User User { get; set; }
+        public Guid User { get; set; }
         public string StreetName { get; set; }
         public string City { get; set; }
         public string State { get; set; }

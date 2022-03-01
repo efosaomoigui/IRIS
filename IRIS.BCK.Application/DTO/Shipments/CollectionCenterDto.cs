@@ -14,6 +14,6 @@ namespace IRIS.BCK.Core.Application.DTO.Shipments
 
         public Shipment Shipment { get; set; }
         public bool CollectionStatus { get; set; }
-        public User UserId { get; set; }
+        public Guid UserId { get; set; }
     }
 }
