@@ -46,9 +46,9 @@ namespace IRIS.BCK.Api.Controllers.Shipment
         }
 
         [HttpGet("Route/GetRouteById/{routeid}")]
-        public async Task<ActionResult<List<ShipmentListViewModel>>> GetRouteById(string routeid)
+        public async Task<ActionResult<List<RouteViewModel>>> GetRouteById(string routeid)
         {
-            var shipments = await _mediator.Send(new GetShipmentListQuery());
+            var shipments = await _mediator.Send(new GetRouteQuery());
             return Ok(shipments);
         }
 
@@ -145,10 +145,10 @@ namespace IRIS.BCK.Api.Controllers.Shipment
         }
 
         [HttpGet("Price/GetPriceById/{priceid}")]
-        public async Task<ActionResult<List<ShipmentListViewModel>>> GetPriceById(string routeid)
+        public async Task<ActionResult<List<PriceListViewModel>>> GetPriceById(string priceid)
         {
-            var shipments = await _mediator.Send(new GetShipmentListQuery());
-            return Ok(shipments);
+            var price = await _mediator.Send(new GetPriceQuery());
+            return Ok(price);
         }
 
         #endregion Price

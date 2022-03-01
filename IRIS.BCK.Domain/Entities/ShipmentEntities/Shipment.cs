@@ -36,7 +36,5 @@ namespace IRIS.BCK.Core.Domain.Entities.ShimentEntities
 
         //Shipment Items && pricing
         public virtual List<ShipmentItem> ShipmentItems { get; set; }
-
     }
-
 }

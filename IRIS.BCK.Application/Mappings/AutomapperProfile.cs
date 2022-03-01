@@ -15,6 +15,7 @@ using IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateShipment;
 using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetFleets;
 using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetRoutes;
 using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetShipmentList;
+using IRIS.BCK.Core.Application.Business.Wallet.Commands.CreateWalletNumber;
 using IRIS.BCK.Core.Application.Business.Wallet.Queries.GetWalletByWalletNumberQuery;
 using IRIS.BCK.Core.Application.DTO.Account;
 using IRIS.BCK.Core.Application.DTO.Fleets;
@@ -59,6 +60,21 @@ namespace IRIS.BCK.Core.Application.Mappings
 
             CreateMap<CreateTripCommand, Trips>();
             CreateMap<Trips, CreateTripCommand>();
+
+            CreateMap<CreatePriceCommand, PriceEnt>();
+            CreateMap<Trips, CreateTripCommand>();
+
+            CreateMap<CreateWalletNumberCommand, WalletNumber>();
+            CreateMap<WalletNumber, CreateWalletNumberCommand>();
+
+            CreateMap<GetShipmentListQuery, ShipmentListViewModel>();
+            CreateMap<ShipmentListViewModel, GetShipmentListQuery>();
+
+            CreateMap<GetPriceQuery, PriceListViewModel>();
+            CreateMap<PriceListViewModel, GetPriceQuery>();
+
+            CreateMap<GetRouteQuery, RouteViewModel>();
+            CreateMap<RouteViewModel, GetRouteQuery>();
 
             CreateMap<WalletNumberDto, WalletNumber>();
             CreateMap<WalletNumber, WalletNumberDto>();
