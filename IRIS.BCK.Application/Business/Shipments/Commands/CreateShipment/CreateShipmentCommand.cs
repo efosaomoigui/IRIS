@@ -18,7 +18,7 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateShipment
         public string Waybill { get; set; }
 
         //Customer Information
-        public User Customer { get; set; }
+        public Guid Customer { get; set; }
 
         //[ForeignKey]
         public Guid AddressId { get; set; }
