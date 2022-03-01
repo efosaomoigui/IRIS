@@ -81,7 +81,7 @@ namespace IRIS.BCK.Api
 
             //services.AddAuthorization(options =>
             //{
-            //    options.AddPolicy("AdminPolicy", policy => policy.RequireClaim("Claimname", "ClainValue"));
+            ////    options.AddPolicy("AdminPolicy", policy => policy.RequireClaim("Claimname", "ClainValue"));
             //});
 
             services.AddApplicationServices(Configuration);
