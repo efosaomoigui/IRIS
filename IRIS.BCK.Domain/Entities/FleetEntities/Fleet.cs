@@ -2,13 +2,14 @@
 using IRIS.BCK.Domain.Common;
 using System;
 using IRIS.BCK.Core.Domain.EntityEnums;
+using IRIS.BCK.Core.Domain.Entities.ShipmentProcessing;
 
 namespace IRIS.BCK.Core.Domain.Entities.FleetEntities
 {
     public class Fleet : Auditable
     {
         [Key]
-        public int FleetId { get; set; }
+        public Guid FleetId { get; set; }
 
         [MaxLength(100)]
         public string RegistrationNumber { get; set; }

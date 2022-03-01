@@ -4,14 +4,16 @@ using IRIS.BCK.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace IRIS.BCK.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(IRISDbContext))]
-    partial class IRISDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220225100050_shipment relationships")]
+    partial class shipmentrelationships
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -225,6 +227,12 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                     b.Property<DateTime>("LastModifiedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid?>("ShipmentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("ShipmentId1")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("State")
                         .HasColumnType("nvarchar(max)");
 
@@ -234,17 +242,11 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                     b.Property<Guid>("User")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("customershipmentAddressId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("recievershipmentAddressId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("AddressId");
 
-                    b.HasIndex("customershipmentAddressId");
+                    b.HasIndex("ShipmentId");
 
-                    b.HasIndex("recievershipmentAddressId");
+                    b.HasIndex("ShipmentId1");
 
                     b.ToTable("Address");
                 });
@@ -895,17 +897,13 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("IRIS.BCK.Core.Domain.Entities.AddressEntities.Address", b =>
                 {
-                    b.HasOne("IRIS.BCK.Core.Domain.Entities.ShimentEntities.Shipment", "customershipmentAddress")
+                    b.HasOne("IRIS.BCK.Core.Domain.Entities.ShimentEntities.Shipment", null)
                         .WithMany("CustomerAddress")
-                        .HasForeignKey("customershipmentAddressId");
+                        .HasForeignKey("ShipmentId");
 
-                    b.HasOne("IRIS.BCK.Core.Domain.Entities.ShimentEntities.Shipment", "recievershipmentAddress")
+                    b.HasOne("IRIS.BCK.Core.Domain.Entities.ShimentEntities.Shipment", null)
                         .WithMany("RecieverAddress")
-                        .HasForeignKey("recievershipmentAddressId");
-
-                    b.Navigation("customershipmentAddress");
-
-                    b.Navigation("recievershipmentAddress");
+                        .HasForeignKey("ShipmentId1");
                 });
 
             modelBuilder.Entity("IRIS.BCK.Core.Domain.Entities.FleetEntities.Fleet", b =>

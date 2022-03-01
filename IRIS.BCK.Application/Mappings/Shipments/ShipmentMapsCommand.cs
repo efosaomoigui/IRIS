@@ -15,11 +15,12 @@ namespace IRIS.BCK.Core.Application.Mappings.Shipments
         {
             return new Shipment
             {
-                AddressId = request.AddressId,
                 //AddressId = request.AddressId,
                 PickupOptions = request.PickupOptions,
+                Customer = request.Customer,
+                //CustomerAddress = request.CustomerAddress,
                 Reciever = request.Reciever,
-                RecieverAddress = request.RecieverAddress,
+                //RecieverAddress = request.RecieverAddress,
                 ShipmentItems = request.ShipmentItems,
                 Waybill = request.Waybill,
                 GrandTotal = request.GrandTotal

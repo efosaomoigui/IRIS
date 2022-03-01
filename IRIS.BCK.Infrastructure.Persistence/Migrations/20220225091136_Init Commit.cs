@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace IRIS.BCK.Infrastructure.Persistence.Migrations
 {
-    public partial class initialMigration : Migration
+    public partial class InitCommit : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -69,32 +69,6 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Fleet",
-                columns: table => new
-                {
-                    FleetId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    RegistrationNumber = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    ChasisNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    EngineNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Status = table.Column<bool>(type: "bit", nullable: false),
-                    FleetType = table.Column<int>(type: "int", nullable: false),
-                    Capacity = table.Column<int>(type: "int", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    FleetModel = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    FleetMake = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    OwnerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Fleet", x => x.FleetId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Route",
                 columns: table => new
                 {
@@ -126,10 +100,10 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                 {
                     ShipmentId = table.Column<Guid>(type: "uniqueidentifier", maxLength: 100, nullable: false),
                     Waybill = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Customer = table.Column<int>(type: "int", nullable: false),
+                    Customer = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     AddressId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     GrandTotal = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
-                    Reciever = table.Column<int>(type: "int", nullable: false),
+                    Reciever = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     PickupOptions = table.Column<int>(type: "int", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -142,6 +116,33 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Trips",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TripReference = table.Column<int>(type: "int", nullable: false),
+                    RouteCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ManifestId = table.Column<int>(type: "int", nullable: false),
+                    Driver = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Dispatcher = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    DriverDispatchFee = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
+                    Miscelleneous = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
+                    FuelCosts = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
+                    FuelUsed = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
+                    StartTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Trips", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "WalletNumber",
                 columns: table => new
                 {
@@ -149,7 +150,7 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                     Number = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     WalletBalance = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -296,7 +297,7 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                 columns: table => new
                 {
                     AddressId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    User = table.Column<int>(type: "int", nullable: false),
+                    User = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     StreetName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     City = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     State = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -332,7 +333,7 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ShipmentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CollectionStatus = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -356,7 +357,6 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     GroupCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ShipmentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -410,7 +410,7 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                     ItemsWeight = table.Column<double>(type: "float", nullable: false),
                     IsWeightEstimated = table.Column<bool>(type: "bit", nullable: false),
                     IsdeclaredVal = table.Column<bool>(type: "bit", nullable: false),
-                    DeclarationOfValueCheck = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    DeclarationOfValueCheck = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
                     ShipmentId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
@@ -421,6 +421,65 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                         column: x => x.ShipmentId,
                         principalTable: "Shipment",
                         principalColumn: "ShipmentId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Fleet",
+                columns: table => new
+                {
+                    FleetId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    RegistrationNumber = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    ChasisNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EngineNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Status = table.Column<bool>(type: "bit", nullable: false),
+                    FleetType = table.Column<int>(type: "int", nullable: false),
+                    Capacity = table.Column<int>(type: "int", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FleetModel = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FleetMake = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    OwnerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TripsId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Fleet", x => x.FleetId);
+                    table.ForeignKey(
+                        name: "FK_Fleet_Trips_TripsId",
+                        column: x => x.TripsId,
+                        principalTable: "Trips",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TrackHistory",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TripId = table.Column<int>(type: "int", nullable: false),
+                    TripId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    Action = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Location = table.Column<int>(type: "int", nullable: false),
+                    TimeStamp = table.Column<int>(type: "int", nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TrackHistory", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TrackHistory_Trips_TripId1",
+                        column: x => x.TripId1,
+                        principalTable: "Trips",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -458,7 +517,8 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                     ManifestCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     GroupWayBillId = table.Column<int>(type: "int", nullable: false),
                     GroupWayBillId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    UserId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TripsId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -471,6 +531,12 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                         name: "FK_Manifest_GroupWayBill_GroupWayBillId1",
                         column: x => x.GroupWayBillId1,
                         principalTable: "GroupWayBill",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Manifest_Trips_TripsId",
+                        column: x => x.TripsId,
+                        principalTable: "Trips",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -530,6 +596,11 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                 column: "ShipmentId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Fleet_TripsId",
+                table: "Fleet",
+                column: "TripsId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_GroupWayBill_ShipmentId",
                 table: "GroupWayBill",
                 column: "ShipmentId");
@@ -538,6 +609,11 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                 name: "IX_Manifest_GroupWayBillId1",
                 table: "Manifest",
                 column: "GroupWayBillId1");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Manifest_TripsId",
+                table: "Manifest",
+                column: "TripsId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Payment_ShipmentId",
@@ -553,6 +629,11 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                 name: "IX_ShipmentItem_ShipmentId",
                 table: "ShipmentItem",
                 column: "ShipmentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TrackHistory_TripId1",
+                table: "TrackHistory",
+                column: "TripId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_WalletTransaction_WalletNumberId",
@@ -599,6 +680,9 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                 name: "ShipmentItem");
 
             migrationBuilder.DropTable(
+                name: "TrackHistory");
+
+            migrationBuilder.DropTable(
                 name: "WalletTransaction");
 
             migrationBuilder.DropTable(
@@ -612,6 +696,9 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "Route");
+
+            migrationBuilder.DropTable(
+                name: "Trips");
 
             migrationBuilder.DropTable(
                 name: "WalletNumber");

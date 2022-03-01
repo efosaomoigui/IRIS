@@ -54,18 +54,21 @@ namespace IRIS.BCK.Infrastructure.Persistence
             modelBuilder.Entity<Route>().Property(p => p.DispatchFee).HasColumnType("decimal(18,4)");
             modelBuilder.Entity<Shipment>().Property(p => p.GrandTotal).HasColumnType("decimal(18,4)");
             modelBuilder.Entity<ShipmentItem>().Property(p => p.DeclarationOfValueCheck).HasColumnType("decimal(18,4)");
+            modelBuilder.Entity<Trips>().Property(p => p.DriverDispatchFee).HasColumnType("decimal(18,4)");
+            modelBuilder.Entity<Trips>().Property(p => p.DriverDispatchFee).HasColumnType("decimal(18,4)");
+            modelBuilder.Entity<Trips>().Property(p => p.FuelCosts).HasColumnType("decimal(18,4)");
+            modelBuilder.Entity<Trips>().Property(p => p.FuelUsed).HasColumnType("decimal(18,4)");
+            modelBuilder.Entity<Trips>().Property(p => p.Miscelleneous).HasColumnType("decimal(18,4)");
 
-            modelBuilder.Entity<Shipment>()
-       .HasMany(a => a.CustomerAddress)
-       .WithOne(b => b.Shipment);
+            modelBuilder.Entity<Shipment>().HasMany(t => t.CustomerAddress)
+                .WithOne(g => g.customershipmentAddress)
+                .HasForeignKey(g => g.customershipmentAddressId);
 
-            //foreach (var property in modelBuilder.Model.GetEntityTypes()
-            //   .SelectMany(t => t.GetProperties())
-            //   .Where(p => p.ClrType == typeof(decimal) || p.ClrType == typeof(decimal?)))
-            //{
-            //    property.Relational().ColumnType = "decimal(18,2)";
 
-            //}
+            modelBuilder.Entity<Shipment>().HasMany(t => t.RecieverAddress)
+                .WithOne(g => g.recievershipmentAddress)
+                .HasForeignKey(g => g.recievershipmentAddressId);
+
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
@@ -83,6 +86,8 @@ namespace IRIS.BCK.Infrastructure.Persistence
                         break;
                 }
             }
+
+
 
             return base.SaveChangesAsync(cancellationToken);
         }

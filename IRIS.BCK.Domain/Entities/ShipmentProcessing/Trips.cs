@@ -14,10 +14,9 @@ namespace IRIS.BCK.Core.Domain.Entities.ShipmentProcessing
         public Guid Id { get; set; }
         public int TripReference { get; set; }
         public string RouteCode { get; set; }
-        public Guid fleetid { get; set; }
-        public virtual Fleet Fleet { get; set; }
+        public virtual List<Fleet> Fleet { get; set; }
         public int ManifestId { get; set; }
-        public virtual Manifest manifest { get; set; }
+        public virtual List<Manifest> manifest { get; set; }
         public Guid Driver { get; set; }
         public Guid Dispatcher { get; set; }
         public decimal DriverDispatchFee { get; set; }
