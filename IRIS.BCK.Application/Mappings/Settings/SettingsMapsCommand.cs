@@ -29,18 +29,10 @@ namespace IRIS.BCK.Core.Application.Mappings.Settings
         {
             return new Route
             {
-                AvailableAtTerminal = request.AvailableAtTerminal,
-                AvailableOnline = request.AvailableOnline,
-                CaptainFee = request.CaptainFee,
                 Departure = request.Departure,
                 Destination = request.Destination,
-                DispatchFee = request.DispatchFee,
-                IsSubRoute = request.IsSubRoute,
-                LoaderFee = request.LoaderFee,
-                MainRouteId = request.MainRouteId,
                 RouteId = request.RouteId,
                 RouteName = request.RouteName,
-                RouteType = request.RouteType
             };
         }
     }

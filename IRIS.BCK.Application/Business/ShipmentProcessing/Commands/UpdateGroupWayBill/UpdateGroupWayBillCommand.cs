@@ -1,4 +1,5 @@
-﻿using IRIS.BCK.Core.Domain.Entities.ShimentEntities;
+﻿using IRIS.BCK.Core.Domain.Entities.ServiceCenterEntities;
+using IRIS.BCK.Core.Domain.Entities.ShimentEntities;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,8 @@ namespace IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.UpdateG
     {
         public Guid Id { get; set; }
         public string GroupCode { get; set; }
-        public Guid ShipmentId { get; set; }
-        public Shipment Shipment { get; set; }
+        public Guid CreatedBy { get; set; }
+        public Guid ServiceCenterId { get; set; }
+        public ServiceCenter ServiceCenter { get; set; }
     }
 }

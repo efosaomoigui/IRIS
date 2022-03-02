@@ -19,13 +19,7 @@ namespace IRIS.BCK.Core.Application.Business.ShipmentProcessing.Queries.GetTrips
         public int ManifestId { get; set; }
         public virtual Manifest manifest { get; set; }
         public string Driver { get; set; }
-        public string Dispatcher { get; set; }
-        public decimal DriverDispatchFee { get; set; }
-        public decimal Miscelleneous { get; set; }
-        public decimal FuelCosts { get; set; }
-        public decimal FuelUsed { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
-        public StatusEnum Status { get; set; }
     }
 }

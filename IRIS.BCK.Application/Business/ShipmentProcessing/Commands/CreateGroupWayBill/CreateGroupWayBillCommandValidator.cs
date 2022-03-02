@@ -19,10 +19,6 @@ namespace IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.CreateG
             RuleFor(p => p.GroupCode)
                 .NotEmpty().WithMessage("{PropertyName} is required")
                 .NotNull();
-
-            RuleFor(p => p.Shipment)
-               .NotEmpty().WithMessage("{PropertyName} is required")
-               .NotNull();
         }
     }
 }

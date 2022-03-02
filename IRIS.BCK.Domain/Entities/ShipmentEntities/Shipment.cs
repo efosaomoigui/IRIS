@@ -1,5 +1,6 @@
 ﻿using GIGLS.Core.Enums;
 using IRIS.BCK.Core.Domain.Entities.AddressEntities;
+using IRIS.BCK.Core.Domain.Entities.ServiceCenterEntities;
 using IRIS.BCK.Core.Domain.EntityEnums;
 using IRIS.BCK.Domain.Common;
 using System;
@@ -24,17 +25,20 @@ namespace IRIS.BCK.Core.Domain.Entities.ShimentEntities
 
         public decimal GrandTotal { get; set; }
 
-        public virtual ICollection<Address> CustomerAddress { get; set; }
+        public ICollection<Address> CustomerAddress { get; set; }
 
         //Receivers Information
         public Guid Reciever { get; set; }
 
-        public virtual ICollection<Address> RecieverAddress { get; set; }
+        public ICollection<Address> RecieverAddress { get; set; }
 
         //PickUp Options
         public PickupOptions PickupOptions { get; set; }
 
         //Shipment Items && pricing
-        public virtual List<ShipmentItem> ShipmentItems { get; set; }
+        public List<ShipmentItem> ShipmentItems { get; set; }
+
+        public Guid ServiceCenterId { get; set; }
+
     }
 }

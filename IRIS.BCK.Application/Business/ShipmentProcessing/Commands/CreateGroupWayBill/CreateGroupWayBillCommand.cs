@@ -13,10 +13,8 @@ namespace IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.CreateG
     {
         public Guid Id { get; set; }
         public string GroupCode { get; set; }
-
         public Guid ShipmentId { get; set; }
-        public Shipment Shipment { get; set; }
-
-        // public User UserId { get; set; }
+        public Guid UserId { get; set; }
+        public Guid ServiceCenterId { get; set; } 
     }
 }

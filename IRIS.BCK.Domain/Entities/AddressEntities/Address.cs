@@ -30,12 +30,4 @@ namespace IRIS.BCK.Core.Domain.Entities.AddressEntities
     }
 
 
-    public class CustomerAddress : Auditable
-    {
-        [Key]
-        public Guid AddressId { get; set; }
-        public Guid User { get; set; } 
-        public List<Address> Addresses { get; set; }  
-
-    }
 }

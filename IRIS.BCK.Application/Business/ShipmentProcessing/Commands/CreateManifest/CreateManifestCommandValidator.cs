@@ -16,14 +16,7 @@ namespace IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.CreateM
         {
             _manifestRepository = manifestRepository;
 
-            RuleFor(p => p.GroupWayBill)
-                .NotEmpty().WithMessage("{PropertyName} is required")
-                .NotNull();
-
             RuleFor(p => p.ManifestCode)
-                .NotEmpty().WithMessage("{PropertyName} is required")
-                .NotNull();
-            RuleFor(p => p.GroupWayBillId)
                 .NotEmpty().WithMessage("{PropertyName} is required")
                 .NotNull();
         }

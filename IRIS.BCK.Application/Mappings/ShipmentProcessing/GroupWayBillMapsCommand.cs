@@ -15,9 +15,7 @@ namespace IRIS.BCK.Core.Application.Mappings.ShipmentProcessing
             return new GroupWayBill
             {
                 Id = request.Id,
-                Shipment = request.Shipment,
                 GroupCode = request.GroupCode,
-                ShipmentId = request.ShipmentId
             };
         }
     }

@@ -14,9 +14,7 @@ namespace IRIS.BCK.Core.Application.Mappings.ShipmentProcessing
         {
             return new Manifest
             {
-                GroupWayBillId = request.GroupWayBillId,
                 ManifestCode = request.ManifestCode,
-                GroupWayBill = request.GroupWayBill
             };
         }
     }

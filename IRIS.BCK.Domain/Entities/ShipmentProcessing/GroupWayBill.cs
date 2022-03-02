@@ -1,4 +1,5 @@
-﻿using IRIS.BCK.Core.Domain.Entities.ShimentEntities;
+﻿using IRIS.BCK.Core.Domain.Entities.ServiceCenterEntities;
+using IRIS.BCK.Core.Domain.Entities.ShimentEntities;
 using IRIS.BCK.Domain.Common;
 using System;
 using System.Collections.Generic;
@@ -12,10 +13,6 @@ namespace IRIS.BCK.Core.Domain.Entities.ShipmentProcessing
     {
         public Guid Id { get; set; }
         public string GroupCode { get; set; }
-
-        public Guid ShipmentId { get; set; }
-        public Shipment Shipment { get; set; }
-
-        // public User UserId { get; set; }
+        public Guid ServiceCenterId { get; set; }
     }
 }

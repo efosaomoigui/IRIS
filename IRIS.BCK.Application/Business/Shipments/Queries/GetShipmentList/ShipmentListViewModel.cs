@@ -11,36 +11,28 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Queries.GetShipmentList
 {
     public class ShipmentListViewModel
     {
-        public int ShipmentId { get; set; }
+        public Guid ShipmentId { get; set; }
+
         public string Waybill { get; set; }
 
         //Customer Information
         public Guid Customer { get; set; }
 
-        public Address AddressId { get; set; }
-        public Address CustomerAddress { get; set; }
+        public decimal GrandTotal { get; set; }
+
+        public ICollection<Address> CustomerAddress { get; set; }
 
         //Receivers Information
         public Guid Reciever { get; set; }
 
-        // public Address AddressId { get; set; }
-        public Address RecieverAddress { get; set; }
+        public ICollection<Address> RecieverAddress { get; set; }
 
         //PickUp Options
         public PickupOptions PickupOptions { get; set; }
 
         //Shipment Items && pricing
-        public virtual List<ShipmentItem> ShipmentItems { get; set; }
+        public List<ShipmentItem> ShipmentItems { get; set; }
 
-        public double length { get; set; }
-        public double breadth { get; set; }
-        public double Height { get; set; }
-        public string DimensionUnit { get; set; } //cm / in
-
-        public double ItemsWeight { get; set; }
-        public bool IsWeightEstimated { get; set; }
-
-        public bool IsdeclaredVal { get; set; }
-        public decimal DeclarationOfValueCheck { get; set; }
+        public Guid ServiceCenterId { get; set; }
     }
 }
