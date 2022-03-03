@@ -53,7 +53,7 @@ namespace IRIS.BCK.Core.Application.Business.ShipmentGroupWayBillMaps.Commands.D
 
             if (DeleteShipmentGroupWayBillMapCommandResponse.Success)
             {
-                var deleteShipmentGroup = await _shipmentGroupWayBillRepository.Get(x => x.id == request.id);
+                var deleteShipmentGroup = await _shipmentGroupWayBillRepository.Get(x => x.ShipmentGroupWayBillMapid == request.ShipmentGroupWayBillMapid);
                 if (deleteShipmentGroup == null) return DeleteShipmentGroupWayBillMapCommandResponse;
 
                 await _shipmentGroupWayBillRepository.DeleteAsync(deleteShipmentGroup);

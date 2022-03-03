@@ -16,7 +16,7 @@ namespace IRIS.BCK.Core.Application.Business.ShipmentGroupWayBillMaps.Commands.D
         {
             _shipmentGroupWayBillRepository = shipmentGroupWayBillRepository;
 
-            RuleFor(p => p.id)
+            RuleFor(p => p.ShipmentGroupWayBillMapid)
                 .NotEmpty().WithMessage("{PropertyName} is required")
                 .NotNull();
         }

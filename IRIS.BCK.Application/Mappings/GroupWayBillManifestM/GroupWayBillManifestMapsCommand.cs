@@ -14,7 +14,7 @@ namespace IRIS.BCK.Core.Application.Mappings.GroupWayBillManifestM
         {
             return new GroupWayBillManifestMap
             {
-                id = request.id,
+                GroupWayBillManifestMapid = request.GroupWayBillManifestMapid,
                 ManifestCode = request.ManifestCode,
                 GroupWayBillCode = request.GroupWayBillCode
             };

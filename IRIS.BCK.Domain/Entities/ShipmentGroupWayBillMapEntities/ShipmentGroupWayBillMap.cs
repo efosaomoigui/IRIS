@@ -9,7 +9,7 @@ namespace IRIS.BCK.Core.Domain.Entities.ShipmentGroupWayBillMapEntities
 {
     public class ShipmentGroupWayBillMap : Auditable
     {
-        public Guid id { get; set; }
+        public Guid ShipmentGroupWayBillMapid { get; set; }
         public string ShipmentWaybill { get; set; }
         public string GroupWayBillCode { get; set; }
     }
