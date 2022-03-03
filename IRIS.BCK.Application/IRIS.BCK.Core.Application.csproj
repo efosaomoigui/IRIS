@@ -40,7 +40,6 @@
 
   <ItemGroup>
     <Folder Include="Business\Monitoring\Commands\DeleteTrackHistory\" />
-    <Folder Include="Business\ShipmentGroupWayBillMaps\Queries\" />
     <Folder Include="Business\Wallet\Commands\DeleteWalletNumber\" />
     <Folder Include="Business\Wallet\Commands\UpdateWalletNumber\" />
     <Folder Include="Business\Wallet\Queries\GetWalletNumberQuery\" />
