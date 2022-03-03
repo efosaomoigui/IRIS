@@ -92,6 +92,9 @@ namespace IRIS.BCK.Core.Application.Mappings
             CreateMap<Route, RouteViewModel>();
             CreateMap<User, UserListViewModel>();
 
+            CreateMap<Route, RouteViewModel>();
+            CreateMap<RouteViewModel, Route>();
+
             CreateMap<CreateFleetCommand, Fleet>();
             CreateMap<Fleet, CreateFleetCommand>();
 
@@ -145,7 +148,6 @@ namespace IRIS.BCK.Core.Application.Mappings
 
             CreateMap<TripDto, Trips>();
             CreateMap<Trips, TripDto>();
-            
 
             CreateMap<GroupWayBill, GroupWayBillListViewModel>();
             CreateMap<GroupWayBillListViewModel, GroupWayBill>();
