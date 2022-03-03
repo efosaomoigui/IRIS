@@ -39,6 +39,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Business\GroupWayBillManifestMaps\Queries\" />
     <Folder Include="Business\Monitoring\Commands\DeleteTrackHistory\" />
     <Folder Include="Business\Wallet\Commands\DeleteWalletNumber\" />
     <Folder Include="Business\Wallet\Commands\UpdateWalletNumber\" />

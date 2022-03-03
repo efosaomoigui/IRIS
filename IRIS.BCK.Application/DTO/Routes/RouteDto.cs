@@ -32,6 +32,6 @@ namespace IRIS.BCK.Core.Application.DTO.Routes
 
         public bool AvailableOnline { get; set; }
 
-        public RouteType RouteType { get; set; }
+        // public RouteType RouteType { get; set; }
     }
 }

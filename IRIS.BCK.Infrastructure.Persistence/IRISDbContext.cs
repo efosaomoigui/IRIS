@@ -1,11 +1,13 @@
 ﻿using IRIS.BCK.Core.Application.Business.Accounts.AccountEntities;
 using IRIS.BCK.Core.Domain.Entities.FleetEntities;
+using IRIS.BCK.Core.Domain.Entities.GroupWayBillManifestMapEntities;
 using IRIS.BCK.Core.Domain.Entities.Monitoring;
 using IRIS.BCK.Core.Domain.Entities.PaymentEntities;
 using IRIS.BCK.Core.Domain.Entities.PriceEntities;
 using IRIS.BCK.Core.Domain.Entities.RouteEntities;
 using IRIS.BCK.Core.Domain.Entities.ShimentEntities;
 using IRIS.BCK.Core.Domain.Entities.ShipmentEntities;
+using IRIS.BCK.Core.Domain.Entities.ShipmentGroupWayBillMapEntities;
 using IRIS.BCK.Core.Domain.Entities.ShipmentProcessing;
 using IRIS.BCK.Core.Domain.Entities.WalletEntities;
 using IRIS.BCK.Core.Domain.EntityEnums;
@@ -42,6 +44,8 @@ namespace IRIS.BCK.Infrastructure.Persistence
         public DbSet<GroupWayBill> GroupWayBill { get; set; }
         public DbSet<Trips> Trips { get; set; }
         public DbSet<TrackHistory> TrackHistory { get; set; }
+        public DbSet<ShipmentGroupWayBillMap> ShipmentGroupWayBillMap { get; set; }
+        public DbSet<GroupWayBillManifestMap> GroupWayBillManifestMap { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -58,11 +62,9 @@ namespace IRIS.BCK.Infrastructure.Persistence
                 .WithOne(g => g.customershipmentAddress)
                 .HasForeignKey(g => g.customershipmentAddressId);
 
-
             modelBuilder.Entity<Shipment>().HasMany(t => t.RecieverAddress)
                 .WithOne(g => g.recievershipmentAddress)
                 .HasForeignKey(g => g.recievershipmentAddressId);
-
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
@@ -80,8 +82,6 @@ namespace IRIS.BCK.Infrastructure.Persistence
                         break;
                 }
             }
-
-
 
             return base.SaveChangesAsync(cancellationToken);
         }
