@@ -36,6 +36,6 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUser
         public DateTime PasswordExpireDate { get; set; }
         //User Active CountryId
         public string IdentificationImage { get; set; }
-        public int WalletNumber { get; set; }
+        public string WalletNumber { get; set; }
     }
 }

@@ -31,7 +31,7 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.AccountEntities
         public string SystemUserRole { get; set; }
         public DateTime PasswordExpireDate { get; set; }
         public string IdentificationImage { get; set; }
-        public int WalletNumber { get; set; } 
+        public string WalletNumber { get; set; } 
 
     }
 

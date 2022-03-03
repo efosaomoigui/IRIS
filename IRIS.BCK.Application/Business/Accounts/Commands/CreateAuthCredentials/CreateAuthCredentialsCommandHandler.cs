@@ -63,36 +63,44 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateAuthCredent
 
             if (createAuthCredentialsCommandResponse.Success)
             {
-                // Verify the credential
-                var user = await _userManager.FindByNameAsync(request.UserName) ?? await _userManager.FindByEmailAsync(request.UserName);
-                var result = await _userManager.CheckPasswordAsync(user, request.Password);
-
-                if (result)
+                try
                 {
-                    // Creating the security context
-                    var claims = await _userManager.GetClaimsAsync(user);
-                    var expiresAt = DateTime.UtcNow.AddMinutes(10);
-
-                    //Add claims based on the role
-                    var newclaim = new Claim("UserId", user.Id.ToString());  
-                    claims.Add(newclaim);
-
-                    createAuthCredentialsCommandResponse.AccessToken = CreateToken(claims, expiresAt);
-                    createAuthCredentialsCommandResponse.ExpireAt = expiresAt;
-
-                    try
+                    // Verify the credential
+                    var user = await _userManager.FindByNameAsync(request.UserName) ?? await _userManager.FindByEmailAsync(request.UserName);
+                    var result = await _userManager.CheckPasswordAsync(user, request.Password);
+                    if (result)
                     {
-                        //await _emailService.SendEmail(email);
+                        // Creating the security context
+                        var claims = await _userManager.GetClaimsAsync(user);
+                        var expiresAt = DateTime.UtcNow.AddMinutes(10);
+
+                        //Add claims based on the role
+                        var newclaim = new Claim("UserId", user.Id.ToString());
+                        claims.Add(newclaim);
+
+                        createAuthCredentialsCommandResponse.AccessToken = CreateToken(claims, expiresAt);
+                        createAuthCredentialsCommandResponse.ExpireAt = expiresAt;
+
+                        try
+                        {
+                            //await _emailService.SendEmail(email);
+                        }
+                        catch (Exception)
+                        {
+                            throw;
+                        }
                     }
-                    catch (Exception)
+                    else
                     {
-                        throw;
+                        createAuthCredentialsCommandResponse.ValidationErrors.Add("You are not authorized to access this endpoint.");
                     }
                 }
-                else
+                catch (Exception ex)
                 {
-                    createAuthCredentialsCommandResponse.ValidationErrors.Add("You are not authorized to access this endpoint.");
+                    throw;
                 }
+
+
             }
 
             return createAuthCredentialsCommandResponse;

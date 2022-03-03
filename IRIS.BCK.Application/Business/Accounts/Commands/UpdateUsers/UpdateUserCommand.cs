@@ -39,6 +39,6 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.UpdateUsers
         //User Active CountryId
         public string IdentificationImage { get; set; }
 
-        public int WalletNumber { get; set; }
+        public string WalletNumber { get; set; }
     }
 }

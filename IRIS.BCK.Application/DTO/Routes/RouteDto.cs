@@ -17,21 +17,5 @@ namespace IRIS.BCK.Core.Application.DTO.Routes
 
         public string Destination { get; set; }
 
-        public bool IsSubRoute { get; set; }
-
-        public decimal DispatchFee { get; set; }
-
-        public decimal LoaderFee { get; set; }
-
-        public decimal CaptainFee { get; set; }
-
-        //parentRoute
-        public int? MainRouteId { get; set; }
-
-        public bool AvailableAtTerminal { get; set; }
-
-        public bool AvailableOnline { get; set; }
-
-        // public RouteType RouteType { get; set; }
     }
 }
