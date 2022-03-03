@@ -1,6 +1,7 @@
 using IRIS.BCK.Application;
 using IRIS.BCK.Core.Application.Business.Accounts.AccountEntities;
 using IRIS.BCK.Core.Application.Interfaces.IRepositories.IFleetRepositories;
+using IRIS.BCK.Core.Application.Interfaces.IRepositories.IGroupWayBillManifest;
 using IRIS.BCK.Core.Application.Interfaces.IRepositories.IMonitoringRepositories;
 using IRIS.BCK.Core.Application.Interfaces.IRepositories.IPaymentRepositories;
 using IRIS.BCK.Core.Application.Interfaces.IRepositories.IPriceRepositories;
@@ -12,6 +13,7 @@ using IRIS.BCK.Core.Application.Interfaces.IRepositories.IWalletRepositories;
 using IRIS.BCK.Infrastructure.Messaging;
 using IRIS.BCK.Infrastructure.Persistence;
 using IRIS.BCK.Infrastructure.Persistence.Repositories.Fleets;
+using IRIS.BCK.Infrastructure.Persistence.Repositories.GroupWayBillManifest;
 using IRIS.BCK.Infrastructure.Persistence.Repositories.Monitoring;
 using IRIS.BCK.Infrastructure.Persistence.Repositories.Payment;
 using IRIS.BCK.Infrastructure.Persistence.Repositories.Price;
@@ -137,6 +139,7 @@ namespace IRIS.BCK.Api
             services.AddScoped<ITripRepository, TripRepository>();
             services.AddScoped<ITrackHistoryRepository, TrackHistoryRepository>();
             services.AddScoped<IShipmentGroupWayBillMapRepository, ShipmentGroupWayBillMapRepository>();
+            services.AddScoped<IGroupWayBillManifestMapRepository, GroupWayBillManifestMapRepository>();
             services.AddScoped<ISpecialDomesticZonePriceRepository, SpecialDomesticZonePriceRepository>();
             services.AddIdentity<User, AppRole>(options =>
             {

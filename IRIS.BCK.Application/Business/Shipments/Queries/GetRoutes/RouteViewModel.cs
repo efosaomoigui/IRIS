@@ -27,6 +27,6 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Queries.GetRoutes
         public bool AvailableAtTerminal { get; set; }
 
         public bool AvailableOnline { get; set; }
-        public RouteType RouteType { get; set; }
+        //public RouteType RouteType { get; set; }
     }
 }

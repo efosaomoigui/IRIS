@@ -1,5 +1,6 @@
 ﻿using IRIS.BCK.Core.Application.Business.Accounts.AccountEntities;
 using IRIS.BCK.Core.Domain.Entities.FleetEntities;
+using IRIS.BCK.Core.Domain.Entities.GroupWayBillManifestMapEntities;
 using IRIS.BCK.Core.Domain.Entities.Monitoring;
 using IRIS.BCK.Core.Domain.Entities.PaymentEntities;
 using IRIS.BCK.Core.Domain.Entities.PriceEntities;
@@ -44,6 +45,7 @@ namespace IRIS.BCK.Infrastructure.Persistence
         public DbSet<Trips> Trips { get; set; }
         public DbSet<TrackHistory> TrackHistory { get; set; }
         public DbSet<ShipmentGroupWayBillMap> ShipmentGroupWayBillMap { get; set; }
+        public DbSet<GroupWayBillManifestMap> GroupWayBillManifestMap { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
