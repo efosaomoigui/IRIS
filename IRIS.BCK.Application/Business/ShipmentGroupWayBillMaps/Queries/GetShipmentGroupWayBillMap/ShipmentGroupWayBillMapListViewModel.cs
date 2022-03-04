@@ -8,7 +8,7 @@ namespace IRIS.BCK.Core.Application.Business.ShipmentGroupWayBillMaps.Queries.Ge
 {
     public class ShipmentGroupWayBillMapListViewModel
     {
-        public Guid ShipmentWayBillid { get; set; }
+        public Guid ShipmentGroupWayBillMapid { get; set; } 
         public string ShipmentWaybill { get; set; }
         public string GroupWayBillCode { get; set; }
     }

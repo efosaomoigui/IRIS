@@ -17,17 +17,6 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateRoutes
         {
             _routeRepository = routeRepository;
 
-            RuleFor(p => p.AvailableAtTerminal)
-                .NotEmpty().WithMessage("{PropertyName} is required")
-                .NotNull();
-
-            RuleFor(p => p.AvailableOnline)
-                .NotEmpty().WithMessage("{PropertyName} is required")
-                .NotNull();
-
-            RuleFor(p => p.CaptainFee)
-                .NotEmpty().WithMessage("{PropertyName} is required")
-                .NotNull();
 
             RuleFor(p => p.Departure)
                 .NotEmpty().WithMessage("{PropertyName} is required")
@@ -37,21 +26,6 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateRoutes
                 .NotEmpty().WithMessage("{PropertyName} is required")
                 .NotNull();
 
-            RuleFor(p => p.DispatchFee)
-                .NotEmpty().WithMessage("{PropertyName} is required")
-                .NotNull();
-
-            RuleFor(p => p.IsSubRoute)
-                .NotEmpty().WithMessage("{PropertyName} is required")
-                .NotNull();
-
-            RuleFor(p => p.LoaderFee)
-                .NotEmpty().WithMessage("{PropertyName} is required")
-                .NotNull();
-
-            RuleFor(p => p.MainRouteId)
-                .NotEmpty().WithMessage("{PropertyName} is required")
-                .NotNull();
 
             RuleFor(p => p.RouteName)
                 .NotEmpty().WithMessage("{PropertyName} is required")
