@@ -9,6 +9,6 @@ namespace IRIS.BCK.Core.Application.Business.ShipmentGroupWayBillMaps.Commands.D
 {
     public class DeleteShipmentGroupWayBillMapCommand : IRequest<DeleteShipmentGroupWayBillMapCommandResponse>
     {
-        public Guid id { get; set; }
+        public Guid ShipmentGroupWayBillMapid { get; set; }
     }
 }

@@ -14,7 +14,7 @@ namespace IRIS.BCK.Core.Application.Mappings.ShipmentGroupWayBillM
         {
             return new ShipmentGroupWayBillMap
             {
-                id = request.id,
+                ShipmentGroupWayBillMapid = request.ShipmentGroupWayBillMapid,
                 ShipmentWaybill = request.ShipmentWaybill,
                 GroupWayBillCode = request.GroupWayBillCode
             };

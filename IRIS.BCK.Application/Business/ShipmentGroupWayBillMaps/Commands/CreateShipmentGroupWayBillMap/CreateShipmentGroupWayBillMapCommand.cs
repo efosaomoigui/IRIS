@@ -9,7 +9,7 @@ namespace IRIS.BCK.Core.Application.Business.ShipmentGroupWayBillMaps.Commands.C
 {
     public class CreateShipmentGroupWayBillMapCommand : IRequest<CreateShipmentGroupWayBillMapResponse>
     {
-        public Guid id { get; set; }
+        public Guid ShipmentGroupWayBillMapid { get; set; }
         public string ShipmentWaybill { get; set; }
         public string GroupWayBillCode { get; set; }
     }

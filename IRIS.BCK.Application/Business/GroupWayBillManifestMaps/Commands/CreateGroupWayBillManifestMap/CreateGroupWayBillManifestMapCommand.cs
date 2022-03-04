@@ -9,7 +9,7 @@ namespace IRIS.BCK.Core.Application.Business.GroupWayBillManifestMaps.Commands.C
 {
     public class CreateGroupWayBillManifestMapCommand : IRequest<CreateGroupWayBillManifestMapCommandResponse>
     {
-        public Guid id { get; set; }
+        public Guid GroupWayBillManifestMapid { get; set; }
         public string GroupWayBillCode { get; set; }
         public string ManifestCode { get; set; }
     }
