@@ -9,13 +9,12 @@ namespace IRIS.BCK.Core.Application.DTO.Routes
 {
     public class RouteDto
     {
-        public int RouteId { get; set; }
+        public Guid RouteId { get; set; }
 
         public string RouteName { get; set; }
 
         public string Departure { get; set; }
 
         public string Destination { get; set; }
-
     }
 }

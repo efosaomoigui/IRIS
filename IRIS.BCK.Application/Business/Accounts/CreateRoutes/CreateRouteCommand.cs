@@ -16,18 +16,5 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateRoutes
 
         public string Destination { get; set; }
         public string Departure { get; set; }
-        public bool IsSubRoute { get; set; }
-
-        public decimal DispatchFee { get; set; }
-
-        public decimal LoaderFee { get; set; }
-
-        public decimal CaptainFee { get; set; }
-        public int? MainRouteId { get; set; }
-
-        public bool AvailableAtTerminal { get; set; }
-
-        public bool AvailableOnline { get; set; }
-        //public RouteType RouteType { get; set; }
     }
 }
