@@ -16,9 +16,9 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.CreatePrice
         {
             _priceRepository = priceRepository;
 
-            RuleFor(p => p.Category)
-                .NotEmpty().WithMessage("{PropertyName} is required")
-                .NotNull();
+            //RuleFor(p => p.Category)
+            //    .NotEmpty().WithMessage("{PropertyName} is required")
+            //    .NotNull();
 
             RuleFor(p => p.PricePerUnit)
                .NotEmpty().WithMessage("{PropertyName} is required")
@@ -29,10 +29,6 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.CreatePrice
                .NotNull();
 
             RuleFor(p => p.UnitWeight)
-               .NotEmpty().WithMessage("{PropertyName} is required")
-               .NotNull();
-
-            RuleFor(p => p.RouteId)
                .NotEmpty().WithMessage("{PropertyName} is required")
                .NotNull();
         }

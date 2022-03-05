@@ -3,14 +3,11 @@ using IRIS.BCK.Core.Application.Business.Wallet.Commands.CreateWalletNumberComma
 using IRIS.BCK.Core.Application.DTO.Message.EmailMessage;
 using IRIS.BCK.Core.Application.DTO.Wallet;
 using IRIS.BCK.Core.Application.Interfaces.IMessages.IEmail;
-using IRIS.BCK.Core.Application.Interfaces.IRepositories;
 using IRIS.BCK.Core.Application.Interfaces.IRepositories.IWalletRepositories;
 using IRIS.BCK.Core.Application.Mappings.Wallets;
 using MediatR;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -56,23 +53,33 @@ namespace IRIS.BCK.Core.Application.Business.Wallet.Commands.CreateWalletNumber
 
             if (CreateWalletNumberCommandResponse.Success)
             {
-                var walletNumber = WalletsMapsCommand.CreateWalletsMapsCommand(request);
-                walletNumber = await _walletRepository.AddAsync(walletNumber);
+                var walletMapExist = await _walletRepository.Get(s => s.Number == request.Number);
 
-                try
+                if (walletMapExist == null)
                 {
-                    await _emailService.SendEmail(email);
-                }
-                catch (Exception)
-                {
-                    throw;
-                }
+                    var walletNum = WalletsMapsCommand.CreateWalletsMapsCommand(request);
+                    walletNum = await _walletRepository.AddAsync(walletNum);
 
-                CreateWalletNumberCommandResponse.Walletdto = _mapper.Map<WalletNumberDto>(walletNumber);
+                    if (CreateWalletNumberCommandResponse.Success)
+                    {
+                        var walletNumber = WalletsMapsCommand.CreateWalletsMapsCommand(request);
+                        walletNumber = await _walletRepository.AddAsync(walletNumber);
 
-                return CreateWalletNumberCommandResponse;
+                        try
+                        {
+                            await _emailService.SendEmail(email);
+                        }
+                        catch (Exception)
+                        {
+                            throw;
+                        }
+
+                        CreateWalletNumberCommandResponse.Walletdto = _mapper.Map<WalletNumberDto>(walletNumber);
+
+                        return CreateWalletNumberCommandResponse;
+                    }
+                }
             }
-
             CreateWalletNumberCommandResponse.Walletdto = new WalletNumberDto();
             return CreateWalletNumberCommandResponse;
         }

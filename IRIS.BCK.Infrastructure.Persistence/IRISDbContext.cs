@@ -5,6 +5,7 @@ using IRIS.BCK.Core.Domain.Entities.Monitoring;
 using IRIS.BCK.Core.Domain.Entities.PaymentEntities;
 using IRIS.BCK.Core.Domain.Entities.PriceEntities;
 using IRIS.BCK.Core.Domain.Entities.RouteEntities;
+using IRIS.BCK.Core.Domain.Entities.ServiceCenterEntities;
 using IRIS.BCK.Core.Domain.Entities.ShimentEntities;
 using IRIS.BCK.Core.Domain.Entities.ShipmentEntities;
 using IRIS.BCK.Core.Domain.Entities.ShipmentGroupWayBillMapEntities;
@@ -46,6 +47,7 @@ namespace IRIS.BCK.Infrastructure.Persistence
         public DbSet<TrackHistory> TrackHistory { get; set; }
         public DbSet<ShipmentGroupWayBillMap> ShipmentGroupWayBillMap { get; set; }
         public DbSet<GroupWayBillManifestMap> GroupWayBillManifestMap { get; set; }
+        public DbSet<ServiceCenter> ServiceCenter { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

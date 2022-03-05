@@ -10,7 +10,7 @@ namespace IRIS.BCK.Core.Application.DTO.Price
 {
     public class PriceDto
     {
-        // public GUID Id { get; set; }
+        public Guid Id { get; set; }
         public PriceCategory Category { get; set; }
 
         public int RouteId { get; set; }

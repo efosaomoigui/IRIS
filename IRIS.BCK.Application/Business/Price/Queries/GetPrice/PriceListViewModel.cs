@@ -11,6 +11,7 @@ namespace IRIS.BCK.Core.Application.Business.Price.Queries.GetPrice
     public class PriceListViewModel
     {
         public PriceCategory Category { get; set; }
+        public Guid Id { get; set; }
 
         public int RouteId { get; set; }
 

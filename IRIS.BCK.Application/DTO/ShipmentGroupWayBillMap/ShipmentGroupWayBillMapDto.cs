@@ -8,7 +8,7 @@ namespace IRIS.BCK.Core.Application.DTO.ShipmentGroupWayBillMap
 {
     public class ShipmentGroupWayBillMapDto
     {
-        public Guid id { get; set; }
+        public Guid ShipmentGroupWayBillMapid { get; set; }
         public string ShipmentWaybill { get; set; }
         public string GroupWayBillCode { get; set; }
     }
