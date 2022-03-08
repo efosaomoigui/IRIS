@@ -6,6 +6,8 @@ using IRIS.BCK.Core.Application.Business.Shipments.Commands.DeleteShipment;
 using IRIS.BCK.Core.Application.Business.Shipments.Commands.UpdateCollectionCenter;
 using IRIS.BCK.Core.Application.Business.Shipments.Commands.UpdateShipments;
 using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetCollectionCenter;
+using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetShipmentById;
+using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetShipmentByWayBillNumber;
 using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetShipmentList;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -27,17 +29,29 @@ namespace IRIS.BCK.Api.Controllers.Shipment
             //return Ok(shipments);
         }
 
-        [HttpGet("Shipment/GetShipmentById/{shipmentid}")]
-        public async Task<ActionResult<List<ShipmentListViewModel>>> GetShipmentById(string shipmentid)
+        [HttpGet("GetShipmentById/{shipmentid}")]
+        public async Task<ActionResult<ShipmentViewModel>> GetShipmentById([FromRoute] Guid shipmentid)
         {
-            var shipment = await _mediator.Send(new GetShipmentListQuery());
+            var shipment = new ShipmentViewModel();
+
+            if (shipmentid != null)
+            {
+                shipment = await _mediator.Send(new GetShipmentByIdQuery(shipmentid.ToString()));
+            }
+
             return Ok(shipment);
         }
 
-        [HttpGet("Shipment/GetShipmentByWayBillNumber/{waybillnumber}")]
-        public async Task<ActionResult<List<ShipmentListViewModel>>> GetShipmentByWayBillNumber(string waybillnumber)
+        [HttpGet("GetShipmentByWayBillNumber/{waybillnumber}")]
+        public async Task<ActionResult<ShipmentViewModel>> GetShipmentByWayBillNumber([FromRoute] string waybillnumber)
         {
-            var waybill = await _mediator.Send(new GetShipmentListQuery());
+            var waybill = new ShipmentViewModel();
+
+            if (waybillnumber != null)
+            {
+                waybill = await _mediator.Send(new GetShipmentByWayBillNumberQuery(waybillnumber.ToString()));
+            }
+
             return Ok(waybill);
         }
 

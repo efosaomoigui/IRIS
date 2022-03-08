@@ -25,6 +25,24 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Wallets
             throw new NotImplementedException();
         }
 
+        public async Task<WalletNumber> GetWalletById(string walletid)
+        {
+            //var wallet = _dbContext.WalletNumber.FirstOrDefault(e => e.WalletNumberId.ToString() == walletid);
+            //var WalletNumber = new WalletNumber
+            //{
+            //    WalletNumberId = wallet.WalletNumberId,
+
+            //};
+
+            //return WalletNumber;
+            return _dbContext.WalletNumber.FirstOrDefault(e => e.Id.ToString() == walletid);
+        }
+
+        //public async Task<WalletNumber> GetWalletByAccountNumber(string accountnumber)
+        //{
+        //    return _dbContext.WalletNumber.FirstOrDefault(e => e.Id.ToString() == walletid);
+        //}
+
         public string GetWalletNumber()
         {
             string s = "0000000001";

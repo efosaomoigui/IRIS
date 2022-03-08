@@ -44,6 +44,7 @@ namespace IRIS.BCK.Infrastructure.Persistence
         public DbSet<Manifest> Manifest { get; set; }
         public DbSet<GroupWayBill> GroupWayBill { get; set; }
         public DbSet<Trips> Trips { get; set; }
+        public DbSet<PriceEnt> PriceEnt { get; set; }
         public DbSet<TrackHistory> TrackHistory { get; set; }
         public DbSet<ShipmentGroupWayBillMap> ShipmentGroupWayBillMap { get; set; }
         public DbSet<GroupWayBillManifestMap> GroupWayBillManifestMap { get; set; }

@@ -8,7 +8,7 @@ namespace IRIS.BCK.Core.Application.DTO.Wallet
 {
     public class WalletNumberDto
     {
-        public int WalletNumberId { get; set; }
+        public Guid Id { get; set; }
         public string Number { get; set; }
         public bool IsActive { get; set; }
         public string UserId { get; set; }

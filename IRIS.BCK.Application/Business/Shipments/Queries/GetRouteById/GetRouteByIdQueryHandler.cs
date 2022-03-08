@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using IRIS.BCK.Application.Interfaces.IRepository;
 using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetRoutes;
+using IRIS.BCK.Core.Application.Interfaces.IRepositories.IRouteRepository;
 using IRIS.BCK.Core.Domain.Entities.RouteEntities;
 using MediatR;
 using System;
@@ -12,27 +13,23 @@ using System.Threading.Tasks;
 
 namespace IRIS.BCK.Core.Application.Business.Shipments.Queries.GetOneRoute
 {
-    public class GetRouteByIdQueryHandler : IRequestHandler<GetRouteByIdQuery, List<RouteViewModel>>
+    public class GetRouteByIdQueryHandler : IRequestHandler<GetRouteByIdQuery, RouteViewModel>
     {
-        private readonly IGenericRepository<Route> _routeRepository;
+        private readonly IRouteRepository _routeRepository;
         private readonly IMapper _mapper;
 
-        public GetRouteByIdQueryHandler(IGenericRepository<Route> routeRepository, IMapper mapper)
+        public GetRouteByIdQueryHandler(IRouteRepository routeRepository, IMapper mapper)
         {
             _routeRepository = routeRepository;
             _mapper = mapper;
         }
 
-        public Task<List<RouteViewModel>> Handle(GetRouteByIdQuery request, CancellationToken cancellationToken)
+        public async Task<RouteViewModel> Handle(GetRouteByIdQuery request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
-        }
+            var routeid = request.RouteId.ToString();
+            var route = await _routeRepository.GetRouteById(routeid);
 
-        //public async Task<List<RouteViewModel>> Handle(GetRouteByIdQuery request, CancellationToken cancellationToken)
-        //{
-        //    //var oneRoute = (await _routeRepository.GetByIdAsync()).Equals(x => x.);
-        //    //return _mapper.Map<List<RouteViewModel>>(oneRoute);
-        //  //  return (oneRoute);
-        //}
+            return _mapper.Map<RouteViewModel>(route);
+        }
     }
 }

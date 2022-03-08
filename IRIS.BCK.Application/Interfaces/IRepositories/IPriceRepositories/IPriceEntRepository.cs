@@ -10,5 +10,6 @@ namespace IRIS.BCK.Core.Application.Interfaces.IRepositories.IPriceRepositories
 {
     public interface IPriceEntRepository : IGenericRepository<PriceEnt>
     {
+        Task<PriceEnt> GetPriceById(string priceid);
     }
 }

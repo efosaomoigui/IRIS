@@ -8,7 +8,14 @@ using System.Threading.Tasks;
 
 namespace IRIS.BCK.Core.Application.Business.Shipments.Queries.GetOneRoute
 {
-    public class GetRouteByIdQuery : IRequest<List<RouteViewModel>>
+    public class GetRouteByIdQuery : IRequest<RouteViewModel>
     {
+        public Guid RouteId { get; set; }
+
+        public GetRouteByIdQuery(string routeid)
+        {
+            Guid RouteGuid = new Guid(routeid);
+            RouteId = RouteGuid;
+        }
     }
 }

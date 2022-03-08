@@ -1,6 +1,8 @@
 ﻿using IRIS.BCK.Core.Application.Business.Monitoring.Commands.CreateTrackHistory;
 using IRIS.BCK.Core.Application.Business.Monitoring.Commands.UpdateTrackHistory;
 using IRIS.BCK.Core.Application.Business.Monitoring.Queries.GetTrackHistory;
+using IRIS.BCK.Core.Application.Business.Monitoring.Queries.GetTrackHistoryById;
+using IRIS.BCK.Core.Application.Business.Monitoring.Queries.GetTrackHistoryByTripId;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -19,17 +21,29 @@ namespace IRIS.BCK.Api.Controllers.Monitoring
             return HandleQueryResult(trackHistory);
         }
 
-        [HttpGet("TrackHistory/GetTrackHistoryById/{id}")]
-        public async Task<ActionResult<List<TrackHistoryListViewModel>>> GetTrackHistoryById(string id)
+        [HttpGet("GetTrackHistoryById/{trackhistoryid}")]
+        public async Task<ActionResult<TrackHistoryViewModel>> GetTrackHistoryById([FromRoute] Guid trackhistoryid)
         {
-            var track = await _mediator.Send(new GetTrackHistoryQuery());
-            return Ok(track);
+            var trackHistory = new TrackHistoryViewModel();
+
+            if (trackhistoryid != null)
+            {
+                trackHistory = await _mediator.Send(new GetTrackHistoryByIdQuery(trackhistoryid.ToString()));
+            }
+
+            return Ok(trackHistory);
         }
 
-        [HttpGet("TrackHistory/GetTrackHistoryByTripId/{tripid}")]
-        public async Task<ActionResult<List<TrackHistoryListViewModel>>> GetTrackHistoryByTripId(string Tripid)
+        [HttpGet("GetTrackHistoryByTripId/{tripid}")]
+        public async Task<ActionResult<TrackHistoryViewModel>> GetTrackHistoryByTripId([FromRoute] Guid tripid)
         {
-            var trip = await _mediator.Send(new GetTrackHistoryQuery());
+            var trip = new TrackHistoryViewModel();
+
+            if (tripid != null)
+            {
+                trip = await _mediator.Send(new GetTrackHistoryByTripIdQuery(tripid.ToString()));
+            }
+
             return Ok(trip);
         }
 

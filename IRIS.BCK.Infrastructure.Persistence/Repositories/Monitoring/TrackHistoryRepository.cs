@@ -13,5 +13,15 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Monitoring
         public TrackHistoryRepository(IRISDbContext dbContext) : base(dbContext)
         {
         }
+
+        public async Task<TrackHistory> GetTrackHistoryById(string trackhistoryid)
+        {
+            return _dbContext.TrackHistory.FirstOrDefault(e => e.Id.ToString() == trackhistoryid);
+        }
+
+        public async Task<TrackHistory> GetTrackHistoryByTripId(string tripid)
+        {
+            return _dbContext.TrackHistory.FirstOrDefault(e => e.TripId.ToString() == tripid);
+        }
     }
 }

@@ -362,15 +362,12 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                     b.Property<int>("TimeStamp")
                         .HasColumnType("int");
 
-                    b.Property<int>("TripId")
-                        .HasColumnType("int");
-
-                    b.Property<Guid?>("TripId1")
+                    b.Property<Guid>("TripId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TripId1");
+                    b.HasIndex("TripId");
 
                     b.ToTable("TrackHistory");
                 });
@@ -715,7 +712,7 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("IRIS.BCK.Core.Domain.Entities.WalletEntities.WalletNumber", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("WalletNumberId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -743,7 +740,7 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                     b.Property<string>("WalletBalance")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("WalletNumberId");
 
                     b.ToTable("WalletNumber");
                 });
@@ -939,7 +936,9 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                 {
                     b.HasOne("IRIS.BCK.Core.Domain.Entities.ShipmentProcessing.Trips", "Trip")
                         .WithMany()
-                        .HasForeignKey("TripId1");
+                        .HasForeignKey("TripId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Trip");
                 });

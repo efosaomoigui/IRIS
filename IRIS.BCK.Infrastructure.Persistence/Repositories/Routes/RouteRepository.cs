@@ -18,5 +18,10 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Routes
         {
             return true;
         }
+
+        public async Task<Route> GetRouteById(string routeid)
+        {
+            return _dbContext.Route.FirstOrDefault(e => e.RouteId.ToString() == routeid);
+        }
     }
 }

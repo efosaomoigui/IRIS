@@ -11,7 +11,7 @@ namespace IRIS.BCK.Core.Application.DTO.Monitoring
     public class TrackHistoryDto
     {
         public Guid Id { get; set; }
-        public int TripId { get; set; }
+        public Guid TripId { get; set; }
         public Trips Trip { get; set; }
         public string Action { get; set; }
         public Location Location { get; set; }

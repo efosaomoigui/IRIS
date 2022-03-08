@@ -4,6 +4,9 @@ using IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUser;
 using IRIS.BCK.Core.Application.Business.Accounts.Queries.GetRoles;
 using IRIS.BCK.Core.Application.Business.Accounts.Queries.GetShipmentList;
 using IRIS.BCK.Core.Application.Business.Fleets.Queries;
+using IRIS.BCK.Core.Application.Business.Monitoring.Queries.GetTrackHistory;
+using IRIS.BCK.Core.Application.Business.Monitoring.Queries.GetTrackHistoryById;
+using IRIS.BCK.Core.Application.Business.Payments.Queries.GetPayment.GetPaymentById;
 using IRIS.BCK.Core.Application.Business.Price.Commands.CreatePrice;
 using IRIS.BCK.Core.Application.Business.Price.Queries.GetPrice;
 using IRIS.BCK.Core.Application.Business.ServiceCentre.Commands.CreateServiceCenter;
@@ -22,10 +25,12 @@ using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetFleets;
 using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetRoutes;
 using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetShipmentList;
 using IRIS.BCK.Core.Application.Business.Wallet.Commands.CreateWalletNumber;
+using IRIS.BCK.Core.Application.Business.Wallet.Queries.GetWalletById;
 using IRIS.BCK.Core.Application.Business.Wallet.Queries.GetWalletByWalletNumberQuery;
 using IRIS.BCK.Core.Application.DTO.Account;
 using IRIS.BCK.Core.Application.DTO.Fleets;
 using IRIS.BCK.Core.Application.DTO.GroupWayBillManifestMap;
+using IRIS.BCK.Core.Application.DTO.Monitoring;
 using IRIS.BCK.Core.Application.DTO.Payments;
 using IRIS.BCK.Core.Application.DTO.Price;
 using IRIS.BCK.Core.Application.DTO.Routes;
@@ -37,10 +42,12 @@ using IRIS.BCK.Core.Application.DTO.Wallet;
 using IRIS.BCK.Core.Domain.Entities;
 using IRIS.BCK.Core.Domain.Entities.FleetEntities;
 using IRIS.BCK.Core.Domain.Entities.GroupWayBillManifestMapEntities;
+using IRIS.BCK.Core.Domain.Entities.Monitoring;
 using IRIS.BCK.Core.Domain.Entities.PriceEntities;
 using IRIS.BCK.Core.Domain.Entities.RouteEntities;
 using IRIS.BCK.Core.Domain.Entities.ServiceCenterEntities;
 using IRIS.BCK.Core.Domain.Entities.ShimentEntities;
+using IRIS.BCK.Core.Domain.Entities.PaymentEntities;
 using IRIS.BCK.Core.Domain.Entities.ShipmentEntities;
 using IRIS.BCK.Core.Domain.Entities.ShipmentGroupWayBillMapEntities;
 using IRIS.BCK.Core.Domain.Entities.ShipmentProcessing;
@@ -51,6 +58,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using IRIS.BCK.Core.Application.Business.Payments.Queries.GetPaymentByInvoiceCode;
+using IRIS.BCK.Core.Application.Business.Payments.Queries.GetPayment;
+using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetShipmentById;
+using IRIS.BCK.Application.DTO;
+using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetShipmentByWayBillNumber;
 
 namespace IRIS.BCK.Core.Application.Mappings
 {
@@ -100,8 +112,32 @@ namespace IRIS.BCK.Core.Application.Mappings
             CreateMap<GetTripQuery, TripListViewModel>();
             CreateMap<TripListViewModel, GetTripQuery>();
 
+            CreateMap<GetTrackHistoryQuery, TrackHistoryListViewModel>();
+            CreateMap<TrackHistoryListViewModel, GetTrackHistoryQuery>();
+
+            CreateMap<GetWalletByIdQuery, WalletViewModel>();
+            CreateMap<WalletViewModel, GetWalletByIdQuery>();
+
+            CreateMap<GetShipmentByIdQuery, ShipmentViewModel>();
+            CreateMap<ShipmentViewModel, GetShipmentByIdQuery>();
+
+            CreateMap<GetShipmentByWayBillNumberQuery, ShipmentViewModel>();
+            CreateMap<ShipmentViewModel, GetShipmentByWayBillNumberQuery>();
+
+            CreateMap<GetPaymentByIdQuery, PaymentViewModel>();
+            CreateMap<PaymentViewModel, GetPaymentByIdQuery>();
+
+            CreateMap<GetPaymentByInvoiceCodeQuery, PaymentViewModel>();
+            CreateMap<PaymentViewModel, GetPaymentByInvoiceCodeQuery>();
+
             CreateMap<WalletNumberDto, WalletNumber>();
             CreateMap<WalletNumber, WalletNumberDto>();
+
+            CreateMap<PaymentDto, Payment>();
+            CreateMap<Payment, PaymentDto>();
+
+            CreateMap<TrackHistoryDto, TrackHistory>();
+            CreateMap<TrackHistory, TrackHistoryDto>();
 
             CreateMap<WalletNumberViewModel, WalletNumber>();
             CreateMap<WalletNumber, WalletNumberViewModel>();
@@ -166,6 +202,9 @@ namespace IRIS.BCK.Core.Application.Mappings
             CreateMap<TripDto, Trips>();
             CreateMap<Trips, TripDto>();
 
+            CreateMap<ShipmentDto, Shipment>();
+            CreateMap<Shipment, ShipmentDto>();
+
             CreateMap<ServiceCenterDto, ServiceCenter>();
             CreateMap<ServiceCenter, ServiceCenterDto>();
 
@@ -184,8 +223,26 @@ namespace IRIS.BCK.Core.Application.Mappings
             CreateMap<GroupWayBill, GroupWayBillListViewModel>();
             CreateMap<GroupWayBillListViewModel, GroupWayBill>();
 
+            CreateMap<TrackHistory, TrackHistoryListViewModel>();
+            CreateMap<TrackHistoryListViewModel, TrackHistory>();
+
+            CreateMap<Payment, PaymentListViewModel>();
+            CreateMap<PaymentListViewModel, Payment>();
+
             CreateMap<Shipment, ShipmentListViewModel>();
             CreateMap<ShipmentListViewModel, Shipment>();
+
+            CreateMap<Shipment, ShipmentViewModel>();
+            CreateMap<ShipmentViewModel, Shipment>();
+
+            CreateMap<WalletNumber, WalletViewModel>();
+            CreateMap<WalletViewModel, WalletNumber>();
+
+            CreateMap<Payment, PaymentViewModel>();
+            CreateMap<PaymentViewModel, Payment>();
+
+            CreateMap<TrackHistory, TrackHistoryViewModel>();
+            CreateMap<TrackHistoryViewModel, TrackHistory>();
 
             CreateMap<ShipmentGroupWayBillMap, ShipmentGroupWayBillMapListViewModel>();
             CreateMap<ShipmentGroupWayBillMapListViewModel, ShipmentGroupWayBillMap>();

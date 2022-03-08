@@ -2,6 +2,7 @@
 using IRIS.BCK.Core.Application.Business.Payments.Commands.DeletePayment;
 using IRIS.BCK.Core.Application.Business.Payments.Commands.UpdatePayment;
 using IRIS.BCK.Core.Application.Business.Payments.Queries.GetPayment;
+using IRIS.BCK.Core.Application.Business.Payments.Queries.GetPayment.GetPaymentById;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -20,17 +21,29 @@ namespace IRIS.BCK.Api.Controllers.Payment
             return Ok(payments);
         }
 
-        [HttpGet("Invoice/GetInvoiceByInvoiceCode/{invoicecode}")]
-        public async Task<ActionResult<List<PaymentListViewModel>>> GetInvoiceByInvoiceCode(string invoicecode)
+        [HttpGet("GetInvoiceByInvoiceId/{invoiceid}")]
+        public async Task<ActionResult<PaymentViewModel>> GetInvoiceByInvoiceId([FromRoute] Guid invoiceid)
         {
-            var code = await _mediator.Send(new GetPaymentQuery());
-            return Ok(code);
+            var invoice = new PaymentViewModel();
+
+            if (invoiceid != null)
+            {
+                invoice = await _mediator.Send(new GetPaymentByIdQuery(invoiceid.ToString()));
+            }
+
+            return Ok(invoice);
         }
 
-        [HttpGet("Invoice/GetInvoiceByInvoiceId/{invoiceid}")]
-        public async Task<ActionResult<List<PaymentListViewModel>>> GetInvoiceByInvoiceId(string invoiceid)
+        [HttpGet("GetInvoiceByInvoiceCode/{invoicecode}")]
+        public async Task<ActionResult<PaymentViewModel>> GetInvoiceByInvoiceCode([FromRoute] string invoicecode)
         {
-            var invoice = await _mediator.Send(new GetPaymentQuery());
+            var invoice = new PaymentViewModel();
+
+            if (invoicecode != null)
+            {
+                invoice = await _mediator.Send(new GetPaymentByIdQuery(invoicecode.ToString()));
+            }
+
             return Ok(invoice);
         }
 

@@ -1,6 +1,7 @@
 ﻿using IRIS.BCK.Core.Application.Business.Wallet.Commands.CreateWalletNumber;
 using IRIS.BCK.Core.Application.Business.Wallet.Commands.CreateWalletNumberCommand;
 using IRIS.BCK.Core.Application.Business.Wallet.Commands.CreateWalletTransactionCommand;
+using IRIS.BCK.Core.Application.Business.Wallet.Queries.GetWalletById;
 using IRIS.BCK.Core.Application.Business.Wallet.Queries.GetWalletByWalletNumberQuery;
 using IRIS.BCK.Core.Application.Business.Wallet.Queries.GetWalletTransactionByWalletNumberQuery;
 using Microsoft.AspNetCore.Authorization;
@@ -21,10 +22,16 @@ namespace IRIS.BCK.Api.Controllers.Wallet
             return Ok(walletNumber);
         }
 
-        [HttpGet("Wallets/GetWalletById/{walletid}")]
-        public async Task<ActionResult<List<WalletNumberViewModel>>> GetWalletById(string walletid)
+        [HttpGet("GetWalletById/{walletid}")]
+        public async Task<ActionResult<WalletViewModel>> GetWalletById([FromRoute] Guid walletid)
         {
-            var wallet = await _mediator.Send(new GetWalletNumberQuery());
+            var wallet = new WalletViewModel();
+
+            if (walletid != null)
+            {
+                wallet = await _mediator.Send(new GetWalletByIdQuery(walletid.ToString()));
+            }
+
             return Ok(wallet);
         }
 

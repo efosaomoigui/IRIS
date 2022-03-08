@@ -10,5 +10,8 @@ namespace IRIS.BCK.Core.Application.Interfaces.IRepositories.IPaymentRepositorie
 {
     public interface IPaymentRepository : IGenericRepository<Payment>
     {
+        public Task<Payment> GetPaymentById(string id);
+
+        public Task<Payment> GetPaymentByInvoiceCode(string invoicecode);
     }
 }

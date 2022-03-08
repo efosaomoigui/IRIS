@@ -12,7 +12,7 @@ namespace IRIS.BCK.Core.Application.Business.Monitoring.Commands.UpdateTrackHist
     public class UpdateTrackHistoryCommand : IRequest<UpdateTrackHistoryCommandResponse>
     {
         public Guid Id { get; set; }
-        public int TripId { get; set; }
+        public Guid TripId { get; set; }
         public Trips Trip { get; set; }
         public string Action { get; set; }
         public Location Location { get; set; }

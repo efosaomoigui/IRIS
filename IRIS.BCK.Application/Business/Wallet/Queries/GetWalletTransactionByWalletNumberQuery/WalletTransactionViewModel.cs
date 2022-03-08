@@ -10,7 +10,7 @@ namespace IRIS.BCK.Core.Application.Business.Wallet.Queries.GetWalletTransaction
 {
     public class WalletTransactionViewModel
     {
-        public Guid Id { get; set; }
+        public Guid WalletNumberId { get; set; }
         public string Amount { get; set; }
         public TransactionType TransactionType { get; set; }
         public string Description { get; set; }

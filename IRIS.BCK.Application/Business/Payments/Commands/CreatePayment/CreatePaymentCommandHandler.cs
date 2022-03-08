@@ -3,12 +3,10 @@ using IRIS.BCK.Core.Application.DTO.Message.EmailMessage;
 using IRIS.BCK.Core.Application.DTO.Payments;
 using IRIS.BCK.Core.Application.Interfaces.IMessages.IEmail;
 using IRIS.BCK.Core.Application.Interfaces.IRepositories.IPaymentRepositories;
-using IRIS.BCK.Core.Application.Mappings.Payment;
+using IRIS.BCK.Core.Application.Mappings.Payments;
 using MediatR;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 

@@ -8,7 +8,7 @@ namespace IRIS.BCK.Core.Application.Business.Wallet.Queries.GetWalletByWalletNum
 {
     public class WalletNumberViewModel
     {
-        public int WalletNumberId { get; set; }
+        public Guid Id { get; set; }
         public string Number { get; set; }
         public bool IsActive { get; set; }
 
