@@ -36,5 +36,11 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Accounts
         public RoleClaimRepository(IRISDbContext dbContext) : base(dbContext)
         {
         }
+
+        public async Task<List<AppRoleClaim>> GetAllClaims()
+        {
+            var claims = await GetAllAsync();
+            return claims.ToList();
+        }
     }
 }

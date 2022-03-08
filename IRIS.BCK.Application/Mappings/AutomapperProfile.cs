@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using IRIS.BCK.Core.Application.Business.Accounts.AccountEntities;
 using IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUser;
+using IRIS.BCK.Core.Application.Business.Accounts.Queries.GetClaimForRole;
 using IRIS.BCK.Core.Application.Business.Accounts.Queries.GetRoles;
 using IRIS.BCK.Core.Application.Business.Accounts.Queries.GetShipmentList;
 using IRIS.BCK.Core.Application.Business.Fleets.Queries;
@@ -165,6 +166,9 @@ namespace IRIS.BCK.Core.Application.Mappings
 
             CreateMap<ShipmentGroupWayBillMap, ShipmentGroupWayBillMapListViewModel>();
             CreateMap<ShipmentGroupWayBillMapListViewModel, ShipmentGroupWayBillMap>();
+
+            CreateMap<AppRoleClaim, ListClaimViewModel>();
+            CreateMap<ListClaimViewModel, AppRoleClaim>();
         }
     }
 }

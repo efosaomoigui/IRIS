@@ -7,6 +7,7 @@ using IRIS.BCK.Core.Application.Interfaces.IRepositories.IAccount;
 using IRIS.BCK.Core.Application.Interfaces.IRepositories.IWalletRepositories;
 using IRIS.BCK.Core.Application.Mappings.Users;
 using IRIS.BCK.Core.Application.Shared;
+using IRIS.BCK.Core.Domain.Entities.WalletEntities;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using System;
@@ -64,22 +65,30 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUser
                 //user = await _userRepository.AddAsync(user);
 
                 var userExist = await _userManager.FindByNameAsync(user.UserName) ?? await _userManager.FindByEmailAsync(user.UserName);
+                var existUserPhone = await _userRepository.GetAllAsync();
+                var exitPhone = existUserPhone.FirstOrDefault(x => x.PhoneNumber == request.PhoneNumber);
 
-                if (userExist == null)
+                if (userExist == null && exitPhone ==null)
                 {
                     //generate last Wallet number
-                    var wallet = _walletRepository.GetWalletNumber();
-                    wallet = user.WalletNumber.ToString();
-
-                    //generate a wallet number ---> getwallnumber
-                    //var walletnumber = 0000000000;
-                    //user.WalletNumber = walletnumber;
+                    var walletNumber = _walletRepository.GetWalletNumber(); 
+                    user.WalletNumber = walletNumber;
+                    user.UserId = new Guid(user.Id);
                     var result = await _userManager.CreateAsync(user, request.Password);
 
                     if (result.Succeeded)
                     {
                         try
                         {
+                            var wallet = new WalletNumber()
+                            {
+                                Id = new Guid(),
+                                WalletBalance = 0.0M,
+                                Number = walletNumber,
+                                UserId = user.UserId,
+                                IsActive = true
+                            };
+                            await _walletRepository.AddAsync(wallet);
                             //await _emailService.SendEmail(email);
                         }
                         catch (Exception)

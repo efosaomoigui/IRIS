@@ -17,5 +17,6 @@ namespace IRIS.BCK.Core.Application.Interfaces.IRepositories.IAccount
 
     public interface IRoleClaimRepository : IGenericRepository<AppRoleClaim> 
     {
+        Task<List<AppRoleClaim>> GetAllClaims(); 
     }
 }

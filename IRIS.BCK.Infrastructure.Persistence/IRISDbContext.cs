@@ -57,6 +57,8 @@ namespace IRIS.BCK.Infrastructure.Persistence
             modelBuilder.Entity<ShipmentItem>().Property(p => p.DeclarationOfValueCheck).HasColumnType("decimal(18,4)");
             modelBuilder.Entity<Trips>().Property(p => p.DriverDispatchFee).HasColumnType("decimal(18,4)");
             modelBuilder.Entity<Trips>().Property(p => p.DriverDispatchFee).HasColumnType("decimal(18,4)");
+            modelBuilder.Entity<WalletNumber>().Property(p => p.WalletBalance).HasColumnType("decimal(18,4)");
+            modelBuilder.Entity<WalletTransaction>().Property(p => p.WalletNumber).HasColumnType("decimal(18,4)");
 
             modelBuilder.Entity<Shipment>().HasMany(t => t.CustomerAddress)
                 .WithOne(g => g.customershipmentAddress)

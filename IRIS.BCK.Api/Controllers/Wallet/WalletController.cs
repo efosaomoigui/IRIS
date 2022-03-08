@@ -22,7 +22,7 @@ namespace IRIS.BCK.Api.Controllers.Wallet
         }
 
         [HttpGet("Wallets/GetWalletById/{walletid}")]
-        public async Task<ActionResult<List<WalletNumberViewModel>>> GetWalletById(string walletid)
+        public async Task<ActionResult<WalletNumberViewModel>> GetWalletById(string walletid)
         {
             var wallet = await _mediator.Send(new GetWalletNumberQuery());
             return Ok(wallet);

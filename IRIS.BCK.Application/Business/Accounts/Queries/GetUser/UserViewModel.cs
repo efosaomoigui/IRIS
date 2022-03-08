@@ -11,6 +11,8 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Queries.GetShipmentList
         public Guid Id { get; set; }
         public Guid UserId { get; set; }
         public string Password { get; set; }
+        public string Email { get; set; }
+        public string PhoneNumber { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public int Age { get; set; }
@@ -27,6 +29,6 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Queries.GetShipmentList
         public string SystemUserRole { get; set; }
         public DateTime PasswordExpireDate { get; set; }
         public string IdentificationImage { get; set; }
-        public int WalletNumber { get; set; }
+        public string WalletNumber { get; set; }
     }
 }

@@ -30,7 +30,7 @@ namespace IRIS.BCK.Core.Application.DTO.Account
         public DateTime PasswordExpireDate { get; set; }
         //User Active CountryId
         public string IdentificationImage { get; set; }
-        public int WalletNumber { get; set; }
+        public string WalletNumber { get; set; }
 
 
 
