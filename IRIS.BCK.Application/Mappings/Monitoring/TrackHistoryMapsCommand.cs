@@ -14,11 +14,11 @@ namespace IRIS.BCK.Core.Application.Mappings.Monitoring
         {
             return new TrackHistory
             {
-                Trip = request.Trip,
-                TimeStamp = request.TimeStamp,
+                TripReference = request.TripReference,
+                Action = request.Action,
+                ActionTimeStamp = request.ActionTimeStamp,
                 Status = request.Status,
                 Location = request.Location,
-                TripId = request.TripId
             };
         }
     }

@@ -66,6 +66,10 @@ using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetShipmentByWayBillN
 using IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.UpdateGroupWayBill;
 using IRIS.BCK.Core.Application.Business.ShipmentProcessing.Queries.GetManifest;
 using IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.UpdateManifest;
+using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetFleetById;
+using IRIS.BCK.Core.Application.Business.Shipments.Commands.UpdateFleet;
+using IRIS.BCK.Core.Application.Business.ShipmentProcessing.Queries.GetManifestByManifestCode;
+using IRIS.BCK.Core.Application.Business.ShipmentProcessing.Queries.GetManifestByGroupWayBill;
 
 namespace IRIS.BCK.Core.Application.Mappings
 {
@@ -100,6 +104,9 @@ namespace IRIS.BCK.Core.Application.Mappings
             CreateMap<UpdateGroupWayBillCommand, GroupWayBill>();
             CreateMap<GroupWayBill, UpdateGroupWayBillCommand>();
 
+            CreateMap<UpdateFleetCommand, Fleet>();
+            CreateMap<Fleet, UpdateFleetCommand>();
+
             CreateMap<UpdateManifestCommand, Manifest>();
             CreateMap<Manifest, UpdateManifestCommand>();
 
@@ -133,11 +140,21 @@ namespace IRIS.BCK.Core.Application.Mappings
             CreateMap<GetShipmentByIdQuery, ShipmentViewModel>();
             CreateMap<ShipmentViewModel, GetShipmentByIdQuery>();
 
+            CreateMap<GetManifestByManifestCodeQuery, ManifestViewModel>();
+            CreateMap<ManifestViewModel, GetManifestByManifestCodeQuery>();
+
+            CreateMap<GetManifestByGroupWayBillQuery, ManifestViewModel>();
+            CreateMap<ManifestViewModel, GetManifestByGroupWayBillQuery>();
+
+
             CreateMap<GetShipmentByWayBillNumberQuery, ShipmentViewModel>();
             CreateMap<ShipmentViewModel, GetShipmentByWayBillNumberQuery>();
 
             CreateMap<GetPaymentByIdQuery, PaymentViewModel>();
             CreateMap<PaymentViewModel, GetPaymentByIdQuery>();
+
+            CreateMap<GetFleetByIdQuery, FleetViewModel>();
+            CreateMap<FleetViewModel, GetFleetByIdQuery>();
 
             CreateMap<GetPaymentByInvoiceCodeQuery, PaymentViewModel>();
             CreateMap<PaymentViewModel, GetPaymentByInvoiceCodeQuery>();
@@ -253,8 +270,14 @@ namespace IRIS.BCK.Core.Application.Mappings
             CreateMap<Manifest, ManifestListViewModel>();
             CreateMap<ManifestListViewModel, Manifest>();
 
+            CreateMap<Manifest, ManifestViewModel>();
+            CreateMap<ManifestViewModel, Manifest>();
+
             CreateMap<Payment, PaymentViewModel>();
             CreateMap<PaymentViewModel, Payment>();
+
+            CreateMap<Fleet, FleetViewModel>();
+            CreateMap<FleetViewModel, Fleet>();
 
             CreateMap<TrackHistory, TrackHistoryViewModel>();
             CreateMap<TrackHistoryViewModel, TrackHistory>();

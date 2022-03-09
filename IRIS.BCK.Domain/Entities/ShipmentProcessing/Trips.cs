@@ -12,13 +12,10 @@ namespace IRIS.BCK.Core.Domain.Entities.ShipmentProcessing
     public class Trips : Auditable
     {
         public Guid Id { get; set; }
-        public int TripReference { get; set; }
+        public string TripReference { get; set; }
         public string RouteCode { get; set; }
-        public virtual Fleet Fleet { get; set; }
+        public List<Fleet> Fleet { get; set; }
         public Guid Driver { get; set; }
         public Guid Dispatcher { get; set; }
-        public decimal DriverDispatchFee { get; set; }
-        public DateTime StartTime { get; set; }
-        public DateTime EndTime { get; set; }
     }
 }

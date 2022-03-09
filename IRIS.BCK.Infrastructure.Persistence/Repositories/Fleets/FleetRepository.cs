@@ -18,5 +18,10 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Fleets
         {
             throw new NotImplementedException();
         }
+
+        public async Task<Fleet> GetFleetById(string fleetid)
+        {
+            return _dbContext.Fleet.FirstOrDefault(e => e.FleetId.ToString() == fleetid);
+        }
     }
 }

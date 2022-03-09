@@ -13,18 +13,12 @@ namespace IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.CreateT
     public class CreateTripCommand : IRequest<CreateTripCommandResponse>
     {
         public Guid Id { get; set; }
-        public int TripReference { get; set; }
+        public string TripReference { get; set; }
         public string RouteCode { get; set; }
         public List<Fleet> Fleet { get; set; }
-        public  List<Manifest> manifest { get; set; }
-        public string Driver { get; set; }
-        public string Dispatcher { get; set; }
-        public decimal DriverDispatchFee { get; set; }
-        public decimal Miscelleneous { get; set; }
-        public decimal FuelCosts { get; set; }
-        public decimal FuelUsed { get; set; }
-        public DateTime StartTime { get; set; }
-        public DateTime EndTime { get; set; }
+        public List<Manifest> manifest { get; set; }
+        public Guid Driver { get; set; }
+        public Guid Dispatcher { get; set; }
         public StatusEnum Status { get; set; }
     }
 }

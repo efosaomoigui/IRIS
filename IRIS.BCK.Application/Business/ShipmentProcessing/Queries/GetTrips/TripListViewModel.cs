@@ -12,12 +12,12 @@ namespace IRIS.BCK.Core.Application.Business.ShipmentProcessing.Queries.GetTrips
     public class TripListViewModel
     {
         public Guid Id { get; set; }
-        public int TripReference { get; set; }
+        public string TripReference { get; set; }
         public string RouteCode { get; set; }
         public Guid fleetid { get; set; }
         public virtual Fleet Fleet { get; set; }
         public int ManifestId { get; set; }
-        public virtual Manifest manifest { get; set; }
+        public Manifest manifest { get; set; }
         public string Driver { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
