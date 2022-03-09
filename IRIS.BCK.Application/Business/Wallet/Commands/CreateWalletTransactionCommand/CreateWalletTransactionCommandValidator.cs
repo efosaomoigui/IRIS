@@ -29,10 +29,6 @@ namespace IRIS.BCK.Core.Application.Business.Wallet.Commands.CreateWalletTransac
                 .NotEmpty().WithMessage("{PropertyName} is required")
                 .NotNull();
 
-            RuleFor(p => p.DateCreated)
-                .NotEmpty().WithMessage("{PropertyName} is required")
-                .NotNull();
-
             RuleFor(p => p.Amount)
                 .NotEmpty().WithMessage("{PropertyName} is required")
                 .NotNull();

@@ -13,5 +13,15 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.ShipmentProcessing
         public ManifestRepository(IRISDbContext dbContext) : base(dbContext)
         {
         }
+
+        public async Task<Manifest> GetManifestByManifestCode(string manifestcode)
+        {
+            return _dbContext.Manifest.FirstOrDefault(e => e.ManifestCode.ToString() == manifestcode);
+        }
+
+        public async Task<Manifest> GetManifestByWayBill(string waybill)
+        {
+            return _dbContext.Manifest.FirstOrDefault(e => e.GroupWayBillId.ToString() == waybill);
+        }
     }
 }

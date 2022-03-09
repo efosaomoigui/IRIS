@@ -40,41 +40,33 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.UpdateUsers
         {
             var UpdateUserCommandResponse = new UpdateUserCommandResponse();
 
-            var validator = new UpdateUserCommandValidator(_userRepository);
-            var validationResult = await validator.ValidateAsync(request);
+            //var validator = new UpdateUserCommandValidator(_userRepository);
+            //var validationResult = await validator.ValidateAsync(request);
 
-            if (validationResult.Errors.Count > 0)
-            {
-                UpdateUserCommandResponse.Success = false;
-                UpdateUserCommandResponse.ValidationErrors = new List<string>();
+            //if (validationResult.Errors.Count > 0)
+            //{
+            //    UpdateUserCommandResponse.Success = false;
+            //    UpdateUserCommandResponse.ValidationErrors = new List<string>();
 
-                foreach (var error in validationResult.Errors)
-                {
-                    UpdateUserCommandResponse.ValidationErrors.Add(error.ErrorMessage);
-                }
-            }
+            //    foreach (var error in validationResult.Errors)
+            //    {
+            //        UpdateUserCommandResponse.ValidationErrors.Add(error.ErrorMessage);
+            //    }
+            //}
 
-            var body = "message to user";
-            var subject = "Subject to email";
-            var email = UserMapsCommand.CreateUserEmailMessage(request.Email, body, subject);
+            //var body = "message to user";
+            //var subject = "Subject to email";
+            //var email = UserMapsCommand.CreateUserEmailMessage(request.Email, body, subject);
 
             if (UpdateUserCommandResponse.Success)
             {
                 var user = UserMapsCommand.UpdateUserMapsCommand(request);
                 //user = await _userRepository.AddAsync(user);
 
-                var userExist = await _userManager.FindByNameAsync(user.UserName) ?? await _userManager.FindByEmailAsync(user.UserName);
-
+                var userExist = await _userManager.FindByIdAsync(user.Id);
                 if (userExist == null)
                 {
-                    //generate last Wallet number
-                    var wallet = _walletRepository.GetWalletNumber();
-                    wallet = user.WalletNumber.ToString();
-
-                    //generate a wallet number ---> getwallnumber
-                    //var walletnumber = 0000000000;
-                    //user.WalletNumber = walletnumber;
-                    var result = await _userManager.UpdateAsync(user);
+                    var result = await _userManager.UpdateAsync(userExist);
 
                     if (result.Succeeded)
                     {

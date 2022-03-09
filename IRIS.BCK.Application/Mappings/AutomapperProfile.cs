@@ -63,6 +63,9 @@ using IRIS.BCK.Core.Application.Business.Payments.Queries.GetPayment;
 using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetShipmentById;
 using IRIS.BCK.Application.DTO;
 using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetShipmentByWayBillNumber;
+using IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.UpdateGroupWayBill;
+using IRIS.BCK.Core.Application.Business.ShipmentProcessing.Queries.GetManifest;
+using IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.UpdateManifest;
 
 namespace IRIS.BCK.Core.Application.Mappings
 {
@@ -94,6 +97,12 @@ namespace IRIS.BCK.Core.Application.Mappings
             CreateMap<CreateFleetCommand, Fleet>();
             CreateMap<Fleet, CreateFleetCommand>();
 
+            CreateMap<UpdateGroupWayBillCommand, GroupWayBill>();
+            CreateMap<GroupWayBill, UpdateGroupWayBillCommand>();
+
+            CreateMap<UpdateManifestCommand, Manifest>();
+            CreateMap<Manifest, UpdateManifestCommand>();
+
             CreateMap<CreatePriceCommand, PriceEnt>();
             CreateMap<PriceEnt, CreateTripCommand>();
 
@@ -105,6 +114,9 @@ namespace IRIS.BCK.Core.Application.Mappings
 
             CreateMap<GetPriceQuery, PriceListViewModel>();
             CreateMap<PriceListViewModel, GetPriceQuery>();
+
+            CreateMap<GetManifestQuery, ManifestListViewModel>();
+            CreateMap<ManifestListViewModel, GetManifestQuery>();
 
             CreateMap<GetRouteQuery, RouteViewModel>();
             CreateMap<RouteViewModel, GetRouteQuery>();
@@ -237,6 +249,9 @@ namespace IRIS.BCK.Core.Application.Mappings
 
             CreateMap<WalletNumber, WalletViewModel>();
             CreateMap<WalletViewModel, WalletNumber>();
+
+            CreateMap<Manifest, ManifestListViewModel>();
+            CreateMap<ManifestListViewModel, Manifest>();
 
             CreateMap<Payment, PaymentViewModel>();
             CreateMap<PaymentViewModel, Payment>();

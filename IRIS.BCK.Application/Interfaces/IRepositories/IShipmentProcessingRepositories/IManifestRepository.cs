@@ -10,5 +10,8 @@ namespace IRIS.BCK.Core.Application.Interfaces.IRepositories.IShipmentProcessing
 {
     public interface IManifestRepository : IGenericRepository<Manifest>
     {
+        Task<Manifest> GetManifestByManifestCode(string manifestcode);
+
+        Task<Manifest> GetManifestByWayBill(string waybill);
     }
 }
