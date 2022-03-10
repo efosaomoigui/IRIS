@@ -34,14 +34,14 @@ namespace IRIS.BCK.Api.Controllers.Monitoring
             return Ok(trackHistory);
         }
 
-        [HttpGet("GetTrackHistoryByTripId/{tripid}")]
-        public async Task<ActionResult<TrackHistoryViewModel>> GetTrackHistoryByTripId([FromRoute] Guid tripid)
+        [HttpGet("GetTrackHistoryByTripReference/{tripreference}")]
+        public async Task<ActionResult<TrackHistoryViewModel>> GetTrackHistoryByTripReference([FromRoute] string tripreference)
         {
             var trip = new TrackHistoryViewModel();
 
-            if (tripid != null)
+            if (tripreference != null)
             {
-                trip = await _mediator.Send(new GetTrackHistoryByTripIdQuery(tripid.ToString()));
+                trip = await _mediator.Send(new GetTrackHistoryByTripIdQuery(tripreference.ToString()));
             }
 
             return Ok(trip);

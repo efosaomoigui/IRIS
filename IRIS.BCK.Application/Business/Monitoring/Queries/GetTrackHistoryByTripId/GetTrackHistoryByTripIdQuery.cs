@@ -10,13 +10,12 @@ namespace IRIS.BCK.Core.Application.Business.Monitoring.Queries.GetTrackHistoryB
 {
     public class GetTrackHistoryByTripIdQuery : IRequest<TrackHistoryViewModel>
     {
-        public Guid TripId { get; set; }
+        public string TripReference { get; set; }
 
-        public GetTrackHistoryByTripIdQuery(string tripid)
+        public GetTrackHistoryByTripIdQuery(string tripreference)
         {
-            //TripId = TrackHistoryGuid;
-            Guid TrackHistoryGuid = new Guid(tripid);
-            TripId = TrackHistoryGuid;
+            string TrackHistory = new string(tripreference);
+            TripReference = TrackHistory;
         }
     }
 }

@@ -12,6 +12,6 @@ namespace IRIS.BCK.Core.Application.Interfaces.IRepositories.IMonitoringReposito
     {
         Task<TrackHistory> GetTrackHistoryById(string trackhistoryid);
 
-        Task<TrackHistory> GetTrackHistoryByTripId(string tripid);
+        Task<TrackHistory> GetTrackHistoryByTripReference(string tripreference);
     }
 }

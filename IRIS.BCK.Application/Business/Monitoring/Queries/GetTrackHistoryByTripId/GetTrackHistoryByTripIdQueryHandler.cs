@@ -24,8 +24,8 @@ namespace IRIS.BCK.Core.Application.Business.Monitoring.Queries.GetTrackHistoryB
 
         public async Task<TrackHistoryViewModel> Handle(GetTrackHistoryByTripIdQuery request, CancellationToken cancellationToken)
         {
-            var tripid = request.TripId.ToString();
-            var trip = await _trackHistoryRepository.GetTrackHistoryByTripId(tripid);
+            var tripreference = request.TripReference;
+            var trip = await _trackHistoryRepository.GetTrackHistoryByTripReference(tripreference);
 
             return _mapper.Map<TrackHistoryViewModel>(trip);
         }

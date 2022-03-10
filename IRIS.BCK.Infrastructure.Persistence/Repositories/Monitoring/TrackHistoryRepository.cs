@@ -19,9 +19,9 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Monitoring
             return _dbContext.TrackHistory.FirstOrDefault(e => e.Id.ToString() == trackhistoryid);
         }
 
-        public async Task<TrackHistory> GetTrackHistoryByTripId(string tripid)
+        public async Task<TrackHistory> GetTrackHistoryByTripReference(string tripreference)
         {
-            return _dbContext.TrackHistory.FirstOrDefault(e => e.Id.ToString() == tripid);
+            return _dbContext.TrackHistory.FirstOrDefault(e => e.Id.ToString() == tripreference);
         }
     }
 }

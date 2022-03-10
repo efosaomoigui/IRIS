@@ -72,6 +72,7 @@ using IRIS.BCK.Core.Application.Business.ShipmentProcessing.Queries.GetManifestB
 using IRIS.BCK.Core.Application.Business.ShipmentProcessing.Queries.GetManifestByGroupWayBill;
 using IRIS.BCK.Core.Application.Business.Price.Queries.GetPriceById;
 using IRIS.BCK.Core.Application.Business.Monitoring.Commands.CreateTrackHistory;
+using IRIS.BCK.Core.Application.Business.Accounts.Commands.UpdateUsers;
 
 namespace IRIS.BCK.Core.Application.Mappings
 {
@@ -114,6 +115,9 @@ namespace IRIS.BCK.Core.Application.Mappings
 
             CreateMap<UpdateManifestCommand, Manifest>();
             CreateMap<Manifest, UpdateManifestCommand>();
+
+            CreateMap<UpdateUserCommand, User>();
+            CreateMap<User, UpdateUserCommand>();
 
             CreateMap<CreatePriceCommand, PriceEnt>();
             CreateMap<PriceEnt, CreateTripCommand>();

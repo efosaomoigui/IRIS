@@ -16,10 +16,6 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.UpdateUsers
         {
             _userRepository = userRepository;
 
-            RuleFor(p => p.Username)
-                .NotEmpty().WithMessage("{PropertyName} is required")
-                .NotNull();
-
             RuleFor(p => p.FirstName)
                 .NotEmpty().WithMessage("{PropertyName} is required")
                 .NotNull();
