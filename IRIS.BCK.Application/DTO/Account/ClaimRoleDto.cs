@@ -9,7 +9,7 @@ namespace IRIS.BCK.Core.Application.DTO.Account
 {
     public class ClaimRoleDto 
     {
-        public AppRole Role { get; set; }
+        public string Role { get; set; }
         public string ClaimType { get; set; }
         public string ClaimValue { get; set; }
     }

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace IRIS.BCK.Infrastructure.Persistence.Migrations
 {
-    public partial class updatetrackhistorytable : Migration
+    public partial class Walletinformagtion : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -15,14 +15,6 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                 name: "FK_Trips_Fleet_FleetId",
                 table: "Trips");
 
-            migrationBuilder.DropForeignKey(
-                name: "FK_WalletTransaction_WalletNumber_WalletNumberId",
-                table: "WalletTransaction");
-
-            migrationBuilder.DropIndex(
-                name: "IX_WalletTransaction_WalletNumberId",
-                table: "WalletTransaction");
-
             migrationBuilder.DropIndex(
                 name: "IX_Trips_FleetId",
                 table: "Trips");
@@ -32,7 +24,11 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                 table: "TrackHistory");
 
             migrationBuilder.DropColumn(
-                name: "WalletNumberId",
+                name: "DateCreated",
+                table: "WalletTransaction");
+
+            migrationBuilder.DropColumn(
+                name: "WalletNumber",
                 table: "WalletTransaction");
 
             migrationBuilder.DropColumn(
@@ -63,11 +59,12 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                 name: "TripId1",
                 table: "TrackHistory");
 
-            migrationBuilder.AddColumn<string>(
-                name: "WalletNumber",
+            migrationBuilder.AddColumn<Guid>(
+                name: "UserId",
                 table: "WalletTransaction",
-                type: "nvarchar(max)",
-                nullable: true);
+                type: "uniqueidentifier",
+                nullable: false,
+                defaultValue: new Guid("00000000-0000-0000-0000-000000000000"));
 
             migrationBuilder.AlterColumn<string>(
                 name: "TripReference",
@@ -110,6 +107,7 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                 type: "uniqueidentifier",
                 nullable: true);
 
+ 
             migrationBuilder.CreateIndex(
                 name: "IX_Fleet_TripsId",
                 table: "Fleet",
@@ -135,7 +133,7 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                 table: "Fleet");
 
             migrationBuilder.DropColumn(
-                name: "WalletNumber",
+                name: "UserId",
                 table: "WalletTransaction");
 
             migrationBuilder.DropColumn(
@@ -154,11 +152,19 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                 name: "TripsId",
                 table: "Fleet");
 
-            migrationBuilder.AddColumn<Guid>(
-                name: "WalletNumberId",
+            migrationBuilder.AddColumn<DateTime>(
+                name: "DateCreated",
                 table: "WalletTransaction",
-                type: "uniqueidentifier",
-                nullable: true);
+                type: "datetime2",
+                nullable: false,
+                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+
+            migrationBuilder.AddColumn<decimal>(
+                name: "WalletNumber",
+                table: "WalletTransaction",
+                type: "decimal(18,4)",
+                nullable: false,
+                defaultValue: 0m);
 
             migrationBuilder.AlterColumn<int>(
                 name: "TripReference",
@@ -228,11 +234,6 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                 nullable: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_WalletTransaction_WalletNumberId",
-                table: "WalletTransaction",
-                column: "WalletNumberId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Trips_FleetId",
                 table: "Trips",
                 column: "FleetId");
@@ -256,14 +257,6 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                 column: "FleetId",
                 principalTable: "Fleet",
                 principalColumn: "FleetId",
-                onDelete: ReferentialAction.Restrict);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_WalletTransaction_WalletNumber_WalletNumberId",
-                table: "WalletTransaction",
-                column: "WalletNumberId",
-                principalTable: "WalletNumber",
-                principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);
         }
     }

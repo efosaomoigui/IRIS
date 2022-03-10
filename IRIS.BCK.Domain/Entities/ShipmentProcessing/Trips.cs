@@ -1,4 +1,5 @@
 ﻿using IRIS.BCK.Core.Domain.Entities.FleetEntities;
+using IRIS.BCK.Core.Domain.Entities.GroupWayBillManifestMapEntities;
 using IRIS.BCK.Core.Domain.EntityEnums;
 using IRIS.BCK.Domain.Common;
 using System;
@@ -16,6 +17,7 @@ namespace IRIS.BCK.Core.Domain.Entities.ShipmentProcessing
         public string RouteCode { get; set; }
         public List<Fleet> Fleet { get; set; }
         public Guid Driver { get; set; }
+        public List<GroupWayBillManifestMap> GroupWayBillManifestMap { get; set; }
         public Guid Dispatcher { get; set; }
     }
 }

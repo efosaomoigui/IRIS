@@ -84,7 +84,6 @@ namespace IRIS.BCK.Core.Application.Mappings.Users
             return new AppRoleClaim
             {
                 RoleId = request.RoleId,
-                Id = request.Id,
                 ClaimType = request.ClaimType,
                 ClaimValue = request.ClaimValue,
             };

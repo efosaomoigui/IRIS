@@ -1,4 +1,6 @@
-﻿using IRIS.BCK.Domain.Common;
+﻿using IRIS.BCK.Core.Domain.Entities.ShipmentGroupWayBillMapEntities;
+using IRIS.BCK.Core.Domain.Entities.ShipmentProcessing;
+using IRIS.BCK.Domain.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +14,7 @@ namespace IRIS.BCK.Core.Domain.Entities.GroupWayBillManifestMapEntities
         public Guid GroupWayBillManifestMapid { get; set; }
         public string GroupWayBillCode { get; set; }
         public string ManifestCode { get; set; }
+        public Trips Trip { get; set; }
+        public List<ShipmentGroupWayBillMap> ShipmentGroupWayBillMap { get; set; }
     }
 }

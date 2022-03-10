@@ -33,7 +33,9 @@ namespace IRIS.BCK.Core.Application.DTO.Account
 
         //User Active CountryId
         public string IdentificationImage { get; set; }
+        public string WalletNumber { get; set; }
 
-        public int WalletNumber { get; set; }
+
+
     }
 }

@@ -4,14 +4,16 @@ using IRIS.BCK.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace IRIS.BCK.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(IRISDbContext))]
-    partial class IRISDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220310104704_service update")]
+    partial class serviceupdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -332,12 +334,7 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                     b.Property<string>("ManifestCode")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("TripId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("GroupWayBillManifestMapid");
-
-                    b.HasIndex("TripId");
 
                     b.ToTable("GroupWayBillManifestMap");
                 });
@@ -600,12 +597,6 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                     b.Property<string>("GroupWayBillCode")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("GroupWayBillManifestMap")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("GroupWayBillManifestMapid")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("LastModifiedBy")
                         .HasColumnType("nvarchar(max)");
 
@@ -616,8 +607,6 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ShipmentGroupWayBillMapid");
-
-                    b.HasIndex("GroupWayBillManifestMapid");
 
                     b.ToTable("ShipmentGroupWayBillMap");
                 });
@@ -942,15 +931,6 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                         .HasForeignKey("TripsId");
                 });
 
-            modelBuilder.Entity("IRIS.BCK.Core.Domain.Entities.GroupWayBillManifestMapEntities.GroupWayBillManifestMap", b =>
-                {
-                    b.HasOne("IRIS.BCK.Core.Domain.Entities.ShipmentProcessing.Trips", "Trip")
-                        .WithMany("GroupWayBillManifestMap")
-                        .HasForeignKey("TripId");
-
-                    b.Navigation("Trip");
-                });
-
             modelBuilder.Entity("IRIS.BCK.Core.Domain.Entities.PaymentEntities.Payment", b =>
                 {
                     b.HasOne("IRIS.BCK.Core.Domain.Entities.ShimentEntities.Shipment", "Shipment")
@@ -982,13 +962,6 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                         .IsRequired();
 
                     b.Navigation("Shipment");
-                });
-
-            modelBuilder.Entity("IRIS.BCK.Core.Domain.Entities.ShipmentGroupWayBillMapEntities.ShipmentGroupWayBillMap", b =>
-                {
-                    b.HasOne("IRIS.BCK.Core.Domain.Entities.GroupWayBillManifestMapEntities.GroupWayBillManifestMap", null)
-                        .WithMany("ShipmentGroupWayBillMap")
-                        .HasForeignKey("GroupWayBillManifestMapid");
                 });
 
             modelBuilder.Entity("IRIS.BCK.Core.Domain.EntityEnums.ShipmentItem", b =>
@@ -1044,11 +1017,6 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("IRIS.BCK.Core.Domain.Entities.GroupWayBillManifestMapEntities.GroupWayBillManifestMap", b =>
-                {
-                    b.Navigation("ShipmentGroupWayBillMap");
-                });
-
             modelBuilder.Entity("IRIS.BCK.Core.Domain.Entities.ShimentEntities.Shipment", b =>
                 {
                     b.Navigation("CustomerAddress");
@@ -1061,8 +1029,6 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
             modelBuilder.Entity("IRIS.BCK.Core.Domain.Entities.ShipmentProcessing.Trips", b =>
                 {
                     b.Navigation("Fleet");
-
-                    b.Navigation("GroupWayBillManifestMap");
                 });
 #pragma warning restore 612, 618
         }

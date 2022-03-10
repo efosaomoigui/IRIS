@@ -105,17 +105,10 @@ namespace IRIS.BCK.Api.Controllers.Account
         }
 
         [HttpGet("GetPermissions")]
-        public async Task<ActionResult<ClaimViewModel>> GetPermissions()
+        public async Task<ActionResult<List<ClaimViewModel>>> GetPermissions()
         {
-            var roleid = HttpContext.User.FindFirstValue("RoleId");
-            var role = new ClaimViewModel();
-
-            if (roleid != null)
-            {
-                role = await _mediator.Send(new GetClaimForRoleQuery(roleid));
-            }
-
-            return Ok(role);
+            var roleclaim = await _mediator.Send(new ListClaimsQuery());
+            return Ok(roleclaim);
         }
 
         [HttpGet("Permissions/GetPermissionsByRoleId/{roleid}")]
