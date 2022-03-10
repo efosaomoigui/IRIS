@@ -14,5 +14,6 @@ namespace IRIS.BCK.Core.Domain.Entities.ServiceCenterEntities
         public string  ServiceCenterName { get; set; } 
         public string State { get; set; } 
         public string ServiceCenterCountry { get; set; }
+        public string ServiceTag { get; set; } 
     }
 }

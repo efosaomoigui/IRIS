@@ -17,7 +17,7 @@ namespace IRIS.BCK.Core.Application.Mappings.Wallets
                 Amount = request.Amount,
                 TransactionType = request.TransactionType,
                 Description = request.Description,
-                WalletNumber = request.WalletNumber
+                UserId = request.UserId
                 //Id = request.WaybillTransactionId
             };
         }

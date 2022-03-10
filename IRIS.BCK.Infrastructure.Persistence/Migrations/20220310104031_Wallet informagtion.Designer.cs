@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IRIS.BCK.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(IRISDbContext))]
-    [Migration("20220309125915_update trackhistory table")]
-    partial class updatetrackhistorytable
+    [Migration("20220310104031_Wallet informagtion")]
+    partial class Walletinformagtion
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -731,8 +731,8 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("WalletBalance")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<decimal>("WalletBalance")
+                        .HasColumnType("decimal(18,4)");
 
                     b.HasKey("Id");
 
@@ -754,9 +754,6 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DateCreated")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
@@ -769,8 +766,8 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                     b.Property<int>("TransactionType")
                         .HasColumnType("int");
 
-                    b.Property<string>("WalletNumber")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
