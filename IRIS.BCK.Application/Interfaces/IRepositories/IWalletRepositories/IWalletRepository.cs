@@ -16,5 +16,7 @@ namespace IRIS.BCK.Core.Application.Interfaces.IRepositories.IWalletRepositories
         public string GetWalletNumber();
 
         Task<int> GetWalletBalance(string User);
+
+        public Task<WalletNumber> GetWalletById(string walletid);
     }
 }

@@ -12,6 +12,7 @@ namespace IRIS.BCK.Core.Application.DTO.Account
 
         public string Password { get; set; }
         public string FirstName { get; set; }
+        public string Email { get; set; }
         public string LastName { get; set; }
         public int Age { get; set; }
         public string Designation { get; set; }
@@ -26,8 +27,10 @@ namespace IRIS.BCK.Core.Application.DTO.Account
 
         //for system user
         public string SystemUserId { get; set; }
+
         public string SystemUserRole { get; set; }
         public DateTime PasswordExpireDate { get; set; }
+
         //User Active CountryId
         public string IdentificationImage { get; set; }
         public string WalletNumber { get; set; }

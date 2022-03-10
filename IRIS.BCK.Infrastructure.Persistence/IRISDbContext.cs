@@ -5,6 +5,7 @@ using IRIS.BCK.Core.Domain.Entities.Monitoring;
 using IRIS.BCK.Core.Domain.Entities.PaymentEntities;
 using IRIS.BCK.Core.Domain.Entities.PriceEntities;
 using IRIS.BCK.Core.Domain.Entities.RouteEntities;
+using IRIS.BCK.Core.Domain.Entities.ServiceCenterEntities;
 using IRIS.BCK.Core.Domain.Entities.ShimentEntities;
 using IRIS.BCK.Core.Domain.Entities.ShipmentEntities;
 using IRIS.BCK.Core.Domain.Entities.ShipmentGroupWayBillMapEntities;
@@ -43,9 +44,11 @@ namespace IRIS.BCK.Infrastructure.Persistence
         public DbSet<Manifest> Manifest { get; set; }
         public DbSet<GroupWayBill> GroupWayBill { get; set; }
         public DbSet<Trips> Trips { get; set; }
+        public DbSet<PriceEnt> PriceEnt { get; set; }
         public DbSet<TrackHistory> TrackHistory { get; set; }
         public DbSet<ShipmentGroupWayBillMap> ShipmentGroupWayBillMap { get; set; }
         public DbSet<GroupWayBillManifestMap> GroupWayBillManifestMap { get; set; }
+        public DbSet<ServiceCenter> ServiceCenter { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -55,10 +58,6 @@ namespace IRIS.BCK.Infrastructure.Persistence
             modelBuilder.Entity<PriceEnt>().Property(p => p.UnitWeight).HasColumnType("decimal(18,4)");
             modelBuilder.Entity<Shipment>().Property(p => p.GrandTotal).HasColumnType("decimal(18,4)");
             modelBuilder.Entity<ShipmentItem>().Property(p => p.DeclarationOfValueCheck).HasColumnType("decimal(18,4)");
-            modelBuilder.Entity<Trips>().Property(p => p.DriverDispatchFee).HasColumnType("decimal(18,4)");
-            modelBuilder.Entity<Trips>().Property(p => p.DriverDispatchFee).HasColumnType("decimal(18,4)");
-            modelBuilder.Entity<WalletNumber>().Property(p => p.WalletBalance).HasColumnType("decimal(18,4)");
-            modelBuilder.Entity<WalletTransaction>().Property(p => p.WalletNumber).HasColumnType("decimal(18,4)");
 
             modelBuilder.Entity<Shipment>().HasMany(t => t.CustomerAddress)
                 .WithOne(g => g.customershipmentAddress)

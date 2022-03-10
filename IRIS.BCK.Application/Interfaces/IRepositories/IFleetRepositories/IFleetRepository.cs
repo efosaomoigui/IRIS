@@ -11,5 +11,7 @@ namespace IRIS.BCK.Core.Application.Interfaces.IRepositories.IFleetRepositories
     public interface IFleetRepository : IGenericRepository<Fleet>
     {
         Task<bool> CheckUniqueFleetId(string fleet);
+
+        Task<Fleet> GetFleetById(string fleetid);
     }
 }

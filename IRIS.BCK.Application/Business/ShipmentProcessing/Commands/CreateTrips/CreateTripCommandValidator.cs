@@ -24,23 +24,7 @@ namespace IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.CreateT
                 .NotEmpty().WithMessage("{PropertyName} is required")
                 .NotNull();
 
-            RuleFor(p => p.DriverDispatchFee)
-                .NotEmpty().WithMessage("{PropertyName} is required")
-                .NotNull();
-
-            RuleFor(p => p.EndTime)
-                .NotEmpty().WithMessage("{PropertyName} is required")
-                .NotNull();
-
             RuleFor(p => p.Fleet)
-                .NotEmpty().WithMessage("{PropertyName} is required")
-                .NotNull();
-
-            RuleFor(p => p.FuelCosts)
-                .NotEmpty().WithMessage("{PropertyName} is required")
-                .NotNull();
-
-            RuleFor(p => p.FuelUsed)
                 .NotEmpty().WithMessage("{PropertyName} is required")
                 .NotNull();
 
@@ -48,14 +32,7 @@ namespace IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.CreateT
                 .NotEmpty().WithMessage("{PropertyName} is required")
                 .NotNull();
 
-            RuleFor(p => p.Miscelleneous)
-                .NotEmpty().WithMessage("{PropertyName} is required")
-                .NotNull();
-
             RuleFor(p => p.RouteCode)
-                .NotEmpty().WithMessage("{PropertyName} is required")
-                .NotNull();
-            RuleFor(p => p.StartTime)
                 .NotEmpty().WithMessage("{PropertyName} is required")
                 .NotNull();
 

@@ -39,6 +39,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Business\GroupWayBillManifestMaps\Commands\DeleteGroupWayBillManifestMap\" />
     <Folder Include="Business\GroupWayBillManifestMaps\Queries\" />
     <Folder Include="Business\Monitoring\Commands\DeleteTrackHistory\" />
     <Folder Include="Business\Wallet\Commands\DeleteWalletNumber\" />
@@ -47,6 +48,7 @@
     <Folder Include="Business\Wallet\Queries\GetWalletListQuery\" />
     <Folder Include="Business\Wallet\Queries\GetWalletTransactionListQuery\" />
     <Folder Include="Business\Wallet\Queries\GetLastWalletNumberQuery\" />
+    <Folder Include="Business\Wallet\Queries\GetWalletByAccountNumber\" />
     <Folder Include="DTO\Files\Pdf\" />
     <Folder Include="Interfaces\IFiles\IPdf\" />
     <Folder Include="Interfaces\IMessages\ISms\" />

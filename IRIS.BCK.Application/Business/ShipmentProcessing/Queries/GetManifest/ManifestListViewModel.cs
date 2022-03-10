@@ -11,6 +11,7 @@ namespace IRIS.BCK.Core.Application.Business.ShipmentProcessing.Queries.GetManif
     {
         public Guid Id { get; set; }
         public string ManifestCode { get; set; }
-        public int GroupWayBillId { get; set; }
+        public Guid GroupWayBillId { get; set; }
+        public Guid ServiceCenterId { get; set; }
     }
 }

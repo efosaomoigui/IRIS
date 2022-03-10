@@ -10,5 +10,8 @@ namespace IRIS.BCK.Core.Application.Interfaces.IRepositories.IMonitoringReposito
 {
     public interface ITrackHistoryRepository : IGenericRepository<TrackHistory>
     {
+        Task<TrackHistory> GetTrackHistoryById(string trackhistoryid);
+
+        Task<TrackHistory> GetTrackHistoryByTripReference(string tripreference);
     }
 }

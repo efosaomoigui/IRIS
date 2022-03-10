@@ -1,6 +1,7 @@
 ﻿using IRIS.BCK.Core.Application.Business.Wallet.Commands.CreateWalletNumber;
 using IRIS.BCK.Core.Application.Business.Wallet.Commands.CreateWalletNumberCommand;
 using IRIS.BCK.Core.Application.Business.Wallet.Commands.CreateWalletTransactionCommand;
+using IRIS.BCK.Core.Application.Business.Wallet.Queries.GetWalletById;
 using IRIS.BCK.Core.Application.Business.Wallet.Queries.GetWalletByWalletNumberQuery;
 using IRIS.BCK.Core.Application.Business.Wallet.Queries.GetWalletTransactionByWalletNumberQuery;
 using Microsoft.AspNetCore.Authorization;
@@ -21,10 +22,16 @@ namespace IRIS.BCK.Api.Controllers.Wallet
             return Ok(walletNumber);
         }
 
-        [HttpGet("Wallets/GetWalletById/{walletid}")]
-        public async Task<ActionResult<WalletNumberViewModel>> GetWalletById(string walletid)
+        [HttpGet("GetWalletById/{walletid}")]
+        public async Task<ActionResult<WalletViewModel>> GetWalletById([FromRoute] Guid walletid)
         {
-            var wallet = await _mediator.Send(new GetWalletNumberQuery());
+            var wallet = new WalletViewModel();
+
+            if (walletid != null)
+            {
+                wallet = await _mediator.Send(new GetWalletByIdQuery(walletid.ToString()));
+            }
+
             return Ok(wallet);
         }
 
@@ -43,14 +50,14 @@ namespace IRIS.BCK.Api.Controllers.Wallet
         }
 
         [HttpGet("WalletTransaction/all", Name = "GetAllWalletTransaction")]
-        public async Task<ActionResult<List<WalletNumberViewModel>>> GetAllWalletTransaction()
+        public async Task<ActionResult<List<WalletTransactionViewModel>>> GetAllWalletTransaction()
         {
             var walletTransaction = await _mediator.Send(new GetWalletTransactionQuery());
             return Ok(walletTransaction);
         }
 
         [HttpGet("WalletTransaction/GetWalletTransactionById/{transactionid}")]
-        public async Task<ActionResult<List<WalletNumberViewModel>>> GetTransactionByTransactionId(string transactionid)
+        public async Task<ActionResult<List<WalletTransactionViewModel>>> GetTransactionByTransactionId(string transactionid)
         {
             var transaction = await _mediator.Send(new GetWalletTransactionQuery());
             return Ok(transaction);
@@ -63,13 +70,4 @@ namespace IRIS.BCK.Api.Controllers.Wallet
             return Ok(response);
         }
     }
-
-    // Add wallet
-    //1. Get User to create wallet for by using _userRepository
-    //2. Generate wallet number. An algorithm.
-    // (a). GetLastValue() from the walletNumbersHub
-    // (b). Increment by 1
-    // (c). Insert into walletNumberHub
-    // (d). Hold in a variable for the user
-    //3.
 }

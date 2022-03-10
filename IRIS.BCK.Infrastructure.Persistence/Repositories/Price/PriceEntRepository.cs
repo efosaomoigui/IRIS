@@ -15,5 +15,10 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Price
         public PriceEntRepository(IRISDbContext dbContext) : base(dbContext)
         {
         }
+
+        public async Task<PriceEnt> GetPriceById(string priceid)
+        {
+            return _dbContext.PriceEnt.FirstOrDefault(e => e.Id.ToString() == priceid);
+        }
     }
 }

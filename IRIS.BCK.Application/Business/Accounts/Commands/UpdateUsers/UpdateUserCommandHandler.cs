@@ -2,6 +2,7 @@
 using IRIS.BCK.Core.Application.Business.Accounts.AccountEntities;
 using IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUser;
 using IRIS.BCK.Core.Application.DTO.Account;
+using IRIS.BCK.Core.Application.DTO.Message.EmailMessage;
 using IRIS.BCK.Core.Application.Interfaces.IMessages.IEmail;
 using IRIS.BCK.Core.Application.Interfaces.IRepositories.IAccount;
 using IRIS.BCK.Core.Application.Interfaces.IRepositories.IWalletRepositories;
@@ -25,26 +26,24 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.UpdateUsers
         private readonly IEmailService _emailService;
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<AppRole> _roleManager;
-        private readonly IWalletRepository _walletRepository;
 
-        public UpdateUserCommandHandler(IUserRepository userRepository, IMapper mapper, IEmailService emailService, UserManager<User> userManager, IWalletRepository walletRepository)
+        public UpdateUserCommandHandler(IUserRepository userRepository, IMapper mapper, IEmailService emailService, UserManager<User> userManager)
         {
             _userRepository = userRepository;
             _mapper = mapper;
             _emailService = emailService;
             _userManager = userManager;
-            _walletRepository = walletRepository;
         }
 
         public async Task<UpdateUserCommandResponse> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
         {
             var UpdateUserCommandResponse = new UpdateUserCommandResponse();
-
             var validator = new UpdateUserCommandValidator(_userRepository);
             var validationResult = await validator.ValidateAsync(request);
 
             if (validationResult.Errors.Count > 0)
             {
+                //throw new ValidationException(validationResult);
                 UpdateUserCommandResponse.Success = false;
                 UpdateUserCommandResponse.ValidationErrors = new List<string>();
 
@@ -54,56 +53,76 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.UpdateUsers
                 }
             }
 
-            var body = "message to user";
-            var subject = "Subject to email";
-            var email = UserMapsCommand.CreateUserEmailMessage(request.Email, body, subject);
+            var email = new Email
+            {
+                To = "efe.omoigui@gmail.com",
+                Body = "Test Message",
+                Subject = "Test Email"
+            };
 
             if (UpdateUserCommandResponse.Success)
             {
-                var user = UserMapsCommand.UpdateUserMapsCommand(request);
-                //user = await _userRepository.AddAsync(user);
+                var updateUser = _mapper.Map<User>(request);
+                await _userManager.UpdateAsync(updateUser);
 
-                var userExist = await _userManager.FindByNameAsync(user.UserName) ?? await _userManager.FindByEmailAsync(user.UserName);
-
-                if (userExist == null)
+                try
                 {
-                    //generate last Wallet number
-                    var wallet = _walletRepository.GetWalletNumber();
-                    wallet = user.WalletNumber.ToString();
-
-                    //generate a wallet number ---> getwallnumber
-                    //var walletnumber = 0000000000;
-                    //user.WalletNumber = walletnumber;
-                    var result = await _userManager.UpdateAsync(user);
-
-                    if (result.Succeeded)
-                    {
-                        try
-                        {
-                            //await _emailService.SendEmail(email);
-                        }
-                        catch (Exception)
-                        {
-                            throw;
-                        }
-                    }
-                    else
-                    {
-                        foreach (var error in result.Errors)
-                        {
-                            UpdateUserCommandResponse.ValidationErrors.Add(error.Description);
-                        }
-                    }
-
-                    UpdateUserCommandResponse.Userdto = _mapper.Map<UserDto>(user);
+                    await _emailService.SendEmail(email);
                 }
-                else
+                catch (Exception)
                 {
-                    UpdateUserCommandResponse.ValidationErrors.Add(StaticMessages.UserExist);
+                    throw;
                 }
+
+                UpdateUserCommandResponse.Userdto = _mapper.Map<UserDto>(updateUser);
+
+                return UpdateUserCommandResponse;
             }
 
+            UpdateUserCommandResponse.Userdto = new UserDto();
             return UpdateUserCommandResponse;
         }
     }
 }
+
+//            if (UpdateUserCommandResponse.Success)
+//            {
+//                var user = UserMapsCommand.UpdateUserMapsCommand(request);
+//                //user = await _userRepository.AddAsync(user);
+
+//                var userExist = await _userManager.FindByIdAsync(user.Id);
+//                if (userExist == null)
+//                {
+//                    var result = await _userManager.UpdateAsync(userExist);
+
+//                    if (result.Succeeded)
+//                    {
+//                        try
+//                        {
+//                            //await _emailService.SendEmail(email);
+//                        }
+//                        catch (Exception)
+//                        {
+//                            throw;
+//                        }
+//                    }
+//                    else
+//                    {
+//                        foreach (var error in result.Errors)
+//                        {
+//                            UpdateUserCommandResponse.ValidationErrors.Add(error.Description);
+//                        }
+//                    }
+
+//                    UpdateUserCommandResponse.Userdto = _mapper.Map<UserDto>(user);
+//                }
+//                else
+//                {
+//                    UpdateUserCommandResponse.ValidationErrors.Add(StaticMessages.UserExist);
+//                }
+//            }
+
+//            return UpdateUserCommandResponse;
+//        }
+//    }
+//}

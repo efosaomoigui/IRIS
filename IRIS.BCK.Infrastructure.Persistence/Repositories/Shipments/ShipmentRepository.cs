@@ -24,5 +24,15 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Shipments
         {
             return true;
         }
+
+        public async Task<Shipment> GetShipmentById(string shipmentid)
+        {
+            return _dbContext.Shipment.FirstOrDefault(e => e.ShipmentId.ToString() == shipmentid);
+        }
+
+        public async Task<Shipment> GetShipmentByWayBillNumber(string waybillnumber)
+        {
+            return _dbContext.Shipment.FirstOrDefault(e => e.Waybill.ToString() == waybillnumber);
+        }
     }
 }

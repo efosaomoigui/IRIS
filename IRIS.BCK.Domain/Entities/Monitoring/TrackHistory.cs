@@ -12,11 +12,10 @@ namespace IRIS.BCK.Core.Domain.Entities.Monitoring
     public class TrackHistory : Auditable
     {
         public Guid Id { get; set; }
-        public int TripId { get; set; }
-        public Trips Trip { get; set; }
+        public string TripReference { get; set; }
         public string Action { get; set; }
-        public Location Location { get; set; }
-        public ActionTimeStamp TimeStamp { get; set; }
+        public string Location { get; set; }
+        public string ActionTimeStamp { get; set; }
         public string Status { get; set; }
     }
 }

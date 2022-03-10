@@ -11,5 +11,7 @@ namespace IRIS.BCK.Core.Application.Interfaces.IRepositories.IRouteRepository
     public interface IRouteRepository : IGenericRepository<Route>
     {
         Task<bool> CheckRouteNumber(string route);
+
+        Task<Route> GetRouteById(string routeid);
     }
 }

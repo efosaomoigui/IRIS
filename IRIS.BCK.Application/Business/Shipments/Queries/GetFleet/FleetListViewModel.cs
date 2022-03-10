@@ -8,7 +8,6 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Queries.GetFleets
         public int Id { get; set; }
         public string waybill { get; set; }
         public int FirstName { get; set; }
-
         public string RegistrationNumber { get; set; }
         public string ChassisNumber { get; set; }
         public string EngineNumber { get; set; }

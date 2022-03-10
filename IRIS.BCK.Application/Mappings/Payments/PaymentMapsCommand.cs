@@ -6,13 +6,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IRIS.BCK.Core.Application.Mappings.Payment
+namespace IRIS.BCK.Core.Application.Mappings.Payments
 {
     public static class PaymentMapsCommand
     {
-        public static Domain.Entities.PaymentEntities.Payment CreatePaymentMapsCommand(CreatePaymentCommand request)
+        public static Payment CreatePaymentMapsCommand(CreatePaymentCommand request)
         {
-            return new Domain.Entities.PaymentEntities.Payment
+            return new Payment
             {
                 InvoiceCode = request.InvoiceCode,
                 Status = request.Status,

@@ -2,6 +2,8 @@
 using IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.DeleteManifest;
 using IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.UpdateManifest;
 using IRIS.BCK.Core.Application.Business.ShipmentProcessing.Queries.GetManifest;
+using IRIS.BCK.Core.Application.Business.ShipmentProcessing.Queries.GetManifestByGroupWayBill;
+using IRIS.BCK.Core.Application.Business.ShipmentProcessing.Queries.GetManifestByManifestCode;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -22,18 +24,30 @@ namespace IRIS.BCK.Api.Controllers.ShipmentProcessing
             return Ok(manifest);
         }
 
-        [HttpGet("Manifest/GetManifestByManifestCode/{manifestcode}")]
-        public async Task<ActionResult<List<ManifestListViewModel>>> GetManifestByManifestCode(string manifestcode)
+        [HttpGet("GetManifestByManifestCode/{manifestcode}")]
+        public async Task<ActionResult<ManifestViewModel>> GetManifestByManifestCode([FromRoute] string manifestcode)
         {
-            var code = await _mediator.Send(new GetManifestQuery());
-            return Ok(code);
+            var manifest = new ManifestViewModel();
+
+            if (manifestcode != null)
+            {
+                manifest = await _mediator.Send(new GetManifestByManifestCodeQuery(manifestcode.ToString()));
+            }
+
+            return Ok(manifest);
         }
 
-        [HttpGet("Manifest/GetManifestByGroupWayBillNumber/{groupwaybillnumber}")]
-        public async Task<ActionResult<List<ManifestListViewModel>>> GetManifestByGroupWayBillNumber(string groupwaybillnumber)
+        [HttpGet("GetManifestByGroupWayBillNumber/{groupwaybillid}")]
+        public async Task<ActionResult<ManifestViewModel>> GetManifestByGroupWayBillNumber([FromRoute] Guid groupwaybillid)
         {
-            var group = await _mediator.Send(new GetManifestQuery());
-            return Ok(group);
+            var groupwaybill = new ManifestViewModel();
+
+            if (groupwaybillid != null)
+            {
+                groupwaybill = await _mediator.Send(new GetManifestByGroupWayBillQuery(groupwaybillid.ToString()));
+            }
+
+            return Ok(groupwaybill);
         }
 
         [HttpPost("Manifest", Name = "AddManifest")]

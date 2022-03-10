@@ -24,11 +24,11 @@ namespace IRIS.BCK.Core.Application.Business.Monitoring.Commands.CreateTrackHist
                .NotEmpty().WithMessage("{PropertyName} is required")
                .NotNull();
 
-            RuleFor(p => p.TimeStamp)
+            RuleFor(p => p.ActionTimeStamp)
                .NotEmpty().WithMessage("{PropertyName} is required")
                .NotNull();
 
-            RuleFor(p => p.Trip)
+            RuleFor(p => p.TripReference)
                .NotEmpty().WithMessage("{PropertyName} is required")
                .NotNull();
         }

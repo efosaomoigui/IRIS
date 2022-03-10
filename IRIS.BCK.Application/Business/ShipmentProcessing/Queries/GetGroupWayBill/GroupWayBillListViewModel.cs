@@ -11,6 +11,8 @@ namespace IRIS.BCK.Core.Application.Business.ShipmentProcessing.Queries.GetGroup
     {
         public Guid Id { get; set; }
         public string GroupCode { get; set; }
+        public Guid ShipmentId { get; set; }
+        public Guid UserId { get; set; }
         public Guid ServiceCenterId { get; set; }
     }
 }

@@ -28,10 +28,6 @@ namespace IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.UpdateT
                 .NotEmpty().WithMessage("{PropertyName} is required")
                 .NotNull();
 
-            RuleFor(p => p.EndTime)
-                .NotEmpty().WithMessage("{PropertyName} is required")
-                .NotNull();
-
             RuleFor(p => p.Fleet)
                 .NotEmpty().WithMessage("{PropertyName} is required")
                 .NotNull();
@@ -53,9 +49,6 @@ namespace IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.UpdateT
                 .NotNull();
 
             RuleFor(p => p.RouteCode)
-                .NotEmpty().WithMessage("{PropertyName} is required")
-                .NotNull();
-            RuleFor(p => p.StartTime)
                 .NotEmpty().WithMessage("{PropertyName} is required")
                 .NotNull();
 
