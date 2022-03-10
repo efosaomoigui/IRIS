@@ -24,7 +24,7 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.CreatePrice
                .NotEmpty().WithMessage("{PropertyName} is required")
                .NotNull();
 
-            RuleFor(p => p.Route)
+            RuleFor(p => p.RouteId)
                .NotEmpty().WithMessage("{PropertyName} is required")
                .NotNull();
 
