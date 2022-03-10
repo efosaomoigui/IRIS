@@ -38,11 +38,6 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Wallets
             return _dbContext.WalletNumber.FirstOrDefault(e => e.Id.ToString() == walletid);
         }
 
-        //public async Task<WalletNumber> GetWalletByAccountNumber(string accountnumber)
-        //{
-        //    return _dbContext.WalletNumber.FirstOrDefault(e => e.Id.ToString() == walletid);
-        //}
-
         public string GetWalletNumber()
         {
             string s = "0000000001";
