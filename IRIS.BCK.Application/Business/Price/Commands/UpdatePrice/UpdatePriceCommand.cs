@@ -14,7 +14,7 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.UpdatePrice
         public int Id { get; set; }
         public PriceCategory Category { get; set; }
 
-        public int RouteId { get; set; }
+        public Guid RouteId { get; set; }
 
         public Route Route { get; set; }
         public int UnitWeight { get; set; }

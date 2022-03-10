@@ -11,11 +11,10 @@ namespace IRIS.BCK.Core.Application.Business.Monitoring.Queries.GetTrackHistoryB
     public class TrackHistoryViewModel
     {
         public Guid Id { get; set; }
-        public Guid TripId { get; set; }
-        public Trips Trip { get; set; }
+        public string TripReference { get; set; }
         public string Action { get; set; }
-        public Location Location { get; set; }
-        public ActionTimeStamp TimeStamp { get; set; }
+        public string Location { get; set; }
+        public string ActionTimeStamp { get; set; }
         public string Status { get; set; }
     }
 }

@@ -13,7 +13,7 @@ namespace IRIS.BCK.Core.Application.Business.Price.Queries.GetPriceById
         public PriceCategory Category { get; set; }
         public Guid Id { get; set; }
 
-        public int RouteId { get; set; }
+        public Guid RouteId { get; set; }
 
         public Route Route { get; set; }
         public int UnitWeight { get; set; }

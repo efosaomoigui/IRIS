@@ -70,6 +70,8 @@ using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetFleetById;
 using IRIS.BCK.Core.Application.Business.Shipments.Commands.UpdateFleet;
 using IRIS.BCK.Core.Application.Business.ShipmentProcessing.Queries.GetManifestByManifestCode;
 using IRIS.BCK.Core.Application.Business.ShipmentProcessing.Queries.GetManifestByGroupWayBill;
+using IRIS.BCK.Core.Application.Business.Price.Queries.GetPriceById;
+using IRIS.BCK.Core.Application.Business.Monitoring.Commands.CreateTrackHistory;
 
 namespace IRIS.BCK.Core.Application.Mappings
 {
@@ -94,6 +96,9 @@ namespace IRIS.BCK.Core.Application.Mappings
 
             CreateMap<CreateTripCommand, Trips>();
             CreateMap<Trips, CreateTripCommand>();
+
+            CreateMap<CreateTrackHistoryCommand, TrackHistory>();
+            CreateMap<TrackHistory, CreateTrackHistoryCommand>();
 
             CreateMap<CreateServiceCenterCommand, ServiceCenter>();
             CreateMap<ServiceCenter, CreateServiceCenterCommand>();
@@ -145,7 +150,6 @@ namespace IRIS.BCK.Core.Application.Mappings
 
             CreateMap<GetManifestByGroupWayBillQuery, ManifestViewModel>();
             CreateMap<ManifestViewModel, GetManifestByGroupWayBillQuery>();
-
 
             CreateMap<GetShipmentByWayBillNumberQuery, ShipmentViewModel>();
             CreateMap<ShipmentViewModel, GetShipmentByWayBillNumberQuery>();
@@ -245,6 +249,9 @@ namespace IRIS.BCK.Core.Application.Mappings
 
             CreateMap<PriceEnt, PriceListViewModel>();
             CreateMap<PriceListViewModel, PriceEnt>();
+
+            CreateMap<PriceEnt, PriceViewModel>();
+            CreateMap<PriceViewModel, PriceEnt>();
 
             CreateMap<Trips, TripListViewModel>();
             CreateMap<TripListViewModel, Trips>();

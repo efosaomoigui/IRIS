@@ -13,7 +13,7 @@ namespace IRIS.BCK.Core.Application.DTO.Price
         public Guid Id { get; set; }
         public PriceCategory Category { get; set; }
 
-        public int RouteId { get; set; }
+        public Guid RouteId { get; set; }
 
         public Route Route { get; set; }
         public int UnitWeight { get; set; }
