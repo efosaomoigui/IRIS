@@ -12,5 +12,6 @@ namespace IRIS.BCK.Core.Domain.Entities.ShipmentGroupWayBillMapEntities
         public Guid ShipmentGroupWayBillMapid { get; set; }
         public string ShipmentWaybill { get; set; }
         public string GroupWayBillCode { get; set; }
+        public string GroupWayBillManifestMap { get; set; }
     }
 }

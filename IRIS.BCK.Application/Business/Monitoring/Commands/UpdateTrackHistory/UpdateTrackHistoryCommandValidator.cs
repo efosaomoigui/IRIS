@@ -28,9 +28,6 @@ namespace IRIS.BCK.Core.Application.Business.Monitoring.Commands.UpdateTrackHist
                .NotEmpty().WithMessage("{PropertyName} is required")
                .NotNull();
 
-            RuleFor(p => p.Trip)
-               .NotEmpty().WithMessage("{PropertyName} is required")
-               .NotNull();
         }
     }
 }
