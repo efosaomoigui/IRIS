@@ -39,5 +39,10 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Wallets
             var str = RandomDigits(10);
             return str;
         }
+
+        public Task<WalletNumber> GetWalletById(string walletid)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

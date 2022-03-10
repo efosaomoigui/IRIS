@@ -14,7 +14,6 @@ namespace IRIS.BCK.Core.Domain.Entities.WalletEntities
         public string Number { get; set; }
         public bool IsActive { get; set; }
         public decimal WalletBalance { get; set; }
-
         public Guid UserId { get; set; }
     }
 }
