@@ -1,4 +1,5 @@
 ﻿using IRIS.BCK.Core.Application.Business.Monitoring.Commands.CreateTrackHistory;
+using IRIS.BCK.Core.Application.Business.Monitoring.Commands.DeleteTrackHistory;
 using IRIS.BCK.Core.Application.Business.Monitoring.Commands.UpdateTrackHistory;
 using IRIS.BCK.Core.Application.Business.Monitoring.Queries.GetTrackHistory;
 using IRIS.BCK.Core.Application.Business.Monitoring.Queries.GetTrackHistoryById;
@@ -72,6 +73,13 @@ namespace IRIS.BCK.Api.Controllers.Monitoring
         public async Task<ActionResult<UpdateTrackHistoryCommandResponse>> UpdateShipment([FromBody] UpdateTrackHistoryCommand updateTrackHistoryCommand)
         {
             var response = await _mediator.Send(updateTrackHistoryCommand);
+            return Ok(response);
+        }
+
+        [HttpDelete("TrackHistory/delete", Name = "DeleteTrackHistory")]
+        public async Task<ActionResult<DeleteTrackHistoryCommandResponse>> DeleteTrackHistory([FromBody] DeleteTrackHistoryCommand deleteTrackHistoryCommand)
+        {
+            var response = await _mediator.Send(deleteTrackHistoryCommand);
             return Ok(response);
         }
     }

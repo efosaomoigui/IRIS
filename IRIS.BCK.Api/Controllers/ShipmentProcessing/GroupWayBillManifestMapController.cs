@@ -1,5 +1,6 @@
 ﻿using IRIS.BCK.Core.Application.Business.GroupWayBillManifestMaps.Commands.CreateGroupWayBillManifestMap;
 using IRIS.BCK.Core.Application.Business.GroupWayBillManifestMaps.Commands.UpdateGroupWayBillManifestMap;
+using IRIS.BCK.Core.Application.Business.GroupWayBillManifestMaps.Queries.GetGroupWayBillManifestMap;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -11,6 +12,13 @@ namespace IRIS.BCK.Api.Controllers.ShipmentProcessing
 {
     public class GroupWayBillManifestMapController : BaseApiController
     {
+        [HttpGet("GroupWayBillManifestMap/Getall", Name = "GetAllGroupWayBillManifestMap")]
+        public async Task<ActionResult<List<GroupWayBillManifestMapListViewModel>>> GetAllGroupWayBillManifestMap()
+        {
+            var groupWayBill = await _mediator.Send(new GetGroupWayBillManifestMapQuery());
+            return Ok(groupWayBill);
+        }
+
         [HttpPost("CreateGroupWayManifestMapBill", Name = "AddGroupWayBill")]
         public async Task<ActionResult<CreateGroupWayBillManifestMapCommandResponse>> Create([FromBody] CreateGroupWayBillManifestMapCommand createGroupWayBillManifestMapCommand)
         {
