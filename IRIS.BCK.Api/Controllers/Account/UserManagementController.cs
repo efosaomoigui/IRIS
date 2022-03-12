@@ -97,6 +97,14 @@ namespace IRIS.BCK.Api.Controllers.Account
             return Ok(roles);
         }
 
+        [AllowAnonymous]
+        [HttpGet("GetRoleById")]
+        public async Task<ActionResult<List<RoleListViewModel>>> GetRoleById() 
+        {
+            var roles = await _mediator.Send(new GetRoleListQuery());
+            return Ok(roles);
+        }
+
         [HttpPost("AddPermissionToRole")]
         public async Task<ActionResult<CreateClaimForRoleCommandResponse>> AddClaimToRole([FromBody] CreateClaimForRoleCommand createclaimforroleCommand)
         {
