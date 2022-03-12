@@ -74,6 +74,12 @@ using IRIS.BCK.Core.Application.Business.ShipmentProcessing.Queries.GetManifestB
 using IRIS.BCK.Core.Application.Business.Price.Queries.GetPriceById;
 using IRIS.BCK.Core.Application.Business.Monitoring.Commands.CreateTrackHistory;
 using IRIS.BCK.Core.Application.Business.Accounts.Commands.UpdateUsers;
+using IRIS.BCK.Core.Application.Business.GroupWayBillManifestMaps.Commands.UpdateGroupWayBillManifestMap;
+using IRIS.BCK.Core.Application.Business.ShipmentGroupWayBillMaps.Commands.UpdateShipmentGroupWayBillMap;
+using IRIS.BCK.Core.Application.Business.Monitoring.Commands.UpdateTrackHistory;
+using IRIS.BCK.Core.Application.Business.Payments.Commands.UpdatePayment;
+using IRIS.BCK.Core.Application.Business.Price.Commands.UpdatePrice;
+using IRIS.BCK.Core.Application.Business.ServiceCentre.Commands.UpdateServiceCenter;
 
 namespace IRIS.BCK.Core.Application.Mappings
 {
@@ -114,8 +120,26 @@ namespace IRIS.BCK.Core.Application.Mappings
             CreateMap<UpdateFleetCommand, Fleet>();
             CreateMap<Fleet, UpdateFleetCommand>();
 
+            CreateMap<UpdatePriceCommand, PriceEnt>();
+            CreateMap<PriceEnt, UpdatePriceCommand>();
+
+            CreateMap<UpdateServiceCenterCommand, ServiceCenter>();
+            CreateMap<ServiceCenter, UpdateServiceCenterCommand>();
+
+            CreateMap<UpdateTrackHistoryCommand, TrackHistory>();
+            CreateMap<TrackHistory, UpdateTrackHistoryCommand>();
+
+            CreateMap<UpdateGroupWayBillManifestMapComand, GroupWayBillManifestMap>();
+            CreateMap<GroupWayBillManifestMap, UpdateGroupWayBillManifestMapComand>();
+
+            CreateMap<UpdateShipmentGroupWayBillMapCommand, ShipmentGroupWayBillMap>();
+            CreateMap<ShipmentGroupWayBillMap, UpdateShipmentGroupWayBillMapCommand>();
+
             CreateMap<UpdateManifestCommand, Manifest>();
             CreateMap<Manifest, UpdateManifestCommand>();
+
+            CreateMap<UpdatePaymentCommand, Payment>();
+            CreateMap<Payment, UpdatePaymentCommand>();
 
             CreateMap<UpdateUserCommand, User>();
             CreateMap<User, UpdateUserCommand>();
