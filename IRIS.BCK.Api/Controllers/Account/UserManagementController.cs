@@ -98,7 +98,7 @@ namespace IRIS.BCK.Api.Controllers.Account
         }
 
         [AllowAnonymous]
-        [HttpGet("GetRoleById")]
+        [HttpGet("GetRoleById/{roleId}")]
         public async Task<ActionResult<RoleByIdViewModel>> GetRoleById(string roleId)
         { 
            var roles = await _mediator.Send(new GetRoleByIdQuery(roleId));
