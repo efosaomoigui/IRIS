@@ -323,6 +323,9 @@ namespace IRIS.BCK.Core.Application.Mappings
 
             CreateMap<AppRoleClaim, ListClaimViewModel>();
             CreateMap<ListClaimViewModel, AppRoleClaim>();
+
+            CreateMap<RoleByIdViewModel, AppRole>();
+            CreateMap<AppRole, RoleByIdViewModel>();
         }
     }
 }

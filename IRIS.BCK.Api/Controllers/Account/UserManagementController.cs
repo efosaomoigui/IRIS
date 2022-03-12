@@ -99,9 +99,9 @@ namespace IRIS.BCK.Api.Controllers.Account
 
         [AllowAnonymous]
         [HttpGet("GetRoleById")]
-        public async Task<ActionResult<List<RoleListViewModel>>> GetRoleById() 
-        {
-            var roles = await _mediator.Send(new GetRoleListQuery());
+        public async Task<ActionResult<RoleByIdViewModel>> GetRoleById(string roleId)
+        { 
+           var roles = await _mediator.Send(new GetRoleByIdQuery(roleId));
             return Ok(roles);
         }
 
