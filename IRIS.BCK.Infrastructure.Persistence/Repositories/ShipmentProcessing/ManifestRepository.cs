@@ -16,7 +16,7 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.ShipmentProcessing
 
         public async Task<Manifest> GetManifestByManifestCode(string manifestcode)
         {
-            return _dbContext.Manifest.FirstOrDefault(e => e.ManifestCode.ToString() == manifestcode);
+            return _dbContext.Manifest.FirstOrDefault(e => e.ManifestCode == manifestcode);
         }
 
         public async Task<Manifest> GetManifestByWayBill(string waybill)
