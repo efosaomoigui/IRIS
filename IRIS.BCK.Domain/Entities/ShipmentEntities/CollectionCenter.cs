@@ -10,7 +10,7 @@ namespace IRIS.BCK.Core.Domain.Entities.ShipmentEntities
         public Guid Id { get; set; }
         public Guid ShipmentId { get; set; }
 
-        public virtual Shipment Shipment { get; set; }
+        public Shipment Shipment { get; set; }
         public CollectionCenterEnum CollectionStatus { get; set; }
         public Guid UserId { get; set; }
     }

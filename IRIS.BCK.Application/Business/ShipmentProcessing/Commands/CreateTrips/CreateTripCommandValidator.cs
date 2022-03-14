@@ -16,27 +16,19 @@ namespace IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.CreateT
         {
             _tripRepository = tripRepository;
 
-            RuleFor(p => p.Dispatcher)
-                .NotEmpty().WithMessage("{PropertyName} is required")
-                .NotNull();
+            //RuleFor(p => p.Dispatcher)
+            //    .NotEmpty().WithMessage("{PropertyName} is required")
+            //    .NotNull();
 
-            RuleFor(p => p.Driver)
-                .NotEmpty().WithMessage("{PropertyName} is required")
-                .NotNull();
+            //RuleFor(p => p.Driver)
+            //    .NotEmpty().WithMessage("{PropertyName} is required")
+            //    .NotNull();
 
             RuleFor(p => p.Fleet)
                 .NotEmpty().WithMessage("{PropertyName} is required")
                 .NotNull();
 
-            RuleFor(p => p.manifest)
-                .NotEmpty().WithMessage("{PropertyName} is required")
-                .NotNull();
-
             RuleFor(p => p.RouteCode)
-                .NotEmpty().WithMessage("{PropertyName} is required")
-                .NotNull();
-
-            RuleFor(p => p.Status)
                 .NotEmpty().WithMessage("{PropertyName} is required")
                 .NotNull();
 

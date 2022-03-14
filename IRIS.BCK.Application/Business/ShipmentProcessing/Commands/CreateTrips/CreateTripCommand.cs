@@ -1,4 +1,5 @@
 ﻿using IRIS.BCK.Core.Domain.Entities.FleetEntities;
+using IRIS.BCK.Core.Domain.Entities.GroupWayBillManifestMapEntities;
 using IRIS.BCK.Core.Domain.Entities.ShipmentProcessing;
 using IRIS.BCK.Core.Domain.EntityEnums;
 using MediatR;
@@ -16,9 +17,8 @@ namespace IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.CreateT
         public string TripReference { get; set; }
         public string RouteCode { get; set; }
         public List<Fleet> Fleet { get; set; }
-        public List<Manifest> manifest { get; set; }
         public Guid Driver { get; set; }
+        public List<GroupWayBillManifestMap> GroupWayBillManifestMap { get; set; }
         public Guid Dispatcher { get; set; }
-        public StatusEnum Status { get; set; }
     }
 }
