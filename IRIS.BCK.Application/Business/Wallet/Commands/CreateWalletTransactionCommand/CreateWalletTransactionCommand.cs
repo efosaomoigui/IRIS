@@ -15,7 +15,8 @@ namespace IRIS.BCK.Core.Application.Business.Wallet.Commands.CreateWalletTransac
         public string Amount { get; set; }
         public TransactionType TransactionType { get; set; }
         public string Description { get; set; }
-        public string WalletNumber { get; set; }
+
+        // public string WalletNumber { get; set; }
         public Guid UserId { get; set; }
     }
 }

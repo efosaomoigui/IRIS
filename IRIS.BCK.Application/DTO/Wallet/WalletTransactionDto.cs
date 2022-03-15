@@ -14,7 +14,6 @@ namespace IRIS.BCK.Core.Application.DTO.Wallet
         public string Amount { get; set; }
         public TransactionType TransactionType { get; set; }
         public string Description { get; set; }
-        public WalletNumber WalletNumber { get; set; }
-        public DateTime DateCreated { get; set; }
+        public Guid UserId { get; set; }
     }
 }

@@ -53,7 +53,7 @@ namespace IRIS.BCK.Core.Application.Business.Wallet.Commands.CreateWalletNumber
 
             if (CreateWalletNumberCommandResponse.Success)
             {
-                var walletMapExist = await _walletRepository.Get(s => s.Number == request.Number);
+                var walletMapExist = await _walletRepository.Get(s => s.Id == request.Id);
 
                 if (walletMapExist == null)
                 {

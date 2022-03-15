@@ -39,6 +39,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Business\Accounts\Queries\GetPermissionsByIdQuery\" />
     <Folder Include="Business\Wallet\Commands\DeleteWalletNumber\" />
     <Folder Include="Business\Wallet\Commands\UpdateWalletNumber\" />
     <Folder Include="Business\Wallet\Queries\GetWalletNumberQuery\" />
