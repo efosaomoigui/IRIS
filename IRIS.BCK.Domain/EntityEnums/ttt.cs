@@ -4,11 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace  IRIS.BCK.Core.Domain.EntityEnums
+namespace IRIS.BCK.Core.Domain.EntityEnums
 {
-    public enum EcommerceAgreementStatus
+    class ttt
     {
-        Pending, 
-        Registerd
     }
 }

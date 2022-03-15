@@ -1,9 +1,10 @@
-﻿namespace GIGLS.Core.Enums
+﻿namespace  IRIS.BCK.Core.Domain.EntityEnums
 {
     public enum UserStatus
     {
-        Suspended,
-        Active,
+        SActive,
+        Inactive,
+        uspended,
         Pending
     }
 }
