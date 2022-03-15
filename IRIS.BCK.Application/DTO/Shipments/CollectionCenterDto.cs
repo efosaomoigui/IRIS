@@ -10,10 +10,11 @@ namespace IRIS.BCK.Core.Application.DTO.Shipments
 {
     public class CollectionCenterDto
     {
-        public int ShipmentId { get; set; }
+        public Guid Id { get; set; }
+        public Guid ShipmentId { get; set; }
 
         public Shipment Shipment { get; set; }
-        public bool CollectionStatus { get; set; }
+        public CollectionCenterEnum CollectionStatus { get; set; }
         public Guid UserId { get; set; }
     }
 }
