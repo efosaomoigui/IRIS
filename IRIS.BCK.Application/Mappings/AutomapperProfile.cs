@@ -194,6 +194,9 @@ namespace IRIS.BCK.Core.Application.Mappings
             CreateMap<GetPaymentByIdQuery, PaymentViewModel>();
             CreateMap<PaymentViewModel, GetPaymentByIdQuery>();
 
+            CreateMap<GetClaimForRoleQuery, ClaimViewModel>();
+            CreateMap<ClaimViewModel, GetClaimForRoleQuery>();
+
             CreateMap<GetFleetByIdQuery, FleetViewModel>();
             CreateMap<FleetViewModel, GetFleetByIdQuery>();
 
