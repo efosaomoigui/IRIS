@@ -31,8 +31,12 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Queries.GetShipmentList
             //var user = (await _userRepository.GetByUserIdAsync(request.UserId));
             var userid = request.Id.ToString(); 
             var user = await _userManager.FindByIdAsync(userid);
+            var roleexist = _userManager.GetRolesAsync(user).Result.ToList();
 
-            return _mapper.Map<UserViewModel>(user);
+            var result =  _mapper.Map<UserViewModel>(user);
+            result.Roles = roleexist;
+
+            return result;
         }
     }
 }

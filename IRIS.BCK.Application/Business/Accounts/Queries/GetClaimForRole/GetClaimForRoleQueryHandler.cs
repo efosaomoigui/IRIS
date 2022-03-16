@@ -31,10 +31,12 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Queries.GetClaimForRole
 
         public async Task<ClaimViewModel> Handle(GetClaimForRoleQuery request, CancellationToken cancellationToken)
         {
-            var roleid = request.Id.ToString();
-            var role = await _roleManager.FindByIdAsync(roleid);
+            var roleid = request.RoleId.ToString();
+            //var role = await _roleManager.FindByIdAsync(roleid);
 
-            return _mapper.Map<ClaimViewModel>(role);
+            var claims = await _roleClaimRepository.GetAllClaims();
+            var claimVals = claims.FirstOrDefault(x => x.RoleId == roleid);
+            return _mapper.Map<ClaimViewModel>(claimVals);
         }
     }
 }

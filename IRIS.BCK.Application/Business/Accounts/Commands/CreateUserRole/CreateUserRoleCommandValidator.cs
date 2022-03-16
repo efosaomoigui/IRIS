@@ -16,10 +16,6 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUserRole
         {
             _userRepository = userRepository;
 
-            RuleFor(p => p.RoleName)
-                .NotEmpty().WithMessage("{PropertyName} is required")
-                .NotNull();
-
             RuleFor(p => p.UserId)
                 .NotEmpty().WithMessage("{PropertyName} is required")
                 .NotNull();

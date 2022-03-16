@@ -133,5 +133,14 @@ namespace IRIS.BCK.Api.Controllers.Account
             var roleclaim = await _mediator.Send(createuserroleCommand);
             return Ok(roleclaim);
         }
+
+        //To be implemented later
+        [AllowAnonymous]
+        [HttpPost("RemovePermissionFromRole")]
+        public async Task<ActionResult<CreateUserRoleCommandResponse>> RemovePermissionFromRole([FromBody] CreateUserRoleCommand createuserroleCommand) 
+        {
+            var roleclaim = await _mediator.Send(createuserroleCommand);
+            return Ok(roleclaim);
+        }
     }
 }

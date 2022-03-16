@@ -328,8 +328,8 @@ namespace IRIS.BCK.Core.Application.Mappings
             CreateMap<RoleByIdViewModel, AppRole>();
             CreateMap<AppRole, RoleByIdViewModel>();
 
-            CreateMap<ClaimViewModel, AppRole>();
-            CreateMap<AppRole, ClaimViewModel>();
+            CreateMap<ClaimViewModel, AppRoleClaim>(); 
+            CreateMap<AppRoleClaim, ClaimViewModel>();
 
             CreateMap<WalletTransaction, WalletTransactionViewModel>();
             CreateMap<WalletTransactionViewModel, WalletTransaction>();

@@ -93,7 +93,6 @@ namespace IRIS.BCK.Core.Application.Mappings.Users
             return new AppUserRole
             {
                 UserId = request.UserId,
-                RoleId = request.RoleName
             };
         }
     }
