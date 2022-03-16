@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateFleets 
+namespace IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateFleets
 {
     public class CreateFleetCommand : IRequest<CreateFleetCommandResponse>
     {
@@ -25,5 +25,6 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateFleets
         public string FleetModel { get; set; }
         public string FleetMake { get; set; }
         public Guid OwnerId { get; set; }
+        public Guid UserId { get; set; }
     }
 }

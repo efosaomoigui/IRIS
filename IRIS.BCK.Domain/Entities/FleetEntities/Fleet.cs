@@ -23,5 +23,6 @@ namespace IRIS.BCK.Core.Domain.Entities.FleetEntities
         public string FleetModel { get; set; }
         public string FleetMake { get; set; }
         public Guid OwnerId { get; set; }
+        public Guid UserId { get; set; }
     }
 }

@@ -14,6 +14,7 @@ namespace IRIS.BCK.Core.Application.Business.Payments.Queries.GetPayment
         public Guid Id { get; set; }
         public string InvoiceCode { get; set; }
 
+        public Guid UserId { get; set; }
         public Guid ShipmentId { get; set; }
         public Shipment Shipment { get; set; }
         public PaymentMethod PaymentMethod { get; set; } //wallet, Cash, Transfer
