@@ -16,6 +16,7 @@ using IRIS.BCK.Core.Application.Business.Shipments.Commands.DeleteRoute;
 using IRIS.BCK.Core.Application.Business.Shipments.Commands.UpdateFleet;
 using IRIS.BCK.Core.Application.Business.Shipments.Commands.UpdateRoute;
 using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetFleetById;
+using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetFleetByUserId;
 using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetFleets;
 using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetOneRoute;
 using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetRoutes;
@@ -97,6 +98,19 @@ namespace IRIS.BCK.Api.Controllers.Shipment
             }
 
             return Ok(fleet);
+        }
+
+        [HttpGet("GetFleetByUserId/{userid}")]
+        public async Task<ActionResult<FleetViewModel>> GetFleetByUserId([FromRoute] Guid userid)
+        {
+            var user = new FleetViewModel();
+
+            if (userid != null)
+            {
+                user = await _mediator.Send(new GetFleetByUserIdQuery(userid.ToString()));
+            }
+
+            return Ok(user);
         }
 
         [HttpPost("Fleet", Name = "AddFleet")]

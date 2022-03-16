@@ -24,5 +24,6 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Queries.GetFleetById
         public string FleetModel { get; set; }
         public string FleetMake { get; set; }
         public Guid OwnerId { get; set; }
+        public Guid UserId { get; set; }
     }
 }
