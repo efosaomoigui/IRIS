@@ -23,5 +23,10 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Payments
         {
             return _dbContext.Payment.FirstOrDefault(e => e.InvoiceCode.ToString() == invoicecode);
         }
+
+        public async Task<Payment> GetPaymentByUserId(string userid)
+        {
+            return _dbContext.Payment.FirstOrDefault(e => e.UserId.ToString() == userid);
+        }
     }
 }

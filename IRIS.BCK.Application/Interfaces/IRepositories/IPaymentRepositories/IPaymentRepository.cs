@@ -13,5 +13,7 @@ namespace IRIS.BCK.Core.Application.Interfaces.IRepositories.IPaymentRepositorie
         public Task<Payment> GetPaymentById(string id);
 
         public Task<Payment> GetPaymentByInvoiceCode(string invoicecode);
+
+        public Task<Payment> GetPaymentByUserId(string userid);
     }
 }

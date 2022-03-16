@@ -3,6 +3,7 @@ using IRIS.BCK.Core.Application.Business.Payments.Commands.DeletePayment;
 using IRIS.BCK.Core.Application.Business.Payments.Commands.UpdatePayment;
 using IRIS.BCK.Core.Application.Business.Payments.Queries.GetPayment;
 using IRIS.BCK.Core.Application.Business.Payments.Queries.GetPayment.GetPaymentById;
+using IRIS.BCK.Core.Application.Business.Payments.Queries.GetPaymentByUserId;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -45,6 +46,19 @@ namespace IRIS.BCK.Api.Controllers.Payment
             }
 
             return Ok(invoice);
+        }
+
+        [HttpGet("GetInvoiceByUserId/{userid}")]
+        public async Task<ActionResult<PaymentViewModel>> GetInvoiceByUserId([FromRoute] Guid userid)
+        {
+            var user = new PaymentViewModel();
+
+            if (userid != null)
+            {
+                user = await _mediator.Send(new GetPaymentByUserIdQuery(userid.ToString()));
+            }
+
+            return Ok(user);
         }
 
         [HttpPost("Payment", Name = "AddPayment")]
