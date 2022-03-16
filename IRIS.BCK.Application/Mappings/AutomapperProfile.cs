@@ -80,6 +80,9 @@ using IRIS.BCK.Core.Application.Business.Monitoring.Commands.UpdateTrackHistory;
 using IRIS.BCK.Core.Application.Business.Payments.Commands.UpdatePayment;
 using IRIS.BCK.Core.Application.Business.Price.Commands.UpdatePrice;
 using IRIS.BCK.Core.Application.Business.ServiceCentre.Commands.UpdateServiceCenter;
+using IRIS.BCK.Core.Application.Business.Wallet.Commands.CreateWalletTransactionCommand;
+using IRIS.BCK.Core.Application.Business.Wallet.Queries.GetWalletTransactionByWalletNumberQuery;
+using IRIS.BCK.Core.Application.Business.Monitoring.Queries.GetTrackHistoryByTripId;
 
 namespace IRIS.BCK.Core.Application.Mappings
 {
@@ -110,6 +113,9 @@ namespace IRIS.BCK.Core.Application.Mappings
 
             CreateMap<CreateServiceCenterCommand, ServiceCenter>();
             CreateMap<ServiceCenter, CreateServiceCenterCommand>();
+
+            CreateMap<CreateWalletTransactionCommand, WalletTransaction>();
+            CreateMap<WalletTransaction, CreateWalletTransactionCommand>();
 
             CreateMap<CreateFleetCommand, Fleet>();
             CreateMap<Fleet, CreateFleetCommand>();
@@ -171,6 +177,9 @@ namespace IRIS.BCK.Core.Application.Mappings
             CreateMap<GetWalletByIdQuery, WalletViewModel>();
             CreateMap<WalletViewModel, GetWalletByIdQuery>();
 
+            CreateMap<GetWalletTransactionQuery, WalletTransactionViewModel>();
+            CreateMap<WalletTransactionViewModel, GetWalletTransactionQuery>();
+
             CreateMap<GetShipmentByIdQuery, ShipmentViewModel>();
             CreateMap<ShipmentViewModel, GetShipmentByIdQuery>();
 
@@ -186,11 +195,17 @@ namespace IRIS.BCK.Core.Application.Mappings
             CreateMap<GetPaymentByIdQuery, PaymentViewModel>();
             CreateMap<PaymentViewModel, GetPaymentByIdQuery>();
 
+            CreateMap<GetClaimForRoleQuery, ClaimViewModel>();
+            CreateMap<ClaimViewModel, GetClaimForRoleQuery>();
+
             CreateMap<GetFleetByIdQuery, FleetViewModel>();
             CreateMap<FleetViewModel, GetFleetByIdQuery>();
 
             CreateMap<GetPaymentByInvoiceCodeQuery, PaymentViewModel>();
             CreateMap<PaymentViewModel, GetPaymentByInvoiceCodeQuery>();
+
+            CreateMap<GetTrackHistoryByTripIdQuery, TrackHistoryViewModel>();
+            CreateMap<TrackHistoryViewModel, GetTrackHistoryByTripIdQuery>();
 
             CreateMap<WalletNumberDto, WalletNumber>();
             CreateMap<WalletNumber, WalletNumberDto>();

@@ -17,9 +17,9 @@ namespace IRIS.BCK.Core.Application.Business.Wallet.Commands.CreateWalletTransac
         {
             _walletTransactionRepository = walletTransactionRepository;
 
-            RuleFor(p => p.WalletNumber)
-                .NotEmpty().WithMessage("{PropertyName} is required")
-                .NotNull();
+            //RuleFor(p => p.WalletNumber)
+            //    .NotEmpty().WithMessage("{PropertyName} is required")
+            //    .NotNull();
 
             RuleFor(p => p.TransactionType)
                 .NotEmpty().WithMessage("{PropertyName} is required")
