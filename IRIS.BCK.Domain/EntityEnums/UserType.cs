@@ -1,16 +1,9 @@
-﻿namespace GIGLS.Core.Enums
+﻿namespace  IRIS.BCK.Core.Domain.EntityEnums
 {
-    public enum UserType
+    public enum UserType 
     {
-        Regular,
-        System        
-    }
-
-    public enum IdentificationType 
-    {
-        DriversLicense,
-        InternationalPassport,
-        NationalIdentificationNumber,
-        Others
+        Corporate,
+        Individual, 
+        Partner
     }
 }

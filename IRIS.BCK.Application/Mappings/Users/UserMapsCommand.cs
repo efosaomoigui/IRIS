@@ -27,16 +27,11 @@ namespace IRIS.BCK.Core.Application.Mappings.Users
                 LastName = request.LastName,
                 PhoneNumber = request.PhoneNumber,
                 Age = request.Age,
-                Designation = request.Designation,
-                Department = request.Department,
                 PictureUrl = request.PictureUrl,
-                IsActive = request.IsActive,
                 Organisation = request.Organisation,
                 Status = request.Status,
                 DateCreated = request.DateCreated,
                 DateModified = request.DateModified,
-                SystemUserId = request.SystemUserId,
-                SystemUserRole = request.SystemUserRole,
                 PasswordExpireDate = request.PasswordExpireDate,
                 IdentificationImage = request.IdentificationImage,
                 WalletNumber = request.WalletNumber
@@ -55,16 +50,10 @@ namespace IRIS.BCK.Core.Application.Mappings.Users
                 LastName = request.LastName,
                 PhoneNumber = request.PhoneNumber,
                 Age = request.Age,
-                Designation = request.Designation,
-                Department = request.Department,
                 PictureUrl = request.PictureUrl,
-                IsActive = request.IsActive,
                 Organisation = request.Organisation,
-                Status = request.Status,
                 DateCreated = request.DateCreated,
                 DateModified = request.DateModified,
-                SystemUserId = request.SystemUserId,
-                SystemUserRole = request.SystemUserRole,
                 PasswordExpireDate = request.PasswordExpireDate,
                 IdentificationImage = request.IdentificationImage,
                 WalletNumber = request.WalletNumber
@@ -104,7 +93,6 @@ namespace IRIS.BCK.Core.Application.Mappings.Users
             return new AppUserRole
             {
                 UserId = request.UserId,
-                RoleId = request.RoleName
             };
         }
     }

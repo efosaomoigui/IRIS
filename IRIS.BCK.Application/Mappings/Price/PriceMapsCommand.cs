@@ -18,7 +18,6 @@ namespace IRIS.BCK.Core.Application.Mappings.Price
                 RouteId = request.RouteId,
                 PricePerUnit = request.PricePerUnit,
                 UnitWeight = request.UnitWeight,
-                Route = request.Route,
             };
         }
     }

@@ -1,4 +1,4 @@
-﻿using GIGLS.Core.Enums;
+﻿using  IRIS.BCK.Core.Domain.EntityEnums;
 using MediatR;
 using System;
 using System.Collections.Generic;

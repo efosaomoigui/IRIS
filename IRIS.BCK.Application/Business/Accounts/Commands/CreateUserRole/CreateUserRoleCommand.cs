@@ -11,6 +11,6 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUserRole
     public class CreateUserRoleCommand : IRequest<CreateUserRoleCommandResponse>  
     {
         public string UserId { get; set; }
-        public string RoleName { get; set; } 
+        public string[] RoleId { get; set; }  
     }  
 }

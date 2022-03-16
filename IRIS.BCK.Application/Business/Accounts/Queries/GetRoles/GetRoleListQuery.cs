@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace IRIS.BCK.Core.Application.Business.Accounts.Queries.GetRoles 
 {
-    public class GetRoleListQuery : IRequest<List<RoleListViewModel>> 
+    public class GetRoleListQuery : IRequest<List<RoleListViewModel>>  
     {
     }
 }
