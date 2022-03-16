@@ -289,6 +289,9 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                     b.Property<Guid?>("TripsId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("FleetId");
 
                     b.HasIndex("TripsId");
@@ -397,6 +400,9 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 

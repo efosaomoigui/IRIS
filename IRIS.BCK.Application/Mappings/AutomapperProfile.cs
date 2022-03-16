@@ -80,6 +80,9 @@ using IRIS.BCK.Core.Application.Business.Monitoring.Commands.UpdateTrackHistory;
 using IRIS.BCK.Core.Application.Business.Payments.Commands.UpdatePayment;
 using IRIS.BCK.Core.Application.Business.Price.Commands.UpdatePrice;
 using IRIS.BCK.Core.Application.Business.ServiceCentre.Commands.UpdateServiceCenter;
+using IRIS.BCK.Core.Application.Business.Wallet.Commands.CreateWalletTransactionCommand;
+using IRIS.BCK.Core.Application.Business.Wallet.Queries.GetWalletTransactionByWalletNumberQuery;
+using IRIS.BCK.Core.Application.Business.Monitoring.Queries.GetTrackHistoryByTripId;
 
 namespace IRIS.BCK.Core.Application.Mappings
 {
@@ -339,7 +342,7 @@ namespace IRIS.BCK.Core.Application.Mappings
             CreateMap<RoleByIdViewModel, AppRole>();
             CreateMap<AppRole, RoleByIdViewModel>();
 
-            CreateMap<ClaimViewModel, AppRoleClaim>(); 
+            CreateMap<ClaimViewModel, AppRoleClaim>();
             CreateMap<AppRoleClaim, ClaimViewModel>();
 
             CreateMap<WalletTransaction, WalletTransactionViewModel>();
