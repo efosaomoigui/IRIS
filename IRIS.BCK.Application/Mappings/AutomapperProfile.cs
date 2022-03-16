@@ -84,6 +84,7 @@ using IRIS.BCK.Core.Application.Business.Wallet.Commands.CreateWalletTransaction
 using IRIS.BCK.Core.Application.Business.Wallet.Queries.GetWalletTransactionByWalletNumberQuery;
 using IRIS.BCK.Core.Application.Business.Monitoring.Queries.GetTrackHistoryByTripId;
 using IRIS.BCK.Core.Application.Business.Wallet.Queries.GetWalletTransactionByUserId;
+using IRIS.BCK.Core.Application.Business.Price.Queries.GetPriceByRouteId;
 
 namespace IRIS.BCK.Core.Application.Mappings
 {
@@ -204,6 +205,9 @@ namespace IRIS.BCK.Core.Application.Mappings
 
             CreateMap<GetFleetByIdQuery, FleetViewModel>();
             CreateMap<FleetViewModel, GetFleetByIdQuery>();
+
+            CreateMap<GetPriceByRouteIdQuery, PriceViewModel>();
+            CreateMap<PriceViewModel, GetPriceByRouteIdQuery>();
 
             CreateMap<GetPaymentByInvoiceCodeQuery, PaymentViewModel>();
             CreateMap<PaymentViewModel, GetPaymentByInvoiceCodeQuery>();

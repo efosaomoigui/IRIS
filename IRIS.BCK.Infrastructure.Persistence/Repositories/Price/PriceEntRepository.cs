@@ -20,5 +20,10 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Price
         {
             return _dbContext.PriceEnt.FirstOrDefault(e => e.Id.ToString() == priceid);
         }
+
+        public async Task<PriceEnt> GetPriceByRouteId(string routeid)
+        {
+            return _dbContext.PriceEnt.FirstOrDefault(e => e.RouteId.ToString() == routeid);
+        }
     }
 }
