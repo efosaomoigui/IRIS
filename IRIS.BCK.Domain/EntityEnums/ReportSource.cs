@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GIGLS.Core.Enums
+namespace  IRIS.BCK.Core.Domain.EntityEnums
 {
     public enum ReportSource
     {

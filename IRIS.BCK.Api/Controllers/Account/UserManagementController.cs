@@ -97,6 +97,14 @@ namespace IRIS.BCK.Api.Controllers.Account
             return Ok(roles);
         }
 
+        [AllowAnonymous]
+        [HttpGet("GetRoleById/{roleId}")]
+        public async Task<ActionResult<RoleByIdViewModel>> GetRoleById(string roleId)
+        { 
+           var roles = await _mediator.Send(new GetRoleByIdQuery(roleId));
+            return Ok(roles);
+        }
+
         [HttpPost("AddPermissionToRole")]
         public async Task<ActionResult<CreateClaimForRoleCommandResponse>> AddClaimToRole([FromBody] CreateClaimForRoleCommand createclaimforroleCommand)
         {
@@ -121,6 +129,15 @@ namespace IRIS.BCK.Api.Controllers.Account
         [AllowAnonymous]
         [HttpPost("AddUserToRole")]
         public async Task<ActionResult<CreateUserRoleCommandResponse>> AddUserToRole([FromBody] CreateUserRoleCommand createuserroleCommand)
+        {
+            var roleclaim = await _mediator.Send(createuserroleCommand);
+            return Ok(roleclaim);
+        }
+
+        //To be implemented later
+        [AllowAnonymous]
+        [HttpPost("RemovePermissionFromRole")]
+        public async Task<ActionResult<CreateUserRoleCommandResponse>> RemovePermissionFromRole([FromBody] CreateUserRoleCommand createuserroleCommand) 
         {
             var roleclaim = await _mediator.Send(createuserroleCommand);
             return Ok(roleclaim);

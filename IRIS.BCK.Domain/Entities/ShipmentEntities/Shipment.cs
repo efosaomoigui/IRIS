@@ -1,4 +1,4 @@
-﻿using GIGLS.Core.Enums;
+﻿using  IRIS.BCK.Core.Domain.EntityEnums;
 using IRIS.BCK.Core.Domain.Entities.AddressEntities;
 using IRIS.BCK.Core.Domain.Entities.ServiceCenterEntities;
 using IRIS.BCK.Core.Domain.EntityEnums;

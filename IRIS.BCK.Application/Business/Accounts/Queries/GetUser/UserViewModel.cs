@@ -24,11 +24,9 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Queries.GetShipmentList
         public int Status { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }
-        public bool IsDeleted { get; set; }
-        public string SystemUserId { get; set; }
-        public string SystemUserRole { get; set; }
         public DateTime PasswordExpireDate { get; set; }
         public string IdentificationImage { get; set; }
         public string WalletNumber { get; set; }
+        public List<string> Roles { get; set; }
     }
 }

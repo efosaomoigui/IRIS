@@ -15,14 +15,14 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUserRole 
+namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUserRole
 {
     public class CreateUserRoleCommandHandler : IRequestHandler<CreateUserRoleCommand, CreateUserRoleCommandResponse>
     {
         private IUserRepository _userRepository;
         private readonly IMapper _mapper;
         private readonly IEmailService _emailService;
-        private readonly RoleManager<AppRole> _roleManager;  
+        private readonly RoleManager<AppRole> _roleManager;
         private readonly UserManager<User> _userManager;
 
         public CreateUserRoleCommandHandler(IUserRepository userRepository, IMapper mapper, IEmailService emailService, RoleManager<AppRole> roleManager, UserManager<User> userManager)
@@ -53,33 +53,43 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUserRole
 
             var body = "message to user";
             var subject = "Subject to email";
-            //var email = UserMapsCommand.CreateUserEmailMessage(request.Email, body, subject);
 
             if (CreateUserRoleCommandResponse.Success)
             {
                 var role = UserMapsCommand.CreateUserRoleMapsCommand(request);
-                var user = await _userManager.FindByIdAsync(request.UserId); 
+                var user = await _userManager.FindByIdAsync(request.UserId);
+                var roleexist = _userManager.GetRolesAsync(user).Result.ToArray();
+                var result = new IdentityResult();
 
-                    var result = await _userManager.AddToRoleAsync(user, request.RoleName);
-
-                    if (result.Succeeded)
+                foreach (var roleitem in request.RoleId)
+                {
+                    if (roleexist.Contains(roleitem))
                     {
-                        try
-                        {
-                            //await _emailService.SendEmail(email);
-                        }
-                        catch (Exception)
-                        {
-                            throw;
-                        }
+                        await _userManager.RemoveFromRolesAsync(user, roleexist);
                     }
-                    else
+
+                    result = await _userManager.AddToRoleAsync(user, roleitem);
+                }
+
+
+                if (result.Succeeded)
+                {
+                    try
                     {
-                        foreach (var error in result.Errors)
-                        {
+                        //await _emailService.SendEmail(email);
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
+                }
+                else
+                {
+                    foreach (var error in result.Errors)
+                    {
                         CreateUserRoleCommandResponse.ValidationErrors.Add(error.Description);
-                        }
                     }
+                }
 
                 CreateUserRoleCommandResponse.roledto = _mapper.Map<UserRoleDto>(role);
 
