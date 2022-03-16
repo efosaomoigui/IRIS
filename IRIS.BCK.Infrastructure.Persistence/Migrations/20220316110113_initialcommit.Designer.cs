@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IRIS.BCK.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(IRISDbContext))]
-    [Migration("20220310114050_added shipment group way bill map relationship")]
-    partial class addedshipmentgroupwaybillmaprelationship
+    [Migration("20220316110113_initialcommit")]
+    partial class initialcommit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -102,12 +102,6 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                     b.Property<DateTime>("DateModified")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Department")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Designation")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -118,14 +112,11 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Gender")
+                        .HasColumnType("int");
+
                     b.Property<string>("IdentificationImage")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
@@ -171,12 +162,6 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<string>("SystemUserId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SystemUserRole")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
@@ -186,6 +171,9 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
+
+                    b.Property<int>("UserType")
+                        .HasColumnType("int");
 
                     b.Property<string>("WalletNumber")
                         .HasColumnType("nvarchar(max)");
@@ -303,6 +291,9 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                     b.Property<Guid?>("TripsId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("FleetId");
 
                     b.HasIndex("TripsId");
@@ -412,6 +403,9 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ShipmentId");
@@ -450,8 +444,6 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                         .HasColumnType("decimal(18,4)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("RouteId");
 
                     b.ToTable("PriceEnt");
                 });
@@ -913,6 +905,21 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("PriceEntRoute", b =>
+                {
+                    b.Property<Guid>("PriceId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("RoutesRouteId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("PriceId", "RoutesRouteId");
+
+                    b.HasIndex("RoutesRouteId");
+
+                    b.ToTable("RoutePriceTbl");
+                });
+
             modelBuilder.Entity("IRIS.BCK.Core.Application.Business.Accounts.AccountEntities.AppRoleClaim", b =>
                 {
                     b.HasOne("IRIS.BCK.Core.Application.Business.Accounts.AccountEntities.AppRole", null)
@@ -962,17 +969,6 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                         .IsRequired();
 
                     b.Navigation("Shipment");
-                });
-
-            modelBuilder.Entity("IRIS.BCK.Core.Domain.Entities.PriceEntities.PriceEnt", b =>
-                {
-                    b.HasOne("IRIS.BCK.Core.Domain.Entities.RouteEntities.Route", "Route")
-                        .WithMany()
-                        .HasForeignKey("RouteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Route");
                 });
 
             modelBuilder.Entity("IRIS.BCK.Core.Domain.Entities.ShipmentEntities.CollectionCenter", b =>
@@ -1042,6 +1038,21 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                     b.HasOne("IRIS.BCK.Core.Application.Business.Accounts.AccountEntities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("PriceEntRoute", b =>
+                {
+                    b.HasOne("IRIS.BCK.Core.Domain.Entities.PriceEntities.PriceEnt", null)
+                        .WithMany()
+                        .HasForeignKey("PriceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("IRIS.BCK.Core.Domain.Entities.RouteEntities.Route", null)
+                        .WithMany()
+                        .HasForeignKey("RoutesRouteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

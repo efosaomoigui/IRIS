@@ -3,6 +3,7 @@ using IRIS.BCK.Core.Application.Business.Wallet.Commands.CreateWalletNumberComma
 using IRIS.BCK.Core.Application.Business.Wallet.Commands.CreateWalletTransactionCommand;
 using IRIS.BCK.Core.Application.Business.Wallet.Queries.GetWalletById;
 using IRIS.BCK.Core.Application.Business.Wallet.Queries.GetWalletByWalletNumberQuery;
+using IRIS.BCK.Core.Application.Business.Wallet.Queries.GetWalletTransactionByUserId;
 using IRIS.BCK.Core.Application.Business.Wallet.Queries.GetWalletTransactionByWalletNumberQuery;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -61,6 +62,19 @@ namespace IRIS.BCK.Api.Controllers.Wallet
         {
             var transaction = await _mediator.Send(new GetWalletTransactionQuery());
             return Ok(transaction);
+        }
+
+        [HttpGet("GetWalletTransactionByUserId/{userid}")]
+        public async Task<ActionResult<WalletTransactionViewModel>> GetWalletTransactionByUserId([FromRoute] Guid userid)
+        {
+            var user = new WalletTransactionViewModel();
+
+            if (userid != null)
+            {
+                user = await _mediator.Send(new GetWalletTransactionByUserIdQuery(userid.ToString()));
+            }
+
+            return Ok(user);
         }
 
         [HttpPost("WalletTransaction", Name = "AddWalletTransaction")]

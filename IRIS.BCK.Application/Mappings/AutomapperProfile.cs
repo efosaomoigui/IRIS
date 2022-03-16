@@ -83,6 +83,8 @@ using IRIS.BCK.Core.Application.Business.ServiceCentre.Commands.UpdateServiceCen
 using IRIS.BCK.Core.Application.Business.Wallet.Commands.CreateWalletTransactionCommand;
 using IRIS.BCK.Core.Application.Business.Wallet.Queries.GetWalletTransactionByWalletNumberQuery;
 using IRIS.BCK.Core.Application.Business.Monitoring.Queries.GetTrackHistoryByTripId;
+using IRIS.BCK.Core.Application.Business.Wallet.Queries.GetWalletTransactionByUserId;
+using IRIS.BCK.Core.Application.Business.Price.Queries.GetPriceByRouteId;
 
 namespace IRIS.BCK.Core.Application.Mappings
 {
@@ -177,6 +179,9 @@ namespace IRIS.BCK.Core.Application.Mappings
             CreateMap<GetWalletByIdQuery, WalletViewModel>();
             CreateMap<WalletViewModel, GetWalletByIdQuery>();
 
+            CreateMap<GetWalletTransactionByUserIdQuery, WalletTransactionViewModel>();
+            CreateMap<WalletTransactionViewModel, GetWalletTransactionByUserIdQuery>();
+
             CreateMap<GetWalletTransactionQuery, WalletTransactionViewModel>();
             CreateMap<WalletTransactionViewModel, GetWalletTransactionQuery>();
 
@@ -200,6 +205,9 @@ namespace IRIS.BCK.Core.Application.Mappings
 
             CreateMap<GetFleetByIdQuery, FleetViewModel>();
             CreateMap<FleetViewModel, GetFleetByIdQuery>();
+
+            CreateMap<GetPriceByRouteIdQuery, PriceViewModel>();
+            CreateMap<PriceViewModel, GetPriceByRouteIdQuery>();
 
             CreateMap<GetPaymentByInvoiceCodeQuery, PaymentViewModel>();
             CreateMap<PaymentViewModel, GetPaymentByInvoiceCodeQuery>();
@@ -342,7 +350,7 @@ namespace IRIS.BCK.Core.Application.Mappings
             CreateMap<RoleByIdViewModel, AppRole>();
             CreateMap<AppRole, RoleByIdViewModel>();
 
-            CreateMap<ClaimViewModel, AppRoleClaim>(); 
+            CreateMap<ClaimViewModel, AppRoleClaim>();
             CreateMap<AppRoleClaim, ClaimViewModel>();
 
             CreateMap<WalletTransaction, WalletTransactionViewModel>();

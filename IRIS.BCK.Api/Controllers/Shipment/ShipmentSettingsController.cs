@@ -7,6 +7,7 @@ using IRIS.BCK.Core.Application.Business.Price.Commands.SpecialDomesticZonePrice
 using IRIS.BCK.Core.Application.Business.Price.Commands.UpdatePrice;
 using IRIS.BCK.Core.Application.Business.Price.Queries.GetPrice;
 using IRIS.BCK.Core.Application.Business.Price.Queries.GetPriceById;
+using IRIS.BCK.Core.Application.Business.Price.Queries.GetPriceByRouteId;
 using IRIS.BCK.Core.Application.Business.Price.Queries.GetSpecialDomesticZonePriceQuery;
 using IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateFleets;
 using IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateRoutes;
@@ -16,6 +17,7 @@ using IRIS.BCK.Core.Application.Business.Shipments.Commands.DeleteRoute;
 using IRIS.BCK.Core.Application.Business.Shipments.Commands.UpdateFleet;
 using IRIS.BCK.Core.Application.Business.Shipments.Commands.UpdateRoute;
 using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetFleetById;
+using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetFleetByUserId;
 using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetFleets;
 using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetOneRoute;
 using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetRoutes;
@@ -99,6 +101,19 @@ namespace IRIS.BCK.Api.Controllers.Shipment
             return Ok(fleet);
         }
 
+        [HttpGet("GetFleetByUserId/{userid}")]
+        public async Task<ActionResult<FleetViewModel>> GetFleetByUserId([FromRoute] Guid userid)
+        {
+            var user = new FleetViewModel();
+
+            if (userid != null)
+            {
+                user = await _mediator.Send(new GetFleetByUserIdQuery(userid.ToString()));
+            }
+
+            return Ok(user);
+        }
+
         [HttpPost("Fleet", Name = "AddFleet")]
         public async Task<ActionResult<CreateFleetCommandResponse>> AddFleet([FromBody] CreateFleetCommand createFleetCommand)
         {
@@ -149,6 +164,19 @@ namespace IRIS.BCK.Api.Controllers.Shipment
             }
 
             return Ok(price);
+        }
+
+        [HttpGet("GetPriceByRoteId/{routeid}")]
+        public async Task<ActionResult<PriceViewModel>> GetPriceByRouteId([FromRoute] Guid routeid)
+        {
+            var route = new PriceViewModel();
+
+            if (routeid != null)
+            {
+                route = await _mediator.Send(new GetPriceByRouteIdQuery(routeid.ToString()));
+            }
+
+            return Ok(route);
         }
 
         [HttpPut("Price", Name = "EditPrice")]

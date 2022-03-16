@@ -13,5 +13,7 @@ namespace IRIS.BCK.Core.Application.Interfaces.IRepositories.IFleetRepositories
         Task<bool> CheckUniqueFleetId(string fleet);
 
         Task<Fleet> GetFleetById(string fleetid);
+
+        Task<Fleet> GetFleetByUserId(string userid);
     }
 }

@@ -18,5 +18,10 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Wallets
         {
             throw new NotImplementedException();
         }
+
+        public async Task<WalletTransaction> GetWalletTransactionByUserId(string userid)
+        {
+            return _dbContext.WalletTransaction.FirstOrDefault(e => e.UserId.ToString() == userid);
+        }
     }
 }

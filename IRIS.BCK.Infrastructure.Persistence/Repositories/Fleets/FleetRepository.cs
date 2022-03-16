@@ -23,5 +23,10 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Fleets
         {
             return _dbContext.Fleet.FirstOrDefault(e => e.FleetId.ToString() == fleetid);
         }
+
+        public async Task<Fleet> GetFleetByUserId(string userid)
+        {
+            return _dbContext.Fleet.FirstOrDefault(e => e.UserId.ToString() == userid);
+        }
     }
 }
