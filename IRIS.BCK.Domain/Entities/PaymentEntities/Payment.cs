@@ -16,6 +16,7 @@ namespace IRIS.BCK.Core.Domain.Entities.PaymentEntities
 
         public Guid ShipmentId { get; set; }
         public virtual Shipment Shipment { get; set; }
+        public Guid UserId { get; set; }
         public PaymentMethod PaymentMethod { get; set; } //wallet, Cash, Transfer
         public StatusEnum Status { get; set; } // paid/pending
     }
