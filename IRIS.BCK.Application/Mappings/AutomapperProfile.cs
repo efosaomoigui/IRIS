@@ -209,6 +209,9 @@ namespace IRIS.BCK.Core.Application.Mappings
             CreateMap<GetPriceByRouteIdQuery, PriceViewModel>();
             CreateMap<PriceViewModel, GetPriceByRouteIdQuery>();
 
+            CreateMap<GetCollectionCenterQuery, CollectionCenterListViewModel>();
+            CreateMap<CollectionCenterListViewModel, GetCollectionCenterQuery>();
+
             CreateMap<GetPaymentByInvoiceCodeQuery, PaymentViewModel>();
             CreateMap<PaymentViewModel, GetPaymentByInvoiceCodeQuery>();
 
