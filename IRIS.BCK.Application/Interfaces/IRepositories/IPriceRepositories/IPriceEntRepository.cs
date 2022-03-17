@@ -1,5 +1,7 @@
 ﻿using IRIS.BCK.Application.Interfaces.IRepository;
+using IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem;
 using IRIS.BCK.Core.Domain.Entities.PriceEntities;
+using IRIS.BCK.Core.Domain.EntityEnums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +14,7 @@ namespace IRIS.BCK.Core.Application.Interfaces.IRepositories.IPriceRepositories
     {
         Task<PriceEnt> GetPriceById(string priceid);
 
-        Task<PriceEnt> GetPriceByRouteId(string routeid);
+        Task<PriceEnt> GetPriceByRouteId(string routeid, PriceCategory pcateogry);
+        Task<double> GetShipmentItemWeight(PriceForShipmentItemCommand shipmentCriteria); 
     }
 }

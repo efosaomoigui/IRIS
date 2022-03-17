@@ -12,5 +12,12 @@
     {
         NotContacted,
         Contacted
+    }    
+    
+    public enum ShipmentCategory
+    {
+        MailAndParcel,
+        TruckLoad,
+        InternationalFreight
     }
 }

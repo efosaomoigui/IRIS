@@ -1,4 +1,5 @@
 ﻿using IRIS.BCK.Core.Application.Business.Price.Queries.GetPriceById;
+using IRIS.BCK.Core.Domain.EntityEnums;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ namespace IRIS.BCK.Core.Application.Business.Price.Queries.GetPriceByRouteId
     public class GetPriceByRouteIdQuery : IRequest<PriceViewModel>
     {
         public Guid RouteId { get; set; }
+        public PriceCategory PriceCategory { get; set; }
 
         public GetPriceByRouteIdQuery(string routeid)
         {
