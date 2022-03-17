@@ -19,6 +19,17 @@ namespace IRIS.BCK.Core.Application.Mappings.Price
                 PricePerUnit = request.PricePerUnit,
                 UnitWeight = request.UnitWeight,
             };
+        }       
+        
+        public static PriceEnt PriceForShipmentItemMapsCommand(CreatePriceCommand request) 
+        {
+            return new PriceEnt
+            {
+                //Category = request.Category,
+                //RouteId = request.RouteId,
+                //PricePerUnit = request.PricePerUnit,
+                //UnitWeight = request.UnitWeight,
+            };
         }
     }
 }

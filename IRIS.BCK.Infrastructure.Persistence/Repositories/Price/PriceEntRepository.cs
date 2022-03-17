@@ -5,8 +5,10 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using IRIS.BCK.Application.Interfaces.IRepository;
+using IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem;
 using IRIS.BCK.Core.Application.Interfaces.IRepositories.IPriceRepositories;
 using IRIS.BCK.Core.Domain.Entities.PriceEntities;
+using IRIS.BCK.Core.Domain.EntityEnums;
 
 namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Price
 {
@@ -21,9 +23,27 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Price
             return _dbContext.PriceEnt.FirstOrDefault(e => e.Id.ToString() == priceid);
         }
 
-        public async Task<PriceEnt> GetPriceByRouteId(string routeid)
+        public async Task<PriceEnt> GetPriceByRouteId(string routeid, PriceCategory pcategory)
         {
             return _dbContext.PriceEnt.FirstOrDefault(e => e.RouteId.ToString() == routeid);
+        }
+
+       public Task<double> GetShipmentItemWeight(PriceForShipmentItemCommand shipmentCriteria)
+        {
+            //1. get the weight
+            var weight = shipmentCriteria.Weight;
+
+            //2. get the volume
+            var volume = shipmentCriteria.Length * shipmentCriteria.Breadth * shipmentCriteria.Height; //measurement in cm
+
+            //3. calculate the volumetric weight
+            //Volumetric Weight (Kilograms) = [Width x Length x Height] / 6000 (Centimeters)
+            var volumetricWeight = volume / 6000;
+
+            //4. return the actual weight
+            var actualWeight = weight > volumetricWeight ? weight : volumetricWeight;
+
+            return Task.FromResult(actualWeight);
         }
     }
 }

@@ -3,6 +3,7 @@ using IRIS.BCK.Core.Application.Business.Fleets.Queries;
 using IRIS.BCK.Core.Application.Business.Fleets.Queries.GetFleets;
 using IRIS.BCK.Core.Application.Business.Price.Commands.CreatePrice;
 using IRIS.BCK.Core.Application.Business.Price.Commands.DeletePrice;
+using IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem;
 using IRIS.BCK.Core.Application.Business.Price.Commands.SpecialDomesticZonePrice;
 using IRIS.BCK.Core.Application.Business.Price.Commands.UpdatePrice;
 using IRIS.BCK.Core.Application.Business.Price.Queries.GetPrice;
@@ -166,7 +167,15 @@ namespace IRIS.BCK.Api.Controllers.Shipment
             return Ok(price);
         }
 
-        [HttpGet("GetPriceByRoteId/{routeid}")]
+        [HttpPost("PriceSettings", Name = "PriceForShipmentItem")]
+        public async Task<ActionResult<PriceForShipmentItemCommandResponse>> PriceForShipment([FromBody] PriceForShipmentItemCommand priceForShipmentItem)  
+        {
+            var response = await _mediator.Send(priceForShipmentItem);
+            return Ok(response);
+        }
+
+
+        [HttpGet("GetPriceByRouteId/{routeid}")]
         public async Task<ActionResult<PriceViewModel>> GetPriceByRouteId([FromRoute] Guid routeid)
         {
             var route = new PriceViewModel();
