@@ -14,6 +14,8 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.CreatePrice
         public Guid Id { get; set; }
 
         public PriceCategory Category { get; set; }
+        public ShipmentCategory ShipmentCategory { get; set; }
+        public ProductEnum Product { get; set; }
 
         public Guid RouteId { get; set; }
 
