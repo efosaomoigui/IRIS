@@ -16,8 +16,8 @@
 
     public enum ShipmentCategory
     {
-        MailAndParcel,
-        TruckLoad,
-        InternationalFreight
+        MailAndParcel=1,
+        TruckLoad=2,
+        InternationalFreight=3
     }
 }

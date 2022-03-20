@@ -2,7 +2,7 @@
 
 namespace IRIS.BCK.Infrastructure.Persistence.Migrations
 {
-    public partial class AddedShipmentcategoryandproductsenumtopricetable : Migration
+    public partial class shipmentcategoryforprice : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using IRIS.BCK.Application.Interfaces.IRepository;
+using IRIS.BCK.Core.Application.Business.Price.Commands.CreatePrice;
 using IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem;
 using IRIS.BCK.Core.Application.Interfaces.IRepositories.IPriceRepositories;
 using IRIS.BCK.Core.Domain.Entities.PriceEntities;
@@ -16,6 +17,14 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Price
     {
         public PriceEntRepository(IRISDbContext dbContext) : base(dbContext)
         {
+        }
+
+        public Task<PriceEnt> CheckExistingPrice(CreatePriceCommand shipmentCriteria) 
+        {
+            var result =  _dbContext.PriceEnt.FirstOrDefault(e => e.Category == shipmentCriteria.Category 
+            && e.RouteId == shipmentCriteria.RouteId 
+            && e.UnitWeight ==shipmentCriteria.UnitWeight);
+            return Task.FromResult(result);
         }
 
         public async Task<PriceEnt> GetPriceById(string priceid)

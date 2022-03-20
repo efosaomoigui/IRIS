@@ -189,7 +189,7 @@ namespace IRIS.BCK.Api.Controllers.Shipment
         }
 
         [HttpPut("Price", Name = "EditPrice")]
-        public async Task<ActionResult<CreatePriceCommandResponse>> UpdatePrice([FromBody] UpdatePriceCommand updatePriceCommand)
+        public async Task<ActionResult<UpdatePriceCommandResponse>> UpdatePrice([FromBody] UpdatePriceCommand updatePriceCommand)
         {
             var response = await _mediator.Send(updatePriceCommand);
             return Ok(response);

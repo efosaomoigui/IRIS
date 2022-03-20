@@ -2,7 +2,7 @@
 
 namespace IRIS.BCK.Infrastructure.Persistence.Migrations
 {
-    public partial class AddedShipmentcategoryandproductsenumtopricetabl : Migration
+    public partial class shipmentcategoryforprice2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,7 +11,12 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-
+            migrationBuilder.AddColumn<int>(
+                name: "ShipmentCategory",
+                table: "PriceEnt",
+                type: "int",
+                nullable: false,
+                defaultValue: 0);
         }
     }
 }
