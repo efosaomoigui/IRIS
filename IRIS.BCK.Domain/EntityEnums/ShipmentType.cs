@@ -1,4 +1,4 @@
-﻿namespace  IRIS.BCK.Core.Domain.EntityEnums
+﻿namespace IRIS.BCK.Core.Domain.EntityEnums
 {
     public enum ShipmentType
     {
@@ -12,8 +12,8 @@
     {
         NotContacted,
         Contacted
-    }    
-    
+    }
+
     public enum ShipmentCategory
     {
         MailAndParcel,

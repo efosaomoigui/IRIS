@@ -14,6 +14,8 @@ namespace IRIS.BCK.Core.Application.Business.Price.Queries.GetPrice
         public Guid Id { get; set; }
 
         public Guid RouteId { get; set; }
+        public ShipmentCategory ShipmentCategory { get; set; }
+        public ProductEnum Product { get; set; }
 
         public virtual Route Route { get; set; }
         public int UnitWeight { get; set; }
