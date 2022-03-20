@@ -12,7 +12,7 @@ namespace IRIS.BCK.Core.Application.Business.Price.Queries.GetPriceByRouteId
     public class GetPriceByRouteIdQuery : IRequest<PriceViewModel>
     {
         public Guid RouteId { get; set; }
-        public PriceCategory PriceCategory { get; set; }
+        public ShipmentCategory Category { get; set; } 
 
         public GetPriceByRouteIdQuery(string routeid)
         {

@@ -25,7 +25,7 @@ namespace IRIS.BCK.Core.Application.Business.Price.Queries.GetPriceByRouteId
         public async Task<PriceViewModel> Handle(GetPriceByRouteIdQuery request, CancellationToken cancellationToken)
         {
             var routeid = request.RouteId.ToString();
-            var route = await _priceRepository.GetPriceByRouteId(routeid, request.PriceCategory);
+            var route = await _priceRepository.GetPriceByRouteId(routeid, request.Category);
 
             return _mapper.Map<PriceViewModel>(route);
         }

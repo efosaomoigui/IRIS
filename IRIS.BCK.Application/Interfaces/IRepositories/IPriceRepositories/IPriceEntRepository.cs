@@ -14,7 +14,7 @@ namespace IRIS.BCK.Core.Application.Interfaces.IRepositories.IPriceRepositories
     {
         Task<PriceEnt> GetPriceById(string priceid);
 
-        Task<PriceEnt> GetPriceByRouteId(string routeid, PriceCategory pcateogry);
+        Task<PriceEnt> GetPriceByRouteId(string routeid, ShipmentCategory pcateogry);
         Task<double> GetShipmentItemWeight(PriceForShipmentItemCommand shipmentCriteria); 
     }
 }

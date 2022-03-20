@@ -13,7 +13,7 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.CreatePrice
     {
         public Guid Id { get; set; }
 
-        public PriceCategory Category { get; set; }
+        public ShipmentCategory Category { get; set; }
 
         public Guid RouteId { get; set; }
 
