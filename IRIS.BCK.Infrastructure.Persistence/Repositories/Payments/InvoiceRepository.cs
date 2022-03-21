@@ -8,23 +8,23 @@ using System.Threading.Tasks;
 
 namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Payments
 {
-    public class PaymentRepository : GenericRepository<Invoice>, IPaymentRepository
+    public class InvoiceRepository : GenericRepository<Invoice>, IInvoiceRepository
     {
-        public PaymentRepository(IRISDbContext dbContext) : base(dbContext)
+        public InvoiceRepository(IRISDbContext dbContext) : base(dbContext)
         {
         }
 
-        public async Task<Invoice> GetPaymentById(string id)
+        public async Task<Invoice> GetInvoiceById(string id)
         {
             return _dbContext.Invoice.FirstOrDefault(e => e.Id.ToString() == id);
         }
 
-        public async Task<Invoice> GetPaymentByInvoiceCode(string invoicecode)
+        public async Task<Invoice> GetInvoiceByInvoiceCode(string invoicecode)
         {
             return _dbContext.Invoice.FirstOrDefault(e => e.InvoiceCode.ToString() == invoicecode);
         }
 
-        public async Task<Invoice> GetPaymentByUserId(string userid)
+        public async Task<Invoice> GetInvoiceByUserId(string userid)
         {
             return _dbContext.Invoice.FirstOrDefault(e => e.UserId.ToString() == userid);
         }

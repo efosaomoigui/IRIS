@@ -17,8 +17,8 @@ namespace IRIS.BCK.Api.Controllers.Payment
 {
     public class PaymentController : BaseApiController
     {
-        [HttpGet("Payment/all", Name = "GetAllPayments")]
-        public async Task<ActionResult<List<PaymentListViewModel>>> GetAllPayments()
+        [HttpGet("Invoice/all", Name = "GetAllInvoice")]
+        public async Task<ActionResult<List<PaymentListViewModel>>> GetAllInvoice()
         {
             var payments = await _mediator.Send(new GetPaymentQuery());
             return Ok(payments);
@@ -63,22 +63,22 @@ namespace IRIS.BCK.Api.Controllers.Payment
             return Ok(user);
         }
 
-        [HttpPost("Payment", Name = "AddPayment")]
+        [HttpPost("Invoice", Name = "AddInvoice")]
         public async Task<ActionResult<CreatePaymentCommandResponse>> Create([FromBody] CreatePaymentCommand createPaymentCommand)
         {
             var response = await _mediator.Send(createPaymentCommand);
             return Ok(response);
         }
 
-        [HttpPut("Payment/edit", Name = "UpdatePayment")]
-        public async Task<ActionResult<CreatePaymentCommandResponse>> UpdatePayment([FromBody] UpdatePaymentCommand updatePaymentCommand)
+        [HttpPut("Invoice/edit", Name = "UpdateInvoice")]
+        public async Task<ActionResult<CreatePaymentCommandResponse>> UpdateInvoice([FromBody] UpdatePaymentCommand updatePaymentCommand)
         {
             var response = await _mediator.Send(updatePaymentCommand);
             return Ok(response);
         }
 
-        [HttpDelete("Payment/delete", Name = "DeletePayment")]
-        public async Task<ActionResult<DeletePaymentCommandResponse>> DeletePayment([FromBody] DeletePaymentCommand deletePaymentCommand)
+        [HttpDelete("Invoice/delete", Name = "DeleteInvoice")]
+        public async Task<ActionResult<DeletePaymentCommandResponse>> DeleteInvoice([FromBody] DeletePaymentCommand deletePaymentCommand)
         {
             var response = await _mediator.Send(deletePaymentCommand);
             return Ok(response);
@@ -90,6 +90,5 @@ namespace IRIS.BCK.Api.Controllers.Payment
             var response = await _mediator.Send(createPriceCommand);
             return Ok(response);
         }
-
     }
 }

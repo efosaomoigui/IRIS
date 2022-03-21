@@ -17,11 +17,11 @@ namespace IRIS.BCK.Core.Application.Business.Payments.Commands.UpdatePayment
 {
     public class UpdatePaymentCommandHandler : IRequestHandler<UpdatePaymentCommand, UpdatePaymentCommandResponse>
     {
-        private readonly IPaymentRepository _paymentRepository;
+        private readonly IInvoiceRepository _paymentRepository;
         private readonly IMapper _mapper;
         private readonly IEmailService _emailService;
 
-        public UpdatePaymentCommandHandler(IPaymentRepository paymentRepository, IMapper mapper, IEmailService emailService)
+        public UpdatePaymentCommandHandler(IInvoiceRepository paymentRepository, IMapper mapper, IEmailService emailService)
         {
             _paymentRepository = paymentRepository;
             _mapper = mapper;

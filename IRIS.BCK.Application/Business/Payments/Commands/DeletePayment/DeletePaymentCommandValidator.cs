@@ -10,9 +10,9 @@ namespace IRIS.BCK.Core.Application.Business.Payments.Commands.DeletePayment
 {
     public class DeletePaymentCommandValidator : AbstractValidator<DeletePaymentCommand>
     {
-        public IPaymentRepository _paymentRepository { get; set; }
+        public IInvoiceRepository _paymentRepository { get; set; }
 
-        public DeletePaymentCommandValidator(IPaymentRepository paymentRepository)
+        public DeletePaymentCommandValidator(IInvoiceRepository paymentRepository)
         {
             _paymentRepository = paymentRepository;
 

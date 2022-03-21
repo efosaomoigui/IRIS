@@ -13,10 +13,10 @@ namespace IRIS.BCK.Core.Application.Business.Payments.Queries.GetPaymentByUserId
 {
     public class GetPaymentByUserIdQueryHandler : IRequestHandler<GetPaymentByUserIdQuery, PaymentViewModel>
     {
-        private readonly IPaymentRepository _paymentRepository;
+        private readonly IInvoiceRepository _paymentRepository;
         private readonly IMapper _mapper;
 
-        public GetPaymentByUserIdQueryHandler(IPaymentRepository paymentRepository, IMapper mapper)
+        public GetPaymentByUserIdQueryHandler(IInvoiceRepository paymentRepository, IMapper mapper)
         {
             _paymentRepository = paymentRepository;
             _mapper = mapper;
@@ -25,7 +25,7 @@ namespace IRIS.BCK.Core.Application.Business.Payments.Queries.GetPaymentByUserId
         public async Task<PaymentViewModel> Handle(GetPaymentByUserIdQuery request, CancellationToken cancellationToken)
         {
             var userid = request.UserId.ToString();
-            var user = await _paymentRepository.GetPaymentByUserId(userid);
+            var user = await _paymentRepository.GetInvoiceByUserId(userid);
 
             return _mapper.Map<PaymentViewModel>(user);
         }

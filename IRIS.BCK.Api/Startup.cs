@@ -128,7 +128,7 @@ namespace IRIS.BCK.Api
             services.AddScoped<IWalletTransactionRepository, WalletTransactionRepository>();
             services.AddScoped<IPriceEntRepository, PriceEntRepository>();
             services.AddScoped<ICollectionCenterRepository, CollectionCenterRepository>();
-            services.AddScoped<IPaymentRepository, PaymentRepository>();
+            services.AddScoped<IInvoiceRepository, InvoiceRepository>();
             services.AddScoped<IManifestRepository, ManifestRepository>();
             services.AddScoped<IGroupWayBillRepository, GroupWayBillRepository>();
             services.AddScoped<ITripRepository, TripRepository>();

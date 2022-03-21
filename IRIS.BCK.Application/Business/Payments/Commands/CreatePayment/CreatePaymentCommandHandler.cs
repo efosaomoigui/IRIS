@@ -14,11 +14,11 @@ namespace IRIS.BCK.Core.Application.Business.Payments.Commands.CreatePayment
 {
     public class CreatePaymentCommandHandler : IRequestHandler<CreatePaymentCommand, CreatePaymentCommandResponse>
     {
-        private readonly IPaymentRepository _paymentRepository;
+        private readonly IInvoiceRepository _paymentRepository;
         private readonly IMapper _mapper;
         private readonly IEmailService _emailService;
 
-        public CreatePaymentCommandHandler(IPaymentRepository paymentRepository, IMapper mapper, IEmailService emailService)
+        public CreatePaymentCommandHandler(IInvoiceRepository paymentRepository, IMapper mapper, IEmailService emailService)
         {
             _paymentRepository = paymentRepository;
             _mapper = mapper;

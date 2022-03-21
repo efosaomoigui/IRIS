@@ -22,7 +22,7 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem
     {
         private readonly IPriceEntRepository _priceRepository;
         private readonly IWalletTransactionRepository _walletTransactionRepository;
-        private readonly IPaymentRepository _paymentRepository;
+        private readonly IInvoiceRepository _paymentRepository;
         //private readonly IInvoiceRepository _invoiceRepository;
         private readonly IMapper _mapper;
         private readonly IEmailService _emailService; 

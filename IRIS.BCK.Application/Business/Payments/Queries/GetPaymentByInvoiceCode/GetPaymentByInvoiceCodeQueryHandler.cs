@@ -13,10 +13,10 @@ namespace IRIS.BCK.Core.Application.Business.Payments.Queries.GetPaymentByInvoic
 {
     public class GetPaymentByInvoiceCodeQueryHandler : IRequestHandler<GetPaymentByInvoiceCodeQuery, PaymentViewModel>
     {
-        private readonly IPaymentRepository _paymentRepository;
+        private readonly IInvoiceRepository _paymentRepository;
         private readonly IMapper _mapper;
 
-        public GetPaymentByInvoiceCodeQueryHandler(IPaymentRepository paymentRepository, IMapper mapper)
+        public GetPaymentByInvoiceCodeQueryHandler(IInvoiceRepository paymentRepository, IMapper mapper)
         {
             _paymentRepository = paymentRepository;
             _mapper = mapper;
@@ -25,7 +25,7 @@ namespace IRIS.BCK.Core.Application.Business.Payments.Queries.GetPaymentByInvoic
         public async Task<PaymentViewModel> Handle(GetPaymentByInvoiceCodeQuery request, CancellationToken cancellationToken)
         {
             var invoicecode = request.InvoiceCode.ToString();
-            var code = await _paymentRepository.GetPaymentById(invoicecode);
+            var code = await _paymentRepository.GetInvoiceById(invoicecode);
 
             return _mapper.Map<PaymentViewModel>(code);
         }

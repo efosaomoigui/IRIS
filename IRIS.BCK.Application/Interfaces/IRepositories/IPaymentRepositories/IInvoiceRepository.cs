@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace IRIS.BCK.Core.Application.Interfaces.IRepositories.IPaymentRepositories
 {
-    public interface IPaymentRepository : IGenericRepository<Invoice>
+    public interface IInvoiceRepository : IGenericRepository<Invoice>
     {
-        public Task<Invoice> GetPaymentById(string id);
+        public Task<Invoice> GetInvoiceById(string id);
 
-        public Task<Invoice> GetPaymentByInvoiceCode(string invoicecode);
+        public Task<Invoice> GetInvoiceByInvoiceCode(string invoicecode);
 
-        public Task<Invoice> GetPaymentByUserId(string userid);
+        public Task<Invoice> GetInvoiceByUserId(string userid);
     }
 }

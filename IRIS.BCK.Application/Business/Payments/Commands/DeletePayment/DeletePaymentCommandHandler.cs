@@ -15,11 +15,11 @@ namespace IRIS.BCK.Core.Application.Business.Payments.Commands.DeletePayment
 {
     public class DeletePaymentCommandHandler : IRequestHandler<DeletePaymentCommand, DeletePaymentCommandResponse>
     {
-        private readonly IPaymentRepository _paymentRepository;
+        private readonly IInvoiceRepository _paymentRepository;
         private readonly IMapper _mapper;
         private readonly IEmailService _emailService;
 
-        public DeletePaymentCommandHandler(IPaymentRepository paymentRepository, IMapper mapper, IEmailService emailService)
+        public DeletePaymentCommandHandler(IInvoiceRepository paymentRepository, IMapper mapper, IEmailService emailService)
         {
             _paymentRepository = paymentRepository;
             _mapper = mapper;

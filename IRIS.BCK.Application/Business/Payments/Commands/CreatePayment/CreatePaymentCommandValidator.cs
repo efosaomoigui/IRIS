@@ -10,9 +10,9 @@ namespace IRIS.BCK.Core.Application.Business.Payments.Commands.CreatePayment
 {
     public class CreatePaymentCommandValidator : AbstractValidator<CreatePaymentCommand>
     {
-        public IPaymentRepository _paymentRepository { get; set; }
+        public IInvoiceRepository _paymentRepository { get; set; }
 
-        public CreatePaymentCommandValidator(IPaymentRepository paymentRepository)
+        public CreatePaymentCommandValidator(IInvoiceRepository paymentRepository)
         {
             _paymentRepository = paymentRepository;
 
