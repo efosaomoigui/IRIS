@@ -1,6 +1,7 @@
 ﻿using IRIS.BCK.Application.DTO;
 using IRIS.BCK.Core.Application.Business.Fleets.Queries;
 using IRIS.BCK.Core.Application.Business.Fleets.Queries.GetFleets;
+using IRIS.BCK.Core.Application.Business.Payments.Commands.CreateNumberEnt;
 using IRIS.BCK.Core.Application.Business.Price.Commands.CreatePrice;
 using IRIS.BCK.Core.Application.Business.Price.Commands.DeletePrice;
 using IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem;
@@ -214,6 +215,13 @@ namespace IRIS.BCK.Api.Controllers.Shipment
         {
             var response = await _mediator.Send(createSpecialDomesticZonePriceCommand);
             return Ok(response);
+        }
+
+        [HttpPost("all/GetNumber", Name = "GetNumber")]
+        public async Task<ActionResult<string>> GetNumber([FromBody] CreateNumberCommand command)
+        {
+            var shipments = await _mediator.Send(command);
+            return Ok(shipments);
         }
 
         #endregion Price

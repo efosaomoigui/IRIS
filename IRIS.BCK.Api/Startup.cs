@@ -3,6 +3,7 @@ using IRIS.BCK.Core.Application.Business.Accounts.AccountEntities;
 using IRIS.BCK.Core.Application.Interfaces.IRepositories.IFleetRepositories;
 using IRIS.BCK.Core.Application.Interfaces.IRepositories.IGroupWayBillManifest;
 using IRIS.BCK.Core.Application.Interfaces.IRepositories.IMonitoringRepositories;
+using IRIS.BCK.Core.Application.Interfaces.IRepositories.INumberEntRepository;
 using IRIS.BCK.Core.Application.Interfaces.IRepositories.IPaymentRepositories;
 using IRIS.BCK.Core.Application.Interfaces.IRepositories.IPriceRepositories;
 using IRIS.BCK.Core.Application.Interfaces.IRepositories.IRouteRepository;
@@ -137,6 +138,7 @@ namespace IRIS.BCK.Api
             services.AddScoped<IGroupWayBillManifestMapRepository, GroupWayBillManifestMapRepository>();
             services.AddScoped<IServiceCenterRepository, ServiceCenterRepository>();
             services.AddScoped<ISpecialDomesticZonePriceRepository, SpecialDomesticZonePriceRepository>();
+            services.AddScoped<INumberEntRepository, NumberEntRepository>();
             services.AddIdentity<User, AppRole>(options =>
             {
                 options.Password.RequiredLength = 8;
