@@ -14,14 +14,14 @@ namespace IRIS.BCK.Core.Application.Mappings.Price
         {
             return new PriceEnt
             {
-                Category = request.Category,
+                ShipmentCategory = request.ShipmentCategory,
                 RouteId = request.RouteId,
                 PricePerUnit = request.PricePerUnit,
                 UnitWeight = request.UnitWeight,
             };
-        }       
-        
-        public static PriceEnt PriceForShipmentItemMapsCommand(CreatePriceCommand request) 
+        }
+
+        public static PriceEnt PriceForShipmentItemMapsCommand(CreatePriceCommand request)
         {
             return new PriceEnt
             {
