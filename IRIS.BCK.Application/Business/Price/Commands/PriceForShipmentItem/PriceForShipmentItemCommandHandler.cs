@@ -60,13 +60,13 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem
                 //var price = PriceMapsCommand.CreatePriceMapsCommand(request);
                 if (request.ShimentCategory == ShipmentCategory.MailAndParcel)
                 {
-                    var priceTableByRoute = _priceRepository.GetPriceByRouteId(request.RouteId, PriceCategory.Domestic).Result;
+                    var priceTableByRoute = _priceRepository.GetPriceByRouteId(request.RouteId, ShipmentCategory.MailAndParcel).Result;
                     var lineItemPriceResult = _priceRepository.GetShipmentItemWeight(request).Result;
                     lineItemPrice = (priceTableByRoute==null) ? 2: priceTableByRoute.PricePerUnit * (decimal)lineItemPriceResult;
                 }
                 else if (request.ShimentCategory == ShipmentCategory.TruckLoad)
                 {
-                    var lineItemPriceResult = _priceRepository.GetPriceByRouteId(request.RouteId, PriceCategory.Truck).Result;
+                    var lineItemPriceResult = _priceRepository.GetPriceByRouteId(request.RouteId, ShipmentCategory.TruckLoad).Result;
                     lineItemPrice = (lineItemPriceResult == null) ? 2 :  lineItemPriceResult.PricePerUnit; 
                 }
             }
