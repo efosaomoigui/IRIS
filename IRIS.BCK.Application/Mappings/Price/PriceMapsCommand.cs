@@ -14,7 +14,7 @@ namespace IRIS.BCK.Core.Application.Mappings.Price
         {
             return new PriceEnt
             {
-                ShipmentCategory = request.ShipmentCategory,
+                ShipmentCategory = request.Category,
                 RouteId = request.RouteId,
                 PricePerUnit = request.PricePerUnit,
                 UnitWeight = request.UnitWeight,
