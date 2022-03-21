@@ -34,7 +34,7 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Price
 
         public async Task<PriceEnt> GetPriceByRouteId(string routeid, ShipmentCategory scategory)
         {
-            return _dbContext.PriceEnt.FirstOrDefault(e => e.RouteId.ToString() == routeid && e.ShipmentCategory == scategory);
+            return _dbContext.PriceEnt.FirstOrDefault(e => e.RouteId.ToString() == routeid && e.Category == scategory);
         }
 
         public Task<double> GetShipmentItemWeight(PriceForShipmentItemCommand shipmentCriteria)
