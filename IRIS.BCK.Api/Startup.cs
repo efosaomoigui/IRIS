@@ -136,6 +136,7 @@ namespace IRIS.BCK.Api
             services.AddScoped<IShipmentGroupWayBillMapRepository, ShipmentGroupWayBillMapRepository>();
             services.AddScoped<IGroupWayBillManifestMapRepository, GroupWayBillManifestMapRepository>();
             services.AddScoped<IServiceCenterRepository, ServiceCenterRepository>();
+            services.AddScoped<IPaymentLogRepository, PaymentLogRepository>();
             services.AddScoped<ISpecialDomesticZonePriceRepository, SpecialDomesticZonePriceRepository>();
             services.AddIdentity<User, AppRole>(options =>
             {

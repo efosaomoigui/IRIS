@@ -49,6 +49,7 @@ namespace IRIS.BCK.Infrastructure.Persistence
         public DbSet<ShipmentGroupWayBillMap> ShipmentGroupWayBillMap { get; set; }
         public DbSet<GroupWayBillManifestMap> GroupWayBillManifestMap { get; set; }
         public DbSet<ServiceCenter> ServiceCenter { get; set; }
+        public DbSet<PaymentLog> PaymentLog { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

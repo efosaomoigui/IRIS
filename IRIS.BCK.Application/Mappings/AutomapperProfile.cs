@@ -85,6 +85,8 @@ using IRIS.BCK.Core.Application.Business.Wallet.Queries.GetWalletTransactionByWa
 using IRIS.BCK.Core.Application.Business.Monitoring.Queries.GetTrackHistoryByTripId;
 using IRIS.BCK.Core.Application.Business.Wallet.Queries.GetWalletTransactionByUserId;
 using IRIS.BCK.Core.Application.Business.Price.Queries.GetPriceByRouteId;
+using IRIS.BCK.Core.Application.Business.Payments.Queries.GetPaymentLog;
+using IRIS.BCK.Core.Application.Business.Payments.Commands.CreatePaymentLog;
 
 namespace IRIS.BCK.Core.Application.Mappings
 {
@@ -103,6 +105,9 @@ namespace IRIS.BCK.Core.Application.Mappings
 
             CreateMap<CreateGroupWayBillCommand, GroupWayBill>();
             CreateMap<GroupWayBill, CreateGroupWayBillCommand>();
+
+            CreateMap<CreatePaymentLogCommand, PaymentLog>();
+            CreateMap<PaymentLog, CreatePaymentLogCommand>();
 
             CreateMap<CreateShipmentGroupWayBillMapCommand, ShipmentGroupWayBillMap>();
             CreateMap<ShipmentGroupWayBillMap, CreateShipmentGroupWayBillMapCommand>();
@@ -215,6 +220,9 @@ namespace IRIS.BCK.Core.Application.Mappings
             CreateMap<GetPaymentByInvoiceCodeQuery, PaymentViewModel>();
             CreateMap<PaymentViewModel, GetPaymentByInvoiceCodeQuery>();
 
+            CreateMap<GetPaymentLogQuery, PaymentLogViewModel>();
+            CreateMap<PaymentLogViewModel, GetPaymentLogQuery>();
+
             CreateMap<GetTrackHistoryByTripIdQuery, TrackHistoryViewModel>();
             CreateMap<TrackHistoryViewModel, GetTrackHistoryByTripIdQuery>();
 
@@ -250,6 +258,9 @@ namespace IRIS.BCK.Core.Application.Mappings
 
             CreateMap<CollectionCenter, CollectionCenterListViewModel>();
             CreateMap<User, UserListViewModel>();
+
+            CreateMap<PaymentLog, PaymentLogViewModel>();
+            CreateMap<PaymentLogViewModel, PaymentLog>();
 
             CreateMap<User, UserDto>();
             CreateMap<UserDto, User>();
@@ -301,6 +312,9 @@ namespace IRIS.BCK.Core.Application.Mappings
 
             CreateMap<GroupWayBillManifestMapDto, GroupWayBillManifestMap>();
             CreateMap<GroupWayBillManifestMap, GroupWayBillManifestMapDto>();
+
+            CreateMap<PaymentLog, PaymentLogDto>();
+            CreateMap<PaymentLogDto, PaymentLog>();
 
             CreateMap<PriceEnt, PriceListViewModel>();
             CreateMap<PriceListViewModel, PriceEnt>();

@@ -1,12 +1,14 @@
-﻿using System;
+﻿using IRIS.BCK.Core.Application.Business.Payments.Commands.CreatePayment;
+using MediatR;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IRIS.BCK.Core.Application.DTO.Payments
+namespace IRIS.BCK.Core.Application.Business.Payments.Commands.CreatePaymentLog
 {
-    public class PaymentLogDto
+    public class CreatePaymentLogCommand : IRequest<CreatePaymentLogCommandResponse>
     {
         public Guid PaymentId { get; set; }
         public double Amount { get; set; }

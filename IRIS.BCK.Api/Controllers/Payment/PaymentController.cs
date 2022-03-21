@@ -1,9 +1,11 @@
 ﻿using IRIS.BCK.Core.Application.Business.Payments.Commands.CreatePayment;
+using IRIS.BCK.Core.Application.Business.Payments.Commands.CreatePaymentLog;
 using IRIS.BCK.Core.Application.Business.Payments.Commands.DeletePayment;
 using IRIS.BCK.Core.Application.Business.Payments.Commands.UpdatePayment;
 using IRIS.BCK.Core.Application.Business.Payments.Queries.GetPayment;
 using IRIS.BCK.Core.Application.Business.Payments.Queries.GetPayment.GetPaymentById;
 using IRIS.BCK.Core.Application.Business.Payments.Queries.GetPaymentByUserId;
+using IRIS.BCK.Core.Application.Business.Payments.Queries.GetPaymentLog;
 using IRIS.BCK.Core.Application.Business.Price.Commands.CreatePrice;
 using IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem;
 using Microsoft.AspNetCore.Http;
@@ -89,6 +91,20 @@ namespace IRIS.BCK.Api.Controllers.Payment
         {
             var response = await _mediator.Send(createPriceCommand);
             return Ok(response);
+        }
+
+        [HttpPost("PaymentLog", Name = "AddPaymentLog")]
+        public async Task<ActionResult<CreatePaymentLogCommandResponse>> CreatePaymentLog([FromBody] CreatePaymentLogCommand createPaymentLogCommand)
+        {
+            var response = await _mediator.Send(createPaymentLogCommand);
+            return Ok(response);
+        }
+
+        [HttpGet("PaymentLog/all", Name = "GetAllPaymentLog")]
+        public async Task<ActionResult<List<PaymentLogViewModel>>> GetAllPaymentLog()
+        {
+            var paymentLogs = await _mediator.Send(new GetPaymentLogQuery());
+            return Ok(paymentLogs);
         }
     }
 }
