@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IRIS.BCK.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(IRISDbContext))]
-    [Migration("20220317131002_Added Shipment category and products enum to price table")]
-    partial class AddedShipmentcategoryandproductsenumtopricetable
+    [Migration("20220320072240_product enum")]
+    partial class productenum
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -442,9 +442,6 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
 
                     b.Property<Guid>("RouteId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("ShipmentCategory")
-                        .HasColumnType("int");
 
                     b.Property<decimal>("UnitWeight")
                         .HasColumnType("decimal(18,4)");

@@ -8,8 +8,11 @@ namespace IRIS.BCK.Core.Domain.EntityEnums
 {
     public enum PaymentMethod
     {
-        Wallet,
         Cash,
-        Transfer
+        Wallet,
+        PostPaid,
+        CreditCard,
+        USSD
     }
+
 }

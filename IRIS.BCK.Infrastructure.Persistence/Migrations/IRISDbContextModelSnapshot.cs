@@ -441,9 +441,6 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                     b.Property<Guid>("RouteId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("ShipmentCategory")
-                        .HasColumnType("int");
-
                     b.Property<decimal>("UnitWeight")
                         .HasColumnType("decimal(18,4)");
 

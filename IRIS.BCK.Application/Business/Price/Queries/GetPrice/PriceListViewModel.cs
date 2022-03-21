@@ -19,6 +19,6 @@ namespace IRIS.BCK.Core.Application.Business.Price.Queries.GetPrice
 
         public virtual Route Route { get; set; }
         public int UnitWeight { get; set; }
-        public decimal PricePErUnit { get; set; }
+        public decimal PricePerUnit { get; set; } 
     }
 }
