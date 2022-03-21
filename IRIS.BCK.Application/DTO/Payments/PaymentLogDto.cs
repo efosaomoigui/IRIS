@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace IRIS.BCK.Core.Application.DTO.Payments
 {
-    class PaymentLogDto
+    public class PaymentLogDto
     {
+        public Guid PaymentId { get; set; }
+        public int Amount { get; set; }
+        public string PaymentMethod { get; set; }
+        public string User { get; set; }
+        public Guid TransactionId { get; set; }
     }
 }

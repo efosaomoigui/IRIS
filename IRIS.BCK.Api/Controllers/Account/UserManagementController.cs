@@ -7,6 +7,8 @@ using IRIS.BCK.Core.Application.Business.Accounts.Commands.UpdateUsers;
 using IRIS.BCK.Core.Application.Business.Accounts.Queries.GetClaimForRole;
 using IRIS.BCK.Core.Application.Business.Accounts.Queries.GetRoles;
 using IRIS.BCK.Core.Application.Business.Accounts.Queries.GetShipmentList;
+using IRIS.BCK.Core.Application.Business.Accounts.Queries.GetUserByEmail;
+using IRIS.BCK.Core.Application.Business.Accounts.Queries.GetUserByPhoneNumber;
 using IRIS.BCK.Core.Application.DTO.Account;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -81,6 +83,32 @@ namespace IRIS.BCK.Api.Controllers.Account
             return Ok(user);
         }
 
+        [HttpGet("GetUserByPhoneNumber/{phonenumber}")]
+        public async Task<ActionResult<UserViewModel>> GetUserByPhoneNumber([FromRoute] string phonenumber)
+        {
+            var userPhone = new UserViewModel();
+
+            if (phonenumber != null)
+            {
+                userPhone = await _mediator.Send(new GetUserByPhoneNumberQuery(phonenumber));
+            }
+
+            return Ok(userPhone);
+        }
+
+        [HttpGet("GetUserByEmail/{email}")]
+        public async Task<ActionResult<UserViewModel>> GetUserByEmail([FromRoute] string email)
+        {
+            var emailAdd = new UserViewModel();
+
+            if (email != null)
+            {
+                emailAdd = await _mediator.Send(new GetUserByEmailQuery(email));
+            }
+
+            return Ok(emailAdd);
+        }
+
         [AllowAnonymous]
         [HttpPost("AddRole")]
         public async Task<ActionResult<CreateRoleCommandResponse>> AddRole([FromBody] CreateRoleCommand createroleCommand)
@@ -100,8 +128,8 @@ namespace IRIS.BCK.Api.Controllers.Account
         [AllowAnonymous]
         [HttpGet("GetRoleById/{roleId}")]
         public async Task<ActionResult<RoleByIdViewModel>> GetRoleById(string roleId)
-        { 
-           var roles = await _mediator.Send(new GetRoleByIdQuery(roleId));
+        {
+            var roles = await _mediator.Send(new GetRoleByIdQuery(roleId));
             return Ok(roles);
         }
 
@@ -137,7 +165,7 @@ namespace IRIS.BCK.Api.Controllers.Account
         //To be implemented later
         [AllowAnonymous]
         [HttpPost("RemovePermissionFromRole")]
-        public async Task<ActionResult<CreateUserRoleCommandResponse>> RemovePermissionFromRole([FromBody] CreateUserRoleCommand createuserroleCommand) 
+        public async Task<ActionResult<CreateUserRoleCommandResponse>> RemovePermissionFromRole([FromBody] CreateUserRoleCommand createuserroleCommand)
         {
             var roleclaim = await _mediator.Send(createuserroleCommand);
             return Ok(roleclaim);
