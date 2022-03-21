@@ -13,7 +13,7 @@ namespace IRIS.BCK.Core.Domain.Entities.PriceEntities
     {
         public Guid Id { get; set; }
 
-        //public ShipmentCategory Category { get; set; }
+        public ShipmentCategory Category { get; set; }
         public Guid RouteId { get; set; }
 
         public decimal UnitWeight { get; set; }
