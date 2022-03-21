@@ -10,9 +10,9 @@ namespace IRIS.BCK.Core.Application.Mappings.Payments
 {
     public static class PaymentMapsCommand
     {
-        public static Payment CreatePaymentMapsCommand(CreatePaymentCommand request)
+        public static Invoice CreatePaymentMapsCommand(CreatePaymentCommand request)
         {
-            return new Payment
+            return new Invoice
             {
                 InvoiceCode = request.InvoiceCode,
                 Status = request.Status,

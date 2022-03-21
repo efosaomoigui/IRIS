@@ -55,7 +55,7 @@ namespace IRIS.BCK.Core.Application.Business.Payments.Commands.UpdatePayment
 
             if (UpdatePaymentCommandResponse.Success)
             {
-                var updatePayment = _mapper.Map<Payment>(request);
+                var updatePayment = _mapper.Map<Invoice>(request);
                 await _paymentRepository.UpdateAsync(updatePayment);
 
                 try
@@ -67,12 +67,12 @@ namespace IRIS.BCK.Core.Application.Business.Payments.Commands.UpdatePayment
                     throw;
                 }
 
-                UpdatePaymentCommandResponse.Paymentdto = _mapper.Map<PaymentDto>(updatePayment);
+                UpdatePaymentCommandResponse.Paymentdto = _mapper.Map<InvoiceDto>(updatePayment);
 
                 return UpdatePaymentCommandResponse;
             }
 
-            UpdatePaymentCommandResponse.Paymentdto = new PaymentDto();
+            UpdatePaymentCommandResponse.Paymentdto = new InvoiceDto();
             return UpdatePaymentCommandResponse;
         }
     }

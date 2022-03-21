@@ -67,12 +67,12 @@ namespace IRIS.BCK.Core.Application.Business.Payments.Commands.DeletePayment
                     throw;
                 }
 
-                DeletePaymentCommandResponse.Paymentdto = _mapper.Map<PaymentDto>(deletePayment);
+                DeletePaymentCommandResponse.Paymentdto = _mapper.Map<InvoiceDto>(deletePayment);
 
                 return DeletePaymentCommandResponse;
             }
 
-            DeletePaymentCommandResponse.Paymentdto = new PaymentDto();
+            DeletePaymentCommandResponse.Paymentdto = new InvoiceDto();
             return DeletePaymentCommandResponse;
         }
     }

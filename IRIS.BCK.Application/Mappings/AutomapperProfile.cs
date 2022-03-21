@@ -146,8 +146,8 @@ namespace IRIS.BCK.Core.Application.Mappings
             CreateMap<UpdateManifestCommand, Manifest>();
             CreateMap<Manifest, UpdateManifestCommand>();
 
-            CreateMap<UpdatePaymentCommand, Payment>();
-            CreateMap<Payment, UpdatePaymentCommand>();
+            CreateMap<UpdatePaymentCommand, Invoice>();
+            CreateMap<Invoice, UpdatePaymentCommand>();
 
             CreateMap<UpdateUserCommand, User>();
             CreateMap<User, UpdateUserCommand>();
@@ -221,8 +221,8 @@ namespace IRIS.BCK.Core.Application.Mappings
             CreateMap<WalletNumberDto, WalletNumber>();
             CreateMap<WalletNumber, WalletNumberDto>();
 
-            CreateMap<PaymentDto, Payment>();
-            CreateMap<Payment, PaymentDto>();
+            CreateMap<InvoiceDto, Invoice>();
+            CreateMap<Invoice, InvoiceDto>();
 
             CreateMap<TrackHistoryDto, TrackHistory>();
             CreateMap<TrackHistory, TrackHistoryDto>();
@@ -317,8 +317,8 @@ namespace IRIS.BCK.Core.Application.Mappings
             CreateMap<TrackHistory, TrackHistoryListViewModel>();
             CreateMap<TrackHistoryListViewModel, TrackHistory>();
 
-            CreateMap<Payment, PaymentListViewModel>();
-            CreateMap<PaymentListViewModel, Payment>();
+            CreateMap<Invoice, PaymentListViewModel>();
+            CreateMap<PaymentListViewModel, Invoice>();
 
             CreateMap<Shipment, ShipmentListViewModel>();
             CreateMap<ShipmentListViewModel, Shipment>();
@@ -335,8 +335,8 @@ namespace IRIS.BCK.Core.Application.Mappings
             CreateMap<Manifest, ManifestViewModel>();
             CreateMap<ManifestViewModel, Manifest>();
 
-            CreateMap<Payment, PaymentViewModel>();
-            CreateMap<PaymentViewModel, Payment>();
+            CreateMap<Invoice, PaymentViewModel>();
+            CreateMap<PaymentViewModel, Invoice>();
 
             CreateMap<Fleet, FleetViewModel>();
             CreateMap<FleetViewModel, Fleet>();

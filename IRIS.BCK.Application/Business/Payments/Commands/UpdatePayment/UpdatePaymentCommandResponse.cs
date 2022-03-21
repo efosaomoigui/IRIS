@@ -14,6 +14,6 @@ namespace IRIS.BCK.Core.Application.Business.Payments.Commands.UpdatePayment
         {
         }
 
-        public PaymentDto Paymentdto { get; set; }
+        public InvoiceDto Paymentdto { get; set; }
     }
 }

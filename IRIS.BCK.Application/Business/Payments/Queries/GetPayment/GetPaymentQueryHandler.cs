@@ -13,10 +13,10 @@ namespace IRIS.BCK.Core.Application.Business.Payments.Queries.GetPayment
 {
     public class GetPaymentQueryHandler : IRequestHandler<GetPaymentQuery, List<PaymentListViewModel>>
     {
-        private readonly IGenericRepository<Payment> _paymentRepository;
+        private readonly IGenericRepository<Invoice> _paymentRepository;
         private readonly IMapper _mapper;
 
-        public GetPaymentQueryHandler(IGenericRepository<Payment> paymentRepository, IMapper mapper)
+        public GetPaymentQueryHandler(IGenericRepository<Invoice> paymentRepository, IMapper mapper)
         {
             _paymentRepository = paymentRepository;
             _mapper = mapper;

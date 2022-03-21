@@ -16,7 +16,7 @@ namespace IRIS.BCK.Api.Controllers.Payment
     public class PaymentController : BaseApiController
     {
         [HttpGet("Payment/all", Name = "GetAllPayments")]
-        public async Task<ActionResult<List<PaymentListViewModel>>> GetAllShipments()
+        public async Task<ActionResult<List<PaymentListViewModel>>> GetAllPayments()
         {
             var payments = await _mediator.Send(new GetPaymentQuery());
             return Ok(payments);
@@ -69,14 +69,14 @@ namespace IRIS.BCK.Api.Controllers.Payment
         }
 
         [HttpPut("Payment/edit", Name = "UpdatePayment")]
-        public async Task<ActionResult<CreatePaymentCommandResponse>> UpdateShipment([FromBody] UpdatePaymentCommand updatePaymentCommand)
+        public async Task<ActionResult<CreatePaymentCommandResponse>> UpdatePayment([FromBody] UpdatePaymentCommand updatePaymentCommand)
         {
             var response = await _mediator.Send(updatePaymentCommand);
             return Ok(response);
         }
 
         [HttpDelete("Payment/delete", Name = "DeletePayment")]
-        public async Task<ActionResult<DeletePaymentCommandResponse>> DeleteShipment([FromBody] DeletePaymentCommand deletePaymentCommand)
+        public async Task<ActionResult<DeletePaymentCommandResponse>> DeletePayment([FromBody] DeletePaymentCommand deletePaymentCommand)
         {
             var response = await _mediator.Send(deletePaymentCommand);
             return Ok(response);

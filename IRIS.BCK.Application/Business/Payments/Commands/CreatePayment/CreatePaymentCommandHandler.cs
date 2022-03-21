@@ -64,12 +64,12 @@ namespace IRIS.BCK.Core.Application.Business.Payments.Commands.CreatePayment
                     throw;
                 }
 
-                CreatePaymentCommandResponse.Paymentdto = _mapper.Map<PaymentDto>(payment);
+                CreatePaymentCommandResponse.Paymentdto = _mapper.Map<InvoiceDto>(payment);
 
                 return CreatePaymentCommandResponse;
             }
 
-            CreatePaymentCommandResponse.Paymentdto = new PaymentDto();
+            CreatePaymentCommandResponse.Paymentdto = new InvoiceDto();
             return CreatePaymentCommandResponse;
         }
     }

@@ -40,7 +40,7 @@ namespace IRIS.BCK.Infrastructure.Persistence
 
         public DbSet<AppRoleClaim> RoleClaim { get; set; }
         public DbSet<CollectionCenter> CollectionCenter { get; set; }
-        public DbSet<Payment> Payment { get; set; }
+        public DbSet<Invoice> Invoice { get; set; }
         public DbSet<Manifest> Manifest { get; set; }
         public DbSet<GroupWayBill> GroupWayBill { get; set; }
         public DbSet<Trips> Trips { get; set; }
