@@ -4,6 +4,7 @@ using IRIS.BCK.Core.Application.DTO.Price;
 using IRIS.BCK.Core.Application.Interfaces.IMessages.IEmail;
 using IRIS.BCK.Core.Application.Interfaces.IRepositories.IPriceRepositories;
 using IRIS.BCK.Core.Application.Mappings.Price;
+using IRIS.BCK.Core.Application.Shared;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -55,20 +56,29 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.CreatePrice
             if (CreatePriceCommandResponse.Success)
             {
                 var price = PriceMapsCommand.CreatePriceMapsCommand(request);
-                price = await _priceRepository.AddAsync(price);
+                var priceExist = await _priceRepository.CheckExistingPrice(request);
 
-                try
+                if (priceExist == null)
                 {
-                    await _emailService.SendEmail(email);
+                    price = await _priceRepository.AddAsync(price);
+
+                    try
+                    {
+                        await _emailService.SendEmail(email);
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
+
+                    CreatePriceCommandResponse.pricedto = _mapper.Map<PriceDto>(price);
+                    return CreatePriceCommandResponse;
                 }
-                catch (Exception)
+                else
                 {
-                    throw;
+                    CreatePriceCommandResponse.ValidationErrors.Add(StaticMessages.PriceExist);
                 }
 
-                CreatePriceCommandResponse.pricedto = _mapper.Map<PriceDto>(price);
-
-                return CreatePriceCommandResponse;
             }
 
             CreatePriceCommandResponse.pricedto = new PriceDto();

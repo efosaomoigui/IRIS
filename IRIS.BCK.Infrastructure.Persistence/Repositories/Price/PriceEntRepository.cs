@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using IRIS.BCK.Application.Interfaces.IRepository;
+using IRIS.BCK.Core.Application.Business.Price.Commands.CreatePrice;
 using IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem;
 using IRIS.BCK.Core.Application.Interfaces.IRepositories.IPriceRepositories;
 using IRIS.BCK.Core.Domain.Entities.PriceEntities;
@@ -18,6 +19,14 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Price
         {
         }
 
+        public Task<PriceEnt> CheckExistingPrice(CreatePriceCommand shipmentCriteria)
+        {
+            var result = _dbContext.PriceEnt.FirstOrDefault(e => e.Category == shipmentCriteria.Category
+           && e.RouteId == shipmentCriteria.RouteId
+           && e.UnitWeight == shipmentCriteria.UnitWeight);
+            return Task.FromResult(result);
+        }
+
         public async Task<PriceEnt> GetPriceById(string priceid)
         {
             return _dbContext.PriceEnt.FirstOrDefault(e => e.Id.ToString() == priceid);
@@ -28,7 +37,7 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Price
             return _dbContext.PriceEnt.FirstOrDefault(e => e.RouteId.ToString() == routeid && e.Category == scategory);
         }
 
-       public Task<double> GetShipmentItemWeight(PriceForShipmentItemCommand shipmentCriteria)
+        public Task<double> GetShipmentItemWeight(PriceForShipmentItemCommand shipmentCriteria)
         {
             //1. get the weight
             var weight = shipmentCriteria.Weight;
@@ -44,6 +53,32 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Price
             var actualWeight = weight > volumetricWeight ? weight : volumetricWeight;
 
             return Task.FromResult(actualWeight);
+        }
+
+        public Task<PaymentCriteriaCommandResponse> MakePayment(PaymentCriteriaCommand paymentCriteria)
+        {
+            if (paymentCriteria.PaymentMethod == PaymentMethod.Wallet)
+            {
+
+            }
+            else if (paymentCriteria.PaymentMethod == PaymentMethod.PostPaid)
+            {
+
+            }
+            else if (paymentCriteria.PaymentMethod == PaymentMethod.CreditCard)
+            {
+
+            }
+            else if (paymentCriteria.PaymentMethod == PaymentMethod.USSD)
+            {
+
+            }
+            else if (paymentCriteria.PaymentMethod == PaymentMethod.Cash)
+            {
+
+            }
+
+            throw new NotImplementedException();
         }
     }
 }

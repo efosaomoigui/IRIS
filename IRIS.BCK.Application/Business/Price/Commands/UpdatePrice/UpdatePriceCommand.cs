@@ -11,7 +11,7 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.UpdatePrice
 {
     public class UpdatePriceCommand : IRequest<UpdatePriceCommandResponse>
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public PriceCategory Category { get; set; }
 
         public Guid RouteId { get; set; }

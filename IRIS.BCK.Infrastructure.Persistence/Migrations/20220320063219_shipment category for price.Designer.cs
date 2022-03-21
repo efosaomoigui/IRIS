@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IRIS.BCK.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(IRISDbContext))]
-    [Migration("20220316110113_initialcommit")]
-    partial class initialcommit
+    [Migration("20220320063219_shipment category for price")]
+    partial class shipmentcategoryforprice
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -437,8 +437,14 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                     b.Property<decimal>("PricePerUnit")
                         .HasColumnType("decimal(18,4)");
 
+                    b.Property<int>("Product")
+                        .HasColumnType("int");
+
                     b.Property<Guid>("RouteId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("ShipmentCategory")
+                        .HasColumnType("int");
 
                     b.Property<decimal>("UnitWeight")
                         .HasColumnType("decimal(18,4)");

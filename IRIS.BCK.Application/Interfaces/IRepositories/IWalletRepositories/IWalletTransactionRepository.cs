@@ -12,6 +12,7 @@ namespace IRIS.BCK.Core.Application.Interfaces.IRepositories.IWalletRepositories
     {
         Task<bool> CheckUniqueWalletTransactionNumber(string walletTransaction);
 
-        Task<WalletTransaction> GetWalletTransactionByUserId(string userid);
+        Task<WalletTransaction> GetWalletTransactionByUserId(string userid); 
+        //Task<WalletTransaction> DoTransaction(string userid); 
     }
 }

@@ -12,7 +12,7 @@ namespace IRIS.BCK.Core.Application.Business.Wallet.Commands.CreateWalletTransac
     public class CreateWalletTransactionCommand : IRequest<CreateWalletTransactionCommandResponse>
     {
         public Guid Id { get; set; }
-        public string Amount { get; set; }
+        public double Amount { get; set; }
         public TransactionType TransactionType { get; set; }
         public string Description { get; set; }
 

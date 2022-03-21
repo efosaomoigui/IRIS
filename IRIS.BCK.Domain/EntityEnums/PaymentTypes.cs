@@ -1,5 +1,6 @@
-﻿namespace  IRIS.BCK.Core.Domain.EntityEnums
+﻿namespace IRIS.BCK.Core.Domain.EntityEnums
 {
+  
     public enum PaymentType
     {
         Cash,
@@ -12,10 +13,11 @@
         USSD
     }
 
-    public enum CODPaidOutStatus 
+
+    public enum CODPaidOutStatus
     {
         PaidOut,
-        NotPaidOut 
+        NotPaidOut
     }
 
     public enum OnlinePaymentType
