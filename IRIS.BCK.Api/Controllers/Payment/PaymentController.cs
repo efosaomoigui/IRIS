@@ -4,6 +4,8 @@ using IRIS.BCK.Core.Application.Business.Payments.Commands.UpdatePayment;
 using IRIS.BCK.Core.Application.Business.Payments.Queries.GetPayment;
 using IRIS.BCK.Core.Application.Business.Payments.Queries.GetPayment.GetPaymentById;
 using IRIS.BCK.Core.Application.Business.Payments.Queries.GetPaymentByUserId;
+using IRIS.BCK.Core.Application.Business.Price.Commands.CreatePrice;
+using IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -81,5 +83,13 @@ namespace IRIS.BCK.Api.Controllers.Payment
             var response = await _mediator.Send(deletePaymentCommand);
             return Ok(response);
         }
+
+        [HttpPost("Payment/MakePayment", Name = "MakePayment")]
+        public async Task<ActionResult<PaymentCriteriaCommandResponse>> MakePayment([FromBody] PaymentCriteriaCommand createPriceCommand)
+        {
+            var response = await _mediator.Send(createPriceCommand);
+            return Ok(response);
+        }
+
     }
 }

@@ -8,12 +8,13 @@ namespace IRIS.BCK.Core.Domain.EntityEnums
 {
     public enum ProductEnum
     {
-        Tomatoes,
-        Vedan,
-        Noodles,
-        Flour,
-        Cowbell,
-        Nestle,
-        Bigi
+        MailAndParcel=1,
+        Tomatoes=2,
+        Vedan=3,
+        Noodles=4,
+        Flour=5,
+        Cowbell=6,
+        Nestle=7,
+        Bigi=6
     }
 }

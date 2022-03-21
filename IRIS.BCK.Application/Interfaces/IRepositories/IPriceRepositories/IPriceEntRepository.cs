@@ -14,9 +14,9 @@ namespace IRIS.BCK.Core.Application.Interfaces.IRepositories.IPriceRepositories
     public interface IPriceEntRepository : IGenericRepository<PriceEnt>
     {
         Task<PriceEnt> GetPriceById(string priceid);
-
         Task<PriceEnt> GetPriceByRouteId(string routeid, ShipmentCategory pcateogry);
         Task<double> GetShipmentItemWeight(PriceForShipmentItemCommand shipmentCriteria);
         Task<PriceEnt> CheckExistingPrice(CreatePriceCommand shipmentCriteria);  
-    }
+        Task<PaymentCriteriaCommandResponse> MakePayment(PaymentCriteriaCommand paymentCriteria);   
+    } 
 }
