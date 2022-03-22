@@ -77,13 +77,10 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem
                         await _invoiceRepository.AddAsync(new Invoice
                         {
                             InvoiceCode = invoiceCode,
-                            am
                         });
 
                         if (walletTransaction != null)
                         {
-
-
                             PaymentCriteriaCommandResponse.paymentData.PaymentStatus = true;
                         }
                     }
