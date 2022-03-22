@@ -12,9 +12,9 @@ namespace IRIS.BCK.Core.Domain.Entities.PaymentEntities
     public class Invoice : Auditable
     {
         public Guid Id { get; set; }
+        public double Amount { get; set; } 
         public string InvoiceCode { get; set; }
         public Guid ShipmentId { get; set; }
-        public virtual Shipment Shipment { get; set; }
         public Guid UserId { get; set; }
         public string WalletNumber { get; set; }
         public PaymentMethod PaymentMethod { get; set; } //wallet, Cash, Transfer
