@@ -6,14 +6,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IRIS.BCK.Core.Application.Business.Payments.Commands.CreateNumberEnt 
+namespace IRIS.BCK.Core.Application.Business.Payments.Commands.CreateNumberEnt
 {
-    public class CreateNumberCommandResponse : BaseResponse 
+    public class CreateNumberCommandResponse : BaseResponse
     {
         public CreateNumberCommandResponse() : base()
         {
         }
 
-        public PaymentDto Paymentdto { get; set; }
+        public InvoiceDto Invoicedto { get; set; }
     }
 }
