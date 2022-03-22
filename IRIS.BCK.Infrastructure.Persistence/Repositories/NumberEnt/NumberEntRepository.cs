@@ -22,7 +22,7 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Payments
         }
 
 
-        public Task<Payment> AddNumberEnt(string id)
+        public Task<NumberEnt> AddNumberEnt(string id)
         {
             throw new NotImplementedException();
         }
@@ -32,7 +32,7 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Payments
             await _dbContext.NumberEnt.AddAsync(new NumberEnt
             {
                 ServiceCentreCode = serviceCenterCode,
-                NumberGeneratorType = numberGeneratorType,
+                NumberGeneratorType = numberGeneratorType, 
                 NumberCode = numberStr
             });
         }
