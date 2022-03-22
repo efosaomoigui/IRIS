@@ -15,6 +15,6 @@ namespace IRIS.BCK.Core.Application.Business.Payments.Commands.CreateNumberEnt
         {
         }
 
-        public PaymentDto Paymentdto { get; set; }
+        public NumberEntDto NumberEntDto { get; set; }
     }
 }
