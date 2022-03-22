@@ -14,7 +14,7 @@ namespace IRIS.BCK.Core.Application.DTO.Payments
         public string InvoiceCode { get; set; }
 
         public Guid ShipmentId { get; set; }
-        public virtual Shipment Shipment { get; set; }
+        public double Amount { get; set; }
         public Guid UserId { get; set; }
         public string WalletNumber { get; set; }
         public PaymentMethod PaymentMethod { get; set; } //wallet, Cash, Transfer
