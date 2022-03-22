@@ -4,6 +4,7 @@ using IRIS.BCK.Application.Interfaces.IRepository.IShipmentRepositories;
 using IRIS.BCK.Core.Application.DTO.Message;
 using IRIS.BCK.Core.Application.DTO.Message.EmailMessage;
 using IRIS.BCK.Core.Application.Interfaces.IMessages.IEmail;
+using IRIS.BCK.Core.Application.Interfaces.IRepositories.INumberEntRepository;
 using IRIS.BCK.Core.Application.Mappings.Shipments;
 using IRIS.BCK.Core.Domain.Entities.ShimentEntities;
 using IRIS.BCK.Core.Domain.EntityEnums;
@@ -22,12 +23,14 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateShipment
         private readonly IShipmentRepository _shipmentRepository;
         private readonly IMapper _mapper;
         private readonly IEmailService _emailService;
+        private readonly INumberEntRepository _numberEntRepository;
 
-        public CreateShipmentCommandHandler(IShipmentRepository shipmentRepository, IMapper mapper, IEmailService emailService)
+        public CreateShipmentCommandHandler(IShipmentRepository shipmentRepository, IMapper mapper, IEmailService emailService, INumberEntRepository numberEntRepository)
         {
             _shipmentRepository = shipmentRepository;
             _mapper = mapper;
             _emailService = emailService;
+            _numberEntRepository = numberEntRepository;
         }
 
         public async Task<CreateShipmentCommandResponse> Handle(CreateShipmentCommand request, CancellationToken cancellationToken)
@@ -57,7 +60,7 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateShipment
 
             if (CreateShipmentCommandResponse.Success)
             {
-                //request.Waybill = _numberEntRepository.GenerateNextNumber(NumberGeneratorType.WalletNumber, "101").Result;
+                request.Waybill = _numberEntRepository.GenerateNextNumber(NumberGeneratorType.WaybillNumber, "101").Result;
                 var shipment = ShipmentMapsCommand.CreateShipmentMapsCommand(request);
                 shipment = await _shipmentRepository.AddAsync(shipment);
 

@@ -15,7 +15,6 @@ namespace IRIS.BCK.Core.Application.Mappings.ShipmentProcessing
             return new Trips
             {
                 TripReference = request.TripReference,
-
                 RouteCode = request.RouteCode,
                 Dispatcher = request.Dispatcher,
                 Driver = request.Driver,
