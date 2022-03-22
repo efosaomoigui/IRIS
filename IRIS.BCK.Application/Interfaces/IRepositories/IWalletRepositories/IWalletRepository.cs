@@ -13,7 +13,7 @@ namespace IRIS.BCK.Core.Application.Interfaces.IRepositories.IWalletRepositories
     {
         Task<bool> CheckUniqueWalletNumber(string walletNumber);
 
-        public string GetWalletNumber();
+        public string GetWalletNumber(string serviceCenterCode);
 
         Task<int> GetWalletBalance(string User);
 

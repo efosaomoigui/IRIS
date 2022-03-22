@@ -29,7 +29,7 @@ namespace IRIS.BCK.Core.Application.Mappings.Wallets
                 Amount = request.Amount,
                 TransactionType = request.WalletTransactionType,
                 Description = request.Description,
-                UserId = request.UserId
+                UserId = (Guid)request.UserId
             };
         }
     }
