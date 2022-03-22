@@ -12,7 +12,7 @@ namespace IRIS.BCK.Core.Application.Interfaces.IRepositories.INumberEntRepositor
 {
     public interface INumberEntRepository : IGenericRepository<NumberEnt> 
     {
-        public Task<Payment> AddNumberEnt(string id);
+        public Task<NumberEnt> AddNumberEnt(string id);
         public Task<string> GenerateNextNumber(NumberGeneratorType numberGeneratorType, string serviceCenterCode);
         public Task UpdateNumberGeneratorMonitor(string serviceCenterCode, NumberGeneratorType numberGeneratorType, string numberStr);
         public Task AddNumberGeneratorMonitor(string serviceCenterCode, NumberGeneratorType numberGeneratorType, string numberStr);

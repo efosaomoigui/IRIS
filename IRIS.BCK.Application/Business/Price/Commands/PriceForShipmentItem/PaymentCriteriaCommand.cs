@@ -12,10 +12,11 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem
     public class PaymentCriteriaCommand : IRequest<PaymentCriteriaCommandResponse>  
     {
         public PaymentMethod PaymentMethod { get; set; }
+        public string CustomerPhoneNumber { get; set; } 
         public double Amount { get; set; } 
-        public Guid UserId { get; set; }
+        public Guid? UserId { get; set; }
         public TransactionType WalletTransactionType { get; set; } 
-        public string InvoiceNumber { get; set; }  
+        public string? InvoiceNumber { get; set; }  
         public ShipmentCategory ShimentCategory { get; set; } 
         public string RouteId { get; set; }  
         public bool PaymentStatus { get; set; }

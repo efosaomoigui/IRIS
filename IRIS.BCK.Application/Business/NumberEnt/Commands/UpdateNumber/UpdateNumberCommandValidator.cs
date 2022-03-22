@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using IRIS.BCK.Core.Application.Interfaces.IRepositories.INumberEntRepository;
 using IRIS.BCK.Core.Application.Interfaces.IRepositories.IPaymentRepositories;
 using System;
 using System.Collections.Generic;
@@ -10,11 +11,11 @@ namespace IRIS.BCK.Core.Application.Business.Payments.Commands.UpdateNumber
 {
     public class UpdateNumberCommandValidator : AbstractValidator<UpdateNumberCommand>
     {
-        public IPaymentRepository _paymentRepository { get; set; }
+        private readonly INumberEntRepository _numberEntRepository;
 
-        public UpdateNumberCommandValidator(IPaymentRepository paymentRepository)
+        public UpdateNumberCommandValidator(INumberEntRepository numberEntRepository)
         {
-            _paymentRepository = paymentRepository;
+            _numberEntRepository = numberEntRepository;
 
             RuleFor(p => p.ServiceCentreCode)
                 .NotEmpty().WithMessage("{PropertyName} is required")

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using IRIS.BCK.Core.Application.DTO.Message.EmailMessage;
+using IRIS.BCK.Core.Application.DTO.NumberEnt;
 using IRIS.BCK.Core.Application.DTO.Payments;
 using IRIS.BCK.Core.Application.Interfaces.IMessages.IEmail;
 using IRIS.BCK.Core.Application.Interfaces.IRepositories.INumberEntRepository;
@@ -66,12 +67,12 @@ namespace IRIS.BCK.Core.Application.Business.Payments.Commands.CreateNumberEnt
                     throw;
                 }
 
-                CreateNumberCommandResponse.Paymentdto = _mapper.Map<PaymentDto>(number);
+                CreateNumberCommandResponse.NumberEntDto = _mapper.Map<NumberEntDto>(number);
 
                 return CreateNumberCommandResponse;
             }
 
-            CreateNumberCommandResponse.Paymentdto = new PaymentDto();
+            CreateNumberCommandResponse.NumberEntDto = new NumberEntDto();
             return CreateNumberCommandResponse;
         }
     }

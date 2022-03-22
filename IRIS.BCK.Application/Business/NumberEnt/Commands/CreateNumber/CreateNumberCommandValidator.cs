@@ -21,8 +21,6 @@ namespace IRIS.BCK.Core.Application.Business.Payments.Commands.CreateNumberEnt
                 .NotEmpty().WithMessage("{PropertyName} is required") 
                 .NotNull();
 
-            {
-            }
         }
     }
 }

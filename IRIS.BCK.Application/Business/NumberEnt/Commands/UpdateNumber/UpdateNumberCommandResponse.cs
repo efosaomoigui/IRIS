@@ -1,4 +1,5 @@
 ﻿using IRIS.BCK.Application.Responses;
+using IRIS.BCK.Core.Application.DTO.NumberEnt;
 using IRIS.BCK.Core.Application.DTO.Payments;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,6 @@ namespace IRIS.BCK.Core.Application.Business.Payments.Commands.UpdateNumber
         {
         }
 
-        public PaymentDto Paymentdto { get; set; }
+        public NumberEntDto NumberEntDto { get; set; } 
     }
 }

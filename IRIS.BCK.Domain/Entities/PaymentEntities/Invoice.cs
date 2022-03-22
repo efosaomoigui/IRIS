@@ -13,7 +13,6 @@ namespace IRIS.BCK.Core.Domain.Entities.PaymentEntities
     {
         public Guid Id { get; set; }
         public string InvoiceCode { get; set; }
-
         public Guid ShipmentId { get; set; }
         public double Amount { get; set; }
         public Guid UserId { get; set; }
