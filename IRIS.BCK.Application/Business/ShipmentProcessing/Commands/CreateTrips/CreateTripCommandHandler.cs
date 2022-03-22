@@ -2,8 +2,10 @@
 using IRIS.BCK.Core.Application.DTO.Message.EmailMessage;
 using IRIS.BCK.Core.Application.DTO.ShipmentProcessing;
 using IRIS.BCK.Core.Application.Interfaces.IMessages.IEmail;
+using IRIS.BCK.Core.Application.Interfaces.IRepositories.INumberEntRepository;
 using IRIS.BCK.Core.Application.Interfaces.IRepositories.IShipmentProcessingRepositories;
 using IRIS.BCK.Core.Application.Mappings.ShipmentProcessing;
+using IRIS.BCK.Core.Domain.EntityEnums;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -19,12 +21,14 @@ namespace IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.CreateT
         private readonly ITripRepository _tripRepository;
         private readonly IMapper _mapper;
         private readonly IEmailService _emailService;
+        private readonly INumberEntRepository _numberEntRepository;
 
-        public CreateTripCommandHandler(ITripRepository tripRepository, IMapper mapper, IEmailService emailService)
+        public CreateTripCommandHandler(ITripRepository tripRepository, IMapper mapper, IEmailService emailService, INumberEntRepository numberEntRepository)
         {
             _tripRepository = tripRepository;
             _mapper = mapper;
             _emailService = emailService;
+            _numberEntRepository = numberEntRepository;
         }
 
         public async Task<CreateTripCommandResponse> Handle(CreateTripCommand request, CancellationToken cancellationToken)
@@ -54,6 +58,7 @@ namespace IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.CreateT
 
             if (CreateTripCommandResponse.Success)
             {
+                request.TripReference = _numberEntRepository.GenerateNextNumber(NumberGeneratorType.TripReference, "101").Result;
                 var trip = TripMapsCommand.CreateTripMapsCommand(request);
                 trip = await _tripRepository.AddAsync(trip);
 

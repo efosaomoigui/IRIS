@@ -17,7 +17,7 @@ namespace IRIS.BCK.Core.Application.Mappings.Payments
                 InvoiceCode = request.InvoiceCode,
                 Status = request.Status,
                 PaymentMethod = request.PaymentMethod,
-                Shipment = request.Shipment,
+                Amount = request.Amount,
                 ShipmentId = request.ShipmentId
             };
         }

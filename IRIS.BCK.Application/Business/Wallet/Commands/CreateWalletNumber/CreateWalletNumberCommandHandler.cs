@@ -3,8 +3,10 @@ using IRIS.BCK.Core.Application.Business.Wallet.Commands.CreateWalletNumberComma
 using IRIS.BCK.Core.Application.DTO.Message.EmailMessage;
 using IRIS.BCK.Core.Application.DTO.Wallet;
 using IRIS.BCK.Core.Application.Interfaces.IMessages.IEmail;
+using IRIS.BCK.Core.Application.Interfaces.IRepositories.INumberEntRepository;
 using IRIS.BCK.Core.Application.Interfaces.IRepositories.IWalletRepositories;
 using IRIS.BCK.Core.Application.Mappings.Wallets;
+using IRIS.BCK.Core.Domain.EntityEnums;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -18,12 +20,14 @@ namespace IRIS.BCK.Core.Application.Business.Wallet.Commands.CreateWalletNumber
         private readonly IWalletRepository _walletRepository;
         private readonly IMapper _mapper;
         private readonly IEmailService _emailService;
+        private readonly INumberEntRepository _numberEntRepository;
 
-        public CreateWalletNumberCommandHandler(IWalletRepository walletRepository, IMapper mapper, IEmailService emailService)
+        public CreateWalletNumberCommandHandler(IWalletRepository walletRepository, IMapper mapper, IEmailService emailService, INumberEntRepository numberEntRepository)
         {
             _walletRepository = walletRepository;
             _mapper = mapper;
             _emailService = emailService;
+            _numberEntRepository = numberEntRepository;
         }
 
         public async Task<CreateWalletNumberCommandResponse> Handle(CreateWalletNumberCommand request, CancellationToken cancellationToken)
@@ -62,6 +66,7 @@ namespace IRIS.BCK.Core.Application.Business.Wallet.Commands.CreateWalletNumber
 
                     if (CreateWalletNumberCommandResponse.Success)
                     {
+                        request.Number = _numberEntRepository.GenerateNextNumber(NumberGeneratorType.WalletNumber, "101").Result;
                         var walletNumber = WalletsMapsCommand.CreateWalletsMapsCommand(request);
                         walletNumber = await _walletRepository.AddAsync(walletNumber);
 

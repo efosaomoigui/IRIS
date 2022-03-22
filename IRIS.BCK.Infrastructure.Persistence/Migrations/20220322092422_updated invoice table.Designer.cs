@@ -4,14 +4,16 @@ using IRIS.BCK.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace IRIS.BCK.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(IRISDbContext))]
-    partial class IRISDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220322092422_updated invoice table")]
+    partial class updatedinvoicetable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -371,38 +373,6 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                     b.ToTable("TrackHistory");
                 });
 
-            modelBuilder.Entity("IRIS.BCK.Core.Domain.Entities.NumberEnt.NumberEnt", b =>
-                {
-                    b.Property<Guid>("NumberEntId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("LastModifiedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("LastModifiedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("NumberCode")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("NumberGeneratorType")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ServiceCentreCode")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("NumberEntId");
-
-                    b.ToTable("NumberEnt");
-                });
-
             modelBuilder.Entity("IRIS.BCK.Core.Domain.Entities.PaymentEntities.Invoice", b =>
                 {
                     b.Property<Guid>("Id")
@@ -562,9 +532,6 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ServiceCenterName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ServiceCode")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ServiceTag")

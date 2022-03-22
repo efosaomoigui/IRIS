@@ -20,7 +20,7 @@ namespace IRIS.BCK.Core.Application.Business.Payments.Commands.CreatePayment
                 .NotEmpty().WithMessage("{PropertyName} is required")
                 .NotNull();
 
-            RuleFor(p => p.Shipment)
+            RuleFor(p => p.Amount)
                .NotEmpty().WithMessage("{PropertyName} is required")
                .NotNull();
 
