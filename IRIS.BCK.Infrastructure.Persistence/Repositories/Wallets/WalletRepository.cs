@@ -1,6 +1,10 @@
-﻿using IRIS.BCK.Core.Application.Interfaces.IRepositories;
+﻿using IRIS.BCK.Application.Interfaces.IRepository;
+using IRIS.BCK.Core.Application.Interfaces.IRepositories;
+using IRIS.BCK.Core.Application.Interfaces.IRepositories.INumberEntRepository;
 using IRIS.BCK.Core.Application.Interfaces.IRepositories.IWalletRepositories;
+using IRIS.BCK.Core.Domain.Entities.NumberEnt;
 using IRIS.BCK.Core.Domain.Entities.WalletEntities;
+using IRIS.BCK.Core.Domain.EntityEnums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,8 +15,11 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Wallets
 {
     public class WalletRepository : GenericRepository<WalletNumber>, IWalletRepository
     {
-        public WalletRepository(IRISDbContext dbContext) : base(dbContext)
+        private INumberEntRepository _numberEntRepository;
+
+        public WalletRepository(IRISDbContext dbContext, INumberEntRepository numberEntRepository) : base(dbContext)
         {
+            _numberEntRepository = numberEntRepository;
         }
 
         public async Task<bool> CheckUniqueWalletNumber(string walletNumber)
@@ -34,9 +41,9 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Wallets
             return s;
         }
 
-        public string GetWalletNumber()
+        public string GetWalletNumber(string serviceCenterCode)
         {
-            var str = RandomDigits(10);
+            var str = _numberEntRepository.GenerateNextNumber(NumberGeneratorType.WalletNumber, serviceCenterCode).Result ;
             return str;
         }
 

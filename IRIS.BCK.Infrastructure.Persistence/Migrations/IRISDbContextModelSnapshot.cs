@@ -403,7 +403,7 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                     b.ToTable("NumberEnt");
                 });
 
-            modelBuilder.Entity("IRIS.BCK.Core.Domain.Entities.PaymentEntities.Payment", b =>
+            modelBuilder.Entity("IRIS.BCK.Core.Domain.Entities.PaymentEntities.Invoice", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()

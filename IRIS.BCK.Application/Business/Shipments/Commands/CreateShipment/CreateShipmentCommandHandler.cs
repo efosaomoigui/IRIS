@@ -6,6 +6,7 @@ using IRIS.BCK.Core.Application.DTO.Message.EmailMessage;
 using IRIS.BCK.Core.Application.Interfaces.IMessages.IEmail;
 using IRIS.BCK.Core.Application.Mappings.Shipments;
 using IRIS.BCK.Core.Domain.Entities.ShimentEntities;
+using IRIS.BCK.Core.Domain.EntityEnums;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -56,6 +57,7 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateShipment
 
             if (CreateShipmentCommandResponse.Success)
             {
+                //request.Waybill = _numberEntRepository.GenerateNextNumber(NumberGeneratorType.WalletNumber, "101").Result;
                 var shipment = ShipmentMapsCommand.CreateShipmentMapsCommand(request);
                 shipment = await _shipmentRepository.AddAsync(shipment);
 

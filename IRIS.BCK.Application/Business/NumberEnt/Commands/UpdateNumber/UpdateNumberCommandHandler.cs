@@ -1,9 +1,12 @@
 ﻿using AutoMapper;
 using IRIS.BCK.Core.Application.Business.Payments.Commands.UpdatePayment;
 using IRIS.BCK.Core.Application.DTO.Message.EmailMessage;
+using IRIS.BCK.Core.Application.DTO.NumberEnt;
 using IRIS.BCK.Core.Application.DTO.Payments;
 using IRIS.BCK.Core.Application.Interfaces.IMessages.IEmail;
+using IRIS.BCK.Core.Application.Interfaces.IRepositories.INumberEntRepository;
 using IRIS.BCK.Core.Application.Interfaces.IRepositories.IPaymentRepositories;
+using IRIS.BCK.Core.Domain.Entities.NumberEnt;
 using IRIS.BCK.Core.Domain.Entities.PaymentEntities;
 using MediatR;
 using System;
@@ -17,21 +20,22 @@ namespace IRIS.BCK.Core.Application.Business.Payments.Commands.UpdateNumber
 {
     public class UpdateNumberCommandHandler : IRequestHandler<UpdateNumberCommand, UpdateNumberCommandResponse>
     {
-        private readonly IPaymentRepository _paymentRepository;
+        private readonly INumberEntRepository _numberEntRepository;
         private readonly IMapper _mapper;
         private readonly IEmailService _emailService;
-         
-        public UpdateNumberCommandHandler(IPaymentRepository paymentRepository, IMapper mapper, IEmailService emailService)
+
+        public UpdateNumberCommandHandler(INumberEntRepository numberEntRepository, IMapper mapper, IEmailService emailService)
         {
-            _paymentRepository = paymentRepository;
+            _numberEntRepository = numberEntRepository;
             _mapper = mapper;
             _emailService = emailService;
         }
 
+
         public async Task<UpdateNumberCommandResponse> Handle(UpdateNumberCommand request, CancellationToken cancellationToken)
         {
             var UpdateNumberCommandResponse = new UpdateNumberCommandResponse();
-            var validator = new UpdateNumberCommandValidator(_paymentRepository);
+            var validator = new UpdateNumberCommandValidator(_numberEntRepository);
             var validationResult = await validator.ValidateAsync(request);
 
             if (validationResult.Errors.Count > 0)
@@ -55,8 +59,8 @@ namespace IRIS.BCK.Core.Application.Business.Payments.Commands.UpdateNumber
 
             if (UpdateNumberCommandResponse.Success)
             {
-                var updatePayment = _mapper.Map<Payment>(request);
-                await _paymentRepository.UpdateAsync(updatePayment);
+                var updateNumber = _mapper.Map<NumberEnt>(request);
+                await _numberEntRepository.UpdateAsync(updateNumber);
 
                 try
                 {
@@ -67,12 +71,12 @@ namespace IRIS.BCK.Core.Application.Business.Payments.Commands.UpdateNumber
                     throw;
                 }
 
-                UpdateNumberCommandResponse.Paymentdto = _mapper.Map<PaymentDto>(updatePayment);
+                UpdateNumberCommandResponse.NumberEntDto = _mapper.Map<NumberEntDto>(updateNumber);
 
                 return UpdateNumberCommandResponse;
             }
 
-            UpdateNumberCommandResponse.Paymentdto = new PaymentDto();
+            UpdateNumberCommandResponse.NumberEntDto = new NumberEntDto();
             return UpdateNumberCommandResponse;
         }
     }

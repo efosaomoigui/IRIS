@@ -7,22 +7,6 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AlterColumn<double>(
-                name: "Amount",
-                table: "WalletTransaction",
-                type: "float",
-                nullable: false,
-                defaultValue: 0.0,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(max)",
-                oldNullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "ServiceCode",
-                table: "ServiceCenter",
-                type: "nvarchar(max)",
-                nullable: true);
-
             migrationBuilder.CreateTable(
                 name: "NumberEnt",
                 columns: table => new
@@ -47,17 +31,6 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
             migrationBuilder.DropTable(
                 name: "NumberEnt");
 
-            migrationBuilder.DropColumn(
-                name: "ServiceCode",
-                table: "ServiceCenter");
-
-            migrationBuilder.AlterColumn<string>(
-                name: "Amount",
-                table: "WalletTransaction",
-                type: "nvarchar(max)",
-                nullable: true,
-                oldClrType: typeof(double),
-                oldType: "float");
         }
     }
 }
