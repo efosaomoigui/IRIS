@@ -3,7 +3,7 @@
 
 
 
-DIR="/home/ubuntu/Iris.bck"
+DIR="/home/ubuntu/Iris"
  if [ -d "$DIR" ]; then
     echo "S{DIR} exists"
  else
