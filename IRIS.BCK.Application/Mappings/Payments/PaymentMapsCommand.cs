@@ -1,4 +1,5 @@
 ﻿using IRIS.BCK.Core.Application.Business.Payments.Commands.CreatePayment;
+using IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem;
 using IRIS.BCK.Core.Domain.Entities.PaymentEntities;
 using System;
 using System.Collections.Generic;
@@ -15,10 +16,23 @@ namespace IRIS.BCK.Core.Application.Mappings.Payments
             return new Invoice
             {
                 InvoiceCode = request.InvoiceCode,
-                Status = request.Status,
-                PaymentMethod = request.PaymentMethod,
+                UserId = (Guid)request.UserId,
+                WaybilNumber = request.WaybillNumber,
+                PaymentMethod = request.PaymentMethod, 
                 Amount = request.Amount,
-                ShipmentId = request.ShipmentId
+                Status = request.Status
+            };
+        }       
+        
+        public static Invoice CreatePaymentValuesMapsCommand(PaymentCriteriaCommand request)
+        {
+            return new Invoice
+            {
+                InvoiceCode = request.InvoiceNumber,
+                UserId = (Guid)request.UserId,
+                WaybilNumber = request.WaybillNumber,
+                PaymentMethod = request.PaymentMethod, 
+                Amount = request.Amount,
             };
         }
     }

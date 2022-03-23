@@ -23,7 +23,7 @@ namespace IRIS.BCK.Core.Domain.Entities.ShimentEntities
         //Customer Information
         public Guid Customer { get; set; }
 
-        public decimal GrandTotal { get; set; }
+        public double GrandTotal { get; set; }
 
         public ICollection<Address> CustomerAddress { get; set; }
 

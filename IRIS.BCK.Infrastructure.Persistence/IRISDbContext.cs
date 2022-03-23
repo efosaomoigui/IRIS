@@ -60,7 +60,7 @@ namespace IRIS.BCK.Infrastructure.Persistence
             modelBuilder.Entity<PriceEnt>().Property(p => p.PricePerUnit).HasColumnType("decimal(18,4)");
             modelBuilder.Entity<PriceEnt>().Property(p => p.UnitWeight).HasColumnType("decimal(18,4)");
             modelBuilder.Entity<Shipment>().Property(p => p.GrandTotal).HasColumnType("decimal(18,4)");
-            modelBuilder.Entity<ShipmentItem>().Property(p => p.DeclarationOfValueCheck).HasColumnType("decimal(18,4)");
+            //modelBuilder.Entity<ShipmentItem>().Property(p => p.DeclarationOfValueCheck).HasColumnType("decimal(18,4)");
             modelBuilder.Entity<WalletNumber>().Property(p => p.WalletBalance).HasColumnType("decimal(18,4)");
 
             modelBuilder.Entity<Shipment>().HasMany(t => t.CustomerAddress)

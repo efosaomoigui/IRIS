@@ -2,7 +2,7 @@
 {
     public enum PickupOptions
     {
-        HOMEDELIVERY,
-        SERVICECENTER
+        HomeDelivery,
+        ServiceCenter 
     }
 }

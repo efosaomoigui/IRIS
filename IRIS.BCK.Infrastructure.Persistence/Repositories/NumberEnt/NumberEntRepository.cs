@@ -68,31 +68,37 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Payments
                 {
                     number = long.Parse(numberCode) + 1;
                     numberStr = number.ToString("000000");
-                    numberGenerated = (int)NumberGeneratorType.WalletNumber + codeStr + numberStr;
+                    numberGenerated = (int)NumberGeneratorType.WaybillNumber + codeStr + numberStr;
                 }
                 else if (numberGeneratorType == NumberGeneratorType.WaybillNumber)
                 {
                     number = long.Parse(numberCode) + 1;
                     numberStr = number.ToString("000000");
-                    numberGenerated = (int)NumberGeneratorType.WalletNumber + codeStr + numberStr;
+                    numberGenerated = (int)NumberGeneratorType.WaybillNumber + codeStr + numberStr;
                 }
                 else if (numberGeneratorType == NumberGeneratorType.ManifestNumber)
                 {
                     number = long.Parse(numberCode) + 1;
                     numberStr = number.ToString("000000");
-                    numberGenerated = (int)NumberGeneratorType.WalletNumber + codeStr + numberStr;
+                    numberGenerated = (int)NumberGeneratorType.ManifestNumber + codeStr + numberStr;
                 }
                 else if (numberGeneratorType == NumberGeneratorType.GroupWaybillNumber)
                 {
                     number = long.Parse(numberCode) + 1;
                     numberStr = number.ToString("000000");
-                    numberGenerated = (int)NumberGeneratorType.WalletNumber + codeStr + numberStr;
+                    numberGenerated = (int)NumberGeneratorType.GroupWaybillNumber + codeStr + numberStr;
                 }
                 else if (numberGeneratorType == NumberGeneratorType.TripReference)
                 {
                     number = long.Parse(numberCode) + 1;
                     numberStr = number.ToString("0000");
-                    numberGenerated = (int)NumberGeneratorType.WalletNumber + codeStr + numberStr;
+                    numberGenerated = (int)NumberGeneratorType.TripReference + codeStr + numberStr;
+                }
+                else if (numberGeneratorType == NumberGeneratorType.InvoiceNumber)
+                {
+                    number = long.Parse(numberCode) + 1;
+                    numberStr = number.ToString("0000");
+                    numberGenerated = (int)NumberGeneratorType.InvoiceNumber + codeStr + numberStr;
                 }
                 else
                 {

@@ -23,10 +23,10 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateShipment
         //[ForeignKey]
         public Guid AddressId { get; set; }
 
-        public decimal GrandTotal { get; set; }
-        public Address CustomerAddress { get; set; }
+        public double GrandTotal { get; set; }
+        //public Address CustomerAddress { get; set; }
 
-        //public List<Address> CustomerAddress { get; set; }
+        public List<Address> CustomerAddress { get; set; }
 
         //Receivers Information
         public Guid Reciever { get; set; }

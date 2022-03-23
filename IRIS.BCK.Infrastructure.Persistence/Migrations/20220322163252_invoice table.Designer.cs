@@ -4,14 +4,16 @@ using IRIS.BCK.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace IRIS.BCK.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(IRISDbContext))]
-    partial class IRISDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220322163252_invoice table")]
+    partial class invoicetable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -219,7 +221,7 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                     b.Property<string>("StreetName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("UserId")
+                    b.Property<Guid>("User")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("customershipmentAddressId")
@@ -436,7 +438,7 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("WaybilNumber")
+                    b.Property<string>("WalletNumber")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -860,26 +862,29 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<decimal>("DeclarationOfValueCheck")
+                        .HasColumnType("decimal(18,4)");
+
                     b.Property<string>("DimensionUnit")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("Height")
                         .HasColumnType("float");
 
-                    b.Property<double>("LineTotal")
+                    b.Property<bool>("IsVolumnWeight")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsWeightEstimated")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsdeclaredVal")
+                        .HasColumnType("bit");
+
+                    b.Property<double>("ItemsWeight")
                         .HasColumnType("float");
 
-                    b.Property<string>("ShipmentDescription")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("ShipmentId")
+                    b.Property<Guid>("ShipmentId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("ShipmentProduct")
-                        .HasColumnType("int");
-
-                    b.Property<double>("Weight")
-                        .HasColumnType("float");
 
                     b.Property<double>("breadth")
                         .HasColumnType("float");
@@ -1051,7 +1056,9 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                 {
                     b.HasOne("IRIS.BCK.Core.Domain.Entities.ShimentEntities.Shipment", "Shipment")
                         .WithMany("ShipmentItems")
-                        .HasForeignKey("ShipmentId");
+                        .HasForeignKey("ShipmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Shipment");
                 });
