@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace IRIS.BCK.Core.Application.Business.Wallet.Queries.GetWalletTransactionByUserId
 {
-    public class GetWalletTransactionByUserIdQueryHandler : IRequestHandler<GetWalletTransactionByUserIdQuery, WalletTransactionViewModel>
+    public class GetWalletTransactionByUserIdQueryHandler : IRequestHandler<GetWalletTransactionByUserIdQuery, List<WalletTransactionViewModel>>
     {
         private readonly IWalletTransactionRepository _walletTransactionRepository;
         private readonly IMapper _mapper;
@@ -22,12 +22,12 @@ namespace IRIS.BCK.Core.Application.Business.Wallet.Queries.GetWalletTransaction
             _mapper = mapper;
         }
 
-        public async Task<WalletTransactionViewModel> Handle(GetWalletTransactionByUserIdQuery request, CancellationToken cancellationToken)
+        public async Task<List<WalletTransactionViewModel>> Handle(GetWalletTransactionByUserIdQuery request, CancellationToken cancellationToken)
         {
             var userid = request.UserId.ToString();
             var user = await _walletTransactionRepository.GetWalletTransactionByUserId(userid);
 
-            return _mapper.Map<WalletTransactionViewModel>(user);
+            return _mapper.Map<List<WalletTransactionViewModel>>(user);
         }
     }
 }

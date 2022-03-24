@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace IRIS.BCK.Core.Application.Business.Wallet.Queries.GetWalletTransactionByUserId
 {
-    public class GetWalletTransactionByUserIdQuery : IRequest<WalletTransactionViewModel>
+    public class GetWalletTransactionByUserIdQuery : IRequest<List<WalletTransactionViewModel>>
     {
         public Guid UserId { get; set; }
 
