@@ -24,7 +24,7 @@ namespace IRIS.BCK.Core.Application.Business.Wallet.Queries.GetWalletTransaction
 
         public async Task<List<WalletTransactionViewModel>> Handle(GetWalletTransactionQuery request, CancellationToken cancellationToken)
         {
-            var allWalletTransaction = (await _walletTransactionRepository.GetAllAsync()).OrderBy(x => x.CreatedDate);
+            var allWalletTransaction = (await _walletTransactionRepository.GetAllAsync()).OrderBy(x => x.CreatedDate).ToList();
             return _mapper.Map<List<WalletTransactionViewModel>>(allWalletTransaction);
         }
     }

@@ -79,10 +79,10 @@ namespace IRIS.BCK.Api
                 };
             });
 
-            //services.AddAuthorization(options =>
-            //{
-            ////    options.AddPolicy("AdminPolicy", policy => policy.RequireClaim("Claimname", "ClainValue"));
-            //});
+            services.AddAuthorization((options) =>
+            {
+
+            });
 
             services.AddApplicationServices(Configuration);
             services.AddMessagingServiceRegistration(Configuration);
@@ -147,7 +147,7 @@ namespace IRIS.BCK.Api
                 options.Password.RequireUppercase = true;
 
                 options.Lockout.MaxFailedAccessAttempts = 5;
-                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(25);
                 options.User.RequireUniqueEmail = true;
                 //options.SignIn.RequireConfirmedEmail = true;
             }).AddEntityFrameworkStores<IRISDbContext>();

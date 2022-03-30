@@ -27,7 +27,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IRIS.BCK.Infrastructure.Fil
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IRIS.BCK.Infrastructure.Payment", "IRIS.BCK.Infrastructure.Payment\IRIS.BCK.Infrastructure.Payment.csproj", "{127D01DE-AA5B-4589-BFA8-F316D9013D90}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IRIS.BCK.Test", "IRIS.BCK.Test\IRIS.BCK.Test.csproj", "{D53392C3-5B0B-46E3-8A20-C69E1557EEE6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IRIS.BCK.Test", "IRIS.BCK.Test\IRIS.BCK.Test.csproj", "{D53392C3-5B0B-46E3-8A20-C69E1557EEE6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

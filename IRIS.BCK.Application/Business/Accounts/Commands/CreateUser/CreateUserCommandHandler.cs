@@ -58,7 +58,8 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUser
                 }
             }
 
-            var body = "message to user";
+            var body = "<p>Welcome to Iris</p>";
+            body += "Welcome to Iris";
             var subject = "Subject to email";
             var email = UserMapsCommand.CreateUserEmailMessage(request.Email, body, subject);
 
@@ -92,7 +93,7 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUser
                                 IsActive = true
                             };
                             await _walletRepository.AddAsync(wallet);
-                            //await _emailService.SendEmail(email);
+                            await _emailService.SendEmail(email);
                         }
                         catch (Exception)
                         {

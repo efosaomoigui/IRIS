@@ -147,6 +147,13 @@ namespace IRIS.BCK.Api.Controllers.Account
             return Ok(roleclaim);
         }
 
+        [HttpGet("GetPermissionTypes")]
+        public async Task<ActionResult<List<ClaimTypesViewModel>>> GetPermissionTypes() 
+        {
+            var claimTypes = await _mediator.Send(new ListClaimsTypesQuery());
+            return Ok(claimTypes);
+        }
+
         [HttpGet("Permissions/GetPermissionsByRoleId/{roleid}")]
         public async Task<ActionResult<List<ClaimViewModel>>> GetPermissionsById(string roleid)
         {

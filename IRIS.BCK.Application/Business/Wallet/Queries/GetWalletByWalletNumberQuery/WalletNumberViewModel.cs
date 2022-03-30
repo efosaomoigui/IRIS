@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IRIS.BCK.Core.Domain.Entities.WalletEntities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,5 +13,6 @@ namespace IRIS.BCK.Core.Application.Business.Wallet.Queries.GetWalletByWalletNum
         public string Number { get; set; }
         public bool IsActive { get; set; }
         public Guid UserId { get; set; }
+        public List<WalletTransaction> WalletTransactions { get; set; }
     }
 }

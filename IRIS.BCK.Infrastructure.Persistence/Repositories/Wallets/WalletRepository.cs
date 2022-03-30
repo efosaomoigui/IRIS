@@ -5,6 +5,7 @@ using IRIS.BCK.Core.Application.Interfaces.IRepositories.IWalletRepositories;
 using IRIS.BCK.Core.Domain.Entities.NumberEnt;
 using IRIS.BCK.Core.Domain.Entities.WalletEntities;
 using IRIS.BCK.Core.Domain.EntityEnums;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,6 +51,12 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Wallets
         public Task<WalletNumber> GetWalletById(string walletid)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<List<WalletNumber>> GetWalletsTransaAndNumbers()
+        {
+            var lsWallets =  await _dbContext.WalletNumber.Include(s => s.WalletTransactions).ToListAsync();
+            return lsWallets;
         }
     }
 }

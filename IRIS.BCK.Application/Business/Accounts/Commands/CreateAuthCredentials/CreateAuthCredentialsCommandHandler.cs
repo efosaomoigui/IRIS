@@ -24,17 +24,19 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateAuthCredent
         private IUserRepository _userRepository;
         private readonly IMapper _mapper;
         private readonly IEmailService _emailService;
-        private readonly UserManager<User> _userManager; 
+        private readonly UserManager<User> _userManager;
+        private readonly RoleManager<AppRole> _roleManager;
 
         private readonly IConfiguration _config;
 
-        public CreateAuthCredentialsCommandHandler(IUserRepository userRepository, IMapper mapper, IEmailService emailService, IConfiguration config, UserManager<User> userManager)
+        public CreateAuthCredentialsCommandHandler(IUserRepository userRepository, IMapper mapper, IEmailService emailService, IConfiguration config, UserManager<User> userManager, RoleManager<AppRole> roleManager = null)
         {
             _userRepository = userRepository;
             _mapper = mapper;
             _emailService = emailService;
             _config = config;
             _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         public async Task<CreateAuthCredentialsCommandResponse> Handle(CreateAuthCredentialsCommand request, CancellationToken cancellationToken)
@@ -70,13 +72,23 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateAuthCredent
                     var result = await _userManager.CheckPasswordAsync(user, request.Password);
                     if (result)
                     {
-                        // Creating the security context
-                        var claims = await _userManager.GetClaimsAsync(user);
-                        var expiresAt = DateTime.UtcNow.AddMinutes(10);
+                        // Creating the security context FindByNameAsync
+                        var roleNames = await _userManager.GetRolesAsync(user); 
+                        var claims = new List<Claim>();
 
-                        //Add claims based on the role
-                        var newclaim = new Claim("UserId", user.Id.ToString());
-                        claims.Add(newclaim);
+                        foreach (var role in roleNames)
+                        {
+                            var userRole = await _roleManager.FindByNameAsync(role);   
+                            var listOfClaims = await _roleManager.GetClaimsAsync(userRole);
+
+                            //Add claims based on the role
+                            claims.AddRange(listOfClaims);
+                        }
+
+                        var userId = new Claim("UserId", user.Id.ToString());
+                        claims.Add(userId);
+
+                        var expiresAt = DateTime.UtcNow.AddMinutes(25);
 
                         createAuthCredentialsCommandResponse.AccessToken = CreateToken(claims, expiresAt);
                         createAuthCredentialsCommandResponse.ExpireAt = expiresAt;
@@ -99,8 +111,6 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateAuthCredent
                 {
                     throw;
                 }
-
-
             }
 
             return createAuthCredentialsCommandResponse;

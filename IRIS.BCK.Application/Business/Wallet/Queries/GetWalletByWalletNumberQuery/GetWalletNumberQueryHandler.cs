@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using IRIS.BCK.Application.Interfaces.IRepository;
+using IRIS.BCK.Core.Application.Interfaces.IRepositories.IWalletRepositories;
 using IRIS.BCK.Core.Domain.Entities.WalletEntities;
 using MediatR;
 using System;
@@ -13,10 +14,10 @@ namespace IRIS.BCK.Core.Application.Business.Wallet.Queries.GetWalletByWalletNum
 {
     public class GetWalletNumberQueryHandler : IRequestHandler<GetWalletNumberQuery, List<WalletNumberViewModel>>
     {
-        private readonly IGenericRepository<WalletNumber> _walletRepository;
+        private readonly IWalletRepository _walletRepository; 
         private readonly IMapper _mapper;
 
-        public GetWalletNumberQueryHandler(IGenericRepository<WalletNumber> walletRepository, IMapper mapper)
+        public GetWalletNumberQueryHandler(IWalletRepository walletRepository, IMapper mapper)
         {
             _walletRepository = walletRepository;
             _mapper = mapper;
@@ -24,7 +25,7 @@ namespace IRIS.BCK.Core.Application.Business.Wallet.Queries.GetWalletByWalletNum
 
         public async Task<List<WalletNumberViewModel>> Handle(GetWalletNumberQuery request, CancellationToken cancellationToken)
         {
-            var allWalletNumber = (await _walletRepository.GetAllAsync()).OrderBy(x => x.CreatedDate);
+            var allWalletNumber = (await _walletRepository.GetWalletsTransaAndNumbers()).OrderBy(x => x.CreatedDate);
             return _mapper.Map<List<WalletNumberViewModel>>(allWalletNumber);
         }
     }
