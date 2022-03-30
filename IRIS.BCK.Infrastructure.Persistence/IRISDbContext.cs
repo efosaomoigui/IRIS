@@ -11,6 +11,7 @@ using IRIS.BCK.Core.Domain.Entities.ShimentEntities;
 using IRIS.BCK.Core.Domain.Entities.ShipmentEntities;
 using IRIS.BCK.Core.Domain.Entities.ShipmentGroupWayBillMapEntities;
 using IRIS.BCK.Core.Domain.Entities.ShipmentProcessing;
+using IRIS.BCK.Core.Domain.Entities.ShipmentRequestEntities;
 using IRIS.BCK.Core.Domain.Entities.WalletEntities;
 using IRIS.BCK.Core.Domain.EntityEnums;
 using IRIS.BCK.Domain.Common;
@@ -52,6 +53,7 @@ namespace IRIS.BCK.Infrastructure.Persistence
         public DbSet<ServiceCenter> ServiceCenter { get; set; }
         public DbSet<NumberEnt> NumberEnt { get; set; }
         public DbSet<PaymentLog> PaymentLog { get; set; }
+        public DbSet<ShipmentRequest> ShipmentRequest { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

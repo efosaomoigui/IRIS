@@ -87,6 +87,9 @@ using IRIS.BCK.Core.Application.Business.Wallet.Queries.GetWalletTransactionByUs
 using IRIS.BCK.Core.Application.Business.Price.Queries.GetPriceByRouteId;
 using IRIS.BCK.Core.Application.Business.Payments.Queries.GetPaymentLog;
 using IRIS.BCK.Core.Application.Business.Payments.Commands.CreatePaymentLog;
+using IRIS.BCK.Core.Application.DTO.ShipmentRequests;
+using IRIS.BCK.Core.Domain.Entities.ShipmentRequestEntities;
+using IRIS.BCK.Core.Application.Business.ShipmentRequests.Queries.GetShipmentRequest;
 
 namespace IRIS.BCK.Core.Application.Mappings
 {
@@ -223,6 +226,9 @@ namespace IRIS.BCK.Core.Application.Mappings
             CreateMap<GetPaymentLogQuery, PaymentLogViewModel>();
             CreateMap<PaymentLogViewModel, GetPaymentLogQuery>();
 
+            CreateMap<GetShipmentRequestQuery, ShipmentRequestListViewModel>();
+            CreateMap<ShipmentRequestListViewModel, GetShipmentRequestQuery>();
+
             CreateMap<GetTrackHistoryByTripIdQuery, TrackHistoryViewModel>();
             CreateMap<TrackHistoryViewModel, GetTrackHistoryByTripIdQuery>();
 
@@ -234,6 +240,9 @@ namespace IRIS.BCK.Core.Application.Mappings
 
             CreateMap<TrackHistoryDto, TrackHistory>();
             CreateMap<TrackHistory, TrackHistoryDto>();
+
+            CreateMap<ShipmentRequestDto, ShipmentRequest>();
+            CreateMap<ShipmentRequest, ShipmentRequestDto>();
 
             CreateMap<WalletNumberViewModel, WalletNumber>();
             CreateMap<WalletNumber, WalletNumberViewModel>();
@@ -261,6 +270,9 @@ namespace IRIS.BCK.Core.Application.Mappings
 
             CreateMap<PaymentLog, PaymentLogViewModel>();
             CreateMap<PaymentLogViewModel, PaymentLog>();
+
+            CreateMap<ShipmentRequest, ShipmentRequestListViewModel>();
+            CreateMap<ShipmentRequestListViewModel, ShipmentRequest>();
 
             CreateMap<User, UserDto>();
             CreateMap<UserDto, User>();

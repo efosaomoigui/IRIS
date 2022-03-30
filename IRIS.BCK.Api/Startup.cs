@@ -11,6 +11,7 @@ using IRIS.BCK.Core.Application.Interfaces.IRepositories.IServiceCenterRepositor
 using IRIS.BCK.Core.Application.Interfaces.IRepositories.IShipmentGroupWayBill;
 using IRIS.BCK.Core.Application.Interfaces.IRepositories.IShipmentProcessingRepositories;
 using IRIS.BCK.Core.Application.Interfaces.IRepositories.IShipmentRepositories;
+using IRIS.BCK.Core.Application.Interfaces.IRepositories.IShipmentRequestRepositories;
 using IRIS.BCK.Core.Application.Interfaces.IRepositories.IWalletRepositories;
 using IRIS.BCK.Infrastructure.Messaging;
 using IRIS.BCK.Infrastructure.Persistence;
@@ -23,6 +24,7 @@ using IRIS.BCK.Infrastructure.Persistence.Repositories.Routes;
 using IRIS.BCK.Infrastructure.Persistence.Repositories.ServiceCentre;
 using IRIS.BCK.Infrastructure.Persistence.Repositories.ShipmentGroupWayBill;
 using IRIS.BCK.Infrastructure.Persistence.Repositories.ShipmentProcessing;
+using IRIS.BCK.Infrastructure.Persistence.Repositories.ShipmentRequests;
 using IRIS.BCK.Infrastructure.Persistence.Repositories.Shipments;
 using IRIS.BCK.Infrastructure.Persistence.Repositories.Wallets;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -81,7 +83,6 @@ namespace IRIS.BCK.Api
 
             services.AddAuthorization((options) =>
             {
-
             });
 
             services.AddApplicationServices(Configuration);
@@ -140,6 +141,7 @@ namespace IRIS.BCK.Api
             services.AddScoped<IPaymentLogRepository, PaymentLogRepository>();
             services.AddScoped<ISpecialDomesticZonePriceRepository, SpecialDomesticZonePriceRepository>();
             services.AddScoped<INumberEntRepository, NumberEntRepository>();
+            services.AddScoped<IShipmentRequestRepository, ShipmentRequestRepository>();
             services.AddIdentity<User, AppRole>(options =>
             {
                 options.Password.RequiredLength = 8;
