@@ -22,17 +22,15 @@ namespace IRIS.BCK.Core.Application.Business.ShipmentRequests.Commands.CreateShi
         //Customer Information
         public Guid Customer { get; set; }
 
-        public double GrandTotal { get; set; }
-
-        public ICollection<Address> CustomerAddress { get; set; }
+        public string CustomerAddress { get; set; }
 
         //Receivers Information
         public Guid Reciever { get; set; }
 
-        public ICollection<Address> RecieverAddress { get; set; }
+        public string RecieverAddress { get; set; }
 
         //PickUp Options
-        public PickupOptions PickupOptions { get; set; }
+        public string PickupOptions { get; set; }
 
         public Guid ServiceCenterId { get; set; }
     }
