@@ -16,14 +16,6 @@ namespace IRIS.BCK.Core.Application.Business.Payments.Commands.UpdatePayment
         {
             _paymentRepository = paymentRepository;
 
-            RuleFor(p => p.ShipmentId)
-                .NotEmpty().WithMessage("{PropertyName} is required")
-                .NotNull();
-
-            RuleFor(p => p.Shipment)
-               .NotEmpty().WithMessage("{PropertyName} is required")
-               .NotNull();
-
             RuleFor(p => p.PaymentMethod)
                .NotEmpty().WithMessage("{PropertyName} is required")
                .NotNull();

@@ -11,13 +11,14 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.CreatePrice
 {
     public class CreatePriceCommand : IRequest<CreatePriceCommandResponse>
     {
-        public ShipmentCategory Category { get; set; }
-        public ProductEnum Product { get; set; }
+        public Guid Id { get; set; }
 
+        public ShipmentCategory Category { get; set; }
         public Guid RouteId { get; set; }
 
-        public virtual Route Route { get; set; }
         public decimal UnitWeight { get; set; }
+        public ProductEnum Product { get; set; }
         public decimal PricePerUnit { get; set; }
+        public ICollection<Route> Routes { get; set; }
     }
 }

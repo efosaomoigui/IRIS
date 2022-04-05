@@ -11,13 +11,11 @@ namespace IRIS.BCK.Core.Application.DTO.Payments
     public class InvoiceDto
     {
         public Guid Id { get; set; }
-        public string InvoiceCode { get; set; }
-
-        public Guid ShipmentId { get; set; }
         public double Amount { get; set; }
+        public string InvoiceCode { get; set; }
         public Guid UserId { get; set; }
-        public string WalletNumber { get; set; }
-        public PaymentMethod PaymentMethod { get; set; } //wallet, Cash, Transfer
-        public StatusEnum Status { get; set; } // paid/pending
+        public string WaybilNumber { get; set; }
+        public PaymentMethod PaymentMethod { get; set; }
+        public StatusEnum Status { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using  IRIS.BCK.Core.Domain.EntityEnums;
+﻿using IRIS.BCK.Core.Domain.Entities.PriceEntities;
+using IRIS.BCK.Core.Domain.EntityEnums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,8 @@ namespace IRIS.BCK.Core.Application.DTO.Routes
         public string RouteName { get; set; }
 
         public string Departure { get; set; }
-
         public string Destination { get; set; }
+
+        public ICollection<PriceEnt> Price { get; set; }
     }
 }

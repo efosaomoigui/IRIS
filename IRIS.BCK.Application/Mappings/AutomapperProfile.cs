@@ -87,6 +87,7 @@ using IRIS.BCK.Core.Application.Business.Wallet.Queries.GetWalletTransactionByUs
 using IRIS.BCK.Core.Application.Business.Price.Queries.GetPriceByRouteId;
 using IRIS.BCK.Core.Application.Business.Payments.Queries.GetPaymentLog;
 using IRIS.BCK.Core.Application.Business.Payments.Commands.CreatePaymentLog;
+using IRIS.BCK.Core.Application.Business.Shipments.Commands.UpdateRoute;
 
 namespace IRIS.BCK.Core.Application.Mappings
 {
@@ -150,6 +151,9 @@ namespace IRIS.BCK.Core.Application.Mappings
 
             CreateMap<UpdateManifestCommand, Manifest>();
             CreateMap<Manifest, UpdateManifestCommand>();
+
+            CreateMap<UpdateRouteCommand, Route>();
+            CreateMap<Route, UpdateRouteCommand>();
 
             CreateMap<UpdatePaymentCommand, Invoice>();
             CreateMap<Invoice, UpdatePaymentCommand>();
@@ -222,6 +226,9 @@ namespace IRIS.BCK.Core.Application.Mappings
 
             CreateMap<GetPaymentLogQuery, PaymentLogViewModel>();
             CreateMap<PaymentLogViewModel, GetPaymentLogQuery>();
+
+            CreateMap<GetPaymentQuery, PaymentListViewModel>();
+            CreateMap<PaymentListViewModel, GetPaymentQuery>();
 
             CreateMap<GetTrackHistoryByTripIdQuery, TrackHistoryViewModel>();
             CreateMap<TrackHistoryViewModel, GetTrackHistoryByTripIdQuery>();

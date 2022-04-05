@@ -28,9 +28,6 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.UpdatePrice
                .NotEmpty().WithMessage("{PropertyName} is required")
                .NotNull();
 
-            RuleFor(p => p.RouteId)
-               .NotEmpty().WithMessage("{PropertyName} is required")
-               .NotNull();
             {
             }
         }

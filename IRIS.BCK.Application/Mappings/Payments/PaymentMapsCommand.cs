@@ -17,13 +17,13 @@ namespace IRIS.BCK.Core.Application.Mappings.Payments
             {
                 InvoiceCode = request.InvoiceCode,
                 UserId = (Guid)request.UserId,
-                WaybilNumber = request.WaybillNumber,
-                PaymentMethod = request.PaymentMethod, 
+                WaybilNumber = request.WaybilNumber,
+                PaymentMethod = request.PaymentMethod,
                 Amount = request.Amount,
                 Status = request.Status
             };
-        }       
-        
+        }
+
         public static Invoice CreatePaymentValuesMapsCommand(PaymentCriteriaCommand request)
         {
             return new Invoice
@@ -31,7 +31,7 @@ namespace IRIS.BCK.Core.Application.Mappings.Payments
                 InvoiceCode = request.InvoiceNumber,
                 UserId = (Guid)request.UserId,
                 WaybilNumber = request.WaybillNumber,
-                PaymentMethod = request.PaymentMethod, 
+                PaymentMethod = request.PaymentMethod,
                 Amount = request.Amount,
             };
         }
