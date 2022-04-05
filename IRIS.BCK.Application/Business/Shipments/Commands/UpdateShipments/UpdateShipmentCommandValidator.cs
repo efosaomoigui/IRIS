@@ -16,11 +16,11 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Commands.UpdateShipments
         {
             _ShipmentRepository = shipmentRepository;
 
-            RuleFor(p => p.FirstName)
+            RuleFor(p => p.Customer)
                 .NotEmpty().WithMessage("{PropertyName} is required")
                 .NotNull();
 
-            RuleFor(p => p.waybill)
+            RuleFor(p => p.GrandTotal)
                .NotEmpty().WithMessage("{PropertyName} is required")
                .NotNull();
             {

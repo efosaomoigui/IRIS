@@ -88,6 +88,9 @@ using IRIS.BCK.Core.Application.Business.Price.Queries.GetPriceByRouteId;
 using IRIS.BCK.Core.Application.Business.Payments.Queries.GetPaymentLog;
 using IRIS.BCK.Core.Application.Business.Payments.Commands.CreatePaymentLog;
 using IRIS.BCK.Core.Application.Business.Shipments.Commands.UpdateRoute;
+using IRIS.BCK.Core.Application.Business.ServiceCentre.Queries.GetServiceCenter;
+using IRIS.BCK.Core.Application.Business.Shipments.Commands.UpdateCollectionCenter;
+using IRIS.BCK.Core.Application.Business.Shipments.Commands.UpdateShipments;
 
 namespace IRIS.BCK.Core.Application.Mappings
 {
@@ -161,6 +164,12 @@ namespace IRIS.BCK.Core.Application.Mappings
             CreateMap<UpdateUserCommand, User>();
             CreateMap<User, UpdateUserCommand>();
 
+            CreateMap<UpdateShipmentCommand, Shipment>();
+            CreateMap<Shipment, UpdateShipmentCommand>();
+
+            CreateMap<UpdateCollectionCenterCommand, CollectionCenter>();
+            CreateMap<CollectionCenter, UpdateCollectionCenterCommand>();
+
             CreateMap<CreatePriceCommand, PriceEnt>();
             CreateMap<PriceEnt, CreateTripCommand>();
 
@@ -232,6 +241,9 @@ namespace IRIS.BCK.Core.Application.Mappings
 
             CreateMap<GetTrackHistoryByTripIdQuery, TrackHistoryViewModel>();
             CreateMap<TrackHistoryViewModel, GetTrackHistoryByTripIdQuery>();
+
+            CreateMap<GetServiceCenterQuery, ServiceCenterListViewModel>();
+            CreateMap<ServiceCenterListViewModel, GetServiceCenterQuery>();
 
             CreateMap<WalletNumberDto, WalletNumber>();
             CreateMap<WalletNumber, WalletNumberDto>();
