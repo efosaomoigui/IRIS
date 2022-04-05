@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IRIS.BCK.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(IRISDbContext))]
-    [Migration("20220321190739_number generator")]
-    partial class numbergenerator
+    [Migration("20220405112239_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -221,7 +221,7 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                     b.Property<string>("StreetName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("User")
+                    b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("customershipmentAddressId")
@@ -405,11 +405,14 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                     b.ToTable("NumberEnt");
                 });
 
-            modelBuilder.Entity("IRIS.BCK.Core.Domain.Entities.PaymentEntities.Payment", b =>
+            modelBuilder.Entity("IRIS.BCK.Core.Domain.Entities.PaymentEntities.Invoice", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<double>("Amount")
+                        .HasColumnType("float");
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
@@ -429,20 +432,53 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                     b.Property<int>("PaymentMethod")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("ShipmentId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("WaybilNumber")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("ShipmentId");
+                    b.ToTable("Invoice");
+                });
 
-                    b.ToTable("Payment");
+            modelBuilder.Entity("IRIS.BCK.Core.Domain.Entities.PaymentEntities.PaymentLog", b =>
+                {
+                    b.Property<Guid>("PaymentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<double>("Amount")
+                        .HasColumnType("float");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("LastModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("PaymentMethod")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TransactionCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("PaymentId");
+
+                    b.ToTable("PaymentLog");
                 });
 
             modelBuilder.Entity("IRIS.BCK.Core.Domain.Entities.PriceEntities.PriceEnt", b =>
@@ -815,7 +851,12 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("WalletNumberId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("WalletNumberId");
 
                     b.ToTable("WalletTransaction");
                 });
@@ -826,29 +867,26 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<decimal>("DeclarationOfValueCheck")
-                        .HasColumnType("decimal(18,4)");
-
                     b.Property<string>("DimensionUnit")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("Height")
                         .HasColumnType("float");
 
-                    b.Property<bool>("IsVolumnWeight")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsWeightEstimated")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsdeclaredVal")
-                        .HasColumnType("bit");
-
-                    b.Property<double>("ItemsWeight")
+                    b.Property<double>("LineTotal")
                         .HasColumnType("float");
 
-                    b.Property<Guid>("ShipmentId")
+                    b.Property<string>("ShipmentDescription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("ShipmentId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("ShipmentProduct")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Weight")
+                        .HasColumnType("float");
 
                     b.Property<double>("breadth")
                         .HasColumnType("float");
@@ -998,17 +1036,6 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                     b.Navigation("Trip");
                 });
 
-            modelBuilder.Entity("IRIS.BCK.Core.Domain.Entities.PaymentEntities.Payment", b =>
-                {
-                    b.HasOne("IRIS.BCK.Core.Domain.Entities.ShimentEntities.Shipment", "Shipment")
-                        .WithMany()
-                        .HasForeignKey("ShipmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Shipment");
-                });
-
             modelBuilder.Entity("IRIS.BCK.Core.Domain.Entities.ShipmentEntities.CollectionCenter", b =>
                 {
                     b.HasOne("IRIS.BCK.Core.Domain.Entities.ShimentEntities.Shipment", "Shipment")
@@ -1027,13 +1054,18 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                         .HasForeignKey("GroupWayBillManifestMapid");
                 });
 
+            modelBuilder.Entity("IRIS.BCK.Core.Domain.Entities.WalletEntities.WalletTransaction", b =>
+                {
+                    b.HasOne("IRIS.BCK.Core.Domain.Entities.WalletEntities.WalletNumber", null)
+                        .WithMany("WalletTransactions")
+                        .HasForeignKey("WalletNumberId");
+                });
+
             modelBuilder.Entity("IRIS.BCK.Core.Domain.EntityEnums.ShipmentItem", b =>
                 {
                     b.HasOne("IRIS.BCK.Core.Domain.Entities.ShimentEntities.Shipment", "Shipment")
                         .WithMany("ShipmentItems")
-                        .HasForeignKey("ShipmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ShipmentId");
 
                     b.Navigation("Shipment");
                 });
@@ -1114,6 +1146,11 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                     b.Navigation("Fleet");
 
                     b.Navigation("GroupWayBillManifestMap");
+                });
+
+            modelBuilder.Entity("IRIS.BCK.Core.Domain.Entities.WalletEntities.WalletNumber", b =>
+                {
+                    b.Navigation("WalletTransactions");
                 });
 #pragma warning restore 612, 618
         }
