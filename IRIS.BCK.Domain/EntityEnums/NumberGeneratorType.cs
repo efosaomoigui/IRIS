@@ -2,6 +2,7 @@
 {
     public enum NumberGeneratorType
     {
+        Default= 0,
         WaybillNumber = 1,
         GroupWaybillNumber = 2,
         ManifestNumber = 3, 

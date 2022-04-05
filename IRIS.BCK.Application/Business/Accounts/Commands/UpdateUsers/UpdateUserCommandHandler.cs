@@ -62,14 +62,19 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.UpdateUsers
 
             if (UpdateUserCommandResponse.Success)
             {
-                var updateUser = _mapper.Map<User>(request);
+                var user = await _userManager.FindByIdAsync(request.UserId.ToString());
+                user.FirstName = request.FirstName; 
+                user.LastName = request.LastName; 
+                user.Email = request.Email; 
+                user.PhoneNumber = request.PhoneNumber; 
+                var updateUser = _mapper.Map<User>(user);
                 await _userManager.UpdateAsync(updateUser);
 
                 try
                 {
                     await _emailService.SendEmail(email);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     throw;
                 }

@@ -68,7 +68,7 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Payments
                 {
                     number = long.Parse(numberCode) + 1;
                     numberStr = number.ToString("000000");
-                    numberGenerated = (int)NumberGeneratorType.WaybillNumber + codeStr + numberStr;
+                    numberGenerated = (int)NumberGeneratorType.WalletNumber + codeStr + numberStr;
                 }
                 else if (numberGeneratorType == NumberGeneratorType.WaybillNumber)
                 {
@@ -104,7 +104,7 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Payments
                 {
                     number = long.Parse(numberCode) + 1;
                     numberStr = number.ToString("000000");
-                    numberGenerated = (int)NumberGeneratorType.WalletNumber + codeStr + numberStr;
+                    numberGenerated = (int)NumberGeneratorType.Default + codeStr + numberStr;
                 }
 
                 //Add or update the NumberGeneratorMonitor Table for the Service Centre and numberGeneratorType
@@ -137,7 +137,7 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Payments
         public async Task UpdateNumberGeneratorMonitor(string serviceCenterCode, NumberGeneratorType numberGeneratorType, string numberStr)
         {
             var monitor = _dbContext.NumberEnt.SingleOrDefault(x => x.ServiceCentreCode == serviceCenterCode && x.NumberGeneratorType == numberGeneratorType);
-            monitor.ServiceCentreCode = numberStr;
+            monitor.NumberCode = numberStr;
         }
     }
 }

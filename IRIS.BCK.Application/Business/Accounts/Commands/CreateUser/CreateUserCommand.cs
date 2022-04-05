@@ -23,6 +23,7 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUser
         public UserType UserType { get; set; }
         public string PictureUrl { get; set; }
         public UserStatus Status { get; set; }
+        public Gender Gender { get; set; } 
         public string IdentificationImage { get; set; }
         public string WalletNumber { get; set; }
         public DateTime DateCreated { get; set; }

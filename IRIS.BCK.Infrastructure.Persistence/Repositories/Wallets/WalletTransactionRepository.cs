@@ -1,6 +1,7 @@
 ﻿using IRIS.BCK.Application.Interfaces.IRepository;
 using IRIS.BCK.Core.Application.Interfaces.IRepositories.IWalletRepositories;
 using IRIS.BCK.Core.Domain.Entities.WalletEntities;
+using IRIS.BCK.Core.Domain.EntityEnums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -64,6 +65,7 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Wallets
             if (walletBalance > (decimal)(walletTransaction.Amount))
             {
                 var newWalletBalane = walletBalance - (decimal)walletTransaction.Amount ;
+                walletTransaction.TransactionType = TransactionType.Debit;
                 await _dbContext.WalletTransaction.AddAsync(walletTransaction);
                 wallet.WalletBalance = newWalletBalane;
                 wallet.UserId = walletTransaction.UserId;

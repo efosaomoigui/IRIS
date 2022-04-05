@@ -14,7 +14,7 @@ namespace IRIS.BCK.Core.Application.Interfaces.IRepositories.IWalletRepositories
 
         Task<List<WalletTransaction>> GetWalletTransactionByUserId(string userid); 
         Task<WalletTransaction> WalletCredit(WalletTransaction walletTransaction); 
-        Task<WalletTransaction> WalletDebit(WalletTransaction walletTransaction); 
+        Task<WalletTransaction> WalletDebit(WalletTransaction walletTransaction);
         //Task<WalletTransaction> DoTransaction(string userid); 
     }
 }

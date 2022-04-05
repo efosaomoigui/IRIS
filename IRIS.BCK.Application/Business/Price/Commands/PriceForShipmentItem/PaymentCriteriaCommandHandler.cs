@@ -65,6 +65,7 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem
             if (PaymentCriteriaCommandResponse.Success)
             {
                 PaymentCriteriaCommandResponse.paymentData = new PaymentCriteriaCommand();
+                PaymentCriteriaCommandResponse.paymentData.PaymentStatus = false;
 
                 if (request.PaymentMethod == PaymentMethod.Wallet)
                 {
@@ -74,16 +75,16 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem
 
                     if (request.UserId.ToString() != null)
                     {
+                        //genenerate invoicecode
+                        var invoiceCode = _numberEntRepository.GenerateNextNumber(NumberGeneratorType.InvoiceNumber, "101").Result;
+
                         //Waybill for the shipment
                         var WaybillNumber = _numberEntRepository.GenerateNextNumber(NumberGeneratorType.WaybillNumber, "101").Result; 
-                        
 
                         //add wallet transactions
                         var walletTransaction = WalletTransactionsMapsCommand.CreateWalletTransactionsCriteriaMapsCommand(request);
                         walletTransaction = _walletTransactionRepository.WalletDebit(walletTransaction).Result;
 
-                        //genenerate invoicecode
-                        var invoiceCode = _numberEntRepository.GenerateNextNumber(NumberGeneratorType.InvoiceNumber, "101").Result;
                         request.InvoiceNumber = invoiceCode;
                         request.WaybillNumber = WaybillNumber;
                         var invoiceMap = PaymentMapsCommand.CreatePaymentValuesMapsCommand(request);
