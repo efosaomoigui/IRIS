@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IRIS.BCK.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(IRISDbContext))]
-    [Migration("20220405112239_init")]
-    partial class init
+    [Migration("20220405180505_chiaswork")]
+    partial class chiaswork
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -784,6 +784,65 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Trips");
+                });
+
+            modelBuilder.Entity("IRIS.BCK.Core.Domain.Entities.ShipmentRequestEntities.ShipmentRequest", b =>
+                {
+                    b.Property<Guid>("ShipmentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("Customer")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CustomerAddress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("LastModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PickupOptions")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("Reciever")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("RecieverAddress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("ServiceCenterId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Waybill")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ShipmentId");
+
+                    b.ToTable("ShipmentRequest");
                 });
 
             modelBuilder.Entity("IRIS.BCK.Core.Domain.Entities.WalletEntities.WalletNumber", b =>
