@@ -17,9 +17,9 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateShipment
         {
             _ShipmentRepository = shipmentRepository;
 
-            RuleFor(p => p.ShipmentItems)
-                .NotEmpty().WithMessage("{PropertyName} is required")
-                .NotNull();
+            //RuleFor(p => p.ShipmentItems)
+            //    .NotEmpty().WithMessage("{PropertyName} is required")
+            //    .NotNull();
 
             RuleFor(p => p.Waybill) // Custom Validation for unique waybills
                 .MustAsync(CheckUniqueWaybillNumber).WithMessage("{PropertyName} must be unique");
@@ -36,9 +36,9 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateShipment
                 .NotEmpty().WithMessage("{PropertyName} is required")
                 .NotNull();
 
-            RuleFor(p => p.PickupOptions)
-                .NotEmpty().WithMessage("{PropertyName} is required")
-                .NotNull();
+            //RuleFor(p => p.PickupOptions)
+            //    .NotEmpty().WithMessage("{PropertyName} is required")
+            //    .NotNull();
             RuleFor(p => p.Reciever)
                 .NotEmpty().WithMessage("{PropertyName} is required")
                 .NotNull();

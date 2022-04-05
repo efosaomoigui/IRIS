@@ -54,8 +54,8 @@ namespace IRIS.BCK.Core.Application.Business.Monitoring.Commands.UpdateTrackHist
 
             if (UpdateTrackHistoryCommandResponse.Success)
             {
-                var updatePayment = _mapper.Map<TrackHistory>(request);
-                await _trackHistoryRepository.UpdateAsync(updatePayment);
+                var updateTrackHistory = _mapper.Map<TrackHistory>(request);
+                await _trackHistoryRepository.UpdateAsync(updateTrackHistory);
 
                 try
                 {
@@ -66,7 +66,7 @@ namespace IRIS.BCK.Core.Application.Business.Monitoring.Commands.UpdateTrackHist
                     throw;
                 }
 
-                UpdateTrackHistoryCommandResponse.TrackHistorydto = _mapper.Map<TrackHistoryDto>(updatePayment);
+                UpdateTrackHistoryCommandResponse.TrackHistorydto = _mapper.Map<TrackHistoryDto>(updateTrackHistory);
 
                 return UpdateTrackHistoryCommandResponse;
             }

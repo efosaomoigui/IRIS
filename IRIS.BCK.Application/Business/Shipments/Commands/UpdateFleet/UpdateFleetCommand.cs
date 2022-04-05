@@ -11,7 +11,7 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Commands.UpdateFleet
 {
     public class UpdateFleetCommand : IRequest<UpdateFleetCommandResponse>
     {
-        public int FleetId { get; set; }
+        public Guid FleetId { get; set; }
 
         [MaxLength(100)]
         public string RegistrationNumber { get; set; }

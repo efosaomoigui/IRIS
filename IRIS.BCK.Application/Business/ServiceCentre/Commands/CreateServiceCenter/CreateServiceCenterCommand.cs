@@ -10,8 +10,10 @@ namespace IRIS.BCK.Core.Application.Business.ServiceCentre.Commands.CreateServic
     public class CreateServiceCenterCommand : IRequest<CreateServiceCenterCommandResponse>
     {
         public Guid ServiceCenterId { get; set; }
+        public string ServiceCode { get; set; }
         public string ServiceCenterName { get; set; }
         public string State { get; set; }
         public string ServiceCenterCountry { get; set; }
+        public string ServiceTag { get; set; }
     }
 }

@@ -65,7 +65,7 @@ namespace IRIS.BCK.Api.Controllers.Shipment
             return Ok(response);
         }
 
-        [HttpPut("Route", Name = "EditRoute")]
+        [HttpPut("Route/edit", Name = "EditRoute")]
         public async Task<ActionResult<CreateRouteCommandResponse>> UpdateRoute([FromBody] UpdateRouteCommand updateRouteCommand)
         {
             var response = await _mediator.Send(updateRouteCommand);
@@ -123,7 +123,7 @@ namespace IRIS.BCK.Api.Controllers.Shipment
             return Ok(response);
         }
 
-        [HttpPut("Fleet", Name = "EditFleet")]
+        [HttpPut("Fleet/edit", Name = "EditFleet")]
         public async Task<ActionResult<CreateFleetCommandResponse>> UpdateFleet([FromBody] UpdateFleetCommand updateFleetCommand)
         {
             var response = await _mediator.Send(updateFleetCommand);
@@ -169,12 +169,11 @@ namespace IRIS.BCK.Api.Controllers.Shipment
         }
 
         [HttpPost("PriceSettings", Name = "PriceForShipmentItem")]
-        public async Task<ActionResult<PriceForShipmentItemCommandResponse>> PriceForShipment([FromBody] PriceForShipmentItemCommand priceForShipmentItem)  
+        public async Task<ActionResult<PriceForShipmentItemCommandResponse>> PriceForShipment([FromBody] PriceForShipmentItemCommand priceForShipmentItem)
         {
             var response = await _mediator.Send(priceForShipmentItem);
             return Ok(response);
         }
-
 
         [HttpGet("GetPriceByRouteId/{routeid}")]
         public async Task<ActionResult<PriceViewModel>> GetPriceByRouteId([FromRoute] Guid routeid)
@@ -189,7 +188,7 @@ namespace IRIS.BCK.Api.Controllers.Shipment
             return Ok(route);
         }
 
-        [HttpPut("Price", Name = "EditPrice")]
+        [HttpPut("Price/edit", Name = "EditPrice")]
         public async Task<ActionResult<UpdatePriceCommandResponse>> UpdatePrice([FromBody] UpdatePriceCommand updatePriceCommand)
         {
             var response = await _mediator.Send(updatePriceCommand);

@@ -20,9 +20,6 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Commands.UpdateCollection
                 .NotEmpty().WithMessage("{PropertyName} is required")
                 .NotNull();
 
-            RuleFor(p => p.Shipment)
-                .NotEmpty().WithMessage("{PropertyName} is required")
-                .NotNull();
             {
             }
         }

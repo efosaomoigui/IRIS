@@ -1,6 +1,8 @@
-﻿using  IRIS.BCK.Core.Domain.EntityEnums;
+﻿using IRIS.BCK.Core.Domain.EntityEnums;
 using IRIS.BCK.Core.Domain.Entities.AddressEntities;
+
 using IRIS.BCK.Core.Domain.EntityEnums;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +20,7 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Queries.GetShipmentList
         //Customer Information
         public Guid Customer { get; set; }
 
-        public decimal GrandTotal { get; set; }
+        public double GrandTotal { get; set; }
 
         public ICollection<Address> CustomerAddress { get; set; }
 

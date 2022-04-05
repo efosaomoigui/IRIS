@@ -87,6 +87,10 @@ using IRIS.BCK.Core.Application.Business.Wallet.Queries.GetWalletTransactionByUs
 using IRIS.BCK.Core.Application.Business.Price.Queries.GetPriceByRouteId;
 using IRIS.BCK.Core.Application.Business.Payments.Queries.GetPaymentLog;
 using IRIS.BCK.Core.Application.Business.Payments.Commands.CreatePaymentLog;
+using IRIS.BCK.Core.Application.Business.Shipments.Commands.UpdateRoute;
+using IRIS.BCK.Core.Application.Business.ServiceCentre.Queries.GetServiceCenter;
+using IRIS.BCK.Core.Application.Business.Shipments.Commands.UpdateCollectionCenter;
+using IRIS.BCK.Core.Application.Business.Shipments.Commands.UpdateShipments;
 using IRIS.BCK.Core.Application.DTO.ShipmentRequests;
 using IRIS.BCK.Core.Domain.Entities.ShipmentRequestEntities;
 using IRIS.BCK.Core.Application.Business.ShipmentRequests.Queries.GetShipmentRequest;
@@ -154,11 +158,20 @@ namespace IRIS.BCK.Core.Application.Mappings
             CreateMap<UpdateManifestCommand, Manifest>();
             CreateMap<Manifest, UpdateManifestCommand>();
 
+            CreateMap<UpdateRouteCommand, Route>();
+            CreateMap<Route, UpdateRouteCommand>();
+
             CreateMap<UpdatePaymentCommand, Invoice>();
             CreateMap<Invoice, UpdatePaymentCommand>();
 
             CreateMap<UpdateUserCommand, User>();
             CreateMap<User, UpdateUserCommand>();
+
+            CreateMap<UpdateShipmentCommand, Shipment>();
+            CreateMap<Shipment, UpdateShipmentCommand>();
+
+            CreateMap<UpdateCollectionCenterCommand, CollectionCenter>();
+            CreateMap<CollectionCenter, UpdateCollectionCenterCommand>();
 
             CreateMap<CreatePriceCommand, PriceEnt>();
             CreateMap<PriceEnt, CreateTripCommand>();
@@ -226,11 +239,11 @@ namespace IRIS.BCK.Core.Application.Mappings
             CreateMap<GetPaymentLogQuery, PaymentLogViewModel>();
             CreateMap<PaymentLogViewModel, GetPaymentLogQuery>();
 
-            CreateMap<GetShipmentRequestQuery, ShipmentRequestListViewModel>();
-            CreateMap<ShipmentRequestListViewModel, GetShipmentRequestQuery>();
-
             CreateMap<GetTrackHistoryByTripIdQuery, TrackHistoryViewModel>();
             CreateMap<TrackHistoryViewModel, GetTrackHistoryByTripIdQuery>();
+
+            CreateMap<GetServiceCenterQuery, ServiceCenterListViewModel>();
+            CreateMap<ServiceCenterListViewModel, GetServiceCenterQuery>();
 
             CreateMap<WalletNumberDto, WalletNumber>();
             CreateMap<WalletNumber, WalletNumberDto>();

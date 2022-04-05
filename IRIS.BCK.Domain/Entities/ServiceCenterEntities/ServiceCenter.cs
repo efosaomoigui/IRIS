@@ -1,5 +1,6 @@
 ﻿using IRIS.BCK.Core.Domain.Entities.ShimentEntities;
 using IRIS.BCK.Core.Domain.Entities.ShipmentProcessing;
+using IRIS.BCK.Domain.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +12,10 @@ namespace IRIS.BCK.Core.Domain.Entities.ServiceCenterEntities
     public class ServiceCenter
     {
         public Guid ServiceCenterId { get; set; }
-        public string  ServiceCode { get; set; }  
-        public string  ServiceCenterName { get; set; } 
-        public string State { get; set; } 
+        public string ServiceCode { get; set; }
+        public string ServiceCenterName { get; set; }
+        public string State { get; set; }
         public string ServiceCenterCountry { get; set; }
-        public string ServiceTag { get; set; } 
+        public string ServiceTag { get; set; }
     }
 }
