@@ -64,8 +64,8 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem
 
             if (PaymentCriteriaCommandResponse.Success)
             {
-                PaymentCriteriaCommandResponse.paymentData = new PaymentCriteriaCommand();
-                PaymentCriteriaCommandResponse.paymentData.PaymentStatus = false;
+                PaymentCriteriaCommandResponse = new PaymentCriteriaCommandResponse();
+                PaymentCriteriaCommandResponse.PaymentStatus = false;
 
                 if (request.PaymentMethod == PaymentMethod.Wallet)
                 {
@@ -143,28 +143,28 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem
                         if (walletTransaction != null)
                         {
                             await _shipmentRepository.AddAsync(shipment);
-                            PaymentCriteriaCommandResponse.paymentData.PaymentStatus = true;
-                            PaymentCriteriaCommandResponse.paymentData.WaybillNumber = WaybillNumber;
-                            PaymentCriteriaCommandResponse.paymentData.InvoiceNumber = invoiceCode;
+                            PaymentCriteriaCommandResponse.PaymentStatus = true;
+                            PaymentCriteriaCommandResponse.WaybillNumber = WaybillNumber;
+                            PaymentCriteriaCommandResponse.InvoiceNumber = invoiceCode;
                         }
                     }
                 }
                 else if (request.PaymentMethod == PaymentMethod.PostPaid)
                 {
-                    PaymentCriteriaCommandResponse.paymentData.PaymentStatus = true;
+                    PaymentCriteriaCommandResponse.PaymentStatus = true;
                 }
                 else if (request.PaymentMethod == PaymentMethod.CreditCard)
                 {
-                    PaymentCriteriaCommandResponse.paymentData.PaymentStatus = true;
+                    PaymentCriteriaCommandResponse.PaymentStatus = true;
                 }
                 else if (request.PaymentMethod == PaymentMethod.USSD)
                 {
-                    PaymentCriteriaCommandResponse.paymentData.PaymentStatus = true;
+                    PaymentCriteriaCommandResponse.PaymentStatus = true;
 
                 }
                 else if (request.PaymentMethod == PaymentMethod.Cash)
                 {
-                    PaymentCriteriaCommandResponse.paymentData.PaymentStatus = true;
+                    PaymentCriteriaCommandResponse.PaymentStatus = true;
                 }
 
             }

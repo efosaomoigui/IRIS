@@ -53,7 +53,6 @@ namespace IRIS.BCK.Core.Application.Business.Wallet.Queries.GetWalletTransaction
 
                         listWallets.Add(singleWalletVm);
                     }
-
                 }
 
             }
