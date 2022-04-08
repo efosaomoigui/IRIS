@@ -13,7 +13,7 @@ namespace IRIS.BCK.Core.Application.Mappings.Settings
             {
                 Capacity = request.Capacity,
                 ChasisNumber = request.ChassisNumber,
-                OwnerId = request.OwnerId,
+                UserId = request.OwnerId,
                 Description = request.Description,
                 EngineNumber = request.EngineNumber,
                 FleetId = request.FleetId,

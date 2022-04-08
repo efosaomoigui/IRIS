@@ -10,10 +10,8 @@ namespace IRIS.BCK.Core.Domain.Entities.FleetEntities
     {
         [Key]
         public Guid FleetId { get; set; }
-
         [MaxLength(100)]
         public string RegistrationNumber { get; set; }
-
         public string ChasisNumber { get; set; }
         public string EngineNumber { get; set; }
         public bool Status { get; set; }
@@ -22,7 +20,6 @@ namespace IRIS.BCK.Core.Domain.Entities.FleetEntities
         public string Description { get; set; }
         public string FleetModel { get; set; }
         public string FleetMake { get; set; }
-        public Guid OwnerId { get; set; }
         public Guid UserId { get; set; }
     }
 }
