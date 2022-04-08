@@ -17,7 +17,7 @@ namespace IRIS.BCK.Api.Controllers.Wallet
     public class WalletController : BaseApiController
     {
         [HttpGet("WalletNumber/all", Name = "GetAllWalletNumber")]
-        public async Task<ActionResult<List<WalletNumberViewModel>>> GetAllWalletNumber()
+        public async Task<ActionResult<List<WalletTransactionViewModel>>> GetAllWalletNumber()
         {
             var walletNumber = await _mediator.Send(new GetWalletNumberQuery());
             return Ok(walletNumber);

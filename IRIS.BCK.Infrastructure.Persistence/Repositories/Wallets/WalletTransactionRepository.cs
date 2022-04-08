@@ -2,6 +2,7 @@
 using IRIS.BCK.Core.Application.Interfaces.IRepositories.IWalletRepositories;
 using IRIS.BCK.Core.Domain.Entities.WalletEntities;
 using IRIS.BCK.Core.Domain.EntityEnums;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,9 +27,10 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Wallets
             throw new NotImplementedException();
         }
 
-        public async Task<List<WalletTransaction>> GetWalletTransactionByUserId(string userid)
+        public async Task<List<WalletNumber>> GetWalletTransactionByUserId(string userid)
         {
-            var result =  _dbContext.WalletTransaction.Where(e => e.UserId.ToString() == userid).ToList();
+            var result = await _dbContext.WalletNumber.Where(e => e.UserId.ToString() == userid).OrderByDescending(e => e.Id).Include(s => s.WalletTransactions).ToListAsync();
+            //var result =  _dbContext.WalletTransaction.Where(e => e.UserId.ToString() == userid).ToList();
             return result;
         }
 
@@ -43,6 +45,9 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Wallets
             if (walletBalance > (decimal)(walletTransaction.Amount))
             {
                 var newWalletBalane = walletBalance + (decimal)walletTransaction.Amount;
+                walletTransaction.WalletNumberId = wallet.Id;
+                walletTransaction.TransactionType = TransactionType.Credit;
+                walletTransaction.LineBalance = newWalletBalane;
                 await _dbContext.WalletTransaction.AddAsync(walletTransaction);
                 wallet.WalletBalance = newWalletBalane;
                 wallet.UserId = walletTransaction.UserId;
@@ -65,7 +70,9 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Wallets
             if (walletBalance > (decimal)(walletTransaction.Amount))
             {
                 var newWalletBalane = walletBalance - (decimal)walletTransaction.Amount ;
+                walletTransaction.WalletNumberId = wallet.Id;
                 walletTransaction.TransactionType = TransactionType.Debit;
+                walletTransaction.LineBalance = newWalletBalane;
                 await _dbContext.WalletTransaction.AddAsync(walletTransaction);
                 wallet.WalletBalance = newWalletBalane;
                 wallet.UserId = walletTransaction.UserId;

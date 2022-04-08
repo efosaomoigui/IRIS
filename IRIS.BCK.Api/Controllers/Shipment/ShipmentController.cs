@@ -76,6 +76,13 @@ namespace IRIS.BCK.Api.Controllers.Shipment
             var response = await _mediator.Send(deleteShipmentCommand);
             return Ok(response);
         }
+         
+        [HttpGet("Shipment/WaybillAndInvoiceNumber", Name = "GetNewWaybillAndInvoiceNumber")]
+        public async Task<ActionResult<List<NewWayBillViewModel>>> GetNewWaybillAndInvoiceNumber()
+        {
+            var center = await _mediator.Send(new GetNewWayBillNumberQuery());
+            return Ok(center);
+        }
 
         #region CollectionCenter
 

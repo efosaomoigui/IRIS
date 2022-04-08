@@ -16,6 +16,8 @@ namespace IRIS.BCK.Core.Application.Business.Wallet.Queries.GetWalletTransaction
         public string Amount { get; set; }
         public string TransactionType { get; set; } 
         public string Description { get; set; }
+        public decimal LineBalance { get; set; }
+        public decimal WalletBalance { get; set; }
         public Guid UserId { get; set; }
     }
 }

@@ -54,7 +54,6 @@ namespace IRIS.BCK.Core.Application.Business.Wallet.Queries.GetWalletTransaction
                         listWallets.Add(singleWalletVm);
                     }
                 }
-
             }
 
             return _mapper.Map<List<WalletTransactionViewModel>>(listWallets);

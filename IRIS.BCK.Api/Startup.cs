@@ -150,7 +150,7 @@ namespace IRIS.BCK.Api
 
                 options.Lockout.MaxFailedAccessAttempts = 5;
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(25);
-                options.User.RequireUniqueEmail = true;
+                //options.User.RequireUniqueEmail = true;
                 //options.SignIn.RequireConfirmedEmail = true;
             }).AddEntityFrameworkStores<IRISDbContext>();
         }

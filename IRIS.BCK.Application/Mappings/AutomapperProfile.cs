@@ -260,6 +260,9 @@ namespace IRIS.BCK.Core.Application.Mappings
             CreateMap<WalletNumberViewModel, WalletNumber>();
             CreateMap<WalletNumber, WalletNumberViewModel>();
 
+            CreateMap<WalletTransactionViewModel, WalletNumber>();
+            CreateMap<WalletNumber, WalletTransactionViewModel>();
+
             CreateMap<WalletTransactionDto, WalletTransaction>();
             CreateMap<WalletTransaction, WalletTransactionDto>();
 

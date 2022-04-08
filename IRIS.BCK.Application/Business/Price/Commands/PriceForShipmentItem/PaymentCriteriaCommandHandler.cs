@@ -23,6 +23,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using IRIS.BCK.Core.Application.Mappings.Users;
+using IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUser;
+using IRIS.BCK.Core.Domain.Entities.ShimentEntities;
 
 namespace IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem
 {
@@ -38,8 +41,9 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem
         private INumberEntRepository _numberEntRepository;
         private IInvoiceRepository _invoiceRepository;
         private IShipmentRepository _shipmentRepository;
+        private IMediator _mediator;
 
-        public PaymentCriteriaCommandHandler(IPriceEntRepository priceRepository, IWalletTransactionRepository walletTransactionRepository, IMapper mapper, IEmailService emailService, UserManager<User> userManager, INumberEntRepository numberEntRepository = null, IInvoiceRepository invoiceRepository = null, IShipmentRepository shipmentRepository = null)
+        public PaymentCriteriaCommandHandler(IPriceEntRepository priceRepository, IWalletTransactionRepository walletTransactionRepository, IMapper mapper, IEmailService emailService, UserManager<User> userManager, INumberEntRepository numberEntRepository = null, IInvoiceRepository invoiceRepository = null, IShipmentRepository shipmentRepository = null, IMediator mediator = null)
         {
             _priceRepository = priceRepository;
             _walletTransactionRepository = walletTransactionRepository;
@@ -49,6 +53,7 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem
             _numberEntRepository = numberEntRepository;
             _invoiceRepository = invoiceRepository;
             _shipmentRepository = shipmentRepository;
+            _mediator = mediator;
         }
 
         public async Task<PaymentCriteriaCommandResponse> Handle(PaymentCriteriaCommand request, CancellationToken cancellationToken)
@@ -67,47 +72,69 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem
                 PaymentCriteriaCommandResponse = new PaymentCriteriaCommandResponse();
                 PaymentCriteriaCommandResponse.PaymentStatus = false;
 
+                //convert the jsonstring in values from UI
+                var jsonString = request.Values.ToString();
+                var resultValues = JsonConvert.DeserializeObject<Values>(jsonString);
+                resultValues.shipmentCategory = (resultValues.shipmentCategory == "mailandparcel") ? "MailAndParcel" : resultValues.shipmentCategory;
+
                 if (request.PaymentMethod == PaymentMethod.Wallet)
                 {
-                    request.CustomerPhoneNumber = "0" + request.CustomerPhoneNumber;
-                    var ShipperUser = _userManager.Users.FirstOrDefault(x => x.PhoneNumber == request.CustomerPhoneNumber);
-                    request.UserId = ShipperUser.UserId;
+                    request.CustomerPhoneNumber = checkPhone(resultValues.shipperPhoneNumber);
+                    resultValues.shipperPhoneNumber = request.CustomerPhoneNumber;
+                    var ShipperUser = _userManager.Users.FirstOrDefault(x => x.PhoneNumber == resultValues.shipperPhoneNumber);
+                    Guid newUserId = new Guid();
+
+                    if (ShipperUser == null)
+                    {
+                        var userCommand = UserMapsCommand.CreateShipperMapsCommand(resultValues);
+                        //newUserId = userCommand.UserId;
+                        var newUser = await _mediator.Send(userCommand);
+                        newUserId = newUser.Userdto.UserId;
+                    }
+
+                    request.UserId = (ShipperUser != null) ? ShipperUser.UserId : newUserId;
 
                     if (request.UserId.ToString() != null)
                     {
-                        //genenerate invoicecode
-                        var invoiceCode = _numberEntRepository.GenerateNextNumber(NumberGeneratorType.InvoiceNumber, "101").Result;
+                        request.PaymentMethod = PaymentMethod.Wallet;
 
-                        //Waybill for the shipment
-                        var WaybillNumber = _numberEntRepository.GenerateNextNumber(NumberGeneratorType.WaybillNumber, "101").Result; 
+                        //waybill and invoice number from values
+                        request.InvoiceNumber = resultValues.invoiceNumber;
+                        request.WaybillNumber = resultValues.waybillNumber;
 
                         //add wallet transactions
                         var walletTransaction = WalletTransactionsMapsCommand.CreateWalletTransactionsCriteriaMapsCommand(request);
                         walletTransaction = _walletTransactionRepository.WalletDebit(walletTransaction).Result;
 
-                        request.InvoiceNumber = invoiceCode;
-                        request.WaybillNumber = WaybillNumber;
                         var invoiceMap = PaymentMapsCommand.CreatePaymentValuesMapsCommand(request);
-                        await _invoiceRepository.AddAsync(invoiceMap);
+                        var invoiceExit = _invoiceRepository.GetAllAsync().Result.FirstOrDefault(x => x.InvoiceCode == request.InvoiceNumber);
+
+                        if (invoiceExit == null)
+                        {
+                            await _invoiceRepository.AddAsync(invoiceMap);
+                        }
 
                         //create shipment Status = (walletTransaction != null)? StatusEnum.Paid : StatusEnum.Pending
                         var shipment = ShipmentMapsCommand.CreateShipmentValuesMapsCommand(request);
-                        shipment.Waybill = WaybillNumber;
-
-                        //convert the jsonstring in values from UI
-                        var jsonString = request.Values.ToString();
-                        var resultValues = JsonConvert.DeserializeObject<Values>(jsonString);
-                        resultValues.shipmentCategory = (resultValues.shipmentCategory == "mailandparcel") ? "MailAndParcel" : resultValues.shipmentCategory;
+                        shipment.Waybill = request.WaybillNumber;
 
                         ShipmentCategory category;
-                        Enum.TryParse(resultValues.shipmentCategory, out category); 
+                        Enum.TryParse(resultValues.shipmentCategory, out category);
+
+                        var recieverPhoneNumber = checkPhone(resultValues.receiverPhoneNumber);
+                        resultValues.receiverPhoneNumber = recieverPhoneNumber;
+
+                        var RecieverUser = _userManager.Users.FirstOrDefault(x => x.PhoneNumber == resultValues.receiverPhoneNumber);
+                        if (RecieverUser == null)
+                        {
+                            var receiverCommand = UserMapsCommand.CreateReceiverMapsCommand(resultValues);
+                            var newReceiver = await _mediator.Send(receiverCommand);
+
+                            //request.Reciever = RecieverUser.UserId;
+                            shipment.Reciever = newReceiver.Userdto.UserId;
+                        }
 
                         shipment.ShipmentItems = new List<ShipmentItem>();
-
-                        var recieverPhoneNumber = "0" + resultValues.receiverPhoneNumber;
-                        var RecieverUser  = _userManager.Users.FirstOrDefault(x => x.PhoneNumber == recieverPhoneNumber);
-                        request.Reciever = RecieverUser.UserId;
-                        shipment.Reciever = request.Reciever;
 
                         if (category == ShipmentCategory.TruckLoad)
                         {
@@ -135,18 +162,20 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem
                                 lineItems.Height = resultValues.itemsB[i].height;
                                 lineItems.ShipmentDescription = resultValues.itemsB[i].m_shipmentDescription;
                                 lineItems.ShipmentProduct = ProductEnum.MailAndParcel;
-                                lineItems.LineTotal = resultValues.itemsB[i].LineTotal; 
+                                lineItems.LineTotal = resultValues.itemsB[i].LineTotal;
                                 shipment.ShipmentItems.Add(lineItems);
                             }
                         }
 
-                        if (walletTransaction != null)
+                        var shipmentExit = _shipmentRepository.GetAllAsync().Result.FirstOrDefault(x => x.Waybill == request.WaybillNumber);
+
+                        if (shipmentExit == null) 
                         {
-                            await _shipmentRepository.AddAsync(shipment);
+                            var shipmentval = await _shipmentRepository.AddAsync(shipment);
                             PaymentCriteriaCommandResponse.PaymentStatus = true;
-                            PaymentCriteriaCommandResponse.WaybillNumber = WaybillNumber;
-                            PaymentCriteriaCommandResponse.InvoiceNumber = invoiceCode;
                         }
+
+
                     }
                 }
                 else if (request.PaymentMethod == PaymentMethod.PostPaid)
@@ -171,6 +200,23 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem
 
             return PaymentCriteriaCommandResponse;
         }
+
+
+        public string checkPhone(string number)
+        {
+            var length = number.Length;
+            var firstchar = number[0];
+
+            if (length < 11 && firstchar > 0)
+            {
+                number = "0" + number;
+            }
+
+            return number;
+        }
+
     }
+
+
 
 }

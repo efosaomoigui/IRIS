@@ -91,13 +91,13 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Payments
                 else if (numberGeneratorType == NumberGeneratorType.TripReference)
                 {
                     number = long.Parse(numberCode) + 1;
-                    numberStr = number.ToString("0000");
+                    numberStr = number.ToString("000000");
                     numberGenerated = (int)NumberGeneratorType.TripReference + codeStr + numberStr;
                 }
                 else if (numberGeneratorType == NumberGeneratorType.InvoiceNumber)
                 {
                     number = long.Parse(numberCode) + 1;
-                    numberStr = number.ToString("0000");
+                    numberStr = number.ToString("000000");
                     numberGenerated = (int)NumberGeneratorType.InvoiceNumber + codeStr + numberStr;
                 }
                 else

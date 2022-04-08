@@ -45,10 +45,12 @@ namespace IRIS.BCK.Core.Domain.EntityEnums
         public string shipmentCategory { get; set; }
         public string shipperFullName { get; set; }
         public string shipperAddress { get; set; }
-        public long shipperPhoneNumber { get; set; }
+        public string shipperPhoneNumber { get; set; }
         public string receiverFullName { get; set; }
         public string receiverAddress { get; set; }
-        public long receiverPhoneNumber { get; set; }
+        public string receiverPhoneNumber { get; set; }
+        public string invoiceNumber { get; set; }
+        public string waybillNumber { get; set; }  
         public string route { get; set; }
         public List<ItemsA> itemsA { get; set; }
         public List<ItemsB> itemsB { get; set; }
