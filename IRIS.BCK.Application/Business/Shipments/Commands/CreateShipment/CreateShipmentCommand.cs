@@ -21,6 +21,7 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateShipment
         public string Waybill { get; set; }
 
         //Customer Information
+        public string CustomerName { get; set; } 
         public Guid Customer { get; set; }
 
         public double GrandTotal { get; set; }
@@ -28,6 +29,7 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateShipment
         public ICollection<Address> CustomerAddress { get; set; }
 
         //Receivers Information
+        public string RecieverName { get; set; } 
         public Guid Reciever { get; set; }
 
         public ICollection<Address> RecieverAddress { get; set; }

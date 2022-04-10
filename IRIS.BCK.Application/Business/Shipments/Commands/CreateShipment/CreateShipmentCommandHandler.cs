@@ -74,7 +74,6 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateShipment
                 }
 
                 CreateShipmentCommandResponse.Shipmentdto = _mapper.Map<ShipmentDto>(shipment);
-
                 return CreateShipmentCommandResponse;
             }
 

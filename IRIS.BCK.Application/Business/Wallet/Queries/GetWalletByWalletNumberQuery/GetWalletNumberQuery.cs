@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace IRIS.BCK.Core.Application.Business.Wallet.Queries.GetWalletByWalletNumberQuery
 {
-    public class GetWalletNumberQuery : IRequest<List<WalletTransactionViewModel>>
+    public class GetWalletNumberQuery : IRequest<List<WalletNumberViewModel>>
     {
     }
 }

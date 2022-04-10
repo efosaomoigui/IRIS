@@ -4,14 +4,16 @@ using IRIS.BCK.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace IRIS.BCK.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(IRISDbContext))]
-    partial class IRISDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220410001834_shipment prices")]
+    partial class shipmentprices
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -511,8 +513,6 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RouteId");
-
                     b.ToTable("PriceEnt");
                 });
 
@@ -540,10 +540,18 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                     b.Property<DateTime>("LastModifiedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid>("PriceId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("PricesId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("RouteName")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("RouteId");
+
+                    b.HasIndex("PricesId");
 
                     b.ToTable("Route");
                 });
@@ -878,9 +886,6 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                     b.Property<decimal>("WalletBalance")
                         .HasColumnType("decimal(18,4)");
 
-                    b.Property<Guid>("WalletNumberId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
 
                     b.ToTable("WalletNumber");
@@ -1089,15 +1094,13 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                     b.Navigation("Trip");
                 });
 
-            modelBuilder.Entity("IRIS.BCK.Core.Domain.Entities.PriceEntities.PriceEnt", b =>
+            modelBuilder.Entity("IRIS.BCK.Core.Domain.Entities.RouteEntities.Route", b =>
                 {
-                    b.HasOne("IRIS.BCK.Core.Domain.Entities.RouteEntities.Route", "Route")
-                        .WithMany("Prices")
-                        .HasForeignKey("RouteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("IRIS.BCK.Core.Domain.Entities.PriceEntities.PriceEnt", "Prices")
+                        .WithMany("Routes")
+                        .HasForeignKey("PricesId");
 
-                    b.Navigation("Route");
+                    b.Navigation("Prices");
                 });
 
             modelBuilder.Entity("IRIS.BCK.Core.Domain.Entities.ShipmentEntities.CollectionCenter", b =>
@@ -1185,9 +1188,9 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                     b.Navigation("ShipmentGroupWayBillMap");
                 });
 
-            modelBuilder.Entity("IRIS.BCK.Core.Domain.Entities.RouteEntities.Route", b =>
+            modelBuilder.Entity("IRIS.BCK.Core.Domain.Entities.PriceEntities.PriceEnt", b =>
                 {
-                    b.Navigation("Prices");
+                    b.Navigation("Routes");
                 });
 
             modelBuilder.Entity("IRIS.BCK.Core.Domain.Entities.ShimentEntities.Shipment", b =>

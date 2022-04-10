@@ -50,6 +50,7 @@ namespace IRIS.BCK.Core.Application.Business.Wallet.Queries.GetWalletTransaction
                         singleWalletVm.Name = user?.FirstName+" "+user?.LastName;
                         singleWalletVm.Description = walletTransactions.Description;
                         singleWalletVm.TransactionType = walletTransactions.TransactionType.ToString();
+                        singleWalletVm.LineBalance = walletTransactions.LineBalance;
 
                         listWallets.Add(singleWalletVm);
                     }

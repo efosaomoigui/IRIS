@@ -35,6 +35,8 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Payments
                 NumberGeneratorType = numberGeneratorType, 
                 NumberCode = numberStr
             });
+
+            await _dbContext.SaveChangesAsync();
         }
 
         public async Task<string> GenerateNextNumber(NumberGeneratorType numberGeneratorType, string serviceCenterCode)
@@ -138,6 +140,7 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Payments
         {
             var monitor = _dbContext.NumberEnt.SingleOrDefault(x => x.ServiceCentreCode == serviceCenterCode && x.NumberGeneratorType == numberGeneratorType);
             monitor.NumberCode = numberStr;
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

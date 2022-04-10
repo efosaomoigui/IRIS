@@ -1,6 +1,7 @@
 ﻿using IRIS.BCK.Core.Application.Business.Payments.Commands.CreatePayment;
 using IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem;
 using IRIS.BCK.Core.Domain.Entities.PaymentEntities;
+using IRIS.BCK.Core.Domain.EntityEnums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +34,7 @@ namespace IRIS.BCK.Core.Application.Mappings.Payments
                 WaybilNumber = request.WaybillNumber,
                 PaymentMethod = request.PaymentMethod,
                 Amount = request.Amount,
+                Status = StatusEnum.Pending
             };
         }
     }

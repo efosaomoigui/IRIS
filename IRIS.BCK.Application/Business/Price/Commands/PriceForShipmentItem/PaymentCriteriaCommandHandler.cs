@@ -87,7 +87,6 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem
                     if (ShipperUser == null)
                     {
                         var userCommand = UserMapsCommand.CreateShipperMapsCommand(resultValues);
-                        //newUserId = userCommand.UserId;
                         var newUser = await _mediator.Send(userCommand);
                         newUserId = newUser.Userdto.UserId;
                     }
@@ -96,15 +95,10 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem
 
                     if (request.UserId.ToString() != null)
                     {
-                        request.PaymentMethod = PaymentMethod.Wallet;
 
-                        //waybill and invoice number from values
+                        //get waybill and invoice code from request
                         request.InvoiceNumber = resultValues.invoiceNumber;
                         request.WaybillNumber = resultValues.waybillNumber;
-
-                        //add wallet transactions
-                        var walletTransaction = WalletTransactionsMapsCommand.CreateWalletTransactionsCriteriaMapsCommand(request);
-                        walletTransaction = _walletTransactionRepository.WalletDebit(walletTransaction).Result;
 
                         var invoiceMap = PaymentMapsCommand.CreatePaymentValuesMapsCommand(request);
                         var invoiceExit = _invoiceRepository.GetAllAsync().Result.FirstOrDefault(x => x.InvoiceCode == request.InvoiceNumber);
@@ -114,7 +108,7 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem
                             await _invoiceRepository.AddAsync(invoiceMap);
                         }
 
-                        //create shipment Status = (walletTransaction != null)? StatusEnum.Paid : StatusEnum.Pending
+                        //prepare shipment entries
                         var shipment = ShipmentMapsCommand.CreateShipmentValuesMapsCommand(request);
                         shipment.Waybill = request.WaybillNumber;
 
@@ -134,6 +128,7 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem
                             shipment.Reciever = newReceiver.Userdto.UserId;
                         }
 
+                        //do shipment items insert
                         shipment.ShipmentItems = new List<ShipmentItem>();
 
                         if (category == ShipmentCategory.TruckLoad)
@@ -167,15 +162,36 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem
                             }
                         }
 
+                        //check existing shipment
                         var shipmentExit = _shipmentRepository.GetAllAsync().Result.FirstOrDefault(x => x.Waybill == request.WaybillNumber);
 
+                        //do shipment insert
                         if (shipmentExit == null) 
                         {
+                            shipment.CustomerName = resultValues.shipperFullName;
+                            shipment.RecieverName = resultValues.receiverFullName;
                             var shipmentval = await _shipmentRepository.AddAsync(shipment);
-                            PaymentCriteriaCommandResponse.PaymentStatus = true;
                         }
 
+                        //do wallet payment
+                        var walletTransaction = WalletTransactionsMapsCommand.CreateWalletTransactionsCriteriaMapsCommand(request);
+                        walletTransaction = _walletTransactionRepository.WalletDebit(walletTransaction).Result;
 
+                        if (walletTransaction == null)
+                        {
+                            PaymentCriteriaCommandResponse.PaymentStatus = false;
+                        }
+                        else
+                        {
+                            PaymentCriteriaCommandResponse.PaymentMethod = PaymentMethod.Wallet;
+                            PaymentCriteriaCommandResponse.PaymentStatus = true;
+
+                            //update invoice
+                            var invoiceExitCheckt = _invoiceRepository.GetAllAsync().Result.FirstOrDefault(x => x.InvoiceCode == request.InvoiceNumber);
+                            invoiceExitCheckt.PaymentMethod = PaymentMethod.Wallet;
+                            invoiceExitCheckt.Status = StatusEnum.Paid;
+                            await _invoiceRepository.UpdateAsync(invoiceExitCheckt);
+                        }
                     }
                 }
                 else if (request.PaymentMethod == PaymentMethod.PostPaid)

@@ -15,9 +15,9 @@ using System.Threading.Tasks;
 
 namespace IRIS.BCK.Core.Application.Business.Wallet.Queries.GetWalletByWalletNumberQuery
 {
-    public class GetWalletNumberQueryHandler : IRequestHandler<GetWalletNumberQuery, List<WalletTransactionViewModel>>
+    public class GetWalletNumberQueryHandler : IRequestHandler<GetWalletNumberQuery, List<WalletNumberViewModel>>
     {
-        private readonly IWalletRepository _walletRepository; 
+        private readonly IWalletRepository _walletRepository;
         private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;
 
@@ -28,35 +28,27 @@ namespace IRIS.BCK.Core.Application.Business.Wallet.Queries.GetWalletByWalletNum
             _userManager = userManager;
         }
 
-        public async Task<List<WalletTransactionViewModel>> Handle(GetWalletNumberQuery request, CancellationToken cancellationToken)
+        public async Task<List<WalletNumberViewModel>> Handle(GetWalletNumberQuery request, CancellationToken cancellationToken)
         {
             var allWalletNumber = (await _walletRepository.GetWalletsTransaAndNumbers()).OrderBy(x => x.CreatedDate);
-            List<WalletTransactionViewModel> listWallets = new List<WalletTransactionViewModel>();
+            List<WalletNumberViewModel> listWallets = new List<WalletNumberViewModel>();
 
             foreach (var wallet in allWalletNumber)
             {
-                if (wallet.WalletTransactions.Count > 0)
-                {
-                    foreach (var walletTransactions in wallet.WalletTransactions)
-                    {
-                        var singleWalletVm = new WalletTransactionViewModel();
+                var singleWalletVm = new WalletNumberViewModel();
 
-                        singleWalletVm.Id = walletTransactions.Id;
-                        singleWalletVm.WalletNumber = wallet.Number;
-                        singleWalletVm.UserId = walletTransactions.UserId;
-                        var user = await _userManager.FindByIdAsync(walletTransactions.UserId.ToString());
-                        singleWalletVm.Amount = walletTransactions.Amount.ToString();
-                        singleWalletVm.Name = user?.FirstName + " " + user?.LastName;
-                        singleWalletVm.Description = walletTransactions.Description;
-                        singleWalletVm.TransactionType = walletTransactions.TransactionType.ToString();
+                singleWalletVm.Id = wallet.Id;
+                singleWalletVm.Number = wallet.Number;
+                singleWalletVm.UserId = wallet.UserId;
+                var user = await _userManager.FindByIdAsync(wallet.UserId.ToString());
+                singleWalletVm.WalletBalance = wallet.WalletBalance;
+                singleWalletVm.User = user?.FirstName + " " + user?.LastName;
 
-                        listWallets.Add(singleWalletVm);
-                    }
-                }
+                listWallets.Add(singleWalletVm);
             }
 
-            return _mapper.Map<List<WalletTransactionViewModel>>(listWallets);
             //return _mapper.Map<List<WalletNumberViewModel>>(allWalletNumber);
+            return listWallets;
         }
     }
 }

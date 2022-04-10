@@ -16,7 +16,7 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.CreatePrice
         public ShipmentCategory Category { get; set; }
         public Guid RouteId { get; set; }
 
-        public decimal UnitWeight { get; set; }
+        public double UnitWeight { get; set; }
         public ProductEnum Product { get; set; }
         public decimal PricePerUnit { get; set; }
         public ICollection<Route> Routes { get; set; }

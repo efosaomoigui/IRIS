@@ -17,8 +17,6 @@ namespace IRIS.BCK.Core.Domain.Entities.RouteEntities
 
         public string Departure { get; set; }
         public string Destination { get; set; }
-
-        public ICollection<PriceEnt> Price { get; set; }
-
+        public List<PriceEnt> Prices { get; set; }  
     }
 }

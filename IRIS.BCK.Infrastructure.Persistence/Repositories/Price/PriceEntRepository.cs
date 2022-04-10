@@ -7,9 +7,12 @@ using System.Threading.Tasks;
 using IRIS.BCK.Application.Interfaces.IRepository;
 using IRIS.BCK.Core.Application.Business.Price.Commands.CreatePrice;
 using IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem;
+using IRIS.BCK.Core.Application.Business.Price.Queries.GetPrice;
 using IRIS.BCK.Core.Application.Interfaces.IRepositories.IPriceRepositories;
 using IRIS.BCK.Core.Domain.Entities.PriceEntities;
+using IRIS.BCK.Core.Domain.Entities.RouteEntities;
 using IRIS.BCK.Core.Domain.EntityEnums;
+using Microsoft.EntityFrameworkCore;
 
 namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Price
 {
@@ -29,12 +32,18 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Price
 
         public async Task<PriceEnt> GetPriceById(string priceid)
         {
-            return _dbContext.PriceEnt.FirstOrDefault(e => e.Id.ToString() == priceid);
+            return await _dbContext.PriceEnt.FirstOrDefaultAsync(e => e.Id.ToString() == priceid);
         }
 
         public async Task<PriceEnt> GetPriceByRouteId(string routeid, ShipmentCategory scategory)
         {
-            return _dbContext.PriceEnt.FirstOrDefault(e => e.RouteId.ToString() == routeid && e.Category == scategory);
+            return await _dbContext.PriceEnt.FirstOrDefaultAsync(e => e.RouteId.ToString() == routeid && e.Category == scategory);
+        }
+
+        public async Task<List<Route>> GetPriceWithRoute()
+        {
+            var lsRoutes = await _dbContext.Route.Include(s => s.Prices).ToListAsync();
+            return lsRoutes;
         }
 
         public Task<double> GetShipmentItemWeight(PriceForShipmentItemCommand shipmentCriteria)

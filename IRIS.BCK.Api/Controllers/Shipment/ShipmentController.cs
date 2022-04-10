@@ -74,7 +74,7 @@ namespace IRIS.BCK.Api.Controllers.Shipment
         public async Task<ActionResult<DeleteShipmentCommandResponse>> DeleteShipment([FromBody] DeleteShipmentCommand deleteShipmentCommand)
         {
             var response = await _mediator.Send(deleteShipmentCommand);
-            return Ok(response);
+            return Ok(response); 
         }
          
         [HttpGet("Shipment/WaybillAndInvoiceNumber", Name = "GetNewWaybillAndInvoiceNumber")]

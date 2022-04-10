@@ -17,7 +17,7 @@ namespace IRIS.BCK.Api.Controllers.Wallet
     public class WalletController : BaseApiController
     {
         [HttpGet("WalletNumber/all", Name = "GetAllWalletNumber")]
-        public async Task<ActionResult<List<WalletTransactionViewModel>>> GetAllWalletNumber()
+        public async Task<ActionResult<List<WalletNumberViewModel>>> GetAllWalletNumber()
         {
             var walletNumber = await _mediator.Send(new GetWalletNumberQuery());
             return Ok(walletNumber);
@@ -27,12 +27,7 @@ namespace IRIS.BCK.Api.Controllers.Wallet
         public async Task<ActionResult<WalletViewModel>> GetWalletById([FromRoute] Guid walletid)
         {
             var wallet = new WalletViewModel();
-
-            if (walletid != null)
-            {
-                wallet = await _mediator.Send(new GetWalletByIdQuery(walletid.ToString()));
-            }
-
+            wallet = await _mediator.Send(new GetWalletByIdQuery(walletid.ToString()));
             return Ok(wallet);
         }
 
@@ -68,12 +63,7 @@ namespace IRIS.BCK.Api.Controllers.Wallet
         public async Task<ActionResult<List<WalletTransactionViewModel>>> GetWalletTransactionByUserId([FromRoute] Guid userid)
         {
             var walletTransactions = new List<WalletTransactionViewModel>();
-
-            if (userid != null)
-            {
-                walletTransactions = await _mediator.Send(new GetWalletTransactionByUserIdQuery(userid.ToString()));
-            }
-
+            walletTransactions = await _mediator.Send(new GetWalletTransactionByUserIdQuery(userid.ToString()));
             return Ok(walletTransactions);
         }
 

@@ -75,10 +75,10 @@ namespace IRIS.BCK.Infrastructure.Persistence
                 .HasForeignKey(g => g.recievershipmentAddressId);
 
             //many to many relationship
-            modelBuilder.Entity<Route>()
-                .HasMany(left => left.Price)
-                .WithMany(right => right.Routes)
-                .UsingEntity(join => join.ToTable("RoutePriceTbl"));
+            //modelBuilder.Entity<Route>()
+            //    .HasMany(left => left.Price)
+            //    .WithMany(right => right.Routes)
+            //    .UsingEntity(join => join.ToTable("RoutePriceTbl"));
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())

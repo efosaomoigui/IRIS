@@ -13,6 +13,8 @@ namespace IRIS.BCK.Core.Application.Business.Wallet.Queries.GetWalletByWalletNum
         public string Number { get; set; }
         public bool IsActive { get; set; }
         public Guid UserId { get; set; }
+        public string User { get; set; } 
+        public decimal WalletBalance { get; set; } 
         public List<WalletTransaction> WalletTransactions { get; set; }
     }
 }
