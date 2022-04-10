@@ -1,7 +1,11 @@
 #!/bin/bash
 echo "application stop now!"
 cd /home/ubuntu/IRIS.BCK
-sudo pm2 stop all
-sudo pm2 delete all
+pm2 describe appname > /dev/null
+RUNNING=$?
+
+if [ "${RUNNING}" -ze 0 ]; then
+  pm2 stop all && pm2 delete all
+fi;
 
 
