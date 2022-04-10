@@ -9,7 +9,7 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
             migrationBuilder.AddColumn<decimal>(
                 name: "LineBalance",
                 table: "WalletTransaction",
-                type: "decimal(18,4)",
+                type: "decimal(18,4)",   
                 nullable: false,
                 defaultValue: 0m);
         }
@@ -18,7 +18,7 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
         {
             migrationBuilder.DropColumn(
                 name: "LineBalance",
-                table: "WalletTransaction");
+                table: "WalletTransaction"); 
         }
     }
 }
