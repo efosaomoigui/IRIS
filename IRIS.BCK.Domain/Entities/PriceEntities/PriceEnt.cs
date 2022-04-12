@@ -17,7 +17,7 @@ namespace IRIS.BCK.Core.Domain.Entities.PriceEntities
         public ProductEnum Product { get; set; }
         public decimal PricePerUnit { get; set; }
 
-        public Guid RouteId { get; set; } 
+        public Guid RouteId { get; set; }   
         public Route Route { get; set; }
     }
 }

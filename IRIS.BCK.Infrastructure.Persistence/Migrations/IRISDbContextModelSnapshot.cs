@@ -878,9 +878,6 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                     b.Property<decimal>("WalletBalance")
                         .HasColumnType("decimal(18,4)");
 
-                    b.Property<Guid>("WalletNumberId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
 
                     b.ToTable("WalletNumber");

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IRIS.BCK.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(IRISDbContext))]
-    [Migration("20220410003250_shipment prices and route")]
-    partial class shipmentpricesandroute
+    [Migration("20220412074606_priceandroute")]
+    partial class priceandroute
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -513,6 +513,8 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("RouteId");
+
                     b.ToTable("PriceEnt");
                 });
 
@@ -540,18 +542,10 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                     b.Property<DateTime>("LastModifiedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("PriceId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("PricesId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("RouteName")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("RouteId");
-
-                    b.HasIndex("PricesId");
 
                     b.ToTable("Route");
                 });
@@ -1094,13 +1088,15 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                     b.Navigation("Trip");
                 });
 
-            modelBuilder.Entity("IRIS.BCK.Core.Domain.Entities.RouteEntities.Route", b =>
+            modelBuilder.Entity("IRIS.BCK.Core.Domain.Entities.PriceEntities.PriceEnt", b =>
                 {
-                    b.HasOne("IRIS.BCK.Core.Domain.Entities.PriceEntities.PriceEnt", "Prices")
-                        .WithMany("Routes")
-                        .HasForeignKey("PricesId");
+                    b.HasOne("IRIS.BCK.Core.Domain.Entities.RouteEntities.Route", "Route")
+                        .WithMany("Prices")
+                        .HasForeignKey("RouteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("Prices");
+                    b.Navigation("Route");
                 });
 
             modelBuilder.Entity("IRIS.BCK.Core.Domain.Entities.ShipmentEntities.CollectionCenter", b =>
@@ -1188,9 +1184,9 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                     b.Navigation("ShipmentGroupWayBillMap");
                 });
 
-            modelBuilder.Entity("IRIS.BCK.Core.Domain.Entities.PriceEntities.PriceEnt", b =>
+            modelBuilder.Entity("IRIS.BCK.Core.Domain.Entities.RouteEntities.Route", b =>
                 {
-                    b.Navigation("Routes");
+                    b.Navigation("Prices");
                 });
 
             modelBuilder.Entity("IRIS.BCK.Core.Domain.Entities.ShimentEntities.Shipment", b =>

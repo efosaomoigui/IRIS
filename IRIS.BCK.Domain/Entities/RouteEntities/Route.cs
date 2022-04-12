@@ -11,12 +11,13 @@ namespace IRIS.BCK.Core.Domain.Entities.RouteEntities
 {
     public class Route : Auditable
     {
-        public Guid RouteId { get; set; }
+        public Guid RouteId { get; set; } 
 
         public string RouteName { get; set; }
 
         public string Departure { get; set; }
         public string Destination { get; set; }
-        public List<PriceEnt> Prices { get; set; }  
+
+        public List<PriceEnt> Prices { get; set; }   
     }
 }

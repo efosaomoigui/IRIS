@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace IRIS.BCK.Core.Application.Business.Price.Queries.GetPrice
 {
-    public class PriceListViewModel
+    public class PriceListViewModel 
     {
         public PriceCategory Category { get; set; }
         public Guid Id { get; set; }
@@ -21,6 +21,7 @@ namespace IRIS.BCK.Core.Application.Business.Price.Queries.GetPrice
         public string Destination { get; set; }  
         public string RouteName { get; set; } 
         public double UnitWeight { get; set; }
-        public decimal PricePerUnit { get; set; } 
+        public decimal PricePerUnit { get; set; }     
+        public string status { get; set; }      
     }
 }
