@@ -24,7 +24,7 @@ namespace IRIS.BCK.Infrastructure.Messaging.EmailMessages
             _emailSettings = emailSettings.Value;
         }
 
-        public async Task<bool> SendEmail(Email email)
+        public async Task<bool> SendEmail(Email email, EmailOptions options = null)
         {
             var client = new SendGridClient(_emailSettings.ApiKey);
             //var client = new SimpleEmailS(_emailSettings.ApiKey); //AWS Email
@@ -32,23 +32,22 @@ namespace IRIS.BCK.Infrastructure.Messaging.EmailMessages
             var subject = email.Subject;
             var body = email.Body;
 
-            var templatebody = GetHtmlTemplate("EmailTemp.html");
-
-            var sendGridMessage = new SendGridMessage();
-            sendGridMessage.SetFrom("iris@chiscoexpress.com", "IRIS");
-            sendGridMessage.AddTo("efe.omoigui@gmail.com");
-           
-
-            //The Template Id will be something like this - d-9416e4bc396e4e7fbb658900102abaa2
-
-            sendGridMessage.SetTemplateId("d-b87f6cab7b0a4dd490d026394de53ab7");
-            //Here is the Place holder values you need to replace.
+            //var templatebody = GetHtmlTemplate("EmailTemp.html");
+            var sendGridMessage = PrepareHtmlDynamicTemplate(options);
 
             sendGridMessage.SetTemplateData(new
             {
-                name = "Efosa",
-                url = "https://admin.chiscoiris.com"
-            });
+                name = options.Shipment.shipperFullName,
+                shipperName = options.Shipment.shipperFullName, 
+                shipperAddress = options.Shipment.shipperAddress,
+                shipperPhoneNumber = options.Shipment.receiverPhoneNumber,
+                invoiceNumber = options.Shipment.invoiceNumber,
+                waybillNumber = options.Shipment.waybillNumber,
+                
+                receiverName = options.Shipment.receiverFullName,
+                receiverAddress = options.Shipment.receiverAddress,
+                receiverPhoneNumber = options.Shipment.receiverPhoneNumber, 
+            });;
 
             var from = new EmailAddress
             {
@@ -67,13 +66,18 @@ namespace IRIS.BCK.Infrastructure.Messaging.EmailMessages
             return false;
         }
 
-        //public SendGridMessage PrepareHtmlDynamicTemplate(EmailOptions options)  
-        ////{
-        //    var emailTemplatePath = $"{Directory.GetCurrentDirectory()}/EmailTemplates/{templateName}";
-        //    var sb = new StringBuilder();
+        public SendGridMessage PrepareHtmlDynamicTemplate(EmailOptions options)  
+        {
+            var sendGridMessage = new SendGridMessage();
 
-        //    return sb.ToString();
-        //}
+            sendGridMessage.SetFrom("iris@chiscoexpress.com", "IRIS");
+            var obj = options.Shipment.shipperPhoneNumber;
+
+            sendGridMessage.AddTo("efe.omoigui@gmail.com");
+            sendGridMessage.SetTemplateId("d-b87f6cab7b0a4dd490d026394de53ab7");
+
+            return sendGridMessage;
+        }
 
         public string GetHtmlTemplate(string templateName)
         {

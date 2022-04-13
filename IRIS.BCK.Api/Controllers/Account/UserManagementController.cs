@@ -25,7 +25,7 @@ namespace IRIS.BCK.Api.Controllers.Account
     public class UserManagementController : BaseApiController
     {
         [AllowAnonymous]
-        [HttpPost("Login")]
+        [HttpPost("Login")] //users
         public async Task<ActionResult<CreateUserCommandResponse>> Authenticate([FromBody] CreateAuthCredentialsCommand loginCredentials)
         {
             var response = await _mediator.Send(loginCredentials);

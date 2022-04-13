@@ -192,7 +192,9 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem
                         {
                             PaymentCriteriaCommandResponse.PaymentMethod = PaymentMethod.Wallet;
                             PaymentCriteriaCommandResponse.PaymentStatus = true;
-                            await _emailService.SendEmail(email);
+                            var emailOptions = new EmailOptions();
+                            emailOptions.Shipment = resultValues;
+                            await _emailService.SendEmail(email, emailOptions);
 
                             //update invoice
                             var invoiceExitCheckt = _invoiceRepository.GetAllAsync().Result.FirstOrDefault(x => x.InvoiceCode == request.InvoiceNumber);
