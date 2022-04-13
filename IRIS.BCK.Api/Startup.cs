@@ -143,7 +143,10 @@ namespace IRIS.BCK.Api
             services.AddScoped<ISpecialDomesticZonePriceRepository, SpecialDomesticZonePriceRepository>();
             services.AddScoped<INumberEntRepository, NumberEntRepository>();
             services.AddScoped<IShipmentRequestRepository, ShipmentRequestRepository>();
-            services.AddScoped<UserResolverService>();
+            //services.AddScoped<UserResolverService>();
+
+            services.AddFluentEmail("iris@chiscoexpress.com").AddSendGridSender("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");
+
             services.AddIdentity<User, AppRole>(options =>
             {
                 options.Password.RequiredLength = 8;

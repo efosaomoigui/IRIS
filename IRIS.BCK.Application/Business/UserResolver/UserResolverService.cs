@@ -13,7 +13,7 @@ namespace IRIS.BCK.Core.Application.Business.UserResolver
     {
         private readonly IHttpContextAccessor _context;
         private readonly UserManager<User> _userManager;
-        public UserResolverService(IHttpContextAccessor context, UserManager<User> userManager = null)
+        public UserResolverService(IHttpContextAccessor context, UserManager<User> userManager )
         {
             _context = context;
             _userManager = userManager;

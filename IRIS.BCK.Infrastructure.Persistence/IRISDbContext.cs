@@ -1,4 +1,5 @@
 ﻿using IRIS.BCK.Core.Application.Business.Accounts.AccountEntities;
+using IRIS.BCK.Core.Application.Business.UserResolver;
 using IRIS.BCK.Core.Domain.Entities.FleetEntities;
 using IRIS.BCK.Core.Domain.Entities.GroupWayBillManifestMapEntities;
 using IRIS.BCK.Core.Domain.Entities.Monitoring;
@@ -32,6 +33,7 @@ namespace IRIS.BCK.Infrastructure.Persistence
     {
         public IRISDbContext(DbContextOptions<IRISDbContext> options) : base(options)
         {
+            //var user = new UserResolverService(IHttpContextAccessor context);
         }
 
         public DbSet<Shipment> Shipment { get; set; }

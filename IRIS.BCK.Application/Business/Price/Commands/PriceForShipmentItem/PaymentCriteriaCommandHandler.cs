@@ -26,6 +26,7 @@ using Newtonsoft.Json;
 using IRIS.BCK.Core.Application.Mappings.Users;
 using IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUser;
 using IRIS.BCK.Core.Domain.Entities.ShimentEntities;
+using IRIS.BCK.Core.Application.Business.UserResolver;
 
 namespace IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem
 {
@@ -42,8 +43,13 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem
         private IInvoiceRepository _invoiceRepository;
         private IShipmentRepository _shipmentRepository;
         private IMediator _mediator;
+        private string _user;
 
-        public PaymentCriteriaCommandHandler(IPriceEntRepository priceRepository, IWalletTransactionRepository walletTransactionRepository, IMapper mapper, IEmailService emailService, UserManager<User> userManager, INumberEntRepository numberEntRepository = null, IInvoiceRepository invoiceRepository = null, IShipmentRepository shipmentRepository = null, IMediator mediator = null)
+        public PaymentCriteriaCommandHandler(IPriceEntRepository priceRepository, IWalletTransactionRepository 
+            walletTransactionRepository, IMapper mapper, IEmailService emailService, UserManager<User> userManager, 
+            INumberEntRepository numberEntRepository = null, IInvoiceRepository invoiceRepository = null, 
+            IShipmentRepository shipmentRepository = null, IMediator mediator = null
+            )
         {
             _priceRepository = priceRepository;
             _walletTransactionRepository = walletTransactionRepository;
@@ -69,6 +75,7 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem
 
             if (PaymentCriteriaCommandResponse.Success)
             {
+                var currentUser = 
                 PaymentCriteriaCommandResponse = new PaymentCriteriaCommandResponse();
                 PaymentCriteriaCommandResponse.PaymentStatus = false;
 
@@ -185,6 +192,7 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem
                         {
                             PaymentCriteriaCommandResponse.PaymentMethod = PaymentMethod.Wallet;
                             PaymentCriteriaCommandResponse.PaymentStatus = true;
+                            await _emailService.SendEmail(email);
 
                             //update invoice
                             var invoiceExitCheckt = _invoiceRepository.GetAllAsync().Result.FirstOrDefault(x => x.InvoiceCode == request.InvoiceNumber);
