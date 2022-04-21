@@ -2,6 +2,7 @@
 using IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.DeleteGroupWayBill;
 using IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.UpdateGroupWayBill;
 using IRIS.BCK.Core.Application.Business.ShipmentProcessing.Queries.GetGroupWayBill;
+using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetShipmentByWayBillNumber;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -36,6 +37,13 @@ namespace IRIS.BCK.Api.Controllers.ShipmentProcessing
         {
             var response = await _mediator.Send(deleteGroupWayBillCommand);
             return Ok(response);
+        }
+
+        [HttpGet("GroupWayBill/GroupWaybillNumber", Name = "GetGroupWaybillNumber")]
+        public async Task<ActionResult<string>> GetGroupWaybillNumber()
+        {
+            var groupwaybillcode = await _mediator.Send(new GetNewGroupWayBillNumberQuery()); 
+            return Ok(groupwaybillcode);
         }
     }
 }

@@ -50,4 +50,76 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Queries.GetShipmentByWayB
         public string Waybill { get; set; }
         public string Invoice { get; set; } 
     }
+
+    //Group Number
+    public class GetNewGroupWayBillNumberQueryHandler : IRequestHandler<GetNewGroupWayBillNumberQuery, string>
+    {
+        private readonly IShipmentRepository _shipmentRepository;
+        private readonly IMapper _mapper;
+        private INumberEntRepository _numberEntRepository;
+
+        public GetNewGroupWayBillNumberQueryHandler(IMapper mapper, INumberEntRepository numberEntRepository = null)
+        {
+            _mapper = mapper;
+            _numberEntRepository = numberEntRepository;
+        } 
+
+        public async Task<string> Handle(GetNewGroupWayBillNumberQuery request, CancellationToken cancellationToken)
+        {
+            var BroupWaybillNumber = _numberEntRepository.GenerateNextNumber(NumberGeneratorType.GroupWaybillNumber, "101").Result;
+            return BroupWaybillNumber;
+        }
+    }
+
+    public class GetNewGroupWayBillNumberQuery : IRequest<string>
+    {
+    }
+
+    //Manifest Number
+    public class GetNewManifestNumberQueryHandler : IRequestHandler<GetNewManifestNumberQuery, string>
+    {
+        private readonly IShipmentRepository _shipmentRepository;
+        private readonly IMapper _mapper;
+        private INumberEntRepository _numberEntRepository;
+
+        public GetNewManifestNumberQueryHandler(IMapper mapper, INumberEntRepository numberEntRepository = null)
+        {
+            _mapper = mapper;
+            _numberEntRepository = numberEntRepository;
+        }
+
+        public async Task<string> Handle(GetNewManifestNumberQuery request, CancellationToken cancellationToken)
+        {
+            var BroupWaybillNumber = _numberEntRepository.GenerateNextNumber(NumberGeneratorType.ManifestNumber, "101").Result;
+            return BroupWaybillNumber;
+        }
+    }
+
+    public class GetNewManifestNumberQuery : IRequest<string>
+    {
+    }
+
+    //Manifest Number
+    public class GetNewTripReferenceQueryHandler : IRequestHandler<GetNewTripReferenceQuery, string>
+    {
+        private readonly IShipmentRepository _shipmentRepository;
+        private readonly IMapper _mapper;
+        private INumberEntRepository _numberEntRepository;
+
+        public GetNewTripReferenceQueryHandler(IMapper mapper, INumberEntRepository numberEntRepository = null)
+        {
+            _mapper = mapper;
+            _numberEntRepository = numberEntRepository;
+        }
+
+        public async Task<string> Handle(GetNewTripReferenceQuery request, CancellationToken cancellationToken)
+        {
+            var BroupWaybillNumber = _numberEntRepository.GenerateNextNumber(NumberGeneratorType.TripReference, "101").Result;
+            return BroupWaybillNumber;
+        }
+    }
+
+    public class GetNewTripReferenceQuery : IRequest<string>
+    {
+    }
 }

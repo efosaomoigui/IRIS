@@ -4,6 +4,7 @@ using IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.UpdateManif
 using IRIS.BCK.Core.Application.Business.ShipmentProcessing.Queries.GetManifest;
 using IRIS.BCK.Core.Application.Business.ShipmentProcessing.Queries.GetManifestByGroupWayBill;
 using IRIS.BCK.Core.Application.Business.ShipmentProcessing.Queries.GetManifestByManifestCode;
+using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetShipmentByWayBillNumber;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -69,6 +70,13 @@ namespace IRIS.BCK.Api.Controllers.ShipmentProcessing
         {
             var response = await _mediator.Send(deleteManifestCommand);
             return Ok(response);
+        }
+
+        [HttpGet("Manifest/ManifestNumber", Name = "GetManifestNumber")]
+        public async Task<ActionResult<string>> GetManifestNumber() 
+        {
+            var groupwaybillcode = await _mediator.Send(new GetNewManifestNumberQuery());
+            return Ok(groupwaybillcode);
         }
     }
 }

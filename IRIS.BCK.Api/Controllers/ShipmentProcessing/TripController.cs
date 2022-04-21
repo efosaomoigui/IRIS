@@ -2,6 +2,7 @@
 using IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.DeleteTrips;
 using IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.UpdateTrips;
 using IRIS.BCK.Core.Application.Business.ShipmentProcessing.Queries.GetTrips;
+using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetShipmentByWayBillNumber;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -60,6 +61,13 @@ namespace IRIS.BCK.Api.Controllers.ShipmentProcessing
         {
             var response = await _mediator.Send(deleteTripCommand);
             return Ok(response);
+        }
+
+        [HttpGet("Trip/TripReference", Name = "GetTripReference")]
+        public async Task<ActionResult<string>> GetTripReference()
+        {
+            var groupwaybillcode = await _mediator.Send(new GetNewTripReferenceQuery());
+            return Ok(groupwaybillcode);
         }
     }
 }

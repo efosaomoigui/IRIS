@@ -61,5 +61,12 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories
             _dbContext.Set<T>().Remove(entity);
             await _dbContext.SaveChangesAsync();
         }
+
+        public async Task<IEnumerable<T>> AddRangeAsync(IEnumerable<T> entity)
+        {
+            await _dbContext.Set<T>().AddRangeAsync(entity);
+            await _dbContext.SaveChangesAsync();
+            return entity;
+        }
     }
 }

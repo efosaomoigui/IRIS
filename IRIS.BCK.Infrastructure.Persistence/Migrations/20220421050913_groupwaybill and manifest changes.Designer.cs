@@ -4,14 +4,16 @@ using IRIS.BCK.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace IRIS.BCK.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(IRISDbContext))]
-    partial class IRISDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220421050913_groupwaybill and manifest changes")]
+    partial class groupwaybillandmanifestchanges
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -682,7 +684,7 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                     b.Property<string>("GroupCode")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("GroupRIdRouteId")
+                    b.Property<Guid?>("GroupWayBillRouteRouteId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("LastModifiedBy")
@@ -690,9 +692,6 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
 
                     b.Property<DateTime>("LastModifiedDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<Guid>("RId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("ServiceCenterId")
                         .HasColumnType("uniqueidentifier");
@@ -705,7 +704,7 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("GroupRIdRouteId");
+                    b.HasIndex("GroupWayBillRouteRouteId");
 
                     b.HasIndex("ShipmentId");
 
@@ -723,9 +722,6 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("GroupWayBillCode")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid?>("GroupWayBillId")
                         .HasColumnType("uniqueidentifier");
@@ -1120,15 +1116,15 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("IRIS.BCK.Core.Domain.Entities.ShipmentProcessing.GroupWayBill", b =>
                 {
-                    b.HasOne("IRIS.BCK.Core.Domain.Entities.RouteEntities.Route", "GroupRId")
+                    b.HasOne("IRIS.BCK.Core.Domain.Entities.RouteEntities.Route", "GroupWayBillRoute")
                         .WithMany()
-                        .HasForeignKey("GroupRIdRouteId");
+                        .HasForeignKey("GroupWayBillRouteRouteId");
 
                     b.HasOne("IRIS.BCK.Core.Domain.Entities.ShimentEntities.Shipment", "Shipment")
                         .WithMany()
                         .HasForeignKey("ShipmentId");
 
-                    b.Navigation("GroupRId");
+                    b.Navigation("GroupWayBillRoute");
 
                     b.Navigation("Shipment");
                 });

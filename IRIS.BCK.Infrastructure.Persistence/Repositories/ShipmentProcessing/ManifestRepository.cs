@@ -21,7 +21,7 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.ShipmentProcessing
 
         public async Task<Manifest> GetManifestByWayBill(string waybill)
         {
-            return _dbContext.Manifest.FirstOrDefault(e => e.GroupWayBillId.ToString() == waybill);
+            return _dbContext.Manifest.FirstOrDefault(e => e.GroupWayBill.ToString() == waybill);
         }
     }
 }
