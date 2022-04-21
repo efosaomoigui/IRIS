@@ -58,5 +58,11 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Wallets
             var lsWallets =  await _dbContext.WalletNumber.Include(s => s.WalletTransactions).ToListAsync();
             return lsWallets;
         }
+
+        public async Task<List<WalletNumber>> GetWalletTransactionByWalletNumber(string walletNumber)
+        {
+            var result = await _dbContext.WalletNumber.Where(e => e.Number == walletNumber).OrderByDescending(e => e.Id).Include(s => s.WalletTransactions).ToListAsync();
+            return result;
+        }
     }
 }

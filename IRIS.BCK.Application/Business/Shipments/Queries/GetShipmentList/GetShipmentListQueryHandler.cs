@@ -1,7 +1,12 @@
 ﻿using AutoMapper;
 using IRIS.BCK.Application.Interfaces.IRepository;
+using IRIS.BCK.Application.Interfaces.IRepository.IShipmentRepositories;
+using IRIS.BCK.Core.Application.Business.Accounts.AccountEntities;
+using IRIS.BCK.Core.Application.Interfaces.IRepositories.IRouteRepository;
 using IRIS.BCK.Core.Domain.Entities.ShimentEntities;
+using IRIS.BCK.Core.Domain.EntityEnums;
 using MediatR;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,19 +18,56 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Queries.GetShipmentList
 {
     class GetShipmentListQueryHandler : IRequestHandler<GetShipmentListQuery, List<ShipmentListViewModel>>
     {
-        private readonly IGenericRepository<Shipment> _shipmentRepository;
+        private readonly IShipmentRepository _shipmentRepository;
+        private readonly IRouteRepository _routeRepository;
         private readonly IMapper _mapper;
+        private readonly UserManager<User> _userManager;
 
-        public GetShipmentListQueryHandler(IGenericRepository<Shipment> shipmentRepository, IMapper mapper)
+        public GetShipmentListQueryHandler(IShipmentRepository shipmentRepository, IMapper mapper, UserManager<User> userManager = null, IRouteRepository routeRepository = null)
         {
             _shipmentRepository = shipmentRepository;
             _mapper = mapper;
+            _userManager = userManager;
+            _routeRepository = routeRepository;
         }
 
         public async Task<List<ShipmentListViewModel>> Handle(GetShipmentListQuery request, CancellationToken cancellationToken)
-        {
-            var allShiments = (await _shipmentRepository.GetAllAsync()).OrderBy(x => x.CreatedDate);
-            return _mapper.Map<List<ShipmentListViewModel>>(allShiments);
+            {
+            var allShiments = (await _shipmentRepository.GetShipmentAndItemsAndRoute()).OrderByDescending(x => x.CreatedDate); 
+             
+            List<ShipmentListViewModel> listShipments = new List<ShipmentListViewModel>(); 
+
+            foreach (var shipment in allShiments) 
+            {
+                var singleShipmentVm = new ShipmentListViewModel();
+
+                singleShipmentVm.ShipmentId = shipment.ShipmentId;
+                singleShipmentVm.Waybill = shipment.Waybill;
+                singleShipmentVm.Customer = shipment.Customer;
+                singleShipmentVm.CustomerAddress = shipment.CustomerAddress;
+                singleShipmentVm.Reciever = shipment.Reciever;
+                singleShipmentVm.RecieverAddress = shipment.RecieverAddress;
+                var user = await _userManager.FindByIdAsync(shipment.Customer.ToString());
+                var user2 = await _userManager.FindByIdAsync(shipment.Reciever.ToString());
+                var route = await _routeRepository.GetRouteById(shipment.ShipmentRouteId.ToString()); 
+                singleShipmentVm.Departure = route.Departure;
+                singleShipmentVm.Destination = route.Destination;
+                singleShipmentVm.PickupOptions = shipment.PickupOptions.ToString();
+                singleShipmentVm.CustomerName = user?.FirstName + " " + user?.LastName;
+                singleShipmentVm.RecieverName = shipment.RecieverName;
+                singleShipmentVm.GrandTotal = shipment.GrandTotal;
+                singleShipmentVm.GrandTotal = shipment.GrandTotal;
+                singleShipmentVm.CreatedDate = shipment.CreatedDate;
+                singleShipmentVm.RecieverPhoneNumber = user2.PhoneNumber;
+                singleShipmentVm.CustomerPhoneNumber = user.PhoneNumber;
+                singleShipmentVm.ShipmentCategory = shipment.ShipmentCategory.ToString();
+
+                listShipments.Add(singleShipmentVm);
+            }
+
+            //return _mapper.Map<List<WalletNumberViewModel>>(allWalletNumber);
+            return listShipments;
+            //return _mapper.Map<List<ShipmentListViewModel>>(allShiments);
         }
     }
 }

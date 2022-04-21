@@ -15,8 +15,13 @@ namespace IRIS.BCK.Core.Application.Business.Payments.Queries.GetPayment
         public double Amount { get; set; }
         public string InvoiceCode { get; set; }
         public Guid UserId { get; set; }
+        public string CustomerName { get; set; }
+        public string ReceiverName { get; set; }        
+        public string CustomerAddress { get; set; }
+        public string ReceiverAddress { get; set; }
+        public DateTime CreatedDate { get; set; }
         public string WaybilNumber { get; set; }
-        public PaymentMethod PaymentMethod { get; set; }
-        public StatusEnum Status { get; set; }
+        public string PaymentMethod { get; set; }
+        public string Status { get; set; }
     }
 }

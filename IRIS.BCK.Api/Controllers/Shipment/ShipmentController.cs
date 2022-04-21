@@ -34,9 +34,22 @@ namespace IRIS.BCK.Api.Controllers.Shipment
         {
             var shipment = new ShipmentViewModel();
 
-            if (shipmentid != null)
+            if (shipmentid.ToString() != null)
             {
                 shipment = await _mediator.Send(new GetShipmentByIdQuery(shipmentid.ToString()));
+            }
+
+            return Ok(shipment);
+        }
+
+        [HttpGet("GetShipmentByRouteId/{routeid}")]
+        public async Task<ActionResult<List<ShipmentRouteViewModel>>> GetShipmentByRouteId([FromRoute] Guid routeid) 
+        {
+            var shipment = new List<ShipmentRouteViewModel>();
+
+            if (routeid.ToString() != null)
+            {
+                shipment = await _mediator.Send(new GetShipmentByRouteIdQuery(routeid.ToString()));
             }
 
             return Ok(shipment);

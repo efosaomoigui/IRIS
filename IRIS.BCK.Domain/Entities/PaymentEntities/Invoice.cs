@@ -18,5 +18,6 @@ namespace IRIS.BCK.Core.Domain.Entities.PaymentEntities
         public string WaybilNumber { get; set; } 
         public PaymentMethod PaymentMethod { get; set; } 
         public StatusEnum Status { get; set; }
+        public Shipment Shipment { get; set; } 
     }
 }

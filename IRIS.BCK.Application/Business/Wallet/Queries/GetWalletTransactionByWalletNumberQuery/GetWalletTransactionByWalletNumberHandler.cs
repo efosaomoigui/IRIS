@@ -14,13 +14,22 @@ using System.Threading.Tasks;
 
 namespace IRIS.BCK.Core.Application.Business.Wallet.Queries.GetWalletTransactionByWalletNumberQuery
 {
-    public class GetWalletTransactionByWalletNumberQueryHandler : IRequestHandler<GetWalletTransactionQuery, List<WalletTransactionViewModel>>
+    public class GetWalletTransactionByWalletNumberQuery : IRequest<WalletTransactionAndTotalViewModel>
+    {
+        public GetWalletTransactionByWalletNumberQuery(string walletnumber)
+        {
+            Walletnumber = walletnumber;
+        }
+
+        public string Walletnumber { get; }
+    }
+    public class GetWalletTransactionByWalletNumberHandler : IRequestHandler<GetWalletTransactionByWalletNumberQuery, WalletTransactionAndTotalViewModel>
     {
         private readonly IWalletRepository _walletRepository;
         private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;
 
-        public GetWalletTransactionByWalletNumberQueryHandler(IMapper mapper, IWalletRepository walletRepository = null, UserManager<User> userManager = null)
+        public GetWalletTransactionByWalletNumberHandler(IMapper mapper, IWalletRepository walletRepository = null, UserManager<User> userManager = null)
         {
             //_walletTransactionRepository = walletTransactionRepository;
             _mapper = mapper;
@@ -28,14 +37,16 @@ namespace IRIS.BCK.Core.Application.Business.Wallet.Queries.GetWalletTransaction
             _userManager = userManager;
         }
 
-        public async Task<List<WalletTransactionViewModel>> Handle(GetWalletTransactionQuery request, CancellationToken cancellationToken)
+        public async Task<WalletTransactionAndTotalViewModel> Handle(GetWalletTransactionByWalletNumberQuery request, CancellationToken cancellationToken)
         {
-            //var allWalletTransaction = (await _walletTransactionRepository.GetAllAsync()).OrderBy(x => x.CreatedDate).ToList();
-            var allWalletsAndTransactions = (await _walletRepository.GetWalletsTransaAndNumbers()).OrderByDescending(x => x.CreatedDate);
-            List<WalletTransactionViewModel> listWallets = new List<WalletTransactionViewModel>();
+            var allWalletsAndTransactions = (await _walletRepository.GetWalletTransactionByWalletNumber(request.Walletnumber)).OrderBy(x => x.CreatedDate);
+            WalletTransactionAndTotalViewModel WalletsTransAndTotal = new WalletTransactionAndTotalViewModel(); 
 
             foreach (var wallet in allWalletsAndTransactions)
             {
+                WalletsTransAndTotal.TotalBalance = wallet.WalletBalance;
+                WalletsTransAndTotal.WalletTransactions = new List<WalletTransactionViewModel>();
+
                 if (wallet.WalletTransactions.Count > 0)
                 {
                     foreach (var walletTransactions in wallet.WalletTransactions)
@@ -53,14 +64,23 @@ namespace IRIS.BCK.Core.Application.Business.Wallet.Queries.GetWalletTransaction
                         singleWalletVm.LineBalance = walletTransactions.LineBalance;
                         singleWalletVm.CreatedDate = walletTransactions.CreatedDate;
 
-                        listWallets.Add(singleWalletVm);
+                        WalletsTransAndTotal.WalletTransactions.Add(singleWalletVm);
                     }
                 }
             }
-            var newList = listWallets.OrderByDescending(x => x.CreatedDate)
-               .ToList();
 
-            return _mapper.Map<List<WalletTransactionViewModel>>(newList);
+            var newList = new List<WalletTransactionViewModel>();
+
+            if (WalletsTransAndTotal.WalletTransactions.Count > 0)
+            {
+                newList = WalletsTransAndTotal.WalletTransactions.OrderByDescending(x => x.CreatedDate).ToList();
+            }
+
+            WalletsTransAndTotal.WalletTransactions = newList;
+            WalletsTransAndTotal.WalletNumber = request.Walletnumber;
+            return WalletsTransAndTotal;
         }
     }
+
+
 }

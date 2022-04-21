@@ -4,14 +4,16 @@ using IRIS.BCK.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace IRIS.BCK.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(IRISDbContext))]
-    partial class IRISDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220419182416_invoice")]
+    partial class invoice
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -688,21 +690,10 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                     b.Property<DateTime>("LastModifiedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("RouteId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid>("ServiceCenterId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("ShipmentId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Waybill")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("ShipmentId");
 
                     b.ToTable("GroupWayBill");
                 });
@@ -1101,15 +1092,6 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                     b.HasOne("IRIS.BCK.Core.Domain.Entities.GroupWayBillManifestMapEntities.GroupWayBillManifestMap", null)
                         .WithMany("ShipmentGroupWayBillMap")
                         .HasForeignKey("GroupWayBillManifestMapid");
-                });
-
-            modelBuilder.Entity("IRIS.BCK.Core.Domain.Entities.ShipmentProcessing.GroupWayBill", b =>
-                {
-                    b.HasOne("IRIS.BCK.Core.Domain.Entities.ShimentEntities.Shipment", "Shipment")
-                        .WithMany()
-                        .HasForeignKey("ShipmentId");
-
-                    b.Navigation("Shipment");
                 });
 
             modelBuilder.Entity("IRIS.BCK.Core.Domain.Entities.WalletEntities.WalletTransaction", b =>

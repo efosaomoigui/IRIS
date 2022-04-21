@@ -32,5 +32,27 @@ namespace IRIS.BCK.Core.Application.Mappings.Wallets
                 UserId = (Guid)request.UserId
             };
         }
+
+        public static WalletTransaction CreateWalletTransactionsMapsCommand(CreditWalletCommand request) 
+        {
+            return new WalletTransaction
+            {
+                Amount = request.Amount,
+                TransactionType = request.TransactionType,
+                Description = request.Description,
+                UserId = (Guid)request.UserId
+            };
+        }
+
+        public static WalletTransaction CreateWalletTransactionsMapsCommand(DebitWalletCommand request)
+        {
+            return new WalletTransaction
+            {
+                Amount = request.Amount,
+                TransactionType = request.TransactionType,
+                Description = request.Description,
+                UserId = (Guid)request.UserId
+            };
+        }
     }
 }

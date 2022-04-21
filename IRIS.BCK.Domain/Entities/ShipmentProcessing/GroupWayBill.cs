@@ -13,6 +13,9 @@ namespace IRIS.BCK.Core.Domain.Entities.ShipmentProcessing
     {
         public Guid Id { get; set; }
         public string GroupCode { get; set; }
+        public Shipment Shipment { get; set; }
+        public string Waybill { get; set; }
+        public Guid RouteId { get; set; } 
         public Guid ServiceCenterId { get; set; }
     }
 }

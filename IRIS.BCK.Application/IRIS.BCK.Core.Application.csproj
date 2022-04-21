@@ -10,16 +10,31 @@
     <Compile Remove="Business\Finance\**" />
     <Compile Remove="Business\Shipments\Commands\UpdateShipment\**" />
     <Compile Remove="Business\Trip\**" />
+    <Compile Remove="Business\Wallet\Queries\GetLastWalletNumberQuery\**" />
+    <Compile Remove="Business\Wallet\Queries\GetWalletByAccountNumber\**" />
+    <Compile Remove="Business\Wallet\Queries\GetWalletListQuery\**" />
+    <Compile Remove="Business\Wallet\Queries\GetWalletNumberQuery\**" />
+    <Compile Remove="Business\Wallet\Queries\GetWalletTransactionListQuery\**" />
     <EmbeddedResource Remove="Business\Accounts\Commands\CreateClaims\**" />
     <EmbeddedResource Remove="Business\Accounts\Commands\UpdateUser\**" />
     <EmbeddedResource Remove="Business\Finance\**" />
     <EmbeddedResource Remove="Business\Shipments\Commands\UpdateShipment\**" />
     <EmbeddedResource Remove="Business\Trip\**" />
+    <EmbeddedResource Remove="Business\Wallet\Queries\GetLastWalletNumberQuery\**" />
+    <EmbeddedResource Remove="Business\Wallet\Queries\GetWalletByAccountNumber\**" />
+    <EmbeddedResource Remove="Business\Wallet\Queries\GetWalletListQuery\**" />
+    <EmbeddedResource Remove="Business\Wallet\Queries\GetWalletNumberQuery\**" />
+    <EmbeddedResource Remove="Business\Wallet\Queries\GetWalletTransactionListQuery\**" />
     <None Remove="Business\Accounts\Commands\CreateClaims\**" />
     <None Remove="Business\Accounts\Commands\UpdateUser\**" />
     <None Remove="Business\Finance\**" />
     <None Remove="Business\Shipments\Commands\UpdateShipment\**" />
     <None Remove="Business\Trip\**" />
+    <None Remove="Business\Wallet\Queries\GetLastWalletNumberQuery\**" />
+    <None Remove="Business\Wallet\Queries\GetWalletByAccountNumber\**" />
+    <None Remove="Business\Wallet\Queries\GetWalletListQuery\**" />
+    <None Remove="Business\Wallet\Queries\GetWalletNumberQuery\**" />
+    <None Remove="Business\Wallet\Queries\GetWalletTransactionListQuery\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -41,11 +56,6 @@
   <ItemGroup>
     <Folder Include="Business\Wallet\Commands\DeleteWalletNumber\" />
     <Folder Include="Business\Wallet\Commands\UpdateWalletNumber\" />
-    <Folder Include="Business\Wallet\Queries\GetWalletNumberQuery\" />
-    <Folder Include="Business\Wallet\Queries\GetWalletListQuery\" />
-    <Folder Include="Business\Wallet\Queries\GetWalletTransactionListQuery\" />
-    <Folder Include="Business\Wallet\Queries\GetLastWalletNumberQuery\" />
-    <Folder Include="Business\Wallet\Queries\GetWalletByAccountNumber\" />
     <Folder Include="DTO\Files\Pdf\" />
     <Folder Include="Interfaces\IFiles\IPdf\" />
     <Folder Include="Interfaces\IMessages\ISms\" />

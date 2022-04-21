@@ -51,14 +51,17 @@ namespace IRIS.BCK.Core.Application.Business.Wallet.Queries.GetWalletTransaction
                         singleWalletVm.TransactionType = walletTransactions.TransactionType.ToString();
                         singleWalletVm.LineBalance = walletTransactions.LineBalance;
                         singleWalletVm.WalletBalance = wallet.WalletBalance;
+                        singleWalletVm.CreatedDate = walletTransactions.CreatedDate;
 
                         vTransactions.Add(singleWalletVm);
                     }
                 }
             }
 
+            var newList = vTransactions.OrderByDescending(x => x.CreatedDate)
+                  .ToList();
             //var walletMap = _mapper.Map<List<WalletTransactionViewModel>>(userWalletTransaction);
-            return vTransactions;
+            return newList; 
         }
     }
 }

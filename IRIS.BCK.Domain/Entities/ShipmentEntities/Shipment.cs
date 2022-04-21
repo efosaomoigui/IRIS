@@ -10,6 +10,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using IRIS.BCK.Core.Domain.Entities.RouteEntities;
+using IRIS.BCK.Core.Domain.Entities.PaymentEntities;
 
 namespace IRIS.BCK.Core.Domain.Entities.ShimentEntities
 {
@@ -26,19 +28,25 @@ namespace IRIS.BCK.Core.Domain.Entities.ShimentEntities
 
         public double GrandTotal { get; set; }
 
-        public ICollection<Address> CustomerAddress { get; set; }
+        public string CustomerAddress { get; set; }
+        //public ICollection<Address> CustomerAddress { get; set; }
 
         //Receivers Information
         public string RecieverName { get; set; } 
         public Guid Reciever { get; set; }
 
-        public ICollection<Address> RecieverAddress { get; set; }
+        public string RecieverAddress { get; set; }
+        //public ICollection<Address> RecieverAddress { get; set; }
 
         //PickUp Options
         public PickupOptions PickupOptions { get; set; }
+        public ShipmentCategory ShipmentCategory { get; set; } 
 
         //Shipment Items && pricing
         public List<ShipmentItem> ShipmentItems { get; set; }
+
+        public Guid ShipmentRouteId { get; set; }   
+        public Route Route { get; set; }         
 
         public Guid ServiceCenterId { get; set; }
 

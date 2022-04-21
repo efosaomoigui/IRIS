@@ -16,7 +16,12 @@ namespace IRIS.BCK.Application.Interfaces.IRepository.IShipmentRepositories
         Task<bool> CheckUniqueWaybillNumberFiftyCharacterslong(string waybill);
 
         Task<Shipment> GetShipmentById(string shipmentid);
+        Task<List<Shipment>> GetShipmentByRouteId(string routeid);  
 
         Task<Shipment> GetShipmentByWayBillNumber(string waybillnumber);
+
+        Task<List<Shipment>> GetShipmentAndItemsAndRoute();
+
+        Task<Shipment> GetShipmentByWayBill(string waybillnumber); 
     }
 }

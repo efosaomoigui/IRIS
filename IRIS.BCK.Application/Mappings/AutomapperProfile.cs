@@ -94,6 +94,7 @@ using IRIS.BCK.Core.Application.Business.Shipments.Commands.UpdateShipments;
 using IRIS.BCK.Core.Application.DTO.ShipmentRequests;
 using IRIS.BCK.Core.Domain.Entities.ShipmentRequestEntities;
 using IRIS.BCK.Core.Application.Business.ShipmentRequests.Queries.GetShipmentRequest;
+using IRIS.BCK.Core.Domain.EntityEnums;
 
 namespace IRIS.BCK.Core.Application.Mappings
 {
@@ -208,6 +209,12 @@ namespace IRIS.BCK.Core.Application.Mappings
 
             CreateMap<GetShipmentByIdQuery, ShipmentViewModel>();
             CreateMap<ShipmentViewModel, GetShipmentByIdQuery>();
+
+            CreateMap<Shipment, ShipmentRouteViewModel>();
+            CreateMap<ShipmentRouteViewModel, Shipment>();
+
+            CreateMap<ShipmentItemDto, ShipmentItem>();
+            CreateMap<ShipmentItem, ShipmentItemDto>();
 
             CreateMap<GetManifestByManifestCodeQuery, ManifestViewModel>();
             CreateMap<ManifestViewModel, GetManifestByManifestCodeQuery>();

@@ -4,14 +4,16 @@ using IRIS.BCK.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace IRIS.BCK.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(IRISDbContext))]
-    partial class IRISDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220419141055_shipment category")]
+    partial class shipmentcategory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -379,9 +381,6 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                     b.Property<int>("PaymentMethod")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("ShipmentId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
@@ -392,8 +391,6 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ShipmentId");
 
                     b.ToTable("Invoice");
                 });
@@ -688,21 +685,10 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                     b.Property<DateTime>("LastModifiedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("RouteId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid>("ServiceCenterId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("ShipmentId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Waybill")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("ShipmentId");
 
                     b.ToTable("GroupWayBill");
                 });
@@ -1056,15 +1042,6 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                     b.Navigation("Trip");
                 });
 
-            modelBuilder.Entity("IRIS.BCK.Core.Domain.Entities.PaymentEntities.Invoice", b =>
-                {
-                    b.HasOne("IRIS.BCK.Core.Domain.Entities.ShimentEntities.Shipment", "Shipment")
-                        .WithMany()
-                        .HasForeignKey("ShipmentId");
-
-                    b.Navigation("Shipment");
-                });
-
             modelBuilder.Entity("IRIS.BCK.Core.Domain.Entities.PriceEntities.PriceEnt", b =>
                 {
                     b.HasOne("IRIS.BCK.Core.Domain.Entities.RouteEntities.Route", "Route")
@@ -1101,15 +1078,6 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                     b.HasOne("IRIS.BCK.Core.Domain.Entities.GroupWayBillManifestMapEntities.GroupWayBillManifestMap", null)
                         .WithMany("ShipmentGroupWayBillMap")
                         .HasForeignKey("GroupWayBillManifestMapid");
-                });
-
-            modelBuilder.Entity("IRIS.BCK.Core.Domain.Entities.ShipmentProcessing.GroupWayBill", b =>
-                {
-                    b.HasOne("IRIS.BCK.Core.Domain.Entities.ShimentEntities.Shipment", "Shipment")
-                        .WithMany()
-                        .HasForeignKey("ShipmentId");
-
-                    b.Navigation("Shipment");
                 });
 
             modelBuilder.Entity("IRIS.BCK.Core.Domain.Entities.WalletEntities.WalletTransaction", b =>

@@ -177,6 +177,12 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem
                         {
                             shipment.CustomerName = resultValues.shipperFullName;
                             shipment.RecieverName = resultValues.receiverFullName;
+                            shipment.RecieverAddress = resultValues.receiverAddress;
+                            shipment.CustomerAddress = resultValues.shipperAddress; 
+                            shipment.ShipmentRouteId = new Guid(resultValues.route);
+                            ShipmentCategory shipmentCat;
+                            Enum.TryParse(resultValues.shipmentCategory, out shipmentCat);
+                            shipment.ShipmentCategory = shipmentCat;
                             var shipmentval = await _shipmentRepository.AddAsync(shipment);
                         }
 
@@ -194,7 +200,7 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem
                             PaymentCriteriaCommandResponse.PaymentStatus = true;
                             var emailOptions = new EmailOptions();
                             emailOptions.Shipment = resultValues;
-                            await _emailService.SendEmail(email, emailOptions);
+                            if (emailOptions != null) await _emailService.SendEmail(email, emailOptions);
 
                             //update invoice
                             var invoiceExitCheckt = _invoiceRepository.GetAllAsync().Result.FirstOrDefault(x => x.InvoiceCode == request.InvoiceNumber);

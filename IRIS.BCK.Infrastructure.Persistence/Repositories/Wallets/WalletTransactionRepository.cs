@@ -29,7 +29,7 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Wallets
 
         public async Task<List<WalletNumber>> GetWalletTransactionByUserId(string userid)
         {
-            var result = await _dbContext.WalletNumber.Where(e => e.UserId.ToString() == userid).OrderByDescending(e => e.Id).Include(s => s.WalletTransactions).ToListAsync();
+            var result = await _dbContext.WalletNumber.Where(e => e.UserId.ToString() == userid).OrderByDescending(e => e.CreatedDate).Include(s => s.WalletTransactions).ToListAsync();
             //var result =  _dbContext.WalletTransaction.Where(e => e.UserId.ToString() == userid).ToList();
             return result;
         }
@@ -42,7 +42,7 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Wallets
 
             //Credit wallet balance if
             //balance greater than wallettransaction.amount
-            if (walletBalance > (decimal)(walletTransaction.Amount))
+            if (walletTransaction.Amount > 0)
             {
                 var newWalletBalane = walletBalance + (decimal)walletTransaction.Amount;
                 walletTransaction.WalletNumberId = wallet.Id;
@@ -67,7 +67,7 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Wallets
 
             //debit wallet balance if
             //balance greater than wallettransaction.amount
-            if (walletBalance > (decimal)(walletTransaction.Amount))
+            if (walletBalance > (decimal)(walletTransaction.Amount) && walletBalance > 0)
             {
                 var newWalletBalane = walletBalance - (decimal)walletTransaction.Amount ;
                 walletTransaction.WalletNumberId = wallet.Id;
@@ -82,6 +82,15 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Wallets
 
             //return null if not possible
             return null;
+        }
+
+        public async Task<string> UserIdByWalletNumber(string walletNumber)
+        {
+            //get the wallet balance
+            var wallet = _dbContext.WalletNumber.FirstOrDefault(x => x.Number == walletNumber);
+
+            //return null if not possible
+            return wallet.UserId.ToString();
         }
     }
 }

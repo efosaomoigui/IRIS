@@ -15,5 +15,7 @@ namespace IRIS.BCK.Core.Application.Interfaces.IRepositories.IPaymentRepositorie
         public Task<Invoice> GetInvoiceByInvoiceCode(string invoicecode);
 
         public Task<Invoice> GetInvoiceByUserId(string userid);
+
+        Task<List<Invoice>> GetInvoiceAndItemsAndShipment();
     }
 }

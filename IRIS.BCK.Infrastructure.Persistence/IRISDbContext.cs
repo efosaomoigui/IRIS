@@ -68,13 +68,13 @@ namespace IRIS.BCK.Infrastructure.Persistence
             modelBuilder.Entity<WalletNumber>().Property(p => p.WalletBalance).HasColumnType("decimal(18,4)");
             modelBuilder.Entity<WalletTransaction>().Property(p => p.LineBalance).HasColumnType("decimal(18,4)");
 
-            modelBuilder.Entity<Shipment>().HasMany(t => t.CustomerAddress)
-                .WithOne(g => g.customershipmentAddress)
-                .HasForeignKey(g => g.customershipmentAddressId);
+            //modelBuilder.Entity<Shipment>().HasMany(t => t.CustomerAddress)
+            //    .WithOne(g => g.customershipmentAddress)
+            //    .HasForeignKey(g => g.customershipmentAddressId);
 
-            modelBuilder.Entity<Shipment>().HasMany(t => t.RecieverAddress)
-                .WithOne(g => g.recievershipmentAddress)
-                .HasForeignKey(g => g.recievershipmentAddressId);
+            //modelBuilder.Entity<Shipment>().HasMany(t => t.RecieverAddress)
+            //    .WithOne(g => g.recievershipmentAddress)
+            //    .HasForeignKey(g => g.recievershipmentAddressId);
 
             //many to many relationship
             //modelBuilder.Entity<Route>()
