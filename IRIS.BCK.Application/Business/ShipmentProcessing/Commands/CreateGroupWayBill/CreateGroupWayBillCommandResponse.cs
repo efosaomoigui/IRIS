@@ -14,6 +14,6 @@ namespace IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.CreateG
         {
         }
 
-        public GroupWayBillDto GroupWayBilldto { get; set; }
+        public List<GroupWayBillDto> GroupWayBilldto { get; set; }
     }
 }

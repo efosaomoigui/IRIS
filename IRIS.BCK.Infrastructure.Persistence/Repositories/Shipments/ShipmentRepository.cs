@@ -1,6 +1,8 @@
 ﻿using IRIS.BCK.Application.DTO;
 using IRIS.BCK.Application.Interfaces.IRepository.IShipmentRepositories;
+using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetShipmentById;
 using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetShipmentList;
+using IRIS.BCK.Core.Application.Interfaces.IRepositories.IRouteRepository;
 using IRIS.BCK.Core.Domain.Entities.ShimentEntities;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -13,8 +15,10 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Shipments
 {
     public class ShipmentRepository : GenericRepository<Shipment>, IShipmentRepository
     {
-        public ShipmentRepository(IRISDbContext dbContext) : base(dbContext)
+        private readonly IRouteRepository _routeRepository;
+        public ShipmentRepository(IRISDbContext dbContext, IRouteRepository routeRepository = null) : base(dbContext)
         {
+            _routeRepository = routeRepository;
         }
 
         public async Task<bool> CheckUniqueWaybillNumber(string waybill)
@@ -38,11 +42,42 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Shipments
             return _dbContext.Shipment.FirstOrDefault(e => e.ShipmentId.ToString() == shipmentid);
         }
          
-        public async Task<List<Shipment>> GetShipmentByRouteId(string routeid) 
+        public async Task<List<ShipmentRouteViewModel>> GetShipmentByRouteId(string routeid) 
         {
             //return _dbContext.Shipment.(e => e.ShipmentRouteId.ToString() == routeid);
             var shipments = _dbContext.Shipment;
-            return shipments.Where(e => e.ShipmentRouteId.ToString() == routeid).ToList();
+            var shipmentLst = shipments.Where(e => e.ShipmentRouteId.ToString() == routeid).ToList();
+            List<ShipmentRouteViewModel> allShiments = new List<ShipmentRouteViewModel>();
+             
+            foreach (var shipment in shipmentLst) 
+            {
+                var singleShipmentVm = new ShipmentRouteViewModel();
+
+                singleShipmentVm.ShipmentId = shipment.ShipmentId;
+                singleShipmentVm.Waybill = shipment.Waybill;
+                singleShipmentVm.Customer = shipment.Customer;
+                singleShipmentVm.CustomerAddress = shipment.CustomerAddress;
+                singleShipmentVm.Reciever = shipment.Reciever;
+                singleShipmentVm.RecieverAddress = shipment.RecieverAddress;
+                //var user = await _userManager.FindByIdAsync(shipment.Customer.ToString());
+                //var user2 = await _userManager.FindByIdAsync(shipment.Reciever.ToString());
+                var route = await _routeRepository.GetRouteById(shipment.ShipmentRouteId.ToString());
+                singleShipmentVm.Departure = route.Departure;
+                singleShipmentVm.Destination = route.Destination;
+                singleShipmentVm.PickupOptions = shipment.PickupOptions.ToString();
+                //singleShipmentVm.CustomerName = user?.FirstName + " " + user?.LastName;
+                singleShipmentVm.RecieverName = shipment.RecieverName;
+                singleShipmentVm.GrandTotal = shipment.GrandTotal;
+                singleShipmentVm.GrandTotal = shipment.GrandTotal;
+                singleShipmentVm.CreatedDate = shipment.CreatedDate;
+                //singleShipmentVm.RecieverPhoneNumber = user2.PhoneNumber;
+                //singleShipmentVm.CustomerPhoneNumber = user.PhoneNumber;
+                singleShipmentVm.ShipmentCategory = shipment.ShipmentCategory.ToString();
+
+                allShiments.Add(singleShipmentVm);
+            }
+
+            return allShiments; // shipments.Where(e => e.ShipmentRouteId.ToString() == routeid).ToList();
         }
 
         public async Task<Shipment> GetShipmentByWayBillNumber(string waybillnumber)

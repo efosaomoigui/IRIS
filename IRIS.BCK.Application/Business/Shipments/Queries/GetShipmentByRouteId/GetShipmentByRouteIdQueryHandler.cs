@@ -24,9 +24,9 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Queries.GetShipmentById
         public async Task<List<ShipmentRouteViewModel>> Handle(GetShipmentByRouteIdQuery request, CancellationToken cancellationToken)
         {
             var routeid = request.RouteId.ToString();
-            var shipment = await _shipmentRepository.GetShipmentByRouteId(routeid); 
+            var shipment = await _shipmentRepository.GetShipmentByRouteId(routeid);
 
-            return _mapper.Map<List<ShipmentRouteViewModel>>(shipment);
+            return shipment; // _mapper.Map<List<ShipmentRouteViewModel>>(shipment);
         }
     }
 }

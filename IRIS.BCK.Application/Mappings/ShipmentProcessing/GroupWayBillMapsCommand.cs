@@ -10,13 +10,28 @@ namespace IRIS.BCK.Core.Application.Mappings.ShipmentProcessing
 {
     public static class GroupWayBillMapsCommand
     {
-        public static GroupWayBill CreateGroupWayBillMapsCommand(CreateGroupWayBillCommand request)
+        public static List<GroupWayBill> CreateGroupWayBillMapsCommand(CreateGroupWayBillCommand request)
         {
-            return new GroupWayBill
+            var listOfGroupWaybillItems = new List<GroupWayBill>();
+
+            foreach (var item in request.Waybills)
             {
-                Id = request.Id,
-                GroupCode = request.GroupCode,
-            };
+                if (item.Waybill != "")
+                {
+                    var grp = new GroupWayBill
+                    {
+                        Id = request.Id,
+                        GroupCode = request.GroupCode,
+                        RId = new Guid(request.RId),
+                        UserId = request.UserId,
+                        ServiceCenterId = request.ServiceCenterId,
+                        Waybill = item.Waybill
+                    };
+                    listOfGroupWaybillItems.Add(grp);
+                }
+            }
+
+            return listOfGroupWaybillItems;
         }
     }
 }
