@@ -54,6 +54,11 @@ namespace IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.CreateG
                 }
             }
 
+            if (CreateGroupWayBillCommandResponse.ValidationErrors.Count > 0)
+            {
+                CreateGroupWayBillCommandResponse.Success = false;
+            }
+
             var email = new Email
             {
                 To = "efe.omoigui@gmail.com",

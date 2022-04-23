@@ -1,4 +1,5 @@
 ﻿using IRIS.BCK.Application.Interfaces.IRepository;
+using IRIS.BCK.Core.Application.Business.ShipmentProcessing.Queries.GetGroupWayBill;
 using IRIS.BCK.Core.Domain.Entities.ShipmentProcessing;
 using System;
 using System.Collections.Generic;
@@ -10,5 +11,7 @@ namespace IRIS.BCK.Core.Application.Interfaces.IRepositories.IShipmentProcessing
 {
     public interface IGroupWayBillRepository : IGenericRepository<GroupWayBill>
     {
+        Task<List<GroupWayBillListViewModel>> GetGroupWaybillByRouteId();
+        Task<List<GroupWayBillListViewModel>> GetManifestGroupwaybillByRouteId(string routeid);
     }
 }

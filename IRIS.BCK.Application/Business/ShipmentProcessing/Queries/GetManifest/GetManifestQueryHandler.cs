@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using IRIS.BCK.Application.Interfaces.IRepository;
+using IRIS.BCK.Core.Application.Interfaces.IRepositories.IShipmentProcessingRepositories;
 using IRIS.BCK.Core.Domain.Entities.ShipmentProcessing;
 using MediatR;
 using System;
@@ -13,10 +14,10 @@ namespace IRIS.BCK.Core.Application.Business.ShipmentProcessing.Queries.GetManif
 {
     public class GetManifestQueryHandler : IRequestHandler<GetManifestQuery, List<ManifestListViewModel>>
     {
-        private readonly IGenericRepository<Manifest> _manifestRepository;
+        private readonly IManifestRepository _manifestRepository;
         private readonly IMapper _mapper;
 
-        public GetManifestQueryHandler(IGenericRepository<Manifest> manifestRepository, IMapper mapper)
+        public GetManifestQueryHandler(IManifestRepository manifestRepository, IMapper mapper)
         {
             _manifestRepository = manifestRepository;
             _mapper = mapper;
@@ -24,7 +25,7 @@ namespace IRIS.BCK.Core.Application.Business.ShipmentProcessing.Queries.GetManif
 
         public async Task<List<ManifestListViewModel>> Handle(GetManifestQuery request, CancellationToken cancellationToken)
         {
-            var allManifest = (await _manifestRepository.GetAllAsync()).OrderBy(x => x.CreatedDate);
+            var allManifest = await _manifestRepository.GetManifestGroupWaybillByRouteId();
             return _mapper.Map<List<ManifestListViewModel>>(allManifest);
         }
     }

@@ -1,4 +1,5 @@
 ﻿using IRIS.BCK.Application.Interfaces.IRepository;
+using IRIS.BCK.Core.Application.Business.ShipmentProcessing.Queries.GetManifest;
 using IRIS.BCK.Core.Domain.Entities.ShipmentProcessing;
 using System;
 using System.Collections.Generic;
@@ -13,5 +14,7 @@ namespace IRIS.BCK.Core.Application.Interfaces.IRepositories.IShipmentProcessing
         Task<Manifest> GetManifestByManifestCode(string manifestcode);
 
         Task<Manifest> GetManifestByWayBill(string waybill);
+
+        Task<List<ManifestListViewModel>> GetManifestGroupWaybillByRouteId(); 
     }
 }
