@@ -34,13 +34,13 @@ namespace IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.CreateG
             var validationResult = await validator.ValidateAsync(request);
 
             var alreadyExistingWaybills = await _groupWayBillRepository.GetAllAsync();
-            var groupCodeExist = alreadyExistingWaybills.Where(y => y.GroupCode == request.GroupCode);
-            if(groupCodeExist != null) CreateGroupWayBillCommandResponse.ValidationErrors.Add("Group code exist already!");
+            var groupCodeExist = alreadyExistingWaybills.Where(y => y.GroupCode == request.GroupCode).ToArray();
+            if(groupCodeExist.Length >0) CreateGroupWayBillCommandResponse.ValidationErrors.Add("Group code exist already!");
 
             var requestWaybills = request.Waybills.Select(s => s.Waybill);
             var selectedWaybills = alreadyExistingWaybills.Select(x => requestWaybills.Contains(x.Waybill)).ToArray();
 
-            if (selectedWaybills.Length > 0) CreateGroupWayBillCommandResponse.ValidationErrors.Add("Error processing group; Waybill exist in group already!");
+            //if (selectedWaybills.Length > 0) CreateGroupWayBillCommandResponse.ValidationErrors.Add("Error processing group; Waybill exist in group already!");
 
             if (validationResult.Errors.Count > 0)
             {

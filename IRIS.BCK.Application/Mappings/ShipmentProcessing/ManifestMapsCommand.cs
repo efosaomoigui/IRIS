@@ -10,12 +10,29 @@ namespace IRIS.BCK.Core.Application.Mappings.ShipmentProcessing
 {
     public static class ManifestMapsCommand
     {
-        public static Manifest CreateManifestMapsCommand(CreateManifestCommand request)
+        public static List<Manifest> CreateManifestMapsCommand(CreateManifestCommand request)
         {
-            return new Manifest
+            var listOfManifestItems = new List<Manifest>(); 
+
+            foreach (var item in request.GroupWayBillCode)
             {
-                ManifestCode = request.ManifestCode,
-            };
+                if (item.groupCode != "")
+                {
+                    var grp = new Manifest
+                    {
+                        Id = request.Id,
+                        ManifestCode = request.ManifestCode,
+                        RouteId = request.RouteId,
+                        UserId = request.UserId,
+                        ServiceCenterId = request.ServiceCenterId,
+                        GroupWayBillCode = item.groupCode
+                    };
+
+                    listOfManifestItems.Add(grp);
+                }
+            }
+
+            return listOfManifestItems;
         }
     }
 }

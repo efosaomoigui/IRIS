@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using IRIS.BCK.Core.Domain.EntityEnums;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,5 +41,7 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.UpdateUsers
         public string IdentificationImage { get; set; }
 
         public string WalletNumber { get; set; }
+        public string requirePasswordChanged { get; set; }
+
     }
 }

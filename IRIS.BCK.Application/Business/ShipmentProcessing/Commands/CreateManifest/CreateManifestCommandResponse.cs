@@ -14,6 +14,6 @@ namespace IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.CreateM
         {
         }
 
-        public ManifestDto Manifestdto { get; set; }
+        public List<ManifestDto> Manifestdto { get; set; }
     }
 }

@@ -2,6 +2,8 @@
 using IRIS.BCK.Core.Application.Business.Accounts.AccountEntities;
 using IRIS.BCK.Core.Application.Interfaces.IRepositories.IAccount;
 using IRIS.BCK.Core.Domain.Entities.ShimentEntities;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,14 +15,25 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Accounts
 { 
     public class UserRepository : GenericRepository<User>, IUserRepository
     {
-        public UserRepository(IRISDbContext dbContext) : base(dbContext)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly UserManager<User> _userManager;
+
+        public UserRepository(IRISDbContext dbContext, IHttpContextAccessor httpContextAccessor = null) : base(dbContext)
         {
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public Task<bool> CheckPasswordRequirement(string password, CancellationToken token)
         {
             //To be changed to implementation of proper password requirement
             return Task.FromResult(password.GetType() == typeof(string));
+        }
+
+        public async Task<string> GetCurrentSessionUserId(string dbContext)
+        {
+            var currentSessionUserEmail = _httpContextAccessor.HttpContext.User.Identity.Name;
+            var user = await _userManager.FindByEmailAsync(currentSessionUserEmail);
+            return user.Id;
         }
 
         public async Task<User> GetUserWithCredentials(string username, string password)

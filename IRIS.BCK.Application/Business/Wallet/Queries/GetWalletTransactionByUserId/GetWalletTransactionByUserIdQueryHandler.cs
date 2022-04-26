@@ -32,6 +32,7 @@ namespace IRIS.BCK.Core.Application.Business.Wallet.Queries.GetWalletTransaction
             var userWalletTransaction = await _walletTransactionRepository.GetWalletTransactionByUserId(userid);
 
             List<WalletTransactionViewModel> vTransactions = new List<WalletTransactionViewModel>();
+            var walletNumber = "";
 
             foreach (var wallet in userWalletTransaction)
             {
@@ -47,6 +48,7 @@ namespace IRIS.BCK.Core.Application.Business.Wallet.Queries.GetWalletTransaction
                         var user = await _userManager.FindByIdAsync(walletTransactions.UserId.ToString());
                         singleWalletVm.Amount = walletTransactions.Amount.ToString();
                         singleWalletVm.Name = user?.FirstName + " " + user?.LastName;
+                        walletNumber = user.WalletNumber;
                         singleWalletVm.Description = walletTransactions.Description;
                         singleWalletVm.TransactionType = walletTransactions.TransactionType.ToString();
                         singleWalletVm.LineBalance = walletTransactions.LineBalance;
@@ -58,8 +60,17 @@ namespace IRIS.BCK.Core.Application.Business.Wallet.Queries.GetWalletTransaction
                 }
             }
 
-            var newList = vTransactions.OrderByDescending(x => x.CreatedDate)
-                  .ToList();
+            var newList = vTransactions.OrderByDescending(x => x.CreatedDate).ToList();
+
+            //if (newList.Count <= 0) newList = new List<WalletTransactionViewModel>
+            //{
+            //    new WalletTransactionViewModel
+            //    {
+            //        WalletBalance = 0,
+            //        WalletNumber = walletNumber
+            //    }
+            //};
+
             //var walletMap = _mapper.Map<List<WalletTransactionViewModel>>(userWalletTransaction);
             return newList; 
         }

@@ -1,6 +1,7 @@
 ﻿using IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.CreateManifest;
 using IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.DeleteManifest;
 using IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.UpdateManifest;
+using IRIS.BCK.Core.Application.Business.ShipmentProcessing.Queries.GetGroupWayBill;
 using IRIS.BCK.Core.Application.Business.ShipmentProcessing.Queries.GetManifest;
 using IRIS.BCK.Core.Application.Business.ShipmentProcessing.Queries.GetManifestByGroupWayBill;
 using IRIS.BCK.Core.Application.Business.ShipmentProcessing.Queries.GetManifestByManifestCode;
@@ -49,6 +50,17 @@ namespace IRIS.BCK.Api.Controllers.ShipmentProcessing
             }
 
             return Ok(groupwaybill);
+        }
+
+        [HttpGet("GetManifestByRouteId/{routeid}")]
+        public async Task<ActionResult<List<ManifestListViewModel>>> GetManifestByRouteId([FromRoute] Guid routeid)
+        {
+            var manifest = new List<ManifestListViewModel>();
+            if (routeid.ToString() != null)
+            {
+                manifest = await _mediator.Send(new GetManifestByRouteIdQuery(routeid.ToString()));
+            }
+            return Ok(manifest);
         }
 
         [HttpPost("Manifest", Name = "AddManifest")]

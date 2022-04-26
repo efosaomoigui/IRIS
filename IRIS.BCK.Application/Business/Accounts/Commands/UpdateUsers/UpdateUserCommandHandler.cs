@@ -8,6 +8,7 @@ using IRIS.BCK.Core.Application.Interfaces.IRepositories.IAccount;
 using IRIS.BCK.Core.Application.Interfaces.IRepositories.IWalletRepositories;
 using IRIS.BCK.Core.Application.Mappings.Users;
 using IRIS.BCK.Core.Application.Shared;
+using IRIS.BCK.Core.Domain.EntityEnums;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using System;
@@ -66,7 +67,13 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.UpdateUsers
                 user.FirstName = request.FirstName; 
                 user.LastName = request.LastName; 
                 user.Email = request.Email; 
-                user.PhoneNumber = request.PhoneNumber; 
+                user.PhoneNumber = request.PhoneNumber;
+                if (request.requirePasswordChanged == "Yes")
+                {
+                    
+                    await _userManager.ChangePasswordAsync(user, user.Password, request.Password);
+                    user.Password = request.Password;
+                }
                 var updateUser = _mapper.Map<User>(user);
                 await _userManager.UpdateAsync(updateUser);
 

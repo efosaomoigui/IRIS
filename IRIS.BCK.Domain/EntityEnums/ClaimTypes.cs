@@ -31,4 +31,11 @@
         ViewInvoices,
 
     }
+    public enum RequireChange
+    {
+        Yes,
+        No
+    }
+
+
 }

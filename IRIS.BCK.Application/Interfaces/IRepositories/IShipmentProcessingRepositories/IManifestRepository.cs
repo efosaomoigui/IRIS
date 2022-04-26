@@ -15,6 +15,8 @@ namespace IRIS.BCK.Core.Application.Interfaces.IRepositories.IShipmentProcessing
 
         Task<Manifest> GetManifestByWayBill(string waybill);
 
-        Task<List<ManifestListViewModel>> GetManifestGroupWaybillByRouteId(); 
+        Task<List<ManifestListViewModel>> GetManifestGroupWaybillByRouteId();
+
+        Task<List<ManifestListViewModel>> GetManifestByRouteId(string routeid);
     }
 }

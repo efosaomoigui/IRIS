@@ -39,6 +39,38 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.ShipmentProcessing
 
                 singleGroupVm.Id = manifest.Id;
                 singleGroupVm.GroupWayBillCode = manifest.GroupWayBillCode;
+                singleGroupVm.ManifestCode = manifest.ManifestCode;
+                singleGroupVm.RouteId = manifest.RouteId;
+                singleGroupVm.UserId = manifest.UserId;
+                //var user = await _userManager.FindByIdAsync(shipment.Customer.ToString());
+                //var user2 = await _userManager.FindByIdAsync(shipment.Reciever.ToString());
+                var route = await _routeRepository.GetRouteById(manifest.RouteId.ToString());
+                singleGroupVm.Departure = route.Departure;
+                singleGroupVm.Destination = route.Destination;
+                singleGroupVm.CreatedDate = route.CreatedDate;
+                //singleShipmentVm.CustomerName = user?.FirstName + " " + user?.LastName;
+                allGroups.Add(singleGroupVm);
+            }
+            return allGroups;
+        }
+
+        public async Task<List<ManifestListViewModel>> GetManifestByRouteId(string routeid) 
+        {
+            var manifests = _dbContext.Manifest.OrderBy(x => x.CreatedDate).ToList();
+            var manifestList = manifests.Where(e => e.RouteId.ToString() == routeid).ToList();
+
+            List<ManifestListViewModel> allGroups = new List<ManifestListViewModel>();
+
+
+            foreach (var manifest in manifestList)
+            {
+                var singleGroupVm = new ManifestListViewModel();
+
+                singleGroupVm.Id = manifest.Id;
+                singleGroupVm.GroupWayBillCode = manifest.GroupWayBillCode;
+                singleGroupVm.ManifestCode = manifest.ManifestCode;
+                singleGroupVm.RouteId = manifest.RouteId;
+                singleGroupVm.UserId = manifest.UserId;
                 //var user = await _userManager.FindByIdAsync(shipment.Customer.ToString());
                 //var user2 = await _userManager.FindByIdAsync(shipment.Reciever.ToString());
                 var route = await _routeRepository.GetRouteById(manifest.RouteId.ToString());

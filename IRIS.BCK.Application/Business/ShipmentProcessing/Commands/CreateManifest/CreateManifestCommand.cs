@@ -13,8 +13,16 @@ namespace IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.CreateM
     {
         public Guid Id { get; set; }
         public string ManifestCode { get; set; }
-        public string GroupWayBillCode { get; set; }
+        public List<BaseGroupWaybill> GroupWayBillCode { get; set; }
         public Guid RouteId { get; set; }
+        public Guid UserId { get; set; }
         public Guid ServiceCenterId { get; set; }
+    }
+
+    public class BaseGroupWaybill
+    {
+        public string groupCode { get; set; }  
+        public string Destination { get; set; }
+        public string RouteId { get; set; }
     }
 }
