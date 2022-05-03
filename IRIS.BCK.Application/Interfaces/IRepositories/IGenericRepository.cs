@@ -18,6 +18,7 @@ namespace IRIS.BCK.Application.Interfaces.IRepository
         Task<IEnumerable<T>> AddRangeAsync(IEnumerable<T> entity); 
 
         Task UpdateAsync(T entity);
+        Task UpdateRangeAsync(IEnumerable<T> entity); 
 
         Task DeleteAsync(T entity);
 

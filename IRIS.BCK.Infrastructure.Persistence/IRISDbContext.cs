@@ -57,6 +57,8 @@ namespace IRIS.BCK.Infrastructure.Persistence
         public DbSet<PaymentLog> PaymentLog { get; set; }
         public DbSet<ShipmentRequest> ShipmentRequest { get; set; }
 
+        public DbSet<IrisTrackView> IrisTrackView { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -67,6 +69,12 @@ namespace IRIS.BCK.Infrastructure.Persistence
             //modelBuilder.Entity<ShipmentItem>().Property(p => p.DeclarationOfValueCheck).HasColumnType("decimal(18,4)");
             modelBuilder.Entity<WalletNumber>().Property(p => p.WalletBalance).HasColumnType("decimal(18,4)");
             modelBuilder.Entity<WalletTransaction>().Property(p => p.LineBalance).HasColumnType("decimal(18,4)");
+
+            modelBuilder.Entity<IrisTrackView>(c =>
+            {
+                c.HasNoKey();
+                c.ToView("IrisTrackView");
+            });
 
             //modelBuilder.Entity<Shipment>().HasMany(t => t.CustomerAddress)
             //    .WithOne(g => g.customershipmentAddress)

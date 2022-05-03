@@ -1,6 +1,7 @@
 ﻿using IRIS.BCK.Core.Domain.Entities.RouteEntities;
 using IRIS.BCK.Core.Domain.Entities.ServiceCenterEntities;
 using IRIS.BCK.Core.Domain.Entities.ShimentEntities;
+using IRIS.BCK.Core.Domain.EntityEnums;
 using IRIS.BCK.Domain.Common;
 using System;
 using System.Collections.Generic;
@@ -14,11 +15,13 @@ namespace IRIS.BCK.Core.Domain.Entities.ShipmentProcessing
     {
         public Guid Id { get; set; }
         public string GroupCode { get; set; }
-        public Shipment Shipment { get; set; }
+        public List<Shipment> Shipment { get; set; }
+        public Guid ShipmentId { get; set; }
         public string Waybill { get; set; }
         public Guid RId { get; set; }  
         public Route GroupRId { get; set; }
         public Guid UserId { get; set; }
+        public ShipmentProcessingStatus ShipmentProcessingStatus { get; set; }
         public Guid ServiceCenterId { get; set; }
     }
 }

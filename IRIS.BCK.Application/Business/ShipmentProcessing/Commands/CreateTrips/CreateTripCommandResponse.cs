@@ -14,6 +14,6 @@ namespace IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.CreateT
         {
         }
 
-        public TripDto Tripdto { get; set; }
+        public List<TripDto> Tripdto { get; set; }
     }
 }

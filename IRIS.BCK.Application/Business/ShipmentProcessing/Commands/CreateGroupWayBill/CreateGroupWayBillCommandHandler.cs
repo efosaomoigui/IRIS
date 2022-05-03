@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
+using IRIS.BCK.Application.Interfaces.IRepository.IShipmentRepositories;
 using IRIS.BCK.Core.Application.DTO.Message.EmailMessage;
 using IRIS.BCK.Core.Application.DTO.ShipmentProcessing;
 using IRIS.BCK.Core.Application.Interfaces.IMessages.IEmail;
 using IRIS.BCK.Core.Application.Interfaces.IRepositories.IShipmentProcessingRepositories;
 using IRIS.BCK.Core.Application.Mappings.ShipmentProcessing;
+using IRIS.BCK.Core.Domain.EntityEnums;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -17,14 +19,16 @@ namespace IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.CreateG
     public class CreateGroupWayBillCommandHandler : IRequestHandler<CreateGroupWayBillCommand, CreateGroupWayBillCommandResponse>
     {
         private readonly IGroupWayBillRepository _groupWayBillRepository;
+        private readonly IShipmentRepository _shipmentRepository;
         private readonly IMapper _mapper;
         private readonly IEmailService _emailService;
 
-        public CreateGroupWayBillCommandHandler(IGroupWayBillRepository groupWayBillRepository, IMapper mapper, IEmailService emailService)
+        public CreateGroupWayBillCommandHandler(IGroupWayBillRepository groupWayBillRepository, IMapper mapper, IEmailService emailService, IShipmentRepository shipmentRepository = null)
         {
             _groupWayBillRepository = groupWayBillRepository;
             _mapper = mapper;
             _emailService = emailService;
+            _shipmentRepository = shipmentRepository;
         }
 
         public async Task<CreateGroupWayBillCommandResponse> Handle(CreateGroupWayBillCommand request, CancellationToken cancellationToken)
@@ -41,7 +45,6 @@ namespace IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.CreateG
             var selectedWaybills = alreadyExistingWaybills.Select(x => requestWaybills.Contains(x.Waybill)).ToArray();
 
             //if (selectedWaybills.Length > 0) CreateGroupWayBillCommandResponse.ValidationErrors.Add("Error processing group; Waybill exist in group already!");
-
             if (validationResult.Errors.Count > 0)
             {
                 //throw new ValidationException(validationResult);
@@ -69,7 +72,23 @@ namespace IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.CreateG
             if (CreateGroupWayBillCommandResponse.Success)
             {
                 var group = GroupWayBillMapsCommand.CreateGroupWayBillMapsCommand(request);
+
+                foreach (var grp in group)
+                {
+                    var shipment = await _shipmentRepository.GetShipmentByWayBillNumber(grp.Waybill);
+                    grp.ShipmentId = shipment.ShipmentId;
+                    grp.ShipmentProcessingStatus = ShipmentProcessingStatus.Created;
+                }
+                
                 var result = await _groupWayBillRepository.AddRangeAsync(group);
+
+                //shipment.ShipmentProcessingStatus = ShipmentProcessingStatus.Created;
+                foreach (var grp in group)
+                {
+                    var updateShipment = await _shipmentRepository.GetShipmentByWayBill(grp.Waybill);
+                    updateShipment.ShipmentProcessingStatus = ShipmentProcessingStatus.Groupped;
+                    await _shipmentRepository.UpdateAsync(updateShipment); 
+                }
 
                 try
                 {
@@ -81,7 +100,6 @@ namespace IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.CreateG
                 }
 
                 CreateGroupWayBillCommandResponse.GroupWayBilldto = _mapper.Map<List<GroupWayBillDto>>(result);
-
                 return CreateGroupWayBillCommandResponse;
             }
 

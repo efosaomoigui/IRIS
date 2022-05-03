@@ -14,14 +14,12 @@ namespace IRIS.BCK.Core.Application.Mappings.Settings
                 Capacity = request.Capacity,
                 ChasisNumber = request.ChassisNumber,
                 UserId = request.OwnerId,
-                Description = request.Description,
-                EngineNumber = request.EngineNumber,
                 FleetId = request.FleetId,
                 FleetMake = request.FleetMake,
                 FleetModel = request.FleetModel,
                 FleetType = request.FleetType,
-                RegistrationNumber = request.RegistrationNumber,
-                Status = request.Status
+                Status = request.Status,
+                OwnerId = request.OwnerId
             };
         }
 

@@ -24,6 +24,8 @@ namespace IRIS.BCK.Application.Interfaces.IRepository.IShipmentRepositories
 
         Task<List<Shipment>> GetShipmentAndItemsAndRoute();
 
-        Task<Shipment> GetShipmentByWayBill(string waybillnumber); 
+        Task<Shipment> GetShipmentByWayBill(string waybillnumber);
+
+        Task<List<Guid>> GetUnprocessedShipment();
     }
 }

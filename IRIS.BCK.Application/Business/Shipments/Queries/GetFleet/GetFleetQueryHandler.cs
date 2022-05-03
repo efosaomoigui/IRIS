@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using IRIS.BCK.Application.Interfaces.IRepository;
 using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetFleets;
+using IRIS.BCK.Core.Application.Interfaces.IRepositories.IFleetRepositories;
 using IRIS.BCK.Core.Domain.Entities.FleetEntities;
 using MediatR;
 using System;
@@ -14,10 +15,10 @@ namespace IRIS.BCK.Core.Application.Business.Fleets.Queries.GetFleets
 {
     public class GetFleetQueryHandler : IRequestHandler<GetFleetQuery, List<FleetListViewModel>>
     {
-        private readonly IGenericRepository<Fleet> _fleetRepository;
+        private readonly IFleetRepository _fleetRepository;
         private readonly IMapper _mapper;
 
-        public GetFleetQueryHandler(IGenericRepository<Fleet> fleetRepository, IMapper mapper)
+        public GetFleetQueryHandler(IFleetRepository fleetRepository, IMapper mapper)
         {
             _fleetRepository = fleetRepository;
             _mapper = mapper;
@@ -25,8 +26,9 @@ namespace IRIS.BCK.Core.Application.Business.Fleets.Queries.GetFleets
 
         public async Task<List<FleetListViewModel>> Handle(GetFleetQuery request, CancellationToken cancellationToken)
         {
-            var allFleet = (await _fleetRepository.GetAllAsync()).OrderBy(x => x.CreatedDate);
-            return _mapper.Map<List<FleetListViewModel>>(allFleet);
+            var allFleet = await _fleetRepository.GetFleetWithOwner();
+            //return _mapper.Map<List<FleetListViewModel>>(allFleet);
+            return allFleet;
         }
     }
 }

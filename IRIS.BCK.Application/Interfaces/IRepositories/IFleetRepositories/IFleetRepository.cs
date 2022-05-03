@@ -1,4 +1,5 @@
 ﻿using IRIS.BCK.Application.Interfaces.IRepository;
+using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetFleets;
 using IRIS.BCK.Core.Domain.Entities.FleetEntities;
 using System;
 using System.Collections.Generic;
@@ -15,5 +16,7 @@ namespace IRIS.BCK.Core.Application.Interfaces.IRepositories.IFleetRepositories
         Task<Fleet> GetFleetById(string fleetid);
 
         Task<Fleet> GetFleetByUserId(string userid);
+
+        Task<List<FleetListViewModel>> GetFleetWithOwner (); 
     }
 }

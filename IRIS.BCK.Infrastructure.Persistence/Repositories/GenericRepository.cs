@@ -56,6 +56,15 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
+        public async Task UpdateRangeAsync(IEnumerable<T> entity)
+        {
+            foreach (var ent in entity)
+            {
+                _dbContext.Entry(ent).State = EntityState.Modified;
+            }
+            await _dbContext.SaveChangesAsync();
+        }
+
         public async Task DeleteAsync(T entity)
         {
             _dbContext.Set<T>().Remove(entity);

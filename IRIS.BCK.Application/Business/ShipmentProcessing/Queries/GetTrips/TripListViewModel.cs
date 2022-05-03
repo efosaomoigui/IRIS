@@ -14,10 +14,18 @@ namespace IRIS.BCK.Core.Application.Business.ShipmentProcessing.Queries.GetTrips
     {
         public Guid Id { get; set; }
         public string TripReference { get; set; }
+        public string ManifestCode { get; set; }
         public string RouteCode { get; set; }
-        public List<Fleet> Fleet { get; set; }
+        public string RouteName { get; set; } 
+        public string Departure { get; set; }
+        public string Destination { get; set; }
+        public Guid UserId { get; set; }
+        public string FleetChasis { get; set; } 
+        public string FleetFullDetails { get; set; }  
         public Guid Driver { get; set; }
-        public List<GroupWayBillManifestMap> GroupWayBillManifestMap { get; set; }
+        public string DriverName { get; set; } 
+        public string DriverPhone { get; set; }  
+        public DateTime CreatedDate { get; set; }   
         public Guid Dispatcher { get; set; }
     }
 }

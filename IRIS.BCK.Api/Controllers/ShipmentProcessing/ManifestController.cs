@@ -5,6 +5,7 @@ using IRIS.BCK.Core.Application.Business.ShipmentProcessing.Queries.GetGroupWayB
 using IRIS.BCK.Core.Application.Business.ShipmentProcessing.Queries.GetManifest;
 using IRIS.BCK.Core.Application.Business.ShipmentProcessing.Queries.GetManifestByGroupWayBill;
 using IRIS.BCK.Core.Application.Business.ShipmentProcessing.Queries.GetManifestByManifestCode;
+using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetRoutes;
 using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetShipmentByWayBillNumber;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -37,6 +38,13 @@ namespace IRIS.BCK.Api.Controllers.ShipmentProcessing
             }
 
             return Ok(manifest);
+        }
+
+        [HttpGet("GroupWayBill/RouteForManifest", Name = "GetRouteRouteForManifest")]
+        public async Task<ActionResult<List<RouteViewModel>>> GetRouteRouteForManifest()
+        {
+            var routes = await _mediator.Send(new GetRouteForManifestQuery());
+            return Ok(routes);
         }
 
         [HttpGet("GetManifestByGroupWayBillNumber/{groupwaybillid}")]

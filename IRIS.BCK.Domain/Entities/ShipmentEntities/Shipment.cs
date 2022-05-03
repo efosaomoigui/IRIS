@@ -41,6 +41,7 @@ namespace IRIS.BCK.Core.Domain.Entities.ShimentEntities
         //PickUp Options
         public PickupOptions PickupOptions { get; set; }
         public ShipmentCategory ShipmentCategory { get; set; } 
+        public ShipmentProcessingStatus ShipmentProcessingStatus { get; set; }  
 
         //Shipment Items && pricing
         public List<ShipmentItem> ShipmentItems { get; set; }
@@ -49,6 +50,5 @@ namespace IRIS.BCK.Core.Domain.Entities.ShimentEntities
         public Route Route { get; set; }         
 
         public Guid ServiceCenterId { get; set; }
-
     }
 }

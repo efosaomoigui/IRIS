@@ -19,6 +19,7 @@ namespace IRIS.BCK.Core.Application.Mappings.Monitoring
                 ActionTimeStamp = request.ActionTimeStamp,
                 Status = request.Status,
                 Location = request.Location,
+                
             };
         }
     }

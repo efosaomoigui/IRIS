@@ -10,15 +10,16 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Queries.GetFleets
 
         [MaxLength(100)]
         public string RegistrationNumber { get; set; }
-
         public string ChassisNumber { get; set; }
         public string EngineNumber { get; set; }
-        public bool Status { get; set; }
-        public FleetType FleetType { get; set; }
+        public string Status { get; set; }
+        public string FleetType { get; set; }
         public int Capacity { get; set; }
         public string Description { get; set; }
         public string FleetModel { get; set; }
         public string FleetMake { get; set; }
-        public Guid OwnerId { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public string OwnerId { get; set; }
+        public string OwnerName { get; set; } 
     }
 }

@@ -1,9 +1,12 @@
-﻿using AutoMapper;
+﻿
+using AutoMapper;
+using IRIS.BCK.Application.Interfaces.IRepository.IShipmentRepositories;
 using IRIS.BCK.Core.Application.DTO.Message.EmailMessage;
 using IRIS.BCK.Core.Application.DTO.ShipmentProcessing;
 using IRIS.BCK.Core.Application.Interfaces.IMessages.IEmail;
 using IRIS.BCK.Core.Application.Interfaces.IRepositories.IShipmentProcessingRepositories;
 using IRIS.BCK.Core.Application.Mappings.ShipmentProcessing;
+using IRIS.BCK.Core.Domain.EntityEnums;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -17,14 +20,18 @@ namespace IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.CreateM
     public class CreateManifestCommandHandler : IRequestHandler<CreateManifestCommand, CreateManifestCommandResponse>
     {
         private readonly IManifestRepository _manifestRepository;
+        private readonly IGroupWayBillRepository _groupwaybillRepository;
+        private readonly IShipmentRepository _shipmentRepository;
         private readonly IMapper _mapper;
         private readonly IEmailService _emailService;
 
-        public CreateManifestCommandHandler(IManifestRepository manifestRepository, IMapper mapper, IEmailService emailService)
+        public CreateManifestCommandHandler(IManifestRepository manifestRepository, IMapper mapper, IEmailService emailService, IGroupWayBillRepository groupwaybillRepository = null, IShipmentRepository shipmentRepository = null)
         {
             _manifestRepository = manifestRepository;
             _mapper = mapper;
             _emailService = emailService;
+            _groupwaybillRepository = groupwaybillRepository;
+            _shipmentRepository = shipmentRepository;
         }
 
         public async Task<CreateManifestCommandResponse> Handle(CreateManifestCommand request, CancellationToken cancellationToken)
@@ -37,8 +44,8 @@ namespace IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.CreateM
             var manifestExist = alreadyExistingManifest.Where(y => y.ManifestCode == request.ManifestCode).ToArray();
             if (manifestExist.Length > 0) CreateManifestCommandResponse.ValidationErrors.Add("Manifest code exist already!");
 
-            var requestGroupWaybills = request.GroupWayBillCode.Select(s => s.groupCode); 
-            var selectedManifests = alreadyExistingManifest.Select(x => requestGroupWaybills.Contains(x.GroupWayBillCode)).ToArray(); 
+            var requestGroupWaybills = request.GroupWayBillCode.Select(s => s.groupCode);
+            var selectedManifests = alreadyExistingManifest.Select(x => requestGroupWaybills.Contains(x.GroupWayBillCode)).ToArray();
 
             //if (selectedManifests.Length > 0) CreateManifestCommandResponse.ValidationErrors.Add("Error processing manifest; Group Waybill exist in manifest already!");
 
@@ -56,7 +63,7 @@ namespace IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.CreateM
 
             if (CreateManifestCommandResponse.ValidationErrors.Count > 0)
             {
-                CreateManifestCommandResponse.Success = false; 
+                CreateManifestCommandResponse.Success = false;
             }
 
             var email = new Email
@@ -69,7 +76,27 @@ namespace IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.CreateM
             if (CreateManifestCommandResponse.Success)
             {
                 var manifest = ManifestMapsCommand.CreateManifestMapsCommand(request);
+
+                foreach (var man in manifest)
+                {
+                    var groupwaybill = await _groupwaybillRepository.GetManifestGroupwaybillByCode(man.GroupWayBillCode);
+                    man.GroupWayBillId = groupwaybill.Id;
+                    man.ShipmentProcessingStatus = ShipmentProcessingStatus.Created;
+                }
+
                 var result = await _manifestRepository.AddRangeAsync(manifest);
+
+                foreach (var grp in manifest)
+                {
+                    var groupWaybills = await _groupwaybillRepository.GetManifestGroupwaybillByGrpCode(grp.GroupWayBillCode);
+
+                    foreach (var singleGrp in groupWaybills)
+                    {
+                        var updateShipment = await _shipmentRepository.GetShipmentByWayBill(singleGrp.Waybill);
+                        updateShipment.ShipmentProcessingStatus = ShipmentProcessingStatus.Manifested;
+                        await _shipmentRepository.UpdateAsync(updateShipment);
+                    }
+                }
 
                 try
                 {

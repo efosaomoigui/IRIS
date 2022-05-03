@@ -10,4 +10,6 @@ namespace IRIS.BCK.Core.Application.Business.ShipmentProcessing.Queries.GetTrips
     public class GetTripQuery : IRequest<List<TripListViewModel>>
     {
     }
+
+
 }

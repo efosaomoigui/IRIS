@@ -199,19 +199,14 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("ChasisNumber")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("EngineNumber")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FleetMake")
                         .HasColumnType("nvarchar(max)");
@@ -228,22 +223,16 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                     b.Property<DateTime>("LastModifiedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("RegistrationNumber")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                    b.Property<Guid>("OwnerId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
-
-                    b.Property<Guid?>("TripsId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("FleetId");
-
-                    b.HasIndex("TripsId");
 
                     b.ToTable("Fleet");
                 });
@@ -288,8 +277,8 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Action")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Action")
+                        .HasColumnType("int");
 
                     b.Property<string>("ActionTimeStamp")
                         .HasColumnType("nvarchar(max)");
@@ -309,13 +298,18 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                     b.Property<string>("Location")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Status")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.Property<string>("TripReference")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("TripsId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("TripsId");
 
                     b.ToTable("TrackHistory");
                 });
@@ -556,6 +550,9 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                     b.Property<decimal>("GrandTotal")
                         .HasColumnType("decimal(18,4)");
 
+                    b.Property<Guid>("GroupWayBillId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("LastModifiedBy")
                         .HasColumnType("nvarchar(max)");
 
@@ -583,6 +580,9 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                     b.Property<int>("ShipmentCategory")
                         .HasColumnType("int");
 
+                    b.Property<int>("ShipmentProcessingStatus")
+                        .HasColumnType("int");
+
                     b.Property<Guid>("ShipmentRouteId")
                         .HasColumnType("uniqueidentifier");
 
@@ -590,6 +590,8 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ShipmentId");
+
+                    b.HasIndex("GroupWayBillId");
 
                     b.HasIndex("RouteId");
 
@@ -697,8 +699,11 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                     b.Property<Guid>("ServiceCenterId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("ShipmentId")
+                    b.Property<Guid>("ShipmentId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("ShipmentProcessingStatus")
+                        .HasColumnType("int");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
@@ -709,8 +714,6 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("GroupRIdRouteId");
-
-                    b.HasIndex("ShipmentId");
 
                     b.ToTable("GroupWayBill");
                 });
@@ -730,7 +733,7 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                     b.Property<string>("GroupWayBillCode")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("GroupWayBillId")
+                    b.Property<Guid>("GroupWayBillId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("LastModifiedBy")
@@ -747,6 +750,9 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
 
                     b.Property<Guid>("ServiceCenterId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("ShipmentProcessingStatus")
+                        .HasColumnType("int");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
@@ -778,19 +784,35 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                     b.Property<Guid>("Driver")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("FleetId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("LastModifiedBy")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("LastModifiedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("ManifestCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("ManifestId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("RouteCode")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("RouteFleetId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("TripReference")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("FleetId");
+
+                    b.HasIndex("ManifestId");
 
                     b.ToTable("Trips");
                 });
@@ -1061,20 +1083,24 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("IRIS.BCK.Core.Domain.Entities.FleetEntities.Fleet", b =>
-                {
-                    b.HasOne("IRIS.BCK.Core.Domain.Entities.ShipmentProcessing.Trips", null)
-                        .WithMany("Fleet")
-                        .HasForeignKey("TripsId");
-                });
-
             modelBuilder.Entity("IRIS.BCK.Core.Domain.Entities.GroupWayBillManifestMapEntities.GroupWayBillManifestMap", b =>
                 {
                     b.HasOne("IRIS.BCK.Core.Domain.Entities.ShipmentProcessing.Trips", "Trip")
-                        .WithMany("GroupWayBillManifestMap")
+                        .WithMany()
                         .HasForeignKey("TripId");
 
                     b.Navigation("Trip");
+                });
+
+            modelBuilder.Entity("IRIS.BCK.Core.Domain.Entities.Monitoring.TrackHistory", b =>
+                {
+                    b.HasOne("IRIS.BCK.Core.Domain.Entities.ShipmentProcessing.Trips", "Trips")
+                        .WithMany()
+                        .HasForeignKey("TripsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Trips");
                 });
 
             modelBuilder.Entity("IRIS.BCK.Core.Domain.Entities.PaymentEntities.Invoice", b =>
@@ -1099,6 +1125,12 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("IRIS.BCK.Core.Domain.Entities.ShimentEntities.Shipment", b =>
                 {
+                    b.HasOne("IRIS.BCK.Core.Domain.Entities.ShipmentProcessing.GroupWayBill", null)
+                        .WithMany("Shipment")
+                        .HasForeignKey("GroupWayBillId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("IRIS.BCK.Core.Domain.Entities.RouteEntities.Route", "Route")
                         .WithMany()
                         .HasForeignKey("RouteId");
@@ -1130,20 +1162,16 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                         .WithMany()
                         .HasForeignKey("GroupRIdRouteId");
 
-                    b.HasOne("IRIS.BCK.Core.Domain.Entities.ShimentEntities.Shipment", "Shipment")
-                        .WithMany()
-                        .HasForeignKey("ShipmentId");
-
                     b.Navigation("GroupRId");
-
-                    b.Navigation("Shipment");
                 });
 
             modelBuilder.Entity("IRIS.BCK.Core.Domain.Entities.ShipmentProcessing.Manifest", b =>
                 {
                     b.HasOne("IRIS.BCK.Core.Domain.Entities.ShipmentProcessing.GroupWayBill", "GroupWayBill")
                         .WithMany()
-                        .HasForeignKey("GroupWayBillId");
+                        .HasForeignKey("GroupWayBillId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("IRIS.BCK.Core.Domain.Entities.RouteEntities.Route", "ManifestRoute")
                         .WithMany()
@@ -1154,6 +1182,23 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                     b.Navigation("GroupWayBill");
 
                     b.Navigation("ManifestRoute");
+                });
+
+            modelBuilder.Entity("IRIS.BCK.Core.Domain.Entities.ShipmentProcessing.Trips", b =>
+                {
+                    b.HasOne("IRIS.BCK.Core.Domain.Entities.FleetEntities.Fleet", "Fleet")
+                        .WithMany()
+                        .HasForeignKey("FleetId");
+
+                    b.HasOne("IRIS.BCK.Core.Domain.Entities.ShipmentProcessing.Manifest", "Manifest")
+                        .WithMany()
+                        .HasForeignKey("ManifestId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Fleet");
+
+                    b.Navigation("Manifest");
                 });
 
             modelBuilder.Entity("IRIS.BCK.Core.Domain.Entities.WalletEntities.WalletTransaction", b =>
@@ -1233,11 +1278,9 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                     b.Navigation("ShipmentItems");
                 });
 
-            modelBuilder.Entity("IRIS.BCK.Core.Domain.Entities.ShipmentProcessing.Trips", b =>
+            modelBuilder.Entity("IRIS.BCK.Core.Domain.Entities.ShipmentProcessing.GroupWayBill", b =>
                 {
-                    b.Navigation("Fleet");
-
-                    b.Navigation("GroupWayBillManifestMap");
+                    b.Navigation("Shipment");
                 });
 
             modelBuilder.Entity("IRIS.BCK.Core.Domain.Entities.WalletEntities.WalletNumber", b =>

@@ -20,15 +20,7 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateFleets
                 .NotEmpty().WithMessage("{PropertyName} is required")
                 .NotNull();
 
-            RuleFor(p => p.Description)
-                .NotEmpty().WithMessage("{PropertyName} is required")
-                .NotNull();
-
-            //RuleFor(p => p.ChassisNumber)
-            //    .NotEmpty().WithMessage("{PropertyName} is required")
-            //    .NotNull();
-
-            RuleFor(p => p.EngineNumber)
+            RuleFor(p => p.ChassisNumber)
                 .NotEmpty().WithMessage("{PropertyName} is required")
                 .NotNull();
 
@@ -45,10 +37,6 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateFleets
                 .NotNull();
 
             RuleFor(p => p.FleetType)
-                .NotEmpty().WithMessage("{PropertyName} is required")
-                .NotNull();
-
-            RuleFor(p => p.RegistrationNumber)
                 .NotEmpty().WithMessage("{PropertyName} is required")
                 .NotNull();
 

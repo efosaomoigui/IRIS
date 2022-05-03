@@ -1,4 +1,5 @@
 ﻿using IRIS.BCK.Application.Interfaces.IRepository;
+using IRIS.BCK.Core.Application.Business.Monitoring.Queries.GetTrackHistory;
 using IRIS.BCK.Core.Domain.Entities.Monitoring;
 using System;
 using System.Collections.Generic;
@@ -13,5 +14,12 @@ namespace IRIS.BCK.Core.Application.Interfaces.IRepositories.IMonitoringReposito
         Task<TrackHistory> GetTrackHistoryById(string trackhistoryid);
 
         Task<TrackHistory> GetTrackHistoryByTripReference(string tripreference);
+
+        Task<List<TrackHistoryListViewModel>> GetTrackHistoryWithStatusAsync();
+
+        Task<List<TrackHistoryListViewModel>> GetTrackHistoryWithStatusAsyncSearch(string code);
+
+
+
     }
 }

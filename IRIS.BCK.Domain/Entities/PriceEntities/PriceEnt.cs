@@ -13,11 +13,10 @@ namespace IRIS.BCK.Core.Domain.Entities.PriceEntities
     {
         public Guid Id { get; set; }
         public ShipmentCategory Category { get; set; }
+        public Guid RouteId { get; set; }
+        public decimal PricePerUnit { get; set; }
         public double UnitWeight { get; set; }
         public ProductEnum Product { get; set; }
-        public decimal PricePerUnit { get; set; }
-
-        public Guid RouteId { get; set; }   
         public Route Route { get; set; }
     }
 }

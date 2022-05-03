@@ -13,9 +13,9 @@ namespace IRIS.BCK.Core.Application.Business.Monitoring.Commands.CreateTrackHist
     {
         public Guid Id { get; set; }
         public string TripReference { get; set; }
-        public string Action { get; set; }
+        public ActionType Action { get; set; }
         public string Location { get; set; }
         public string ActionTimeStamp { get; set; }
-        public string Status { get; set; }
+        public TrackingStatus Status { get; set; }
     }
 }

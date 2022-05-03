@@ -15,6 +15,9 @@ namespace IRIS.BCK.Core.Application.Business.Monitoring.Queries.GetTrackHistory
         public string Action { get; set; }
         public string Location { get; set; }
         public string ActionTimeStamp { get; set; }
+        public string Waybill { get; set; }
+        public string ManifestCode { get; set; } 
         public string Status { get; set; }
+        public DateTime CreateDate { get; set; } 
     }
 }

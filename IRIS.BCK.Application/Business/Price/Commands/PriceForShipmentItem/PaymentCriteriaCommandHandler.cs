@@ -180,6 +180,8 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem
                             shipment.RecieverAddress = resultValues.receiverAddress;
                             shipment.CustomerAddress = resultValues.shipperAddress; 
                             shipment.ShipmentRouteId = new Guid(resultValues.route);
+                            shipment.Reciever = RecieverUser.UserId;
+                            shipment.ShipmentProcessingStatus = ShipmentProcessingStatus.Created;
                             ShipmentCategory shipmentCat;
                             Enum.TryParse(resultValues.shipmentCategory, out shipmentCat);
                             shipment.ShipmentCategory = shipmentCat;

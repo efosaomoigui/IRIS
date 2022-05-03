@@ -3,6 +3,7 @@ using IRIS.BCK.Core.Application.DTO.Message.EmailMessage;
 using IRIS.BCK.Core.Application.DTO.Monitoring;
 using IRIS.BCK.Core.Application.Interfaces.IMessages.IEmail;
 using IRIS.BCK.Core.Application.Interfaces.IRepositories.IMonitoringRepositories;
+using IRIS.BCK.Core.Application.Interfaces.IRepositories.IShipmentProcessingRepositories;
 using IRIS.BCK.Core.Application.Mappings.Monitoring;
 using MediatR;
 using System;
@@ -17,14 +18,16 @@ namespace IRIS.BCK.Core.Application.Business.Monitoring.Commands.CreateTrackHist
     public class CreateTrackHistoryCommandHandler : IRequestHandler<CreateTrackHistoryCommand, CreateTrackHistoryCommandResponse>
     {
         private readonly ITrackHistoryRepository _trackHistoryRepository;
+        private readonly ITripRepository _tripRepository;
         private readonly IMapper _mapper;
         private readonly IEmailService _emailService;
 
-        public CreateTrackHistoryCommandHandler(ITrackHistoryRepository trackHistoryRepository, IMapper mapper, IEmailService emailService)
+        public CreateTrackHistoryCommandHandler(ITrackHistoryRepository trackHistoryRepository, IMapper mapper, IEmailService emailService, ITripRepository tripRepository = null)
         {
             _trackHistoryRepository = trackHistoryRepository;
             _mapper = mapper;
             _emailService = emailService;
+            _tripRepository = tripRepository;
         }
 
         public async Task<CreateTrackHistoryCommandResponse> Handle(CreateTrackHistoryCommand request, CancellationToken cancellationToken)
@@ -55,6 +58,8 @@ namespace IRIS.BCK.Core.Application.Business.Monitoring.Commands.CreateTrackHist
             if (CreateTrackHistoryCommandResponse.Success)
             {
                 var track = TrackHistoryMapsCommand.CreateTrackHistoryMapsCommand(request);
+                var trip = await _tripRepository.GetTripByReferenceCode(request.TripReference);
+                track.TripsId = trip[0].Id;
                 track = await _trackHistoryRepository.AddAsync(track);
 
                 try

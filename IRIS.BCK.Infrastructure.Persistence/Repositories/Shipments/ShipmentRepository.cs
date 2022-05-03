@@ -1,9 +1,11 @@
-﻿using IRIS.BCK.Application.DTO;
+﻿using AutoMapper;
+using IRIS.BCK.Application.DTO;
 using IRIS.BCK.Application.Interfaces.IRepository.IShipmentRepositories;
 using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetShipmentById;
 using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetShipmentList;
 using IRIS.BCK.Core.Application.Interfaces.IRepositories.IRouteRepository;
 using IRIS.BCK.Core.Domain.Entities.ShimentEntities;
+using IRIS.BCK.Core.Domain.EntityEnums;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -16,9 +18,11 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Shipments
     public class ShipmentRepository : GenericRepository<Shipment>, IShipmentRepository
     {
         private readonly IRouteRepository _routeRepository;
-        public ShipmentRepository(IRISDbContext dbContext, IRouteRepository routeRepository = null) : base(dbContext)
+        private readonly IMapper _mapper;
+        public ShipmentRepository(IRISDbContext dbContext, IRouteRepository routeRepository = null, IMapper mapper = null) : base(dbContext)
         {
             _routeRepository = routeRepository;
+            _mapper = mapper;
         }
 
         public async Task<bool> CheckUniqueWaybillNumber(string waybill)
@@ -41,11 +45,16 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Shipments
         {
             return _dbContext.Shipment.FirstOrDefault(e => e.ShipmentId.ToString() == shipmentid);
         }
-         
+
+        public async Task<List<Guid>> GetUnprocessedShipment()  
+        {
+            return _dbContext.Shipment.Where(e => e.ShipmentProcessingStatus == ShipmentProcessingStatus.Created).Select(e => e.ShipmentRouteId).Distinct().ToList();
+        }
+
         public async Task<List<ShipmentRouteViewModel>> GetShipmentByRouteId(string routeid) 
         {
             //return _dbContext.Shipment.(e => e.ShipmentRouteId.ToString() == routeid);
-            var shipments = _dbContext.Shipment;
+            var shipments = _dbContext.Shipment.ToList();
             var shipmentLst = shipments.Where(e => e.ShipmentRouteId.ToString() == routeid).ToList();
             List<ShipmentRouteViewModel> allShiments = new List<ShipmentRouteViewModel>();
              

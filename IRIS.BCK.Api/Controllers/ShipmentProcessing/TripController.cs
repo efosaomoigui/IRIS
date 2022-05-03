@@ -21,10 +21,17 @@ namespace IRIS.BCK.Api.Controllers.ShipmentProcessing
             return HandleQueryResult(trips);
         }
 
-        [HttpGet("Trip/GetTripByTripId/{tripid}")]
-        public async Task<ActionResult<List<TripListViewModel>>> GetTripByTripId(string tripid)
+        [HttpGet("Trip/ActionAndStatus", Name = "ActionAndStatus")]
+        public async Task<ActionResult<TripActionAndStatusViewModel>> GetTripsAndStatus() 
         {
-            var trip = await _mediator.Send(new GetTripQuery());
+            var tripActionandStatus = await _mediator.Send(new GetTripActionAndStatusQuery());
+            return HandleQueryResult(tripActionandStatus);
+        }
+
+        [HttpGet("Trip/GetTripByreferencCode/{referencCode}")]
+        public async Task<ActionResult<List<TripListViewModel>>> GetTripByTripId(string referencCode)
+        {
+            var trip = await _mediator.Send(new GetTripByReferenceQuery(referencCode)); 
             return Ok(trip);
         }
 
@@ -68,6 +75,13 @@ namespace IRIS.BCK.Api.Controllers.ShipmentProcessing
         {
             var groupwaybillcode = await _mediator.Send(new GetNewTripReferenceQuery());
             return Ok(groupwaybillcode);
+        }
+
+        [HttpGet("Trip/TripNumber", Name = "GetTripNumber")]
+        public async Task<ActionResult<string>> GetTripNumber() 
+        {
+            var trpcode = await _mediator.Send(new GetNewTripReferenceQuery());
+            return Ok(trpcode); 
         }
     }
 }

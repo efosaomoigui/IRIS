@@ -18,8 +18,15 @@ namespace IRIS.BCK.Api.Controllers.Monitoring
         [HttpGet("TrackHistory/all", Name = "GetTrackHistory")]
         public async Task<ActionResult<List<TrackHistoryListViewModel>>> GetAllTrackHistories()
         {
-            var trackHistory = await _mediator.Send(new GetTrackHistoryQuery());
+            var trackHistory = await _mediator.Send(new GetTrackHistoryQuery()); 
             return HandleQueryResult(trackHistory);
+        }
+
+        [HttpGet("TrackHistory/GetTrackHistoryByCode/{Searchcode}")]
+        public async Task<ActionResult<List<TrackHistoryListViewModel>>> GetTrackHistoryByCode(string Searchcode)
+        {
+            var code = await _mediator.Send(new GetTrackHistorySearchQuery(Searchcode));
+            return Ok(code);
         }
 
         [HttpGet("GetTrackHistoryById/{trackhistoryid}")]
