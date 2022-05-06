@@ -22,7 +22,7 @@ namespace IRIS.BCK.Core.Application.Mappings.Users
             {
                 UserId = request.Id,
                 UserName = request.Username,
-                Password = "Iris12345#",
+                Password = "Iris145#",
                 Email = request.Email,
                 FirstName = request.FirstName,
                 LastName = request.LastName,
@@ -66,7 +66,7 @@ namespace IRIS.BCK.Core.Application.Mappings.Users
             {
                 UserId = new Guid(),
                 Username = RandomDigits(7),
-                Password = "Iris12345#",
+                Password = "Iris145#",
                 FirstName = name[0],
                 LastName = (name.Length > 1)? name[1]: name[0],
                 PhoneNumber = request.shipperPhoneNumber.ToString(),
@@ -80,7 +80,7 @@ namespace IRIS.BCK.Core.Application.Mappings.Users
             {
                 UserId = new Guid(),
                 Username = RandomDigits(7),
-                Password = "Iris12345#",
+                Password = "Iris145#",
                 FirstName = name[0],
                 LastName = (name.Length > 1) ? name[1] : name[0],
                 PhoneNumber = request.receiverPhoneNumber.ToString(),
