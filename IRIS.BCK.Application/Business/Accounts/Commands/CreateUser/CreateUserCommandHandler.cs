@@ -78,7 +78,7 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUser
                     var walletNumber = _walletRepository.GetWalletNumber("101"); 
                     user.WalletNumber = walletNumber;
                     user.UserId = new Guid(user.Id);
-                    var result = await _userManager.CreateAsync(user, request.Password);
+                    var result = await _userManager.CreateAsync(user, user.Password);
 
                     if (result.Succeeded)
                     {
