@@ -38,6 +38,11 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Price
         public async Task<PriceEnt> GetPriceByRouteId(string routeid, ShipmentCategory scategory)
         {
             return await _dbContext.PriceEnt.FirstOrDefaultAsync(e => e.RouteId.ToString() == routeid && e.Category == scategory);
+        }       
+        
+        public async Task<PriceEnt> GetPriceByRouteId2(string routeid, ShipmentCategory scategory, ProductEnum product)
+        {
+            return await _dbContext.PriceEnt.FirstOrDefaultAsync(e => e.RouteId.ToString() == routeid && e.Category == scategory && e.Product == product);
         }
 
         public async Task<List<Route>> GetPriceWithRoute()

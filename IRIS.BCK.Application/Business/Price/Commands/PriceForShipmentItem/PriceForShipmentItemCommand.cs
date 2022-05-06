@@ -15,6 +15,8 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem
         public double Length { get; set; }
         public double Breadth { get; set; }
         public double Height { get; set; } 
+        public int Quantity { get; set; } 
+        public ProductEnum Product { get; set; }  
         public decimal LineTotal { get; set; }
         public ShipmentCategory ShimentCategory { get; set; } 
         public string RouteId { get; set; }  

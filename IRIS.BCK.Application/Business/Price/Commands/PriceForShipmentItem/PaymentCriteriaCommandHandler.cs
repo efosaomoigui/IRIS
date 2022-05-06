@@ -45,9 +45,9 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem
         private IMediator _mediator;
         private string _user;
 
-        public PaymentCriteriaCommandHandler(IPriceEntRepository priceRepository, IWalletTransactionRepository 
-            walletTransactionRepository, IMapper mapper, IEmailService emailService, UserManager<User> userManager, 
-            INumberEntRepository numberEntRepository = null, IInvoiceRepository invoiceRepository = null, 
+        public PaymentCriteriaCommandHandler(IPriceEntRepository priceRepository, IWalletTransactionRepository
+            walletTransactionRepository, IMapper mapper, IEmailService emailService, UserManager<User> userManager,
+            INumberEntRepository numberEntRepository = null, IInvoiceRepository invoiceRepository = null,
             IShipmentRepository shipmentRepository = null, IMediator mediator = null
             )
         {
@@ -75,7 +75,7 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem
 
             if (PaymentCriteriaCommandResponse.Success)
             {
-                var currentUser = 
+                var currentUser =
                 PaymentCriteriaCommandResponse = new PaymentCriteriaCommandResponse();
                 PaymentCriteriaCommandResponse.PaymentStatus = false;
 
@@ -84,137 +84,56 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem
                 var resultValues = JsonConvert.DeserializeObject<Values>(jsonString);
                 resultValues.shipmentCategory = (resultValues.shipmentCategory == "mailandparcel") ? "MailAndParcel" : resultValues.shipmentCategory;
 
+                //get waybill and invoice code from request
+                request.InvoiceNumber = resultValues.invoiceNumber;
+                request.WaybillNumber = resultValues.waybillNumber;
+
                 if (request.PaymentMethod == PaymentMethod.Wallet)
                 {
-                    request.CustomerPhoneNumber = checkPhone(resultValues.shipperPhoneNumber);
-                    resultValues.shipperPhoneNumber = request.CustomerPhoneNumber;
-                    var ShipperUser = _userManager.Users.FirstOrDefault(x => x.PhoneNumber == resultValues.shipperPhoneNumber);
-                    Guid newUserId = new Guid();
+                    //create invoice
+                    var invoiceResult = await CreateInvoice(request);
 
-                    if (ShipperUser == null)
+                    //do create shipment
+                    if (invoiceResult)
                     {
-                        var userCommand = UserMapsCommand.CreateShipperMapsCommand(resultValues);
-                        var newUser = await _mediator.Send(userCommand);
-                        newUserId = newUser.Userdto.UserId;
-                    }
-
-                    request.UserId = (ShipperUser != null) ? ShipperUser.UserId : newUserId;
-
-                    if (request.UserId.ToString() != null)
-                    {
-
-                        //get waybill and invoice code from request
-                        request.InvoiceNumber = resultValues.invoiceNumber;
-                        request.WaybillNumber = resultValues.waybillNumber;
-
-                        var invoiceMap = PaymentMapsCommand.CreatePaymentValuesMapsCommand(request);
-                        var invoiceExit = _invoiceRepository.GetAllAsync().Result.FirstOrDefault(x => x.InvoiceCode == request.InvoiceNumber);
-
-                        if (invoiceExit == null)
+                        var shipmentResult = await CreateShipment(request, resultValues);
+                        if (shipmentResult > 0)
                         {
-                            await _invoiceRepository.AddAsync(invoiceMap);
-                        }
+                            var walletResult = await doWalletPayment(request);
+                            PaymentCriteriaCommandResponse.PaymentStatus = walletResult.Item1;
 
-                        //prepare shipment entries
-                        var shipment = ShipmentMapsCommand.CreateShipmentValuesMapsCommand(request);
-                        shipment.Waybill = request.WaybillNumber;
-
-                        ShipmentCategory category;
-                        Enum.TryParse(resultValues.shipmentCategory, out category);
-
-                        var recieverPhoneNumber = checkPhone(resultValues.receiverPhoneNumber);
-                        resultValues.receiverPhoneNumber = recieverPhoneNumber;
-
-                        var RecieverUser = _userManager.Users.FirstOrDefault(x => x.PhoneNumber == resultValues.receiverPhoneNumber);
-                        if (RecieverUser == null)
-                        {
-                            var receiverCommand = UserMapsCommand.CreateReceiverMapsCommand(resultValues);
-                            var newReceiver = await _mediator.Send(receiverCommand);
-
-                            //request.Reciever = RecieverUser.UserId;
-                            shipment.Reciever = newReceiver.Userdto.UserId;
-                        }
-
-                        //do shipment items insert
-                        shipment.ShipmentItems = new List<ShipmentItem>();
-
-                        if (category == ShipmentCategory.TruckLoad)
-                        {
-                            for (var i = 0; i < resultValues.itemsA.Count; i++)
+                            if (PaymentCriteriaCommandResponse.PaymentStatus)
                             {
-                                var lineItems = new ShipmentItem();
-                                lineItems.Weight = resultValues.itemsA[i].ton;
-                                lineItems.length = 0;
-                                lineItems.Weight = 0;
-                                lineItems.Height = 0;
-                                lineItems.ShipmentDescription = resultValues.itemsA[i].t_shipmentDescription;
-                                lineItems.ShipmentProduct = resultValues.itemsA[i].t_shipmentType;
-                                lineItems.LineTotal = resultValues.itemsA[i].LineTotal;
-                                shipment.ShipmentItems.Add(lineItems);
-                            }
-                        }
-                        else if (category == ShipmentCategory.MailAndParcel)
-                        {
-                            for (var i = 0; i < resultValues.itemsB.Count; i++)
-                            {
-                                var lineItems = new ShipmentItem();
-                                lineItems.Weight = resultValues.itemsB[i].weight;
-                                lineItems.length = resultValues.itemsB[i].length;
-                                lineItems.breadth = resultValues.itemsB[i].breadth;
-                                lineItems.Height = resultValues.itemsB[i].height;
-                                lineItems.ShipmentDescription = resultValues.itemsB[i].m_shipmentDescription;
-                                lineItems.ShipmentProduct = ProductEnum.MailAndParcel;
-                                lineItems.LineTotal = resultValues.itemsB[i].LineTotal;
-                                shipment.ShipmentItems.Add(lineItems);
+                                UpdateInvoice(request);
                             }
                         }
 
-                        //check existing shipment
-                        var shipmentExit = _shipmentRepository.GetAllAsync().Result.FirstOrDefault(x => x.Waybill == request.WaybillNumber);
-
-                        //do shipment insert
-                        if (shipmentExit == null) 
-                        {
-                            shipment.CustomerName = resultValues.shipperFullName;
-                            shipment.RecieverName = resultValues.receiverFullName;
-                            shipment.RecieverAddress = resultValues.receiverAddress;
-                            shipment.CustomerAddress = resultValues.shipperAddress; 
-                            shipment.ShipmentRouteId = new Guid(resultValues.route);
-                            shipment.Reciever = RecieverUser.UserId;
-                            shipment.ShipmentProcessingStatus = ShipmentProcessingStatus.Created;
-                            ShipmentCategory shipmentCat;
-                            Enum.TryParse(resultValues.shipmentCategory, out shipmentCat);
-                            shipment.ShipmentCategory = shipmentCat;
-                            var shipmentval = await _shipmentRepository.AddAsync(shipment);
-                        }
-
-                        //do wallet payment
-                        var walletTransaction = WalletTransactionsMapsCommand.CreateWalletTransactionsCriteriaMapsCommand(request);
-                        walletTransaction = _walletTransactionRepository.WalletDebit(walletTransaction).Result;
-
-                        if (walletTransaction == null)
-                        {
-                            PaymentCriteriaCommandResponse.PaymentStatus = false;
-                        }
-                        else
-                        {
-                            PaymentCriteriaCommandResponse.PaymentMethod = PaymentMethod.Wallet;
-                            PaymentCriteriaCommandResponse.PaymentStatus = true;
-                            var emailOptions = new EmailOptions();
-                            emailOptions.Shipment = resultValues;
-                            if (emailOptions != null) await _emailService.SendEmail(email, emailOptions);
-
-                            //update invoice
-                            var invoiceExitCheckt = _invoiceRepository.GetAllAsync().Result.FirstOrDefault(x => x.InvoiceCode == request.InvoiceNumber);
-                            invoiceExitCheckt.PaymentMethod = PaymentMethod.Wallet;
-                            invoiceExitCheckt.Status = StatusEnum.Paid;
-                            await _invoiceRepository.UpdateAsync(invoiceExitCheckt);
-                        }
+                        //semd email
+                        var emailOptions = new EmailOptions();
+                        emailOptions.Shipment = resultValues;
+                        if (emailOptions != null) await _emailService.SendEmail(email, emailOptions);
                     }
                 }
                 else if (request.PaymentMethod == PaymentMethod.PostPaid)
                 {
-                    PaymentCriteriaCommandResponse.PaymentStatus = true;
+                    //create invoice
+                    var invoiceResult = await CreateInvoice(request);
+
+                    //do create shipment
+                    if (invoiceResult)
+                    {
+                        var shipmentResult = await CreateShipment(request, resultValues);
+                        if (shipmentResult > 0)
+                        {
+                            //var walletResult = doWalletPayment(request);
+                            PaymentCriteriaCommandResponse.PaymentStatus = true;
+                        }
+
+                        //semd email
+                        var emailOptions = new EmailOptions();
+                        emailOptions.Shipment = resultValues;
+                        if (emailOptions != null) await _emailService.SendEmail(email, emailOptions);
+                    }
                 }
                 else if (request.PaymentMethod == PaymentMethod.CreditCard)
                 {
@@ -233,6 +152,150 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem
             }
 
             return PaymentCriteriaCommandResponse;
+        }
+
+        public async Task<double> CreateShipment(PaymentCriteriaCommand request, Values resultValues)
+        {
+            request.CustomerPhoneNumber = checkPhone(resultValues.shipperPhoneNumber);
+            resultValues.shipperPhoneNumber = request.CustomerPhoneNumber;
+            var ShipperUser = _userManager.Users.FirstOrDefault(x => x.PhoneNumber == resultValues.shipperPhoneNumber);
+            Guid newUserId = new Guid();
+            var shipmentAmt = 0.0d;
+
+            if (ShipperUser == null)
+            {
+                var userCommand = UserMapsCommand.CreateShipperMapsCommand(resultValues);
+                var newUser = await _mediator.Send(userCommand);
+                newUserId = newUser.Userdto.UserId;
+            }
+
+            request.UserId = (ShipperUser != null) ? ShipperUser.UserId : newUserId;
+
+            if (request.UserId.ToString() != null)
+            {
+
+                //prepare shipment entries
+                var shipment = ShipmentMapsCommand.CreateShipmentValuesMapsCommand(request);
+                shipment.Waybill = request.WaybillNumber;
+
+                ShipmentCategory category;
+                Enum.TryParse(resultValues.shipmentCategory, out category);
+
+                var recieverPhoneNumber = checkPhone(resultValues.receiverPhoneNumber);
+                resultValues.receiverPhoneNumber = recieverPhoneNumber;
+
+                var RecieverUser = _userManager.Users.FirstOrDefault(x => x.PhoneNumber == resultValues.receiverPhoneNumber);
+                if (RecieverUser == null)
+                {
+                    var receiverCommand = UserMapsCommand.CreateReceiverMapsCommand(resultValues);
+                    var newReceiver = await _mediator.Send(receiverCommand);
+
+                    //request.Reciever = RecieverUser.UserId;
+                    shipment.Reciever = newReceiver.Userdto.UserId;
+                    RecieverUser = _mapper.Map<User>(newReceiver.Userdto);
+                }
+
+                //do shipment items insert
+                shipment.ShipmentItems = new List<ShipmentItem>();
+
+                if (category == ShipmentCategory.TruckLoad)
+                {
+                    for (var i = 0; i < resultValues.itemsA.Count; i++)
+                    {
+                        var lineItems = new ShipmentItem();
+                        lineItems.Weight = resultValues.itemsA[i].ton;
+                        lineItems.length = 0;
+                        lineItems.Weight = 0;
+                        lineItems.Height = 0;
+                        lineItems.ShipmentDescription = resultValues.itemsA[i].t_shipmentDescription;
+                        lineItems.ShipmentProduct = resultValues.itemsA[i].t_shipmentType;
+                        lineItems.LineTotal = resultValues.itemsA[i].LineTotal;
+                        shipment.ShipmentItems.Add(lineItems);
+                    }
+                }
+                else if (category == ShipmentCategory.MailAndParcel)
+                {
+                    for (var i = 0; i < resultValues.itemsB.Count; i++)
+                    {
+                        var lineItems = new ShipmentItem();
+                        lineItems.Weight = resultValues.itemsB[i].weight;
+                        lineItems.length = resultValues.itemsB[i].length;
+                        lineItems.breadth = resultValues.itemsB[i].breadth;
+                        lineItems.Height = resultValues.itemsB[i].height;
+                        lineItems.ShipmentDescription = resultValues.itemsB[i].m_shipmentDescription;
+                        lineItems.ShipmentProduct = ProductEnum.MailAndParcel;
+                        lineItems.LineTotal = resultValues.itemsB[i].LineTotal;
+                        shipment.ShipmentItems.Add(lineItems);
+                    }
+                }
+
+                //check existing shipment
+                var shipmentExit = _shipmentRepository.GetAllAsync().Result.FirstOrDefault(x => x.Waybill == request.WaybillNumber);
+
+                //do shipment insert
+                if (shipmentExit == null)
+                {
+                    shipment.CustomerName = resultValues.shipperFullName;
+                    shipment.RecieverName = resultValues.receiverFullName;
+                    shipment.RecieverAddress = resultValues.receiverAddress;
+                    shipment.CustomerAddress = resultValues.shipperAddress;
+                    shipment.ShipmentRouteId = new Guid(resultValues.route);
+                    shipment.Reciever = RecieverUser.UserId;
+                    shipment.ShipmentProcessingStatus = ShipmentProcessingStatus.Created;
+                    ShipmentCategory shipmentCat;
+                    Enum.TryParse(resultValues.shipmentCategory, out shipmentCat);
+                    shipment.ShipmentCategory = shipmentCat;
+                    var shipmentval = await _shipmentRepository.AddAsync(shipment);
+
+                    return shipment.GrandTotal;
+                }
+            }
+
+            return shipmentAmt;
+        }
+
+        public async Task<Tuple<bool, PaymentMethod>> doWalletPayment(PaymentCriteriaCommand request)
+        {
+            //do wallet payment
+            var walletTransaction = WalletTransactionsMapsCommand.CreateWalletTransactionsCriteriaMapsCommand(request);
+            walletTransaction = _walletTransactionRepository.WalletDebit(walletTransaction).Result;
+
+            if (walletTransaction != null)
+            {
+                Tuple<bool, PaymentMethod> tupResult =
+                            new Tuple<bool, PaymentMethod>(true, PaymentMethod.Wallet);
+
+                return tupResult;
+
+            }
+
+            return new Tuple<bool, PaymentMethod>(false, PaymentMethod.Wallet);
+        }
+
+        public async Task<bool> CreateInvoice(PaymentCriteriaCommand request)
+        {
+            var invoiceMap = PaymentMapsCommand.CreatePaymentValuesMapsCommand(request);
+            var invoiceExit = _invoiceRepository.GetAllAsync().Result.FirstOrDefault(x => x.InvoiceCode == request.InvoiceNumber);
+
+            if (invoiceExit == null)
+            {
+                await _invoiceRepository.AddAsync(invoiceMap);
+                return true;
+            }
+
+            return false;
+        }
+
+        public async void UpdateInvoice(PaymentCriteriaCommand request)
+        {
+            //update invoice
+            var invoiceExitCheckt = _invoiceRepository.GetAllAsync().Result.FirstOrDefault(x => x.InvoiceCode == request.InvoiceNumber);
+            if (invoiceExitCheckt != null)
+            {
+                invoiceExitCheckt.PaymentMethod = PaymentMethod.Wallet;
+                invoiceExitCheckt.Status = StatusEnum.Paid;
+                await _invoiceRepository.UpdateAsync(invoiceExitCheckt);
+            }
         }
 
 

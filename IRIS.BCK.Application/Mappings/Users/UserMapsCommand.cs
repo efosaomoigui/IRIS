@@ -22,7 +22,7 @@ namespace IRIS.BCK.Core.Application.Mappings.Users
             {
                 UserId = request.Id,
                 UserName = request.Username,
-                Password = request.Password,
+                Password = "Iris12345#",
                 Email = request.Email,
                 FirstName = request.FirstName,
                 LastName = request.LastName,

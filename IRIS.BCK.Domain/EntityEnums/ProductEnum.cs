@@ -15,6 +15,6 @@ namespace IRIS.BCK.Core.Domain.EntityEnums
         Flour=5,
         Cowbell=6,
         Nestle=7,
-        Bigi=6
+        Bigi=8
     }
 }
