@@ -145,4 +145,4 @@ namespace IRIS.BCK.Core.Application.Mappings.Users
             };
         }
     }
-}
+}    

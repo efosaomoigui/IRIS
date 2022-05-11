@@ -27,6 +27,8 @@ using IRIS.BCK.Core.Application.Mappings.Users;
 using IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUser;
 using IRIS.BCK.Core.Domain.Entities.ShimentEntities;
 using IRIS.BCK.Core.Application.Business.UserResolver;
+using IRIS.BCK.Core.Application.Mappings.Monitoring;
+using IRIS.BCK.Core.Application.Interfaces.IRepositories.IMonitoringRepositories;
 
 namespace IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem
 {
@@ -41,7 +43,8 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem
         private readonly UserManager<User> _userManager;
         private INumberEntRepository _numberEntRepository;
         private IInvoiceRepository _invoiceRepository;
-        private IShipmentRepository _shipmentRepository;
+        private IShipmentRepository _shipmentRepository; 
+        private ITrackHistoryRepository _trackHistoryRepository;
         private IMediator _mediator;
         private string _user;
 
@@ -49,7 +52,7 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem
             walletTransactionRepository, IMapper mapper, IEmailService emailService, UserManager<User> userManager,
             INumberEntRepository numberEntRepository = null, IInvoiceRepository invoiceRepository = null,
             IShipmentRepository shipmentRepository = null, IMediator mediator = null
-            )
+, ITrackHistoryRepository trackHistoryRepository = null)
         {
             _priceRepository = priceRepository;
             _walletTransactionRepository = walletTransactionRepository;
@@ -60,6 +63,7 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem
             _invoiceRepository = invoiceRepository;
             _shipmentRepository = shipmentRepository;
             _mediator = mediator;
+            _trackHistoryRepository = trackHistoryRepository;
         }
 
         public async Task<PaymentCriteriaCommandResponse> Handle(PaymentCriteriaCommand request, CancellationToken cancellationToken)
@@ -88,6 +92,38 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem
                 request.InvoiceNumber = resultValues.invoiceNumber;
                 request.WaybillNumber = resultValues.waybillNumber;
 
+                var ShipperUser = _userManager.Users.FirstOrDefault(x => x.PhoneNumber == resultValues.shipperPhoneNumber);
+                Guid newUserId = new Guid();
+
+                //check for new or old user
+                if (ShipperUser == null)
+                {
+                    var userCommand = UserMapsCommand.CreateShipperMapsCommand(resultValues);
+                    var newUser = await _mediator.Send(userCommand);
+                    newUserId = newUser.Userdto.UserId;
+                    request.UserId = newUser.Userdto.UserId;
+                }
+                else
+                {
+                    request.UserId = (ShipperUser != null) ? ShipperUser.UserId : newUserId;
+                }
+
+                //check for new or old reciever
+                var RecieverUser = _userManager.Users.FirstOrDefault(x => x.PhoneNumber == resultValues.receiverPhoneNumber);
+                if (RecieverUser == null)
+                {
+                    var receiverCommand = UserMapsCommand.CreateReceiverMapsCommand(resultValues);
+                    var newReceiver = await _mediator.Send(receiverCommand);
+
+                    request.Reciever = newReceiver.Userdto.UserId;
+                    RecieverUser = _mapper.Map<User>(newReceiver.Userdto);
+                }
+                else
+                {
+                    request.Reciever = RecieverUser.UserId;
+                }
+
+                //start shipment creation process
                 if (request.PaymentMethod == PaymentMethod.Wallet)
                 {
                     //create invoice
@@ -129,11 +165,14 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem
                             PaymentCriteriaCommandResponse.PaymentStatus = true;
                         }
 
+                        PaymentCriteriaCommandResponse.PaymentStatus = true;
+
                         //semd email
                         var emailOptions = new EmailOptions();
                         emailOptions.Shipment = resultValues;
                         if (emailOptions != null) await _emailService.SendEmail(email, emailOptions);
                     }
+                    PaymentCriteriaCommandResponse.PaymentStatus = true;
                 }
                 else if (request.PaymentMethod == PaymentMethod.CreditCard)
                 {
@@ -148,7 +187,6 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem
                 {
                     PaymentCriteriaCommandResponse.PaymentStatus = true;
                 }
-
             }
 
             return PaymentCriteriaCommandResponse;
@@ -156,44 +194,16 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem
 
         public async Task<double> CreateShipment(PaymentCriteriaCommand request, Values resultValues)
         {
-            request.CustomerPhoneNumber = checkPhone(resultValues.shipperPhoneNumber);
-            resultValues.shipperPhoneNumber = request.CustomerPhoneNumber;
-            var ShipperUser = _userManager.Users.FirstOrDefault(x => x.PhoneNumber == resultValues.shipperPhoneNumber);
-            Guid newUserId = new Guid();
             var shipmentAmt = 0.0d;
-
-            if (ShipperUser == null)
-            {
-                var userCommand = UserMapsCommand.CreateShipperMapsCommand(resultValues);
-                var newUser = await _mediator.Send(userCommand);
-                newUserId = newUser.Userdto.UserId;
-            }
-
-            request.UserId = (ShipperUser != null) ? ShipperUser.UserId : newUserId;
 
             if (request.UserId.ToString() != null)
             {
-
                 //prepare shipment entries
                 var shipment = ShipmentMapsCommand.CreateShipmentValuesMapsCommand(request);
                 shipment.Waybill = request.WaybillNumber;
 
                 ShipmentCategory category;
                 Enum.TryParse(resultValues.shipmentCategory, out category);
-
-                var recieverPhoneNumber = checkPhone(resultValues.receiverPhoneNumber);
-                resultValues.receiverPhoneNumber = recieverPhoneNumber;
-
-                var RecieverUser = _userManager.Users.FirstOrDefault(x => x.PhoneNumber == resultValues.receiverPhoneNumber);
-                if (RecieverUser == null)
-                {
-                    var receiverCommand = UserMapsCommand.CreateReceiverMapsCommand(resultValues);
-                    var newReceiver = await _mediator.Send(receiverCommand);
-
-                    //request.Reciever = RecieverUser.UserId;
-                    shipment.Reciever = newReceiver.Userdto.UserId;
-                    RecieverUser = _mapper.Map<User>(newReceiver.Userdto);
-                }
 
                 //do shipment items insert
                 shipment.ShipmentItems = new List<ShipmentItem>();
@@ -213,7 +223,7 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem
                         shipment.ShipmentItems.Add(lineItems);
                     }
                 }
-                else if (category == ShipmentCategory.MailAndParcel)
+                else if (category == ShipmentCategory.MailAndParcel || category == ShipmentCategory.InternationalFreight)
                 {
                     for (var i = 0; i < resultValues.itemsB.Count; i++)
                     {
@@ -240,12 +250,17 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem
                     shipment.RecieverAddress = resultValues.receiverAddress;
                     shipment.CustomerAddress = resultValues.shipperAddress;
                     shipment.ShipmentRouteId = new Guid(resultValues.route);
-                    shipment.Reciever = RecieverUser.UserId;
+                    shipment.Customer = request.UserId;
+                    shipment.Reciever = request.Reciever;
                     shipment.ShipmentProcessingStatus = ShipmentProcessingStatus.Created;
                     ShipmentCategory shipmentCat;
                     Enum.TryParse(resultValues.shipmentCategory, out shipmentCat);
                     shipment.ShipmentCategory = shipmentCat;
                     var shipmentval = await _shipmentRepository.AddAsync(shipment);
+
+                    //add first track
+                    var track = TrackHistoryMapsCommand.CreateTrackHistoryMapsCommandInit(request);
+                    track = await _trackHistoryRepository.AddAsync(track);
 
                     return shipment.GrandTotal;
                 }

@@ -17,8 +17,8 @@ namespace IRIS.BCK.Core.Domain.Entities.Monitoring
         public string Location { get; set; }
         public string ActionTimeStamp { get; set; }
         public TrackingStatus Status { get; set; }
-        public Trips Trips { get; set; }       
-        public Guid TripsId { get; set; }       
+        //public Trips Trips { get; set; }       
+        public Guid TripsId { get; set; }
     }
 
     //[Id]

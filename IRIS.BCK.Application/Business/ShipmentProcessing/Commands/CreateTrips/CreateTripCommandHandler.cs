@@ -3,8 +3,10 @@ using IRIS.BCK.Application.Interfaces.IRepository.IShipmentRepositories;
 using IRIS.BCK.Core.Application.DTO.Message.EmailMessage;
 using IRIS.BCK.Core.Application.DTO.ShipmentProcessing;
 using IRIS.BCK.Core.Application.Interfaces.IMessages.IEmail;
+using IRIS.BCK.Core.Application.Interfaces.IRepositories.IMonitoringRepositories;
 using IRIS.BCK.Core.Application.Interfaces.IRepositories.INumberEntRepository;
 using IRIS.BCK.Core.Application.Interfaces.IRepositories.IShipmentProcessingRepositories;
+using IRIS.BCK.Core.Application.Mappings.Monitoring;
 using IRIS.BCK.Core.Application.Mappings.ShipmentProcessing;
 using IRIS.BCK.Core.Domain.EntityEnums;
 using MediatR;
@@ -26,8 +28,10 @@ namespace IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.CreateT
         private readonly IMapper _mapper;
         private readonly IEmailService _emailService;
         private readonly INumberEntRepository _numberEntRepository;
+        private readonly ITrackHistoryRepository _trackHistoryRepository; 
+        private IMediator _mediator;
 
-        public CreateTripCommandHandler(ITripRepository tripRepository, IMapper mapper, IEmailService emailService, INumberEntRepository numberEntRepository, IManifestRepository manifestRepository = null, IGroupWayBillRepository groupwaybillRepository = null, IShipmentRepository shipmentRepository = null)
+        public CreateTripCommandHandler(ITripRepository tripRepository, IMapper mapper, IEmailService emailService, INumberEntRepository numberEntRepository, IManifestRepository manifestRepository = null, IGroupWayBillRepository groupwaybillRepository = null, IShipmentRepository shipmentRepository = null, IMediator mediator = null, ITrackHistoryRepository trackHistoryRepository = null)
         {
             _tripRepository = tripRepository;
             _mapper = mapper;
@@ -36,6 +40,8 @@ namespace IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.CreateT
             _manifestRepository = manifestRepository;
             _groupwaybillRepository = groupwaybillRepository;
             _shipmentRepository = shipmentRepository;
+            _mediator = mediator;
+            _trackHistoryRepository = trackHistoryRepository;
         }
 
         public async Task<CreateTripCommandResponse> Handle(CreateTripCommand request, CancellationToken cancellationToken)
@@ -74,6 +80,10 @@ namespace IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.CreateT
                 }
 
                 var resultTrip = await _tripRepository.AddRangeAsync(trips);
+
+                //Add Track
+                var track = TrackHistoryMapsCommand.CreateTrackHistoryMapsCommandTripReg(request);
+                track = await _trackHistoryRepository.AddAsync(track);
 
                 foreach (var grp in trips)
                 {

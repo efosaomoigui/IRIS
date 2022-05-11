@@ -40,40 +40,43 @@ namespace IRIS.BCK.Core.Application.Business.Wallet.Queries.GetWalletTransaction
         public async Task<WalletTransactionAndTotalViewModel> Handle(GetWalletTransactionByWalletNumberQuery request, CancellationToken cancellationToken)
         {
             var allWalletsAndTransactions = (await _walletRepository.GetWalletTransactionByWalletNumber(request.Walletnumber)).OrderBy(x => x.CreatedDate);
-            WalletTransactionAndTotalViewModel WalletsTransAndTotal = new WalletTransactionAndTotalViewModel(); 
-
-            foreach (var wallet in allWalletsAndTransactions)
-            {
-                WalletsTransAndTotal.TotalBalance = wallet.WalletBalance;
-                WalletsTransAndTotal.WalletTransactions = new List<WalletTransactionViewModel>();
-
-                if (wallet.WalletTransactions.Count > 0)
-                {
-                    foreach (var walletTransactions in wallet.WalletTransactions)
-                    {
-                        var singleWalletVm = new WalletTransactionViewModel();
-
-                        singleWalletVm.Id = walletTransactions.Id;
-                        singleWalletVm.WalletNumber = wallet.Number;
-                        singleWalletVm.UserId = walletTransactions.UserId;
-                        var user = await _userManager.FindByIdAsync(walletTransactions.UserId.ToString());
-                        singleWalletVm.Amount = walletTransactions.Amount.ToString();
-                        singleWalletVm.Name = user?.FirstName+" "+user?.LastName;
-                        singleWalletVm.Description = walletTransactions.Description;
-                        singleWalletVm.TransactionType = walletTransactions.TransactionType.ToString();
-                        singleWalletVm.LineBalance = walletTransactions.LineBalance;
-                        singleWalletVm.CreatedDate = walletTransactions.CreatedDate;
-
-                        WalletsTransAndTotal.WalletTransactions.Add(singleWalletVm);
-                    }
-                }
-            }
+            WalletTransactionAndTotalViewModel WalletsTransAndTotal = new WalletTransactionAndTotalViewModel();
 
             var newList = new List<WalletTransactionViewModel>();
 
-            if (WalletsTransAndTotal.WalletTransactions.Count > 0)
+            if (allWalletsAndTransactions != null)
             {
-                newList = WalletsTransAndTotal.WalletTransactions.OrderByDescending(x => x.CreatedDate).ToList();
+                foreach (var wallet in allWalletsAndTransactions)
+                {
+                    WalletsTransAndTotal.TotalBalance = wallet.WalletBalance;
+                    WalletsTransAndTotal.WalletTransactions = new List<WalletTransactionViewModel>();
+
+                    if (wallet.WalletTransactions.Count > 0)
+                    {
+                        foreach (var walletTransactions in wallet.WalletTransactions)
+                        {
+                            var singleWalletVm = new WalletTransactionViewModel();
+
+                            singleWalletVm.Id = walletTransactions.Id;
+                            singleWalletVm.WalletNumber = wallet.Number;
+                            singleWalletVm.UserId = walletTransactions.UserId;
+                            var user = await _userManager.FindByIdAsync(walletTransactions.UserId.ToString());
+                            singleWalletVm.Amount = walletTransactions.Amount.ToString();
+                            singleWalletVm.Name = user?.FirstName + " " + user?.LastName;
+                            singleWalletVm.Description = walletTransactions.Description;
+                            singleWalletVm.TransactionType = walletTransactions.TransactionType.ToString();
+                            singleWalletVm.LineBalance = walletTransactions.LineBalance;
+                            singleWalletVm.CreatedDate = walletTransactions.CreatedDate;
+
+                            WalletsTransAndTotal.WalletTransactions.Add(singleWalletVm);
+                        }
+                    }
+                }
+
+                if (WalletsTransAndTotal.WalletTransactions?.Count > 0)
+                {
+                    newList = WalletsTransAndTotal.WalletTransactions.OrderByDescending(x => x.CreatedDate).ToList();
+                }
             }
 
             WalletsTransAndTotal.WalletTransactions = newList;
