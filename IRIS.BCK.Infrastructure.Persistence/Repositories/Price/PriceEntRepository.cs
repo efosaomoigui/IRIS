@@ -51,7 +51,7 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Price
             return lsRoutes;
         }
 
-        public Task<double> GetShipmentItemWeight(PriceForShipmentItemCommand shipmentCriteria)
+        public Task<(double, double, double)> GetShipmentItemWeight(PriceForShipmentItemCommand shipmentCriteria)
         {
             //1. get the weight
             var weight = shipmentCriteria.Weight;
@@ -66,7 +66,7 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Price
             //4. return the actual weight
             var actualWeight = weight > volumetricWeight ? weight : volumetricWeight;
 
-            return Task.FromResult(actualWeight);
+            return Task.FromResult((volume, volumetricWeight, actualWeight));
         }
 
         public Task<PaymentCriteriaCommandResponse> MakePayment(PaymentCriteriaCommand paymentCriteria)

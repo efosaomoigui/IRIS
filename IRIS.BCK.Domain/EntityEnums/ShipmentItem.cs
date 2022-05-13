@@ -17,7 +17,8 @@ namespace IRIS.BCK.Core.Domain.EntityEnums
         public double Height { get; set; }
         public string DimensionUnit { get; set; } //cm / in
         public string ShipmentDescription { get; set; }
-        public ProductEnum ShipmentProduct { get; set; } 
+        public ProductEnum ShipmentProduct { get; set; }
+        public string ClientWaybill { get; set; }
         public Shipment Shipment { get; set; }
         public double LineTotal { get; set; } 
     }
@@ -41,6 +42,7 @@ namespace IRIS.BCK.Core.Domain.EntityEnums
         public double ton { get; set; }
         public string t_shipmentDescription { get; set; }
         public ProductEnum t_shipmentType { get; set; }
+        public string t_clientWaybill { get; set; }  
         public double LineTotal { get; set; }
     }
 

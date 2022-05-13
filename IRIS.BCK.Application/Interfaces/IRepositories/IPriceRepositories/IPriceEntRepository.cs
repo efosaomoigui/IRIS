@@ -19,7 +19,7 @@ namespace IRIS.BCK.Core.Application.Interfaces.IRepositories.IPriceRepositories
         Task<List<Route>> GetPriceWithRoute(); 
         Task<PriceEnt> GetPriceByRouteId(string routeid, ShipmentCategory pcateogry);
         Task<PriceEnt> GetPriceByRouteId2(string routeid, ShipmentCategory scategory, ProductEnum product);
-        Task<double> GetShipmentItemWeight(PriceForShipmentItemCommand shipmentCriteria);
+        Task<(double, double, double)> GetShipmentItemWeight(PriceForShipmentItemCommand shipmentCriteria);
         Task<PriceEnt> CheckExistingPrice(CreatePriceCommand shipmentCriteria);  
         Task<PaymentCriteriaCommandResponse> MakePayment(PaymentCriteriaCommand paymentCriteria);   
     } 

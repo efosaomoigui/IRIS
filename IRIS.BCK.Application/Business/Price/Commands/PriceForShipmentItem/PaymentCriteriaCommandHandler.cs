@@ -219,6 +219,7 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem
                         lineItems.Height = 0;
                         lineItems.ShipmentDescription = resultValues.itemsA[i].t_shipmentDescription;
                         lineItems.ShipmentProduct = resultValues.itemsA[i].t_shipmentType;
+                        lineItems.ClientWaybill = resultValues.itemsA[i].t_clientWaybill;
                         lineItems.LineTotal = resultValues.itemsA[i].LineTotal;
                         shipment.ShipmentItems.Add(lineItems);
                     }

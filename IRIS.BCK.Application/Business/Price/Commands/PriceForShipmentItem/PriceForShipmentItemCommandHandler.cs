@@ -54,6 +54,8 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem
             };
 
             var lineItemPrice = 0M;
+            PriceForShipmentItemCommandResponse.pricedData = new PriceForShipmentItemCommand();
+
             //var priceTableByRouteForTrucc = 0M;
             if (PriceForShipmentItemCommandResponse.Success)
             {
@@ -62,7 +64,11 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem
                 {
                     var priceTableByRoute = _priceRepository.GetPriceByRouteId(request.RouteId, ShipmentCategory.MailAndParcel).Result;
                     var lineItemPriceResult = _priceRepository.GetShipmentItemWeight(request).Result;
-                    lineItemPrice = (priceTableByRoute==null) ? 0: priceTableByRoute.PricePerUnit * (decimal)lineItemPriceResult * request.Quantity;
+                    PriceForShipmentItemCommandResponse.pricedData.Volume = (decimal)lineItemPriceResult.Item1;
+                    PriceForShipmentItemCommandResponse.pricedData.VolumetricWeight = (decimal)lineItemPriceResult.Item2;
+                    PriceForShipmentItemCommandResponse.pricedData.ChargeableWeight = (decimal)lineItemPriceResult.Item3;
+                    PriceForShipmentItemCommandResponse.pricedData.PricePerUnit = priceTableByRoute.PricePerUnit;
+                    lineItemPrice = (priceTableByRoute==null) ? 0: priceTableByRoute.PricePerUnit * (decimal)lineItemPriceResult.Item3 * request.Quantity;
                 }
                 else if (request.ShimentCategory == ShipmentCategory.TruckLoad)
                 {
@@ -71,7 +77,6 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem
                 }
             }
 
-            PriceForShipmentItemCommandResponse.pricedData = new PriceForShipmentItemCommand();
             PriceForShipmentItemCommandResponse.pricedData.LineTotal = lineItemPrice;
             return PriceForShipmentItemCommandResponse;
         }
