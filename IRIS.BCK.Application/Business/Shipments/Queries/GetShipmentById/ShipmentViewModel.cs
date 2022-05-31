@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using IRIS.BCK.Core.Domain.Entities.PaymentEntities;
 
 namespace IRIS.BCK.Core.Application.Business.Shipments.Queries.GetShipmentById
 {
@@ -25,6 +26,7 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Queries.GetShipmentById
         public Guid Customer { get; set; }
 
         public double GrandTotal { get; set; }
+        public double Quantity { get; set; } 
 
         public string CustomerAddress { get; set; }
 
@@ -32,12 +34,13 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Queries.GetShipmentById
         public string RecieverName { get; set; }
         public Guid Reciever { get; set; }
         public string RecieverPhoneNumber { get; set; }
+        public string PaidStatus { get; set; }  
 
         public string RecieverAddress { get; set; }
 
         //PickUp Options
         public string PickupOptions { get; set; }
-        public string ShipmentCategory { get; set; } 
+        public string ShipmentCategory { get; set; }
 
         //Shipment Items && pricing
         public List<ShipmentItemDto> ShipmentItems { get; set; }

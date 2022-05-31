@@ -31,6 +31,7 @@ using IRIS.BCK.Infrastructure.Persistence.Repositories.Wallets;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -154,10 +155,12 @@ namespace IRIS.BCK.Api
                 options.Password.RequireUppercase = true;
 
                 options.Lockout.MaxFailedAccessAttempts = 5;
-                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(25);
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
                 //options.User.RequireUniqueEmail = true;
                 //options.SignIn.RequireConfirmedEmail = true;
-            }).AddEntityFrameworkStores<IRISDbContext>();
+            })
+             .AddEntityFrameworkStores<IRISDbContext>()
+             .AddDefaultTokenProviders();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -165,9 +168,9 @@ namespace IRIS.BCK.Api
         {
             //if (env.IsDevelopment())
             //{
-                app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "IRIS.BACKEND.Api v1"));
+            app.UseDeveloperExceptionPage();
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "IRIS.BACKEND.Api v1"));
             //}
 
             app.UseHttpsRedirection();

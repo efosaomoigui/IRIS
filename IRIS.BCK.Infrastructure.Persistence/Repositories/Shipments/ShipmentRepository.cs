@@ -35,9 +35,37 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Shipments
             return true;
         }
 
-        public async Task<List<Shipment>> GetShipmentAndItemsAndRoute()  
+        public async Task<List<Shipment>> GetShipmentAndItemsAndRoute()
         {
-            var lsShipments = await _dbContext.Shipment.Include(s => s.ShipmentItems).Include(x => x.Route).ToListAsync(); 
+            var lsShipments = await _dbContext.Shipment.Include(s => s.ShipmentItems).Include(x => x.Route).ToListAsync();
+            return lsShipments;
+        }
+
+        public async Task<List<Shipment>> GetUserShipmentAndItemsAndRoute(string userId)
+        {
+            var lsShipments = await _dbContext.Shipment.Where(x => x.Customer == new Guid(userId)).Include(s => s.ShipmentItems).Include(x => x.Route).ToListAsync();
+            return lsShipments;
+        }
+        public async Task<List<DashboardShipmentListViewModel>> GetMonthlyShipmentByCreatedDate()
+        {
+            var lsShipments = await _dbContext.Shipment.GroupBy(x => new { x.CreatedDate.Month }).OrderBy(g => g.Key.Month)
+                .Select(g => new DashboardShipmentListViewModel
+                {
+                    Month = g.Key.Month.ToString(),
+                    MonthData = g.Sum(y => y.GrandTotal)
+                }).ToListAsync();
+
+            return lsShipments;
+        }
+        public async Task<List<DashboardShipmentListViewModel>> GetUserMonthlyShipmentByCreatedDate(string userId)
+        {
+            var lsShipments = await _dbContext.Shipment.Where(s => s.Customer == new Guid(userId)).GroupBy(x => new { x.CreatedDate.Month }).OrderBy(g => g.Key.Month)
+                .Select(g => new DashboardShipmentListViewModel
+                {
+                    Month = g.Key.Month.ToString(),
+                    MonthData = g.Sum(y => y.GrandTotal) 
+                }).ToListAsync();
+
             return lsShipments;
         }
 
@@ -46,19 +74,19 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Shipments
             return _dbContext.Shipment.FirstOrDefault(e => e.ShipmentId.ToString() == shipmentid);
         }
 
-        public async Task<List<Guid>> GetUnprocessedShipment()  
+        public async Task<List<Guid>> GetUnprocessedShipment()
         {
             return _dbContext.Shipment.Where(e => e.ShipmentProcessingStatus == ShipmentProcessingStatus.Created).Select(e => e.ShipmentRouteId).Distinct().ToList();
         }
 
-        public async Task<List<ShipmentRouteViewModel>> GetShipmentByRouteId(string routeid) 
+        public async Task<List<ShipmentRouteViewModel>> GetShipmentByRouteId(string routeid)
         {
             //return _dbContext.Shipment.(e => e.ShipmentRouteId.ToString() == routeid);
             var shipments = _dbContext.Shipment.ToList();
             var shipmentLst = shipments.Where(e => e.ShipmentRouteId.ToString() == routeid).ToList();
             List<ShipmentRouteViewModel> allShiments = new List<ShipmentRouteViewModel>();
-             
-            foreach (var shipment in shipmentLst) 
+
+            foreach (var shipment in shipmentLst)
             {
                 var singleShipmentVm = new ShipmentRouteViewModel();
 

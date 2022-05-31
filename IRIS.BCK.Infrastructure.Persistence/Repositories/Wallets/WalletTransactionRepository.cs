@@ -48,6 +48,7 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Wallets
                 walletTransaction.WalletNumberId = wallet.Id;
                 walletTransaction.TransactionType = TransactionType.Credit;
                 walletTransaction.LineBalance = newWalletBalane;
+                walletTransaction.Description = "Wallet Credit Transaction";
                 await _dbContext.WalletTransaction.AddAsync(walletTransaction);
                 wallet.WalletBalance = newWalletBalane;
                 wallet.UserId = walletTransaction.UserId;
@@ -63,7 +64,7 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Wallets
         {
             //get the wallet balance
             var wallet =  _dbContext.WalletNumber.FirstOrDefault(x => x.UserId == walletTransaction.UserId);
-            var walletBalance = wallet.WalletBalance; 
+            var walletBalance =(wallet == null)? 0 : wallet.WalletBalance; 
 
             //debit wallet balance if
             //balance greater than wallettransaction.amount
@@ -73,6 +74,7 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Wallets
                 walletTransaction.WalletNumberId = wallet.Id;
                 walletTransaction.TransactionType = TransactionType.Debit;
                 walletTransaction.LineBalance = newWalletBalane;
+                walletTransaction.Description = "Wallet Dedit Transaction";
                 await _dbContext.WalletTransaction.AddAsync(walletTransaction);
                 wallet.WalletBalance = newWalletBalane;
                 wallet.UserId = walletTransaction.UserId;

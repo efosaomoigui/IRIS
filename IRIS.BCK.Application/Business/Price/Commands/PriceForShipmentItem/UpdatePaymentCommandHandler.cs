@@ -33,9 +33,10 @@ using Microsoft.Extensions.Configuration;
 using IRIS.BCK.Application.Interfaces.IRepository;
 using IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem;
 
-namespace IRIS.BCK.Core.Application.Business.Price.Commands.PaymentCriteriaCommandHandler 
+namespace IRIS.BCK.Core.Application.Business.Price.Commands.UpdatePaymentCommandHandler
 {
-    public class PaymentCriteriaCommandHandler : IRequestHandler<PaymentCriteriaCommand, PaymentCriteriaCommandResponse>
+
+    public class UpdatePaymentCommandHandler : IRequestHandler<UpdatePaymentPendingCommand, PaymentCriteriaCommandResponse>
     {
         private readonly IPriceEntRepository _priceRepository;
         private readonly IWalletTransactionRepository _walletTransactionRepository;
@@ -44,19 +45,20 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.PaymentCriteriaComma
         public IConfiguration Configuration;
         private readonly IMapper _mapper;
         private readonly IEmailService _emailService;
-        private readonly UserManager<User> _userManager;
+        private readonly UserManager<User> _userManager; 
         private INumberEntRepository _numberEntRepository;
         private IInvoiceRepository _invoiceRepository;
+        private IGenericRepository<Invoice> _genericRepository;
         private IShipmentRepository _shipmentRepository;
         private ITrackHistoryRepository _trackHistoryRepository;
         private IMediator _mediator;
         private string _user;
 
-        public PaymentCriteriaCommandHandler(IPriceEntRepository priceRepository, IWalletTransactionRepository
+        public UpdatePaymentCommandHandler(IPriceEntRepository priceRepository, IWalletTransactionRepository
             walletTransactionRepository, IMapper mapper, IEmailService emailService, UserManager<User> userManager,
             INumberEntRepository numberEntRepository = null, IInvoiceRepository invoiceRepository = null,
             IShipmentRepository shipmentRepository = null, IMediator mediator = null
-, ITrackHistoryRepository trackHistoryRepository = null, IConfiguration configuration = null)
+, ITrackHistoryRepository trackHistoryRepository = null, IConfiguration configuration = null, IGenericRepository<Invoice> genericRepository = null)
         {
             _priceRepository = priceRepository;
             _walletTransactionRepository = walletTransactionRepository;
@@ -69,18 +71,16 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.PaymentCriteriaComma
             _mediator = mediator;
             _trackHistoryRepository = trackHistoryRepository;
             Configuration = configuration;
+            _genericRepository = genericRepository;
         }
 
-        public async Task<PaymentCriteriaCommandResponse> Handle(PaymentCriteriaCommand request, CancellationToken cancellationToken)
+        public async Task<PaymentCriteriaCommandResponse> Handle(UpdatePaymentPendingCommand request, CancellationToken cancellationToken)
         {
             //convert the jsonstring in values from UI
-            var jsonString = request.Values.ToString();
-            var resultValues = JsonConvert.DeserializeObject<Values>(jsonString);
-            resultValues.shipmentCategory = (resultValues.shipmentCategory == "mailandparcel") ? "MailAndParcel" : resultValues.shipmentCategory;
 
             //get waybill and invoice code from request
-            request.InvoiceNumber = resultValues.invoiceNumber;
-            request.WaybillNumber = resultValues.waybillNumber;
+            request.InvoiceNumber = request.InvoiceNumber;
+            request.WaybillNumber = request.WaybillNumber;
 
             var PaymentCriteriaCommandResponse = new PaymentCriteriaCommandResponse(); //check existing shipment
             var shipment = _shipmentRepository.GetAllAsync().Result.FirstOrDefault(x => x.Waybill == request.WaybillNumber);
@@ -98,21 +98,28 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.PaymentCriteriaComma
                 var currentUser =
                 PaymentCriteriaCommandResponse = new PaymentCriteriaCommandResponse();
                 PaymentCriteriaCommandResponse.PaymentStatus = false;
+                var walletRequest = new PaymentCriteriaCommand();
+                walletRequest.WaybillNumber = request.WaybillNumber;
+                walletRequest.InvoiceNumber = request.InvoiceNumber;
+                walletRequest.UserId = shipment.Customer;
+                walletRequest.Amount = request.Amount;
+                walletRequest.PaymentMethod = request.PaymentMethod;
 
                 //start shipment creation process
                 if (request.PaymentMethod == PaymentMethod.Wallet)
                 {
-                    request.UserId = shipment.Customer;
-                    var walletResult = await doWalletPayment(request);
+                    walletRequest.ShimentCategory = request.ShipmentCategory;
+
+                    var walletResult = await doWalletPayment(walletRequest);
                     PaymentCriteriaCommandResponse.PaymentStatus = walletResult.Item1;
                     PaymentCriteriaCommandResponse.PaymentMethod = PaymentMethod.Wallet;
 
                     if (PaymentCriteriaCommandResponse.PaymentStatus)
                     {
-                        //UpdateInvoice(request);
+                        //UpdateInvoice(walletRequest);
                         invoiceExit.PaymentMethod = PaymentMethod.Wallet;
                         invoiceExit.Status = StatusEnum.Paid;
-                        await _invoiceRepository.UpdateAsync(invoiceExit);
+                        await _genericRepository.UpdateAsync(invoiceExit);
                     }
 
                     //semd email
@@ -129,10 +136,13 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.PaymentCriteriaComma
 
                     if (PaymentCriteriaCommandResponse.PaymentStatus)
                     {
-                        UpdateInvoice(request);
+                        //UpdateInvoice(walletRequest);
+                        invoiceExit.PaymentMethod = PaymentMethod.Wallet;
+                        invoiceExit.Status = StatusEnum.Paid;
+                        await _genericRepository.UpdateAsync(invoiceExit);
                     }
 
-                    //semd email
+                    //send email
                     //var emailOptions = new EmailOptions();
                     //emailOptions.ShipmentDetails = shipment;
                     //if (emailOptions != null) await _emailService.SendEmail(email, emailOptions);
@@ -169,7 +179,7 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.PaymentCriteriaComma
                     PaymentCriteriaCommandResponse.PaymentMethod = PaymentMethod.Cash;
                     if (PaymentCriteriaCommandResponse.PaymentStatus)
                     {
-                        UpdateInvoice(request);
+                        UpdateInvoice(walletRequest);
                     }
                 }
             }
@@ -193,17 +203,15 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.PaymentCriteriaComma
             return new Tuple<bool, PaymentMethod>(false, PaymentMethod.Wallet);
         }
 
-
         public async void UpdateInvoice(PaymentCriteriaCommand request)
         {
             //update invoice
-            var invoiceExitCheckt = await _invoiceRepository.GetAllAsync();
-            var invoice = invoiceExitCheckt.Single(x => x.InvoiceCode == request.InvoiceNumber);
+            var invoiceExitCheckt = _genericRepository.GetAllAsync().Result.FirstOrDefault(x => x.InvoiceCode == request.InvoiceNumber);
             if (invoiceExitCheckt != null)
             {
-                invoice.PaymentMethod = PaymentMethod.Wallet;
-                invoice.Status = StatusEnum.Paid;
-                await _invoiceRepository.UpdateAsync(invoice);
+                invoiceExitCheckt.PaymentMethod = PaymentMethod.Wallet;
+                invoiceExitCheckt.Status = StatusEnum.Paid;
+                await _genericRepository.UpdateAsync(invoiceExitCheckt);
             }
         }
 
@@ -221,5 +229,4 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.PaymentCriteriaComma
         }
 
     }
-
 }

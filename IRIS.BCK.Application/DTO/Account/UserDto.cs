@@ -27,6 +27,7 @@ namespace IRIS.BCK.Core.Application.DTO.Account
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }
         public DateTime PasswordExpireDate { get; set; }
+        public Boolean ConfirmEmail { get; set; } 
 
     }
 }

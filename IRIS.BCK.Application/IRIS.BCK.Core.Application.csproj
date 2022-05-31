@@ -54,6 +54,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Business\Payments\Queries\GetPaymentByUserId\" />
     <Folder Include="Business\Wallet\Commands\DeleteWalletNumber\" />
     <Folder Include="Business\Wallet\Commands\UpdateWalletNumber\" />
     <Folder Include="DTO\Files\Pdf\" />

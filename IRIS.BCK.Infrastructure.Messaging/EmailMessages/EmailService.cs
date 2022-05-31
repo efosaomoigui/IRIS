@@ -26,7 +26,7 @@ namespace IRIS.BCK.Infrastructure.Messaging.EmailMessages
 
         public async Task<bool> SendEmail(Email email, EmailOptions options = null)
         {
-            if (options != null)
+            if (options != null && options.toEmail != null)
             {
                 var client = new SendGridClient(_emailSettings.ApiKey);
                 //var client = new SimpleEmailS(_emailSettings.ApiKey); //AWS Email
@@ -39,16 +39,13 @@ namespace IRIS.BCK.Infrastructure.Messaging.EmailMessages
 
                 sendGridMessage.SetTemplateData(new
                 {
-                    name = options.Shipment.shipperFullName,
-                    shipperName = options.Shipment.shipperFullName,
-                    shipperAddress = options.Shipment.shipperAddress,
-                    shipperPhoneNumber = options.Shipment.receiverPhoneNumber,
-                    invoiceNumber = options.Shipment.invoiceNumber,
-                    waybillNumber = options.Shipment.waybillNumber,
+                    name = options.ShipmentDetails.CustomerName,
+                    shipperName = options.ShipmentDetails.CustomerAddress,
+                    shipperAddress = options.ShipmentDetails.CustomerName,
+                    waybillNumber = options.ShipmentDetails.Waybill,
 
-                    receiverName = options.Shipment.receiverFullName,
-                    receiverAddress = options.Shipment.receiverAddress,
-                    receiverPhoneNumber = options.Shipment.receiverPhoneNumber,
+                    receiverName = options.ShipmentDetails.RecieverName,
+                    receiverAddress = options.ShipmentDetails.RecieverAddress,
                 }); ;
 
                 var from = new EmailAddress
@@ -70,15 +67,52 @@ namespace IRIS.BCK.Infrastructure.Messaging.EmailMessages
             return false;
         }
 
+        public async Task<bool> SendConfirmationEmail(Email email, EmailOptions options = null) 
+        {
+            if (options != null && options.toEmail != null)
+            {
+                var client = new SendGridClient(_emailSettings.ApiKey);
+                var subject = email.Subject;
+                var body = email.Body;
+
+                var sendGridMessage = PrepareHtmlDynamicTemplate(options);
+
+                sendGridMessage.SetTemplateData(new
+                {
+                    confirmationLink = options.confirmationLink,
+                    firstName = options.CustomerName
+                }); 
+
+                var from = new EmailAddress
+                {
+                    Email = _emailSettings.FromAddress,
+                    Name = _emailSettings.FromName
+                };
+
+                var response = await client.SendEmailAsync(sendGridMessage);
+
+                if (response.StatusCode == System.Net.HttpStatusCode.Accepted | response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    return true;
+                }
+            }
+
+
+            return false;
+        }
+
         public SendGridMessage PrepareHtmlDynamicTemplate(EmailOptions options)
         {
             var sendGridMessage = new SendGridMessage();
 
             sendGridMessage.SetFrom("iris@chiscoexpress.com", "IRIS");
-            var obj = options.Shipment.shipperPhoneNumber;
+            //var obj = options.Shipment.shipperPhoneNumber;
 
-            sendGridMessage.AddTo("efe.omoigui@gmail.com");
-            sendGridMessage.SetTemplateId("d-b87f6cab7b0a4dd490d026394de53ab7");
+            if (options.toEmail != null)
+            {
+                sendGridMessage.AddTo(options.toEmail);
+                sendGridMessage.SetTemplateId(options.templateId);
+            }
 
             return sendGridMessage;
         }

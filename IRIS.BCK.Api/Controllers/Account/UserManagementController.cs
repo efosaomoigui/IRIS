@@ -48,6 +48,15 @@ namespace IRIS.BCK.Api.Controllers.Account
             return Ok(response);
         }
 
+        [AllowAnonymous]
+        [HttpGet("ConfirmEmail")]
+        public async Task<ActionResult<UpdateUserCommandResponse>> ConfirmEmail([FromQuery] string userId, [FromQuery]  string token)   
+        {
+            var response = await _mediator.Send(new UpdateUserConfirmationCommand(userId, token));
+            return Ok(response);
+        }
+
+
         [HttpGet("GetUsers")]
         public async Task<ActionResult<List<UserListViewModel>>> GetAllUsers()
         {

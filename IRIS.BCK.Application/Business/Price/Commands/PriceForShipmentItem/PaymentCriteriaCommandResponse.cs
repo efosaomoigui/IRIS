@@ -28,6 +28,7 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem
         public ShipmentCategory ShimentCategory { get; set; }
         public string RouteId { get; set; }
         public bool PaymentStatus { get; set; }
+        public bool IsShipmentRegistered { get; set; } 
         public string Description { get; set; }
         public object Values { get; set; }
     }

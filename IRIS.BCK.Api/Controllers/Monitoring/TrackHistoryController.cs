@@ -22,6 +22,23 @@ namespace IRIS.BCK.Api.Controllers.Monitoring
             return HandleQueryResult(trackHistory);
         }
 
+        [HttpGet("TrackHistory/userTrack", Name = "GetUserTrackHistory")]
+        public async Task<ActionResult<List<TrackHistoryListViewModel>>> GetUserTrackHistory()
+        {
+            var userId = GetUserId();
+            var trackHistory = await _mediator.Send(new GetUserTrackHistoryQuery(userId));
+            return HandleQueryResult(trackHistory);
+        }
+
+
+        [HttpGet("TrackHistory/GetUserTrackHistoryByCode/{Searchcode}", Name = "GetUserTrackHistoryByCode")]
+        public async Task<ActionResult<List<TrackHistoryListViewModel>>> GetUserTrackHistoryByCode(string Searchcode) 
+        {
+            var userId = GetUserId();
+            var code = await _mediator.Send(new GetUserTrackHistorySearchQuery(Searchcode, userId));
+            return Ok(code);
+        }
+
         [HttpGet("TrackHistory/GetTrackHistoryByCode/{Searchcode}")]
         public async Task<ActionResult<List<TrackHistoryListViewModel>>> GetTrackHistoryByCode(string Searchcode)
         {

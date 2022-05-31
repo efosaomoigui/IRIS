@@ -45,4 +45,11 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Queries.GetShipmentList
 
         public Guid ServiceCenterId { get; set; }
     }
+
+    public class DashboardShipmentListViewModel 
+    {
+        //Shipment Items && pricing
+        public double MonthData { get; set; }
+        public string Month { get; set; }
+    }
 }

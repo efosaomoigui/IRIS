@@ -4,10 +4,12 @@ using IRIS.BCK.Core.Application.Business.Payments.Commands.DeletePayment;
 using IRIS.BCK.Core.Application.Business.Payments.Commands.UpdatePayment;
 using IRIS.BCK.Core.Application.Business.Payments.Queries.GetPayment;
 using IRIS.BCK.Core.Application.Business.Payments.Queries.GetPayment.GetPaymentById;
-using IRIS.BCK.Core.Application.Business.Payments.Queries.GetPaymentByUserId;
+using IRIS.BCK.Core.Application.Business.Payments.Queries.GetPaymentByInvoiceCode;
 using IRIS.BCK.Core.Application.Business.Payments.Queries.GetPaymentLog;
 using IRIS.BCK.Core.Application.Business.Price.Commands.CreatePrice;
 using IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem;
+using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetShipmentById;
+using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetShipmentList;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -26,6 +28,15 @@ namespace IRIS.BCK.Api.Controllers.Payment
             return Ok(payments);
         }
 
+        [HttpGet("Invoice/userInvoice", Name = "GetUserInvoice")]
+        public async Task<ActionResult<List<PaymentListViewModel>>> GetUserInvoice() 
+        {
+            var userId = GetUserId();
+            var payments = await _mediator.Send(new GetUserPaymentQuery(userId)); 
+            return Ok(payments);
+        }
+
+
         [HttpGet("GetInvoiceByInvoiceId/{invoiceid}")]
         public async Task<ActionResult<PaymentViewModel>> GetInvoiceByInvoiceId([FromRoute] Guid invoiceid)
         {
@@ -40,30 +51,30 @@ namespace IRIS.BCK.Api.Controllers.Payment
         }
 
         [HttpGet("GetInvoiceByInvoiceCode/{invoicecode}")]
-        public async Task<ActionResult<PaymentViewModel>> GetInvoiceByInvoiceCode([FromRoute] string invoicecode)
-        {
-            var invoice = new PaymentViewModel();
+        public async Task<ActionResult<ShipmentViewModel>> GetInvoiceByInvoiceCode([FromRoute] string invoicecode)
+      {
+            var invoice = new ShipmentViewModel();
 
             if (invoicecode != null)
             {
-                invoice = await _mediator.Send(new GetPaymentByIdQuery(invoicecode.ToString()));
+                invoice = await _mediator.Send(new GetPaymentByInvoiceCodeQuery(invoicecode.ToString())); 
             }
 
             return Ok(invoice);
         }
 
-        [HttpGet("GetInvoiceByUserId/{userid}")]
-        public async Task<ActionResult<PaymentViewModel>> GetInvoiceByUserId([FromRoute] Guid userid)
-        {
-            var user = new PaymentViewModel();
+        //[HttpGet("GetInvoiceByUserId/{userid}")]
+        //public async Task<ActionResult<PaymentViewModel>> GetInvoiceByUserId([FromRoute] Guid userid)
+        //{
+        //    var user = new PaymentViewModel();
 
-            if (userid != null)
-            {
-                user = await _mediator.Send(new GetPaymentByUserIdQuery(userid.ToString()));
-            }
+        //    if (userid != null)
+        //    {
+        //        user = await _mediator.Send(new GetPaymentByUserIdQuery(userid.ToString()));
+        //    }
 
-            return Ok(user);
-        }
+        //    return Ok(user);
+        //}
 
         [HttpPost("Invoice", Name = "AddInvoice")]
         public async Task<ActionResult<CreatePaymentCommandResponse>> Create([FromBody] CreatePaymentCommand createPaymentCommand)
@@ -90,6 +101,13 @@ namespace IRIS.BCK.Api.Controllers.Payment
         public async Task<ActionResult<PaymentCriteriaCommandResponse>> MakePayment([FromBody] PaymentCriteriaCommand createPriceCommand)
         {
             var response = await _mediator.Send(createPriceCommand);
+            return Ok(response);
+        }
+                
+        [HttpPost("Payment/UpdatePendingPayment", Name = "UpdatePendingPayment")]  
+        public async Task<ActionResult<PaymentCriteriaCommandResponse>> UpdatePendingPayment([FromBody] UpdatePaymentPendingCommand updatePriceCommand)
+        {
+            var response = await _mediator.Send(updatePriceCommand);
             return Ok(response);
         }
 

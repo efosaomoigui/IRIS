@@ -88,7 +88,7 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateAuthCredent
                         var userId = new Claim("UserId", user.Id.ToString());
                         claims.Add(userId);
 
-                        var expiresAt = DateTime.UtcNow.AddMinutes(25);
+                        var expiresAt = DateTime.UtcNow.AddMinutes(60);
 
                         createAuthCredentialsCommandResponse.AccessToken = CreateToken(claims, expiresAt);
                         createAuthCredentialsCommandResponse.ExpireAt = expiresAt;

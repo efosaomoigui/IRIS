@@ -1,4 +1,5 @@
 ﻿using IRIS.BCK.Application.DTO;
+using IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem;
 using IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateCollectionCenter;
 using IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateShipment;
 using IRIS.BCK.Core.Application.Business.Shipments.Commands.DeleteCollectionCenter;
@@ -25,6 +26,31 @@ namespace IRIS.BCK.Api.Controllers.Shipment
         public async Task<ActionResult<List<ShipmentListViewModel>>> GetAllShipments()
         {
             var shipments = await _mediator.Send(new GetShipmentListQuery());
+            return HandleQueryResult(shipments);
+            //return Ok(shipments);
+        }
+
+        [HttpGet("Shipment/dashboard", Name = "GetDashboardShipments")]
+        public async Task<ActionResult<List<DashboardShipmentListViewModel>>> GetDashboardShipments() 
+        {
+            var shipments = await _mediator.Send(new GetDashboardShipmentListQuery());
+            return HandleQueryResult(shipments);
+        }
+
+        [HttpGet("Shipment/userDashboard", Name = "GetUserDashboardShipments")]
+        public async Task<ActionResult<List<DashboardShipmentListViewModel>>> GetUserDashboardShipments()
+        {
+            var userId = GetUserId();
+            var shipments = await _mediator.Send(new GetUserDashboardShipmentListQuery(userId));
+            return HandleQueryResult(shipments);
+        }
+
+        [HttpGet("Shipment/userShipment", Name = "GetUserShipments")]
+        public async Task<ActionResult<List<ShipmentListViewModel>>> GetUserShipments() 
+        {
+            var userId = GetUserId();
+            var shipments = await _mediator.Send(new GetUserShipmentListQuery(userId));
+
             return HandleQueryResult(shipments);
             //return Ok(shipments);
         }
@@ -75,6 +101,14 @@ namespace IRIS.BCK.Api.Controllers.Shipment
             return HandleCommandResult(response);
             //return Ok(response);
         }
+
+        [HttpPost("Shipment/RegisterShipment", Name = "RegisterShipment")]
+        public async Task<ActionResult<RegisterShipmentCommand>> RegisterShipment([FromBody] RegisterShipmentCommand registerShipmentCommand)
+        {
+            var response = await _mediator.Send(registerShipmentCommand);
+            return Ok(response);
+        }
+
 
         [HttpPut("Shipment/edit", Name = "UpdateShipment")]
         public async Task<ActionResult<UpdateShipmentCommandResponse>> UpdateShipment([FromBody] UpdateShipmentCommand updateShipmentCommand)

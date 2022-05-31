@@ -27,5 +27,11 @@ namespace IRIS.BCK.Application.Interfaces.IRepository.IShipmentRepositories
         Task<Shipment> GetShipmentByWayBill(string waybillnumber);
 
         Task<List<Guid>> GetUnprocessedShipment();
+
+        Task<List<Shipment>> GetUserShipmentAndItemsAndRoute(string userId);
+
+        Task<List<DashboardShipmentListViewModel>> GetMonthlyShipmentByCreatedDate();
+
+        Task<List<DashboardShipmentListViewModel>> GetUserMonthlyShipmentByCreatedDate(string userId);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using IRIS.BCK.Application.Interfaces.IRepository;
+using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetShipmentList;
 using IRIS.BCK.Core.Application.Interfaces.IRepositories;
 using IRIS.BCK.Core.Application.Interfaces.IRepositories.INumberEntRepository;
 using IRIS.BCK.Core.Application.Interfaces.IRepositories.IWalletRepositories;
@@ -53,9 +54,33 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Wallets
             throw new NotImplementedException();
         }
 
+        public async Task<List<DashboardShipmentListViewModel>> GetDashboardWalletsTransaAndNumbers()
+        {
+            var lsShipments = await _dbContext.WalletTransaction.GroupBy(x => new { x.CreatedDate.Month }).OrderBy(g => g.Key.Month)
+                .Select(g => new DashboardShipmentListViewModel
+                {
+                    Month = g.Key.Month.ToString(),
+                    MonthData = g.Sum(y => y.Amount)
+                }).ToListAsync();
+
+            return lsShipments;
+        }
+
+        public async Task<List<DashboardShipmentListViewModel>> GetUserDashboardWalletsTransaAndNumbers(string userId) 
+        {
+            var lsShipments = await _dbContext.WalletTransaction.Where(p => p.UserId== new Guid(userId)).GroupBy(x => new { x.CreatedDate.Month }).OrderBy(g => g.Key.Month)
+                .Select(g => new DashboardShipmentListViewModel
+                {
+                    Month = g.Key.Month.ToString(),
+                    MonthData = g.Sum(y => y.Amount)
+                }).ToListAsync();
+
+            return lsShipments;
+        }
+
         public async Task<List<WalletNumber>> GetWalletsTransaAndNumbers()
         {
-            var lsWallets =  await _dbContext.WalletNumber.Include(s => s.WalletTransactions).ToListAsync();
+            var lsWallets = await _dbContext.WalletNumber.Include(s => s.WalletTransactions).ToListAsync();
             return lsWallets;
         }
 

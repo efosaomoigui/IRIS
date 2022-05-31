@@ -43,6 +43,22 @@ namespace IRIS.BCK.Core.Application.Mappings.Shipments
                 GrandTotal = request.Amount,
                 //ShipmentItems = null,
             };
+        }        
+        
+        public static Shipment CreateShipmentValuesMapsCommand2(RegisterShipmentCommand request) 
+        {
+            return new Shipment
+            {
+                //PickupOptions = PickupOptions.ServiceCenter,
+                //AddressId = request.AddressId,
+                Customer = (Guid)request.UserId,
+                //CustomerAddress = request.CustomerAddress,
+                Reciever = (Guid)request.Reciever,
+                //RecieverAddress = request.RecieverAddress,
+                Waybill = request.WaybillNumber,
+                GrandTotal = request.Amount,
+                //ShipmentItems = null,
+            };
         }
     }
 }

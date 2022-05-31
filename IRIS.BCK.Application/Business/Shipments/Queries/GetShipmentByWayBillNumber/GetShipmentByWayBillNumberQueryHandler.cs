@@ -20,7 +20,7 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Queries.GetShipmentByWayB
     {
         private readonly IShipmentRepository _shipmentRepository;
         private readonly IRouteRepository _routeRepository;
-        private readonly IInvoiceRepository _invoiceRepository;  
+        private readonly IInvoiceRepository _invoiceRepository;
         private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;
 
@@ -41,27 +41,33 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Queries.GetShipmentByWayB
 
             var singleShipmentVm = new ShipmentViewModel();
 
-            var user = await _userManager.FindByIdAsync(waybill.Customer.ToString());
-            var user2 = await _userManager.FindByIdAsync(waybill.Reciever.ToString());
-            var route = await _routeRepository.GetRouteById(waybill.ShipmentRouteId.ToString());
-            var invoice = await _invoiceRepository.GetInvoiceByUserId(waybill.Customer.ToString());
-            singleShipmentVm.Departure = route.Departure;
-            singleShipmentVm.Destination = route.Destination;
-            singleShipmentVm.PickupOptions = waybill.PickupOptions.ToString();
-            singleShipmentVm.CustomerName = user?.FirstName + " " + user?.LastName;
-            singleShipmentVm.RecieverName = waybill.RecieverName;
-            singleShipmentVm.RecieverPhoneNumber = user2.PhoneNumber;
-            singleShipmentVm.CustomerPhoneNumber = user.PhoneNumber;
-            singleShipmentVm.RecieverName = waybill.RecieverName;
-            singleShipmentVm.GrandTotal = waybill.GrandTotal;
-            singleShipmentVm.CustomerAddress = waybill.CustomerAddress;
-            singleShipmentVm.RecieverAddress = waybill.RecieverAddress;
-            singleShipmentVm.Waybill = waybill.Waybill;
-            singleShipmentVm.Invoice = invoice.InvoiceCode; 
-            var shipmentItems = _mapper.Map<List<ShipmentItemDto>>(waybill.ShipmentItems);
-            singleShipmentVm.ShipmentItems = shipmentItems; 
-            singleShipmentVm.CreatedDate = waybill.CreatedDate;
-            singleShipmentVm.ShipmentCategory = waybill.ShipmentCategory.ToString();
+            if (waybill != null)
+            {
+                var user = await _userManager.FindByIdAsync(waybill.Customer.ToString());
+                var user2 = await _userManager.FindByIdAsync(waybill.Reciever.ToString());
+                var route = await _routeRepository.GetRouteById(waybill.ShipmentRouteId.ToString());
+                var invoice = await _invoiceRepository.GetInvoiceByUserId(waybill.Customer.ToString());
+                singleShipmentVm.Departure = route.Departure;
+                singleShipmentVm.Destination = route.Destination;
+                singleShipmentVm.PickupOptions = waybill.PickupOptions.ToString();
+                singleShipmentVm.CustomerName = user?.FirstName + " " + user?.LastName;
+                singleShipmentVm.RecieverName = waybill.RecieverName;
+                singleShipmentVm.RecieverPhoneNumber = user2.PhoneNumber;
+                singleShipmentVm.CustomerPhoneNumber = user.PhoneNumber;
+                singleShipmentVm.RecieverName = waybill.RecieverName;
+                singleShipmentVm.GrandTotal = waybill.GrandTotal;
+                singleShipmentVm.CustomerAddress = waybill.CustomerAddress;
+                singleShipmentVm.RecieverAddress = waybill.RecieverAddress;
+                singleShipmentVm.Waybill = waybill.Waybill;
+                singleShipmentVm.Invoice = invoice.InvoiceCode;
+                var shipmentItems = _mapper.Map<List<ShipmentItemDto>>(waybill.ShipmentItems);
+                singleShipmentVm.ShipmentItems = shipmentItems;
+                singleShipmentVm.CreatedDate = waybill.CreatedDate;
+                singleShipmentVm.ShipmentCategory = waybill.ShipmentCategory.ToString();
+                singleShipmentVm.PaidStatus = invoice.Status.ToString();
+            }
+
+
 
             //return _mapper.Map<ShipmentViewModel>(waybill);
             return singleShipmentVm;

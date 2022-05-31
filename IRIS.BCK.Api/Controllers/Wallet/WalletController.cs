@@ -1,4 +1,5 @@
-﻿using IRIS.BCK.Core.Application.Business.Wallet.Commands.CreateWalletNumber;
+﻿using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetShipmentList;
+using IRIS.BCK.Core.Application.Business.Wallet.Commands.CreateWalletNumber;
 using IRIS.BCK.Core.Application.Business.Wallet.Commands.CreateWalletNumberCommand;
 using IRIS.BCK.Core.Application.Business.Wallet.Commands.CreateWalletTransactionCommand;
 using IRIS.BCK.Core.Application.Business.Wallet.Queries.GetWalletById;
@@ -52,18 +53,35 @@ namespace IRIS.BCK.Api.Controllers.Wallet
             return Ok(walletTransaction);
         }
 
+        [HttpGet("WalletTransaction/dashboard", Name = "GetDashboardWalletTransaction")]
+        public async Task<ActionResult<List<WalletTransactionViewModel>>> GetDashboardWalletTransaction() 
+        {
+            var walletTransaction = await _mediator.Send(new GetDashboardWalletTransactionQuery());
+            return Ok(walletTransaction);
+        }
+
+
+        [HttpGet("WalletTransaction/userDashboard", Name = "GetUserDashboardWalletTransaction")]
+        public async Task<ActionResult<List<WalletTransactionViewModel>>> GetUserDashboardWalletTransaction()
+        {
+            var userid = GetUserId();
+            var walletTransaction = await _mediator.Send(new GetUserDashboardWalletTransactionQuery(userid));
+            return Ok(walletTransaction);
+        }
+
         [HttpGet("WalletTransaction/GetWalletTransactionById/{transactionid}")]
-        public async Task<ActionResult<List<WalletTransactionViewModel>>> GetTransactionByTransactionId(string transactionid)
+        public async Task<ActionResult<List<DashboardShipmentListViewModel>>> GetTransactionByTransactionId(string transactionid)
         {
             var transaction = await _mediator.Send(new GetWalletTransactionQuery());
             return Ok(transaction);
         }
 
-        [HttpGet("GetWalletTransactionByUserId/{userid}")]
-        public async Task<ActionResult<List<WalletTransactionViewModel>>> GetWalletTransactionByUserId([FromRoute] Guid userid)
+        [HttpGet("GetWalletTransactionByUserId")]
+        public async Task<ActionResult<List<WalletTransactionViewModel>>> GetWalletTransactionByUserId()
         {
+            var userId = GetUserId();
             var walletTransactions = new List<WalletTransactionViewModel>();
-            walletTransactions = await _mediator.Send(new GetWalletTransactionByUserIdQuery(userid.ToString()));
+            walletTransactions = await _mediator.Send(new GetWalletTransactionByUserIdQuery(userId));
             return Ok(walletTransactions);
         }
 

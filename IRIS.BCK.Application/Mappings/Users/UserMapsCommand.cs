@@ -22,7 +22,7 @@ namespace IRIS.BCK.Core.Application.Mappings.Users
             {
                 UserId = request.Id,
                 UserName = request.Username,
-                Password = "Iris145#",
+                Password = request.Password != "" ? request.Password : "Iris145#",
                 Email = request.Email,
                 FirstName = request.FirstName,
                 LastName = request.LastName,
@@ -35,7 +35,9 @@ namespace IRIS.BCK.Core.Application.Mappings.Users
                 DateModified = request.DateModified,
                 PasswordExpireDate = request.PasswordExpireDate,
                 IdentificationImage = request.IdentificationImage,
-                WalletNumber = request.WalletNumber
+                WalletNumber = request.WalletNumber,
+                UserType = request.UserType,
+                Gender = request.Gender
             };
         }
 

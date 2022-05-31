@@ -36,6 +36,18 @@ namespace IRIS.BCK.Core.Application.Mappings.Payments
                 Amount = request.Amount,
                 Status = StatusEnum.Pending
             };
+        }        
+        public static Invoice CreatePaymentValuesMapsCommand2(RegisterShipmentCommand request)
+        {
+            return new Invoice
+            {
+                InvoiceCode = request.InvoiceNumber,
+                UserId = (Guid)request.UserId,
+                WaybilNumber = request.WaybillNumber,
+                PaymentMethod = request.PaymentMethod,
+                Amount = request.Amount,
+                Status = StatusEnum.Pending
+            };
         }
     }
 }

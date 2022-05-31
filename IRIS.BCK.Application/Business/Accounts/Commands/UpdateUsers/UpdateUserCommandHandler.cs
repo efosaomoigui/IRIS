@@ -17,6 +17,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.UpdateUsers
 {
@@ -64,13 +65,13 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.UpdateUsers
             if (UpdateUserCommandResponse.Success)
             {
                 var user = await _userManager.FindByIdAsync(request.UserId.ToString());
-                user.FirstName = request.FirstName; 
-                user.LastName = request.LastName; 
-                user.Email = request.Email; 
+                user.FirstName = request.FirstName;
+                user.LastName = request.LastName;
+                user.Email = request.Email;
                 user.PhoneNumber = request.PhoneNumber;
                 if (request.requirePasswordChanged == "Yes")
                 {
-                    
+
                     await _userManager.ChangePasswordAsync(user, user.Password, request.Password);
                     user.Password = request.Password;
                 }
@@ -95,46 +96,59 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.UpdateUsers
             return UpdateUserCommandResponse;
         }
     }
+
+    public class UpdateUserConfirmationCommandHandler : IRequestHandler<UpdateUserConfirmationCommand, UpdateUserCommandResponse>
+    {
+        private IUserRepository _userRepository;
+        private readonly IMapper _mapper;
+        private readonly IEmailService _emailService;
+        private readonly UserManager<User> _userManager;
+        private readonly RoleManager<AppRole> _roleManager;
+
+        public UpdateUserConfirmationCommandHandler(IUserRepository userRepository, IMapper mapper, IEmailService emailService, UserManager<User> userManager)
+        {
+            _userRepository = userRepository;
+            _mapper = mapper;
+            _emailService = emailService;
+            _userManager = userManager;
+        }
+
+        public async Task<UpdateUserCommandResponse> Handle(UpdateUserConfirmationCommand request, CancellationToken cancellationToken)
+        {
+            var UpdateUserCommandResponse = new UpdateUserCommandResponse();
+
+            var user = await _userManager.FindByIdAsync(request.Userid.ToString());
+            if (user == null)
+            {
+                UpdateUserCommandResponse.ValidationErrors.Add("User does not exist!");
+                return UpdateUserCommandResponse;
+            }
+
+            var updateUser = _mapper.Map<User>(user);
+            var token2 = HttpUtility.UrlDecode(request.Token);
+            var result = await _userManager.ConfirmEmailAsync(user, request.Token);
+
+            if (!result.Succeeded)
+            {
+                UpdateUserCommandResponse.ValidationErrors.Add("Email Confirmation Failed!");
+
+                if (user.UserType == UserType.Corporate)
+                {
+                    await _userManager.AddToRoleAsync(user, "Individual");
+                }
+
+                if (user.UserType == UserType.Corporate)
+                {
+                    await _userManager.AddToRoleAsync(user, "Corporate");
+                }
+
+                return UpdateUserCommandResponse;
+            }
+
+            UpdateUserCommandResponse.Userdto = _mapper.Map<UserDto>(updateUser);
+            UpdateUserCommandResponse.Userdto.ConfirmEmail = true;
+            return UpdateUserCommandResponse;
+        }
+    }
+
 }
-
-//            if (UpdateUserCommandResponse.Success)
-//            {
-//                var user = UserMapsCommand.UpdateUserMapsCommand(request);
-//                //user = await _userRepository.AddAsync(user);
-
-//                var userExist = await _userManager.FindByIdAsync(user.Id);
-//                if (userExist == null)
-//                {
-//                    var result = await _userManager.UpdateAsync(userExist);
-
-//                    if (result.Succeeded)
-//                    {
-//                        try
-//                        {
-//                            //await _emailService.SendEmail(email);
-//                        }
-//                        catch (Exception)
-//                        {
-//                            throw;
-//                        }
-//                    }
-//                    else
-//                    {
-//                        foreach (var error in result.Errors)
-//                        {
-//                            UpdateUserCommandResponse.ValidationErrors.Add(error.Description);
-//                        }
-//                    }
-
-//                    UpdateUserCommandResponse.Userdto = _mapper.Map<UserDto>(user);
-//                }
-//                else
-//                {
-//                    UpdateUserCommandResponse.ValidationErrors.Add(StaticMessages.UserExist);
-//                }
-//            }
-
-//            return UpdateUserCommandResponse;
-//        }
-//    }
-//}

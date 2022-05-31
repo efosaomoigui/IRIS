@@ -1,5 +1,6 @@
 ﻿using IRIS.BCK.Application.Interfaces.IRepository;
 using IRIS.BCK.Core.Application.Business.Accounts.AccountEntities;
+using IRIS.BCK.Core.Application.Business.Shipments.Queries.GetShipmentList;
 using IRIS.BCK.Core.Domain.Entities.WalletEntities;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,8 @@ namespace IRIS.BCK.Core.Application.Interfaces.IRepositories.IWalletRepositories
         Task<WalletNumber> GetWalletById(string walletid);
 
         Task<List<WalletNumber>> GetWalletsTransaAndNumbers();
+        Task<List<DashboardShipmentListViewModel>> GetDashboardWalletsTransaAndNumbers();
+        Task<List<DashboardShipmentListViewModel>> GetUserDashboardWalletsTransaAndNumbers(string userId); 
         Task<List<WalletNumber>> GetWalletTransactionByWalletNumber(string walletNumber);
 
     }

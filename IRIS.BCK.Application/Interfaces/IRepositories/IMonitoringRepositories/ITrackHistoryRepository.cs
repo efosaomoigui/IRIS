@@ -16,8 +16,10 @@ namespace IRIS.BCK.Core.Application.Interfaces.IRepositories.IMonitoringReposito
         Task<TrackHistory> GetTrackHistoryByTripReference(string tripreference);
 
         Task<List<TrackHistoryListViewModel>> GetTrackHistoryWithStatusAsync();
+        Task<List<TrackHistoryListViewModel>> GetUserTrackHistoryWithStatusAsync(string userId); 
 
         Task<List<TrackHistoryListViewModel>> GetTrackHistoryWithStatusAsyncSearch(string code);
+        Task<List<TrackHistoryListViewModel>> GetUserTrackHistoryWithStatusAsyncSearch(string code, string userId);
 
 
 

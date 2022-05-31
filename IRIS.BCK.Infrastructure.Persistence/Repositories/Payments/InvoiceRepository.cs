@@ -29,6 +29,12 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Payments
         {
             var lsShipments = await _dbContext.Invoice.Include(s => s.Shipment).ToListAsync();
             return lsShipments;
+        }        
+        
+        public async Task<List<Invoice>> GetUserInvoiceAndItemsAndShipment(string userId)  
+        {
+            var lsShipments = await _dbContext.Invoice.Where(x => x.UserId == new Guid(userId)).Include(s => s.Shipment).ToListAsync();
+            return lsShipments;
         }
 
         public async Task<Invoice> GetInvoiceByUserId(string userid)

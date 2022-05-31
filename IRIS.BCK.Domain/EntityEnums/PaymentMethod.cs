@@ -12,7 +12,8 @@ namespace IRIS.BCK.Core.Domain.EntityEnums
         Wallet,
         PostPaid,
         CreditCard,
-        USSD
+        USSD,
+        Receivables
     }
 
 }

@@ -67,7 +67,6 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUserRole
                     {
                         await _userManager.RemoveFromRolesAsync(user, roleexist);
                     }
-
                     result = await _userManager.AddToRoleAsync(user, roleitem);
                 }
 

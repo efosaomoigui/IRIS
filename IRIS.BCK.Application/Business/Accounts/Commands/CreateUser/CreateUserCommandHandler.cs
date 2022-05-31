@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using IRIS.BCK.Core.Application.Business.Accounts.AccountEntities;
+using IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateRole;
+using IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUserRole;
 using IRIS.BCK.Core.Application.DTO.Account;
 using IRIS.BCK.Core.Application.DTO.Message.EmailMessage;
 using IRIS.BCK.Core.Application.Interfaces.IMessages.IEmail;
@@ -11,12 +13,14 @@ using IRIS.BCK.Core.Application.Shared;
 using IRIS.BCK.Core.Domain.Entities.WalletEntities;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUser
 {
@@ -29,8 +33,10 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUser
         private readonly RoleManager<AppRole> _roleManager;
         private readonly IWalletRepository _walletRepository;
         private INumberEntRepository _numberEntRepository;
+        public IConfiguration Configuration;
+        private IMediator _mediator;
 
-        public CreateUserCommandHandler(IUserRepository userRepository, IMapper mapper, IEmailService emailService, UserManager<User> userManager, IWalletRepository walletRepository, INumberEntRepository numberEntRepository = null)
+        public CreateUserCommandHandler(IUserRepository userRepository, IMapper mapper, IEmailService emailService, UserManager<User> userManager, IWalletRepository walletRepository, INumberEntRepository numberEntRepository = null, IConfiguration configuration = null, IMediator mediator = null, RoleManager<AppRole> roleManager = null)
         {
             _userRepository = userRepository;
             _mapper = mapper;
@@ -38,6 +44,9 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUser
             _userManager = userManager;
             _walletRepository = walletRepository;
             _numberEntRepository = numberEntRepository;
+            Configuration = configuration;
+            _mediator = mediator;
+            _roleManager = roleManager;
         }
 
         public async Task<CreateUserCommandResponse> Handle(CreateUserCommand request, CancellationToken cancellationToken)
@@ -60,7 +69,7 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUser
 
             var body = "<p>Welcome to Iris</p>";
             body += "Welcome to Iris";
-            var subject = "Subject to email";
+            var subject = "Confirmation Email";
             var email = UserMapsCommand.CreateUserEmailMessage(request.Email, body, subject);
 
             if (CreateUserCommandResponse.Success)
@@ -92,10 +101,37 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUser
                                 UserId = user.UserId,
                                 IsActive = true
                             };
+
                             await _walletRepository.AddAsync(wallet);
-                            await _emailService.SendEmail(email);
+                            //await _emailService.SendEmail(email);
+
+                            //assign default individual customer role to user CreateUserRoleCommand
+                            var roleToUser = new CreateUserRoleCommand();
+                            roleToUser.UserId = user.UserId.ToString();
+
+                            var role = await _roleManager.FindByNameAsync("Personal");
+                            roleToUser.RoleId = new string[1];
+                            roleToUser.RoleId[0] = role.Name;
+
+                            var newUser = await _mediator.Send(roleToUser);
+
+                            //generate confirmation
+                            var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                            var token2 = HttpUtility.UrlEncode(token); // encoded because the url need to preserve space with +, but do not need decoding on confirmemail
+
+                            //send email
+                            var emailOptions = new EmailOptions();
+                            emailOptions.toEmail = "efe.omoigui@gmail.com";
+                            emailOptions.confirmationLink = Configuration["UiUrlCustomer"] +"/confirmEmail?userId=" + user.UserId+"&token="+ token2;
+                            emailOptions.CustomerName = user.FirstName;
+
+                            if (email.To != "")
+                            {
+                                emailOptions.templateId = Configuration["ConfirmationEmailTemplateId"];
+                                if (emailOptions != null) await _emailService.SendConfirmationEmail(email, emailOptions);
+                            }
                         }
-                        catch (Exception)
+                        catch (Exception ex)
                         {
                             throw;
                         }
