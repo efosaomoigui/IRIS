@@ -95,6 +95,7 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem
                 //get waybill and invoice code from request
                 request.InvoiceNumber = resultValues.invoiceNumber;
                 request.WaybillNumber = resultValues.waybillNumber;
+                request.ShipmentOption = resultValues.shipmentOption;
 
                 var ShipperUser = _userManager.Users.FirstOrDefault(x => x.PhoneNumber == resultValues.shipperPhoneNumber);
                 Guid newUserId = new Guid();
@@ -172,6 +173,7 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem
                         lineItems.ShipmentProduct = resultValues.itemsA[i].t_shipmentType;
                         lineItems.ClientWaybill = resultValues.itemsA[i].t_clientWaybill;
                         lineItems.LineTotal = resultValues.itemsA[i].LineTotal;
+                        lineItems.ItemsValue = resultValues.itemsA[i].ItemsValue;
                         shipmentAmt += lineItems.LineTotal;
                         shipment.ShipmentItems.Add(lineItems);
                     }
@@ -189,6 +191,7 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem
                         lineItems.Height = resultValues.itemsB[i].height;
                         lineItems.ShipmentDescription = resultValues.itemsB[i].m_shipmentDescription;
                         lineItems.ShipmentProduct = ProductEnum.MailAndParcel;
+                        lineItems.ItemsValue = resultValues.itemsB[i].ItemsValueMail;
                         lineItems.LineTotal = resultValues.itemsB[i].LineTotal;
                         shipmentAmt += lineItems.LineTotal;
                         shipment.ShipmentItems.Add(lineItems);
@@ -214,6 +217,7 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem
                     ShipmentCategory shipmentCat;
                     Enum.TryParse(resultValues.shipmentCategory, out shipmentCat);
                     shipment.ShipmentCategory = shipmentCat;
+                    shipment.ShipmentOption = resultValues.shipmentOption;
                     var shipmentval = await _shipmentRepository.AddAsync(shipment);
 
                     //add first track

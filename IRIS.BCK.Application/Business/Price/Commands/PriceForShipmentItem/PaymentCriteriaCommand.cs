@@ -50,6 +50,7 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem
         public string InvoiceNumber { get; set; }
         public string WaybillNumber { get; set; }
         public ShipmentCategory ShimentCategory { get; set; }
+        public ShipmentOption ShipmentOption { get; set; }  
         public string RouteId { get; set; }
         public bool PaymentStatus { get; set; }
         public bool IsShipmentRegistered { get; set; } 

@@ -56,11 +56,11 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Queries.GetShipmentList
                 singleShipmentVm.CustomerName = user?.FirstName + " " + user?.LastName;
                 singleShipmentVm.RecieverName = shipment.RecieverName;
                 singleShipmentVm.GrandTotal = shipment.GrandTotal;
-                singleShipmentVm.GrandTotal = shipment.GrandTotal;
                 singleShipmentVm.CreatedDate = shipment.CreatedDate;
                 singleShipmentVm.RecieverPhoneNumber = user2.PhoneNumber;
                 singleShipmentVm.CustomerPhoneNumber = user.PhoneNumber;
                 singleShipmentVm.ShipmentCategory = shipment.ShipmentCategory.ToString();
+                singleShipmentVm.ShipmentOption = shipment.ShipmentOption.ToString();
 
                 listShipments.Add(singleShipmentVm);
             }
@@ -161,6 +161,7 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Queries.GetShipmentList
                 singleShipmentVm.RecieverPhoneNumber = user2.PhoneNumber;
                 singleShipmentVm.CustomerPhoneNumber = user.PhoneNumber;
                 singleShipmentVm.ShipmentCategory = shipment.ShipmentCategory.ToString();
+                singleShipmentVm.ShipmentOption = shipment.ShipmentOption.ToString();
 
                 listShipments.Add(singleShipmentVm);
             }

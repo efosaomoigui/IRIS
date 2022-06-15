@@ -46,9 +46,11 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Shipments
             var lsShipments = await _dbContext.Shipment.Where(x => x.Customer == new Guid(userId)).Include(s => s.ShipmentItems).Include(x => x.Route).ToListAsync();
             return lsShipments;
         }
+
         public async Task<List<DashboardShipmentListViewModel>> GetMonthlyShipmentByCreatedDate()
         {
-            var lsShipments = await _dbContext.Shipment.GroupBy(x => new { x.CreatedDate.Month }).OrderBy(g => g.Key.Month)
+            var lsShipments = await _dbContext.Shipment.OrderByDescending(g => g.CreatedDate)
+                .GroupBy(x => new { x.CreatedDate.Month })
                 .Select(g => new DashboardShipmentListViewModel
                 {
                     Month = g.Key.Month.ToString(),
@@ -57,6 +59,7 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Shipments
 
             return lsShipments;
         }
+
         public async Task<List<DashboardShipmentListViewModel>> GetUserMonthlyShipmentByCreatedDate(string userId)
         {
             var lsShipments = await _dbContext.Shipment.Where(s => s.Customer == new Guid(userId)).GroupBy(x => new { x.CreatedDate.Month }).OrderBy(g => g.Key.Month)

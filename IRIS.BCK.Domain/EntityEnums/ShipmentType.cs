@@ -19,6 +19,12 @@
         MailAndParcel=1,  
         TruckLoad =2,
         InternationalFreight=3
+    }     
+    
+    public enum ShipmentOption
+    {
+        PickUp=2,  
+        DropOff =1
     }    
     
     public enum ShipmentProcessingStatus

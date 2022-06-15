@@ -39,6 +39,7 @@ namespace IRIS.BCK.Core.Application.Business.Shipments.Queries.GetShipmentList
         //PickUp Options
         public string PickupOptions { get; set; }
         public string ShipmentCategory { get; set; }
+        public string ShipmentOption { get; set; } 
 
         //Shipment Items && pricing
         public List<ShipmentItem> ShipmentItems { get; set; }

@@ -4,14 +4,16 @@ using IRIS.BCK.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace IRIS.BCK.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(IRISDbContext))]
-    partial class IRISDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220613083540_shipment option")]
+    partial class shipmentoption
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1012,9 +1014,6 @@ namespace IRIS.BCK.Infrastructure.Persistence.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("Height")
-                        .HasColumnType("float");
-
-                    b.Property<double>("ItemsValue")
                         .HasColumnType("float");
 
                     b.Property<double>("LineTotal")

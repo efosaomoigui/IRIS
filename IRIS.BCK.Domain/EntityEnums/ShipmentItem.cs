@@ -16,6 +16,7 @@ namespace IRIS.BCK.Core.Domain.EntityEnums
         public double breadth { get; set; }
         public double Height { get; set; }
         public double Quantity { get; set; }
+        public double ItemsValue { get; set; } 
         public string DimensionUnit { get; set; } //cm / in
         public string ShipmentDescription { get; set; }
         public ProductEnum ShipmentProduct { get; set; }
@@ -31,6 +32,8 @@ namespace IRIS.BCK.Core.Domain.EntityEnums
         public double length { get; set; }
         public double breadth { get; set; }
         public double Height { get; set; }
+        public double ItemsValue { get; set; }
+        public double Quantity { get; set; }
         public string DimensionUnit { get; set; } //cm / in
         public string ShipmentDescription { get; set; }
         public ProductEnum ShipmentProduct { get; set; }
@@ -44,7 +47,8 @@ namespace IRIS.BCK.Core.Domain.EntityEnums
         public double ton { get; set; }
         public string t_shipmentDescription { get; set; }
         public ProductEnum t_shipmentType { get; set; }
-        public string t_clientWaybill { get; set; }  
+        public string t_clientWaybill { get; set; }
+        public double ItemsValue { get; set; }
         public double LineTotal { get; set; }
     }
 
@@ -54,6 +58,7 @@ namespace IRIS.BCK.Core.Domain.EntityEnums
         public double length { get; set; }
         public double breadth { get; set; }
         public double height { get; set; }
+        public double ItemsValueMail { get; set; } 
         public string m_shipmentDescription { get; set; }
         public double LineTotal { get; set; }
     }
@@ -63,9 +68,11 @@ namespace IRIS.BCK.Core.Domain.EntityEnums
         public string shipmentCategory { get; set; }
         public string shipperFullName { get; set; }
         public string shipperAddress { get; set; }
+        public string shipperEmail { get; set; } 
         public string shipperPhoneNumber { get; set; }
         public string receiverFullName { get; set; }
         public string receiverAddress { get; set; }
+        public string receiverEmail { get; set; }
         public string receiverPhoneNumber { get; set; }
         public string invoiceNumber { get; set; }
         public string waybillNumber { get; set; }  
@@ -75,6 +82,7 @@ namespace IRIS.BCK.Core.Domain.EntityEnums
         public int grandTotal { get; set; }
         public List<int> grandTotalArray { get; set; }
         public string paymentMethod { get; set; }
+        public ShipmentOption shipmentOption { get; set; } 
     }
 
 }
