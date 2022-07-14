@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using IRIS.BCK.Core.Application.Business.ShipmentProcessing.Queries.GetGroupWayBill;
+using IRIS.BCK.Core.Application.DTO.ShipmentProcessing;
 using IRIS.BCK.Core.Application.Interfaces.IRepositories.IRouteRepository;
 using IRIS.BCK.Core.Application.Interfaces.IRepositories.IShipmentProcessingRepositories;
 using IRIS.BCK.Core.Domain.Entities.ShipmentProcessing;
 using IRIS.BCK.Core.Domain.EntityEnums;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,22 +26,30 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.ShipmentProcessing
 
         public async Task<List<GroupWayBillListViewModel>> GetGroupWaybillByRouteId()
         {
-            var groupShipments = _dbContext.GroupWayBill.OrderBy(x => x.CreatedDate).ToList(); 
+            var groupShipments = _dbContext.GroupWayBill.OrderBy(x => x.CreatedDate).Select(g => new { g.GroupCode, g.CreatedDate.Month, g.RId,
+                Date = new DateTime(g.CreatedDate.Year, g.CreatedDate.Month, g.CreatedDate.Day, g.CreatedDate.Hour, g.CreatedDate.Minute, g.CreatedDate.Second)
+            }).Distinct().ToList();
+            //var lsShipments = await _dbContext.GroupWayBill.GroupBy(x => new { x.CreatedDate.Month, x.GroupCode, x.RId, x.Id }).OrderBy(g => g.Key.Month)
+            //   .Select(g => new GroupWayBillListViewModel
+            //   {
+            //       Id = g.Key.Id,
+            //       MonthData = g.Sum(y => y.GrandTotal)
+            //   }).ToListAsync();
             List<GroupWayBillListViewModel> allGroups = new List<GroupWayBillListViewModel>();
 
             foreach (var grp in groupShipments) 
             {
                 var singleGroupVm = new GroupWayBillListViewModel();
 
-                singleGroupVm.Id = grp.Id;
-                singleGroupVm.Waybill = grp.Waybill;
+                //singleGroupVm.Id = grp.Id;
+                //singleGroupVm.Waybill = grp.Waybill;
                 singleGroupVm.GroupCode = grp.GroupCode;
                 //var user = await _userManager.FindByIdAsync(shipment.Customer.ToString());
                 //var user2 = await _userManager.FindByIdAsync(shipment.Reciever.ToString());
                 var route = await _routeRepository.GetRouteById(grp.RId.ToString());
                 singleGroupVm.Departure = route.Departure;
                 singleGroupVm.Destination = route.Destination;
-                singleGroupVm.CreatedDate = grp.CreatedDate;
+                singleGroupVm.CreatedDate = grp.Date;
                 //singleShipmentVm.CustomerName = user?.FirstName + " " + user?.LastName;
                 allGroups.Add(singleGroupVm);
             }
@@ -81,8 +91,28 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.ShipmentProcessing
 
         public async Task<List<GroupWayBillListViewModel>> GetManifestGroupwaybillByGrpCode(string code)
         {
-            var groupShipments = _dbContext.GroupWayBill.Where(x => x.GroupCode == code).ToList();
-            return _mapper.Map<List<GroupWayBillListViewModel>>(groupShipments);
+            var groupShipments = _dbContext.GroupWayBill.Where(x => x.GroupCode == code)
+                 .Select(g => new {
+                     g.GroupCode,
+                     g.Waybill,
+                     g.CreatedDate.Month,
+                     g.RId,
+                     Date = new DateTime(g.CreatedDate.Year, g.CreatedDate.Month, g.CreatedDate.Day, g.CreatedDate.Hour, g.CreatedDate.Minute, g.CreatedDate.Second)
+                 }).Distinct().ToList();
+            var result = new List<GroupWayBillListViewModel>();
+            foreach (var item in groupShipments)
+            {
+                var route = await _routeRepository.GetRouteById(item.RId.ToString());
+                result.Add(new GroupWayBillListViewModel
+                {
+                    GroupCode = item.GroupCode,
+                    Waybill = item.Waybill,
+                    Departure= route.Departure,
+                    Destination = route.Destination,
+                    CreatedDate = item.Date
+                });
+            }
+            return result;
         }
          
         public async Task<GroupWayBill> GetGroupWaybillById(string groupwaybillid)

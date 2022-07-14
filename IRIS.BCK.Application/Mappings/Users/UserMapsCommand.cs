@@ -146,5 +146,13 @@ namespace IRIS.BCK.Core.Application.Mappings.Users
                 UserId = request.UserId,
             };
         }
+
+        public static AppUserClaim CreateUserToServiceCenterMapsCommand(CreateUserToServiceCenterCommand request) 
+        {
+            return new AppUserClaim
+            {
+                UserId = request.UserId,
+            };
+        }
     }
 }    

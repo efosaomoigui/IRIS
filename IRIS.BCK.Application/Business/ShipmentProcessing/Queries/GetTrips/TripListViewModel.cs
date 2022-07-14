@@ -1,4 +1,5 @@
-﻿using IRIS.BCK.Core.Domain.Entities.FleetEntities;
+﻿using IRIS.BCK.Core.Application.Business.ShipmentProcessing.Queries.GetGroupWayBill;
+using IRIS.BCK.Core.Domain.Entities.FleetEntities;
 using IRIS.BCK.Core.Domain.Entities.GroupWayBillManifestMapEntities;
 using IRIS.BCK.Core.Domain.Entities.ShipmentProcessing;
 using IRIS.BCK.Core.Domain.EntityEnums;
@@ -27,5 +28,6 @@ namespace IRIS.BCK.Core.Application.Business.ShipmentProcessing.Queries.GetTrips
         public string DriverPhone { get; set; }  
         public DateTime CreatedDate { get; set; }   
         public Guid Dispatcher { get; set; }
+        public List<GroupWayBillListViewModel> groupwaybills { get; set; } 
     }
 }

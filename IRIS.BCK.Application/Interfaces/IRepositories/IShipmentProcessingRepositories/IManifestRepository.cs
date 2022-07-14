@@ -11,12 +11,15 @@ namespace IRIS.BCK.Core.Application.Interfaces.IRepositories.IShipmentProcessing
 {
     public interface IManifestRepository : IGenericRepository<Manifest>
     {
-        Task<Manifest> GetManifestByManifestCode(string manifestcode);
+        Task<List<Manifest>> GetManifestByManifestCode(string manifestcode);
+        Task<Manifest> GetManifestByManifestCodeSignle(string manifestcode); 
 
         Task<Manifest> GetManifestByWayBill(string waybill);
 
         Task<List<ManifestListViewModel>> GetManifestGroupWaybillByRouteId();
 
         Task<List<ManifestListViewModel>> GetManifestByRouteId(string routeid);
+
+        Task<List<Manifest>> GetDistinctManifestByManifestCode(string manifest);
     }
 }

@@ -23,4 +23,20 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUserRole
 
 
     }
+
+    public class CreateUserToServiceCommandValidator : AbstractValidator<CreateUserToServiceCenterCommand> 
+    {
+        private IUserRepository _userRepository;
+
+        public CreateUserToServiceCommandValidator(IUserRepository userRepository) 
+        {
+            _userRepository = userRepository;
+
+            RuleFor(p => p.UserId)
+                .NotEmpty().WithMessage("{PropertyName} is required")
+                .NotNull();
+        }
+
+
+    }
 }

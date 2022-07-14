@@ -17,6 +17,7 @@ using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -113,6 +114,9 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUser
                             roleToUser.RoleId = new string[1];
                             roleToUser.RoleId[0] = role.Name;
 
+                            var claim = new Claim("ServiceCenter", "101");
+                            var claimResult = await _userManager.AddClaimAsync(user, claim);
+
                             var newUser = await _mediator.Send(roleToUser);
 
                             //generate confirmation
@@ -121,7 +125,7 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUser
 
                             //send email
                             var emailOptions = new EmailOptions();
-                            emailOptions.toEmail = "efe.omoigui@gmail.com";
+                            emailOptions.toEmail = request.Email;
                             emailOptions.confirmationLink = Configuration["UiUrlCustomer"] +"/confirmEmail?userId=" + user.UserId+"&token="+ token2;
                             emailOptions.CustomerName = user.FirstName;
 

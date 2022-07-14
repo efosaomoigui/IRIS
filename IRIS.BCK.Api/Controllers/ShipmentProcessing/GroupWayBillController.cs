@@ -52,6 +52,13 @@ namespace IRIS.BCK.Api.Controllers.ShipmentProcessing
             return Ok(shipment);
         }
 
+        [HttpGet("GetGroupWaybillByGroupCode/{grpcode}")]
+        public async Task<ActionResult<List<GroupWayBillListViewModel>>> GetGroupWaybillByGroupCode([FromRoute] string grpcode)
+        {
+            var shipment = await _mediator.Send(new GetManifestGroupwaybillByGroupQuery(grpcode)); 
+            return Ok(shipment);
+        }
+
         [HttpDelete("GroupWayBill/delete", Name = "DeleteGroupWayBill")]
         public async Task<ActionResult<DeleteGroupWayBillCommandResponse>> DeletedeleteGroupWayBill([FromBody] DeleteGroupWayBillCommand deleteGroupWayBillCommand)
         {
@@ -62,7 +69,7 @@ namespace IRIS.BCK.Api.Controllers.ShipmentProcessing
         [HttpGet("GroupWayBill/GroupWaybillNumber", Name = "GetGroupWaybillNumber")]
         public async Task<ActionResult<string>> GetGroupWaybillNumber()
         {
-            var groupwaybillcode = await _mediator.Send(new GetNewGroupWayBillNumberQuery()); 
+            var groupwaybillcode = await _mediator.Send(new GetNewGroupWayBillNumberQuery());
             return Ok(groupwaybillcode);
         }
     }

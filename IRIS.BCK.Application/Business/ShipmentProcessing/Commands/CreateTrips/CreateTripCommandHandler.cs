@@ -75,7 +75,7 @@ namespace IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.CreateT
 
                 foreach (var trip in trips)
                 {
-                    var manifest = await _manifestRepository.GetManifestByManifestCode(trip.ManifestCode);
+                    var manifest = await _manifestRepository.GetManifestByManifestCodeSignle(trip.ManifestCode);
                     trip.ManifestId = manifest.Id;
                 }
 
@@ -87,7 +87,7 @@ namespace IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.CreateT
 
                 foreach (var grp in trips)
                 {
-                    var manifest = await _manifestRepository.GetManifestByManifestCode(grp.ManifestCode);
+                    var manifest = await _manifestRepository.GetManifestByManifestCodeSignle(grp.ManifestCode);
                     manifest.ShipmentProcessingStatus = ShipmentProcessingStatus.Dispatched;
                     await _manifestRepository.UpdateAsync(manifest);
 

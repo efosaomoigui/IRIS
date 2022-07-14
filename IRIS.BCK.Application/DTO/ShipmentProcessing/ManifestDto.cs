@@ -14,7 +14,10 @@ namespace IRIS.BCK.Core.Application.DTO.ShipmentProcessing
         public string ManifestCode { get; set; }
         public string GroupWayBillCode { get; set; }
         public Guid RouteId { get; set; }
+        public string Departure { get; set; }
+        public string Destination { get; set; } 
         public Guid UserId { get; set; }
+        public DateTime CreatedDate { get; set; } 
         public Guid ServiceCenterId { get; set; }
     }
 }

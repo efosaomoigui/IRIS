@@ -1,0 +1,392 @@
+[
+  {
+    "Terminals": "GLOBAL",
+    "Code": 101,
+    "Type": "",
+    "Phone": "",
+    "Address": "",
+    "City": "",
+    "Location": "",
+    "Coordinate": ""
+  },
+  {
+    "Terminals": "ABA",
+    "Code": 102,
+    "Type": "Courier",
+    "Phone": "",
+    "Address": "30/32 MILVERTON AVENUE, ABA, ABIA STATE",
+    "City": "ABA",
+    "Location": "Abia, Nigeria",
+    "Coordinate": ""
+  },
+  {
+    "Terminals": "ACCRA",
+    "Code": 103,
+    "Type": "Transport",
+    "Phone": "",
+    "Address": "FORMER KINGDOM TRANSPORT COMPLEX OPP NEOPLAN STATION CIRCLE ACCRA GHANA",
+    "City": "ACCRA",
+    "Location": "Accra, Ghana",
+    "Coordinate": ""
+  },
+  {
+    "Terminals": "ALABA",
+    "Code": 104,
+    "Type": "Transport",
+    "Phone": "",
+    "Address": "26 OJO IGBEDE ROAD BY CHEMIST BUS STOP ALABA INT'L MARKET OJO ALABA",
+    "City": "LAGOS",
+    "Location": "Lagos, Nigeria",
+    "Coordinate": ""
+  },
+  {
+    "Terminals": "ALAFIA",
+    "Code": 105,
+    "Type": "Transport\n                Logistics\n                Courier",
+    "Phone": "",
+    "Address": "KM 3 ORILE/BADAGRY EXPRESS WAY. ALAFIA BUS STOP. ORILE LAGOS",
+    "City": "LAGOS",
+    "Location": "Lagos, Nigeria",
+    "Coordinate": ""
+  },
+  {
+    "Terminals": "ALAFIA 2",
+    "Code": 106,
+    "Type": "Transport\n                Courier",
+    "Phone": "",
+    "Address": "ORILE/BADAGRY EXPRESS WAY. ALAFIA BUS STOP. ORILE LAGOS",
+    "City": "LAGOS",
+    "Location": "Lagos, Nigeria",
+    "Coordinate": ""
+  },
+  {
+    "Terminals": "AMICHI",
+    "Code": 107,
+    "Type": "Logistics",
+    "Phone": "",
+    "Address": "EKE MARKET SQUARE, AMICHI, ANAMBRA STATE",
+    "City": "AMICHI",
+    "Location": "Anambra, Nigeria",
+    "Coordinate": ""
+  },
+  {
+    "Terminals": "ASPAMDA",
+    "Code": 108,
+    "Type": "Logistics\n                Courier",
+    "Phone": "",
+    "Address": "ASPAMDA TRADE FAIR",
+    "City": "LAGOS",
+    "Location": "Lagos, Nigeria",
+    "Coordinate": ""
+  },
+  {
+    "Terminals": "Benin",
+    "Code": 109,
+    "Type": "Courier",
+    "Phone": "08033204010",
+    "Address": "No address",
+    "City": "BENIN",
+    "Location": "Edo, Nigeria",
+    "Coordinate": ""
+  },
+  {
+    "Terminals": "COTONOU",
+    "Code": 110,
+    "Type": "Transport",
+    "Phone": "",
+    "Address": "COTONOU, BENIN",
+    "City": "COTONOU",
+    "Location": "Cotonou, Benin Republic",
+    "Coordinate": ""
+  },
+  {
+    "Terminals": "EMPIRE",
+    "Code": 111,
+    "Type": "Transport\n                Logistics\n                Courier",
+    "Phone": "",
+    "Address": "3 AGEGE MOTOR ROAD EMPIRE JIBOWU/YABA LAGOS",
+    "City": "LAGOS",
+    "Location": "Lagos, Nigeria",
+    "Coordinate": ""
+  },
+  {
+    "Terminals": "ENUGU",
+    "Code": 112,
+    "Type": "Transport\n                Logistics\n                Courier",
+    "Phone": "",
+    "Address": "13 MARKET ROAD OGBETE ENUGU STATE",
+    "City": "ENUGU",
+    "Location": "Enugu, Nigeria",
+    "Coordinate": ""
+  },
+  {
+    "Terminals": "IKEJA",
+    "Code": 113,
+    "Type": "Logistics\n                Courier",
+    "Phone": "",
+    "Address": "Suit 46A Asset Corps Plaza, 21 Obafemi Awolowo Way",
+    "City": "Ikeja",
+    "Location": "Lagos, Nigeria",
+    "Coordinate": ""
+  },
+  {
+    "Terminals": "IKOTUN",
+    "Code": 114,
+    "Type": "Transport\n                Logistics\n                Courier",
+    "Phone": "",
+    "Address": "28 IJEGUN ROAD IKOTUN LAGOS",
+    "City": "LAGOS",
+    "Location": "Lagos, Nigeria",
+    "Coordinate": ""
+  },
+  {
+    "Terminals": "IPONRI",
+    "Code": 115,
+    "Type": "Logistics\n                Courier",
+    "Phone": "08106517669",
+    "Address": "IPONRI",
+    "City": "LAGOS",
+    "Location": "Lagos, Nigeria",
+    "Coordinate": ""
+  },
+  {
+    "Terminals": "JIBOWU",
+    "Code": 116,
+    "Type": "Transport\n                Logistics\n                Courier",
+    "Phone": "08033859118",
+    "Address": "6, IKORODU ROAD, JIBOWU YABA LAGOS",
+    "City": "LAGOS",
+    "Location": "Lagos, Nigeria",
+    "Coordinate": ""
+  },
+  {
+    "Terminals": "Kaduna",
+    "Code": 117,
+    "Type": "Courier",
+    "Phone": "08033204010",
+    "Address": "No address",
+    "City": "KADUNA",
+    "Location": "Kaduna, Nigeria",
+    "Coordinate": ""
+  },
+  {
+    "Terminals": "Kano",
+    "Code": 118,
+    "Type": "Courier",
+    "Phone": "08033204010",
+    "Address": "No address",
+    "City": "KANO",
+    "Location": "Kano, Nigeria",
+    "Coordinate": ""
+  },
+  {
+    "Terminals": "LEKKI",
+    "Code": 119,
+    "Type": "Transport\n                Logistics\n                Courier",
+    "Phone": "",
+    "Address": "KM 12 LEKKI EPE EXPRESSWAY LEKKI LAGOS",
+    "City": "LAGOS",
+    "Location": "Lagos, Nigeria",
+    "Coordinate": ""
+  },
+  {
+    "Terminals": "LOKOJA",
+    "Code": 120,
+    "Type": "Transport\n                Logistics\n                Courier",
+    "Phone": "08106517669",
+    "Address": "Utako Park",
+    "City": "Lokoja",
+    "Location": "Kogi, Nigeria",
+    "Coordinate": ""
+  },
+  {
+    "Terminals": "MAGODO",
+    "Code": 121,
+    "Type": "Transport\n                Logistics\n                Courier",
+    "Phone": "",
+    "Address": "WEIGH BRIDGE OPP. MOTORWAYS OFF LAGOS/IBADAN EXPRESS WAY TOLL GATE MAGODO LAGOS",
+    "City": "LAGOS",
+    "Location": "Lagos, Nigeria",
+    "Coordinate": ""
+  },
+  {
+    "Terminals": "Makurdi",
+    "Code": 122,
+    "Type": "Courier",
+    "Phone": "08033204010",
+    "Address": "No address",
+    "City": "MAKURDI",
+    "Location": "Benue, Nigeria",
+    "Coordinate": ""
+  },
+  {
+    "Terminals": "MARABA",
+    "Code": 123,
+    "Type": "Transport",
+    "Phone": "",
+    "Address": "Maraba/Keffi Road, Beside Ecobank",
+    "City": "Nasarawa/Abuja.",
+    "Location": "Abuja, Nigeria",
+    "Coordinate": ""
+  },
+  {
+    "Terminals": "MAZAMAZA",
+    "Code": 124,
+    "Type": "Transport\n                Logistics\n                Courier",
+    "Phone": "",
+    "Address": "114 OJO ROAD AGBOJU AMUWO LAGOS",
+    "City": "LAGOS",
+    "Location": "Lagos, Nigeria",
+    "Coordinate": ""
+  },
+  {
+    "Terminals": "NNEWI",
+    "Code": 125,
+    "Type": "Logistics\n                Courier",
+    "Phone": "",
+    "Address": "33 AGBO-EZENNEWI NNEWI",
+    "City": "NNEWI",
+    "Location": "Anambra, Nigeria",
+    "Coordinate": ""
+  },
+  {
+    "Terminals": "NYANYA",
+    "Code": 126,
+    "Type": "Transport\n                Logistics\n                Courier",
+    "Phone": "",
+    "Address": "AP STATION. KEFFI ROAD NYANYA ABUJA",
+    "City": "ABUJA",
+    "Location": "Abuja, Nigeria",
+    "Coordinate": ""
+  },
+  {
+    "Terminals": "ONITSHA",
+    "Code": 127,
+    "Type": "Transport\n                Logistics\n                Courier",
+    "Phone": "",
+    "Address": "LAGOS PARK, UPPER IWEKA ROUND ABOUT, ONITSHA, ANAMBRA",
+    "City": "ONITSHA",
+    "Location": "Anambra, Nigeria",
+    "Coordinate": ""
+  },
+  {
+    "Terminals": "ONITSHA CTN",
+    "Code": 128,
+    "Type": "Transport\n                Logistics\n                Courier",
+    "Phone": "08106517669",
+    "Address": "UPPER IWEKA ROUND ABOUT, ONITSHA, ANAMBRA",
+    "City": "Onitsha",
+    "Location": "Anambra, Nigeria",
+    "Coordinate": ""
+  },
+  {
+    "Terminals": "ORLU",
+    "Code": 129,
+    "Type": "Transport\n                Logistics\n                Courier",
+    "Phone": "",
+    "Address": "3, IHIOMA ROAD, ORLU, IMO STATE",
+    "City": "ORLU",
+    "Location": "Imo, Nigeria",
+    "Coordinate": ""
+  },
+  {
+    "Terminals": "OWERRI",
+    "Code": 130,
+    "Type": "Transport\n                Logistics\n                Courier",
+    "Phone": "",
+    "Address": "24 EGBU ROAD, OWERRI, IMO STATE",
+    "City": "OWERRI",
+    "Location": "Imo, Nigeria",
+    "Coordinate": ""
+  },
+  {
+    "Terminals": "OYINGBO",
+    "Code": 131,
+    "Type": "Transport\n                Logistics\n                Courier",
+    "Phone": "",
+    "Address": "68 MARKET STREET EBUTE METTA LAGOS",
+    "City": "LAGOS",
+    "Location": "Lagos, Nigeria",
+    "Coordinate": ""
+  },
+  {
+    "Terminals": "PORTHARCOURT",
+    "Code": 132,
+    "Type": "Transport",
+    "Phone": "",
+    "Address": "IKWERRE ROAD MILE 1 DIOBU PORTHARCOURT RIVERS STATE",
+    "City": "PORTHARCOURT",
+    "Location": "Rivers, Nigeria",
+    "Coordinate": ""
+  },
+  {
+    "Terminals": "PORTHARCOURT TWO",
+    "Code": 133,
+    "Type": "Transport",
+    "Phone": "",
+    "Address": "3 East-West Road, Rumuokoro,",
+    "City": "Port Harcourt",
+    "Location": "Rivers, Nigeria",
+    "Coordinate": ""
+  },
+  {
+    "Terminals": "PZ YABA",
+    "Code": 134,
+    "Type": "Logistics\n                Courier",
+    "Phone": "",
+    "Address": "Sabo Yaba Area",
+    "City": "Yaba",
+    "Location": "Lagos, Nigeria",
+    "Coordinate": ""
+  },
+  {
+    "Terminals": "TOGO",
+    "Code": 135,
+    "Type": "Transport",
+    "Phone": "",
+    "Address": "Lome, Togo",
+    "City": "LOME",
+    "Location": "Lome, Togo",
+    "Coordinate": ""
+  },
+  {
+    "Terminals": "UMUAHIA",
+    "Code": 136,
+    "Type": "Logistics\n                Courier",
+    "Phone": "",
+    "Address": "1 Nkwerre Street, by Umuwaya Road,",
+    "City": "Umuahia",
+    "Location": "Abia, Nigeria",
+    "Coordinate": ""
+  },
+  {
+    "Terminals": "UTAKO",
+    "Code": 137,
+    "Type": "Transport\n                Logistics\n                Courier",
+    "Phone": "",
+    "Address": "PLOT 176 UTAKO DISTRICT OPP. MFM",
+    "City": "ABUJA",
+    "Location": "Abuja, Nigeria",
+    "Coordinate": ""
+  },
+  {
+    "Terminals": "UYO",
+    "Code": 138,
+    "Type": "Transport\n                Logistics\n                Courier",
+    "Phone": "",
+    "Address": "187 Ikot-Ekpene Road. Uyo, Akwa-Ibom State",
+    "City": "UYO",
+    "Location": "Akwa Ibom, Nigeria",
+    "Coordinate": ""
+  },
+  {
+    "Terminals": "Warri",
+    "Code": 139,
+    "Type": "Courier",
+    "Phone": "08033204010",
+    "Address": "No address",
+    "City": "WARRI",
+    "Location": "Delta, Nigeria",
+    "Coordinate": ""
+  }
+]

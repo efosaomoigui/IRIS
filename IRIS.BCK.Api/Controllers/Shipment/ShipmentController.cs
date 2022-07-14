@@ -1,5 +1,6 @@
 ﻿using IRIS.BCK.Application.DTO;
 using IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem;
+using IRIS.BCK.Core.Application.Business.ServiceCentre.Queries.GetServiceCenter;
 using IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateCollectionCenter;
 using IRIS.BCK.Core.Application.Business.Shipments.Commands.CreateShipment;
 using IRIS.BCK.Core.Application.Business.Shipments.Commands.DeleteCollectionCenter;
@@ -27,6 +28,14 @@ namespace IRIS.BCK.Api.Controllers.Shipment
         {
             var shipments = await _mediator.Send(new GetShipmentListQuery());
             return HandleQueryResult(shipments);
+            //return Ok(shipments);
+        }
+                
+        [HttpGet("Shipment/servicecenters", Name = "GetAllServiceCenters")]
+        public async Task<ActionResult<List<ServiceCenterJsonListViewModel>>> GetAllServiceCenters()  
+        {
+            var servicecenters = await _mediator.Send(new GetServiceCenterJsonQuery()); 
+            return HandleQueryResult(servicecenters); 
             //return Ok(shipments);
         }
 

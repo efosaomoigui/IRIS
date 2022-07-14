@@ -15,4 +15,18 @@ namespace IRIS.BCK.Core.Application.Business.ServiceCentre.Queries.GetServiceCen
         public string ServiceCenterCountry { get; set; }
         public string ServiceTag { get; set; }
     }
+
+    public class ServiceCenterJsonListViewModel 
+    {
+        public Guid ServiceCenterId { get; set; }
+        public string Terminals { get; set; } 
+        public string Code { get; set; }
+        public string Type { get; set; }  
+        public string Phone { get; set; }  
+        public string Address { get; set; }   
+        public string City { get; set; } 
+        public string State { get; set; }
+        public string Location { get; set; } 
+        public string Coordinate { get; set; } 
+    }
 }

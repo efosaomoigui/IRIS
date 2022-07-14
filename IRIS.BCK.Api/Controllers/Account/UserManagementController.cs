@@ -178,6 +178,14 @@ namespace IRIS.BCK.Api.Controllers.Account
             return Ok(roleclaim);
         }
 
+        [AllowAnonymous]
+        [HttpPost("AddUserToServiceCenter")]
+        public async Task<ActionResult<CreateUserToServiceCenterCommandResponse>> AddUserToServiceCenter([FromBody] CreateUserToServiceCenterCommand createusersrcCommand) 
+        {
+            var roleclaim = await _mediator.Send(createusersrcCommand);
+            return Ok(roleclaim);
+        }
+
         //To be implemented later
         [AllowAnonymous]
         [HttpPost("RemovePermissionFromRole")]

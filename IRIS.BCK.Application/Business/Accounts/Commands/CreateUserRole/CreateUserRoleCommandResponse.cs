@@ -13,4 +13,14 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUserRole
 
         public UserRoleDto roledto { get; set; }  
     }
+
+    public class CreateUserToServiceCenterCommandResponse : BaseResponse
+    {
+        public CreateUserToServiceCenterCommandResponse() : base() 
+        {
+
+        }
+
+        public UserClaimDto claimdto { get; set; }
+    }
 }

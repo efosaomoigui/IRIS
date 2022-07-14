@@ -11,4 +11,10 @@ namespace IRIS.BCK.Core.Application.DTO.Account
         public string UserId { get; set; }
         public string RoleName{ get; set; } 
     }
+
+    public class UserClaimDto
+    {
+        public string UserId { get; set; }
+        public string[] ServiceCenter { get; set; } 
+    }
 }

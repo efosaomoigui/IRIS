@@ -28,5 +28,7 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Queries.GetShipmentList
         public string IdentificationImage { get; set; }
         public string WalletNumber { get; set; }
         public List<string> Roles { get; set; }
+        public string ServiceCenterNames { get; set; }  
+        public List<string> ServiceCenters { get; set; } 
     }
 }

@@ -13,4 +13,14 @@ namespace IRIS.BCK.Core.Application.Business.ShipmentProcessing.Queries.GetGroup
             RouteId = new Guid(routeid);
         }
     }
+
+    public class GetManifestGroupwaybillByGroupQuery : IRequest<List<GroupWayBillListViewModel>>
+    {
+        public string GroupCode { get; set; }
+
+        public GetManifestGroupwaybillByGroupQuery(string grpcode) 
+        {
+            GroupCode = grpcode;
+        }
+    }
 }

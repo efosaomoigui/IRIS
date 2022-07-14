@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -95,6 +96,92 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUserRole
             }
 
             return CreateUserRoleCommandResponse;
+        }
+    }
+
+    public class CreateUsertoServiceCenterCommandHandler : IRequestHandler<CreateUserToServiceCenterCommand, CreateUserToServiceCenterCommandResponse>
+    {
+        private IUserRepository _userRepository;
+        private readonly IMapper _mapper;
+        private readonly IEmailService _emailService;
+        private readonly RoleManager<AppRole> _roleManager;
+        private readonly UserManager<User> _userManager;
+
+        public CreateUsertoServiceCenterCommandHandler(IUserRepository userRepository, IMapper mapper, IEmailService emailService, RoleManager<AppRole> roleManager, UserManager<User> userManager)
+        {
+            _userRepository = userRepository;
+            _mapper = mapper;
+            _emailService = emailService;
+            _roleManager = roleManager;
+            _userManager = userManager;
+        }
+
+        public async Task<CreateUserToServiceCenterCommandResponse> Handle(CreateUserToServiceCenterCommand request, CancellationToken cancellationToken)
+        {
+            var CreateUserToServiceCenterCommandResponse = new CreateUserToServiceCenterCommandResponse();
+            var validator = new CreateUserToServiceCommandValidator(_userRepository);
+            var validationResult = await validator.ValidateAsync(request);
+
+            if (validationResult.Errors.Count > 0)
+            {
+                CreateUserToServiceCenterCommandResponse.Success = false;
+                CreateUserToServiceCenterCommandResponse.ValidationErrors = new List<string>();
+
+                foreach (var error in validationResult.Errors)
+                {
+                    CreateUserToServiceCenterCommandResponse.ValidationErrors.Add(error.ErrorMessage);
+                }
+            }
+
+            var body = "message to user";
+            var subject = "Subject to email";
+
+            if (CreateUserToServiceCenterCommandResponse.Success)
+            {
+                var userClaim = UserMapsCommand.CreateUserToServiceCenterMapsCommand(request);
+                var user = await _userManager.FindByIdAsync(userClaim.UserId);
+                var userClaims = _userManager.GetClaimsAsync(user).Result.ToList();
+                var userClaimsArray = userClaims.Select(x => x.Value).ToArray();
+
+                //remove all claims
+                foreach (var claim in userClaims)
+                {
+                    var result2  =  await _userManager.RemoveClaimAsync(user, claim);
+                }
+
+
+                var result = new IdentityResult();
+                //Add new  claims
+                foreach (var claim in request.ServiceCenterCode)
+                {
+                    result = await _userManager.AddClaimAsync(user, new Claim("Service Center", claim));
+                }
+
+
+                if (result.Succeeded)
+                {
+                    try
+                    {
+                        //await _emailService.SendEmail(email);
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
+                }
+                else
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        CreateUserToServiceCenterCommandResponse.ValidationErrors.Add(error.Description);
+                    }
+                }
+                var userclaim = new UserClaimDto();
+                userclaim.UserId = request.UserId;
+                userclaim.ServiceCenter = userClaimsArray;
+                CreateUserToServiceCenterCommandResponse.claimdto = userclaim;
+            }
+            return CreateUserToServiceCenterCommandResponse;
         }
     }
 }

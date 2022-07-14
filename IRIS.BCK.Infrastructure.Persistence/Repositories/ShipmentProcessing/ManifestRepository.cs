@@ -18,9 +18,22 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.ShipmentProcessing
             _routeRepository = routeRepository;
         }
 
-        public async Task<Manifest> GetManifestByManifestCode(string manifestcode)
+        public async Task<List<Manifest>> GetManifestByManifestCode(string manifestcode)
         {
-            return _dbContext.Manifest.FirstOrDefault(e => e.ManifestCode == manifestcode);
+            return  _dbContext.Manifest.Where(e => e.ManifestCode == manifestcode).ToList();
+        }
+        public async Task<List<Manifest>> GetDistinctManifestByManifestCode(string manifestcode) 
+        {
+            List<Manifest> allTrips = new List<Manifest>();
+            var result = _dbContext.Manifest.Where(e => e.ManifestCode == manifestcode)
+                .Select(g => new Manifest
+                {
+                    ManifestCode = g.ManifestCode,
+                    GroupWayBillCode = g.GroupWayBillCode,
+                    RouteId = g.RouteId,
+                    CreatedDate = new DateTime(g.CreatedDate.Year, g.CreatedDate.Month, g.CreatedDate.Day, g.CreatedDate.Hour, g.CreatedDate.Minute, g.CreatedDate.Second)
+                }).Distinct().ToList();
+            return result;
         }
 
         public async Task<Manifest> GetManifestByWayBill(string waybill)
@@ -30,24 +43,30 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.ShipmentProcessing
 
         public async Task<List<ManifestListViewModel>> GetManifestGroupWaybillByRouteId()
         {
-            var manifests = _dbContext.Manifest.OrderBy(x => x.CreatedDate).ToList();
+            var manifests = _dbContext.Manifest.OrderBy(x => x.CreatedDate).ToList()
+            .Select(g => new {
+                 g.ManifestCode,
+                 g.CreatedDate.Month,
+                 g.RouteId, 
+                 Date = new DateTime(g.CreatedDate.Year, g.CreatedDate.Month, g.CreatedDate.Day, g.CreatedDate.Hour, g.CreatedDate.Minute, g.CreatedDate.Second)
+             }).Distinct().ToList();
             List<ManifestListViewModel> allGroups = new List<ManifestListViewModel>();
 
             foreach (var manifest in manifests)
             {
                 var singleGroupVm = new ManifestListViewModel();
 
-                singleGroupVm.Id = manifest.Id;
-                singleGroupVm.GroupWayBillCode = manifest.GroupWayBillCode;
+                //singleGroupVm.Id = manifest.Id;
+                //singleGroupVm.GroupWayBillCode = manifest.GroupWayBillCode;
                 singleGroupVm.ManifestCode = manifest.ManifestCode;
                 singleGroupVm.RouteId = manifest.RouteId;
-                singleGroupVm.UserId = manifest.UserId;
+                //singleGroupVm.UserId = manifest.UserId;
                 //var user = await _userManager.FindByIdAsync(shipment.Customer.ToString());
                 //var user2 = await _userManager.FindByIdAsync(shipment.Reciever.ToString());
                 var route = await _routeRepository.GetRouteById(manifest.RouteId.ToString());
                 singleGroupVm.Departure = route.Departure;
                 singleGroupVm.Destination = route.Destination;
-                singleGroupVm.CreatedDate = route.CreatedDate;
+                singleGroupVm.CreatedDate = manifest.Date;
                 //singleShipmentVm.CustomerName = user?.FirstName + " " + user?.LastName;
                 allGroups.Add(singleGroupVm);
             }
@@ -81,6 +100,11 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.ShipmentProcessing
                 allGroups.Add(singleGroupVm);
             }
             return allGroups;
+        }
+
+        public async Task<Manifest> GetManifestByManifestCodeSignle(string manifestcode)
+        {
+            return _dbContext.Manifest.FirstOrDefault(e => e.ManifestCode == manifestcode);
         }
     }
 }

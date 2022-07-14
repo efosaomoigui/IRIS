@@ -12,5 +12,11 @@ namespace IRIS.BCK.Core.Application.Business.Accounts.Commands.CreateUserRole
     {
         public string UserId { get; set; }
         public string[] RoleId { get; set; }  
-    }  
+    }
+
+    public class CreateUserToServiceCenterCommand : IRequest<CreateUserToServiceCenterCommandResponse> 
+    {
+        public string UserId { get; set; }
+        public string[] ServiceCenterCode { get; set; } 
+    }
 }

@@ -11,6 +11,9 @@ namespace IRIS.BCK.Core.Application.DTO.ShipmentProcessing
     {
         public Guid Id { get; set; }
         public string GroupCode { get; set; }
+        public string Departure { get; set; }
+        public string Destination { get; set; }
+        public DateTime CreatedDate { get; set; }
         public Guid ShipmentId { get; set; }
         //public Shipment Shipment { get; set; }
         //public User UserId { get; set; }

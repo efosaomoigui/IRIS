@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IRIS.BCK.Core.Application.DTO.ShipmentProcessing;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,5 +13,6 @@ namespace IRIS.BCK.Core.Application.Business.ShipmentProcessing.Queries.GetManif
         public string ManifestCode { get; set; }
         public Guid GroupWayBillId { get; set; }
         public Guid ServiceCenterId { get; set; }
+        public List<ManifestDto> GroupWaybills { get; set; } = new List<ManifestDto>();
     }
 }
