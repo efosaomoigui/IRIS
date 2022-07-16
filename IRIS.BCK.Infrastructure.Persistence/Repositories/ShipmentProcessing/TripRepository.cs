@@ -41,6 +41,7 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.ShipmentProcessing
                     g.Driver,
                     Date = new DateTime(g.CreatedDate.Year, g.CreatedDate.Month, g.CreatedDate.Day, g.CreatedDate.Hour, g.CreatedDate.Minute, g.CreatedDate.Second)
                 }).Distinct().ToList();
+
             List<TripListViewModel> allTrips = new List<TripListViewModel>();
              
             foreach (var trip in trips)

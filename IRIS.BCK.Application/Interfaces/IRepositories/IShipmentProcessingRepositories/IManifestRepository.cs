@@ -21,5 +21,7 @@ namespace IRIS.BCK.Core.Application.Interfaces.IRepositories.IShipmentProcessing
         Task<List<ManifestListViewModel>> GetManifestByRouteId(string routeid);
 
         Task<List<Manifest>> GetDistinctManifestByManifestCode(string manifest);
+
+        Task<List<Manifest>> GetManifestByManifestCodeList(List<string> manifestcodes);
     }
 }

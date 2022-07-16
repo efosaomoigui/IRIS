@@ -18,5 +18,6 @@ namespace IRIS.BCK.Core.Application.Interfaces.IRepositories.IShipmentProcessing
         Task<List<Guid>> GetUnprocessedGroupwaybillTRoute();
 
         Task<GroupWayBill> GetGroupWaybillById(string groupwaybillid);
+        Task<List<GroupWayBill>> GetManifestGroupwaybillByListCode(List<string> grpCodes);
     }
 }

@@ -85,18 +85,16 @@ namespace IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.CreateM
                 }
 
                 var result = await _manifestRepository.AddRangeAsync(manifest);
+                var listGroupWaybills = manifest.Select(x => x.GroupWayBillCode).ToList();
+                var groupWaybills = await _groupwaybillRepository.GetManifestGroupwaybillByListCode(listGroupWaybills);
 
-                foreach (var grp in manifest)
+                foreach (var grp in groupWaybills)
                 {
-                    var groupWaybills = await _groupwaybillRepository.GetManifestGroupwaybillByGrpCode(grp.GroupWayBillCode);
+                    grp.ShipmentProcessingStatus = ShipmentProcessingStatus.Manifested;
 
-                    foreach (var singleGrp in groupWaybills)
-                    {
-                        var updateShipment = await _shipmentRepository.GetShipmentByWayBill(singleGrp.Waybill);
-                        updateShipment.ShipmentProcessingStatus = ShipmentProcessingStatus.Manifested;
-                        await _shipmentRepository.UpdateAsync(updateShipment);
-                    }
                 }
+
+                await _groupwaybillRepository.UpdateRangeAsync(groupWaybills); 
 
                 try
                 {

@@ -33,5 +33,7 @@ namespace IRIS.BCK.Application.Interfaces.IRepository.IShipmentRepositories
         Task<List<DashboardShipmentListViewModel>> GetMonthlyShipmentByCreatedDate();
 
         Task<List<DashboardShipmentListViewModel>> GetUserMonthlyShipmentByCreatedDate(string userId);
+
+        Task<List<Shipment>> GetShipmentByWayBillUsingListWaybills(List<string> waybillnumbers);
     }
 }

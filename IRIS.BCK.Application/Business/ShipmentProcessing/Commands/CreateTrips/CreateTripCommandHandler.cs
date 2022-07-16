@@ -80,30 +80,40 @@ namespace IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.CreateT
                 }
 
                 var resultTrip = await _tripRepository.AddRangeAsync(trips);
+                var manifestLists = trips.Select(x => x.ManifestCode).ToList();  
 
                 //Add Track
                 var track = TrackHistoryMapsCommand.CreateTrackHistoryMapsCommandTripReg(request);
                 track = await _trackHistoryRepository.AddAsync(track);
 
-                foreach (var grp in trips)
+                var manifestList = await _manifestRepository.GetManifestByManifestCodeList(manifestLists);
+
+                foreach (var manifest in manifestList) 
                 {
-                    var manifest = await _manifestRepository.GetManifestByManifestCodeSignle(grp.ManifestCode);
                     manifest.ShipmentProcessingStatus = ShipmentProcessingStatus.Dispatched;
-                    await _manifestRepository.UpdateAsync(manifest);
-
-                    var groupWaybills = await _groupwaybillRepository.GetManifestGroupwaybillByGrpCode(manifest.GroupWayBillCode);
-
-                    foreach (var singleGrp in groupWaybills)
-                    {
-                        var grpWaybills = await _groupwaybillRepository.GetGroupWaybillById(singleGrp.Id.ToString());
-                        grpWaybills.ShipmentProcessingStatus = ShipmentProcessingStatus.Dispatched;
-                        await _manifestRepository.UpdateAsync(manifest);
-
-                        var updateShipment = await _shipmentRepository.GetShipmentByWayBill(singleGrp.Waybill);
-                        updateShipment.ShipmentProcessingStatus = ShipmentProcessingStatus.Dispatched;
-                        await _shipmentRepository.UpdateAsync(updateShipment);
-                    }
                 }
+
+                await _manifestRepository.UpdateRangeAsync(manifestList);
+
+                var listGroupWaybills = manifestList.Select(x => x.GroupWayBillCode).ToList();
+                var groupWaybills = await _groupwaybillRepository.GetManifestGroupwaybillByListCode(listGroupWaybills);
+
+                foreach (var grp in groupWaybills)
+                {
+                    grp.ShipmentProcessingStatus = ShipmentProcessingStatus.Dispatched;
+                }
+
+                await _groupwaybillRepository.UpdateRangeAsync(groupWaybills);
+
+                var strWaybills = groupWaybills.Select(x => x.Waybill).ToList();
+                var shipments = _shipmentRepository.GetShipmentByWayBillUsingListWaybills(strWaybills).Result;
+
+                foreach (var way in shipments) 
+                {
+                    way.ShipmentProcessingStatus = ShipmentProcessingStatus.Dispatched;
+                }
+
+                await _shipmentRepository.UpdateRangeAsync(shipments);
 
                 try
                 {

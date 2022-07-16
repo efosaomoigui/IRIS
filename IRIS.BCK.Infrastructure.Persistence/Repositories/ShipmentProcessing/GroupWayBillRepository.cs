@@ -58,8 +58,15 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.ShipmentProcessing
 
         public async Task<List<GroupWayBillListViewModel>> GetManifestGroupwaybillByRouteId(string routeid) 
         {
-            var groupShipments = _dbContext.GroupWayBill.OrderBy(x => x.CreatedDate).ToList();
-            var groupShipmentList = groupShipments.Where(e => e.RId.ToString() == routeid).ToList();
+            //var groupShipments = _dbContext.GroupWayBill.OrderBy(x => x.CreatedDate).ToList();
+            //var groupShipmentList = groupShipments.Where(e => e.RId.ToString() == routeid).ToList();
+
+            var groupShipmentList = _dbContext.GroupWayBill.Where(e => e.RId.ToString() == routeid).OrderBy(x => x.CreatedDate).Select(g => new { 
+                g.GroupCode,
+                g.CreatedDate.Month,
+                g.RId,
+                Date = new DateTime(g.CreatedDate.Year, g.CreatedDate.Month, g.CreatedDate.Day, g.CreatedDate.Hour, g.CreatedDate.Minute, g.CreatedDate.Second)
+            }).Distinct().ToList();
 
             List<GroupWayBillListViewModel> allGroups = new List<GroupWayBillListViewModel>();
 
@@ -67,8 +74,8 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.ShipmentProcessing
             {
                 var singleGroupVm = new GroupWayBillListViewModel();
 
-                singleGroupVm.Id = grp.Id;
-                singleGroupVm.Waybill = grp.Waybill;
+                //singleGroupVm.Id = grp.Id;
+                //singleGroupVm.Waybill = grp.Waybill;
                 singleGroupVm.GroupCode = grp.GroupCode;
                 //var user = await _userManager.FindByIdAsync(shipment.Customer.ToString());
                 //var user2 = await _userManager.FindByIdAsync(shipment.Reciever.ToString());
@@ -89,16 +96,33 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.ShipmentProcessing
             return _mapper.Map<GroupWayBillListViewModel>(groupShipments); 
         }
 
+        public async Task<List<GroupWayBill>> GetManifestGroupwaybillByListCode(List<string> grpCodes) 
+        {
+            var groupShipments = _dbContext.GroupWayBill.Where(x => grpCodes.Contains(x.GroupCode)).ToList();
+            //var groupShipmentLists = groupShipments.Select(s => s.GroupCode).ToList();
+            return groupShipments;
+            //return _mapper.Map<GroupWayBillListViewModel>(groupShipments);
+        }
+
         public async Task<List<GroupWayBillListViewModel>> GetManifestGroupwaybillByGrpCode(string code)
         {
-            var groupShipments = _dbContext.GroupWayBill.Where(x => x.GroupCode == code)
-                 .Select(g => new {
-                     g.GroupCode,
-                     g.Waybill,
-                     g.CreatedDate.Month,
-                     g.RId,
-                     Date = new DateTime(g.CreatedDate.Year, g.CreatedDate.Month, g.CreatedDate.Day, g.CreatedDate.Hour, g.CreatedDate.Minute, g.CreatedDate.Second)
-                 }).Distinct().ToList();
+            //var groupShipments = _dbContext.GroupWayBill.Where(x => x.GroupCode == code)
+            //     .Select(g => new {
+            //         g.GroupCode,
+            //         g.Waybill,
+            //         g.CreatedDate.Month,
+            //         g.RId,
+            //         Date = new DateTime(g.CreatedDate.Year, g.CreatedDate.Month, g.CreatedDate.Day, g.CreatedDate.Hour, g.CreatedDate.Minute, g.CreatedDate.Second)
+            //     }).Distinct().ToList();
+
+            var groupShipments = _dbContext.GroupWayBill.Where(x => x.GroupCode == code).OrderBy(x => x.CreatedDate).Select(g => new {
+                g.GroupCode,
+                g.Waybill,
+                g.CreatedDate.Month,
+                g.RId,
+                Date = new DateTime(g.CreatedDate.Year, g.CreatedDate.Month, g.CreatedDate.Day, g.CreatedDate.Hour, g.CreatedDate.Minute, g.CreatedDate.Second)
+            }).Distinct().ToList();
+
             var result = new List<GroupWayBillListViewModel>();
             foreach (var item in groupShipments)
             {
@@ -107,7 +131,7 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.ShipmentProcessing
                 {
                     GroupCode = item.GroupCode,
                     Waybill = item.Waybill,
-                    Departure= route.Departure,
+                    Departure = route.Departure,
                     Destination = route.Destination,
                     CreatedDate = item.Date
                 });

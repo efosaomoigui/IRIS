@@ -75,21 +75,30 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.ShipmentProcessing
 
         public async Task<List<ManifestListViewModel>> GetManifestByRouteId(string routeid) 
         {
-            var manifests = _dbContext.Manifest.OrderBy(x => x.CreatedDate).ToList();
-            var manifestList = manifests.Where(e => e.RouteId.ToString() == routeid).ToList();
+            //var manifests = _dbContext.Manifest.OrderBy(x => x.CreatedDate).ToList();
+            //var manifestList = manifests.Where(e => e.RouteId.ToString() == routeid).ToList();
+
+            var manifests = _dbContext.Manifest.Where(e => e.RouteId.ToString() == routeid).OrderBy(x => x.CreatedDate).ToList()
+          .Select(g => new {
+              g.ManifestCode,
+              g.GroupWayBillCode,
+              g.CreatedDate.Month,
+              g.RouteId,
+              Date = new DateTime(g.CreatedDate.Year, g.CreatedDate.Month, g.CreatedDate.Day, g.CreatedDate.Hour, g.CreatedDate.Minute, g.CreatedDate.Second)
+          }).Distinct().ToList();
 
             List<ManifestListViewModel> allGroups = new List<ManifestListViewModel>();
 
 
-            foreach (var manifest in manifestList)
+            foreach (var manifest in manifests)
             {
                 var singleGroupVm = new ManifestListViewModel();
 
-                singleGroupVm.Id = manifest.Id;
+                //singleGroupVm.Id = manifest.Id;
                 singleGroupVm.GroupWayBillCode = manifest.GroupWayBillCode;
                 singleGroupVm.ManifestCode = manifest.ManifestCode;
                 singleGroupVm.RouteId = manifest.RouteId;
-                singleGroupVm.UserId = manifest.UserId;
+                //singleGroupVm.UserId = manifest.UserId;
                 //var user = await _userManager.FindByIdAsync(shipment.Customer.ToString());
                 //var user2 = await _userManager.FindByIdAsync(shipment.Reciever.ToString());
                 var route = await _routeRepository.GetRouteById(manifest.RouteId.ToString());
@@ -105,6 +114,12 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.ShipmentProcessing
         public async Task<Manifest> GetManifestByManifestCodeSignle(string manifestcode)
         {
             return _dbContext.Manifest.FirstOrDefault(e => e.ManifestCode == manifestcode);
+        }
+
+        public async Task<List<Manifest>> GetManifestByManifestCodeList(List<string> manifestcodes)
+        {
+            var listValues = _dbContext.Manifest.Where(e => manifestcodes.Contains(e.ManifestCode)).ToList();
+            return listValues;
         }
     }
 }

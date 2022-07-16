@@ -131,5 +131,11 @@ namespace IRIS.BCK.Infrastructure.Persistence.Repositories.Shipments
             var lsShipments = await _dbContext.Shipment.FirstOrDefaultAsync(e => e.Waybill == waybillnumber);
             return lsShipments;
         }
+
+        public async Task<List<Shipment>> GetShipmentByWayBillUsingListWaybills(List<string> waybillnumbers)
+        {
+            var lsShipments = _dbContext.Shipment.Where(e => waybillnumbers.Contains(e.Waybill)).ToList();
+            return lsShipments;
+        }
     }
 }

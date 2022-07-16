@@ -77,18 +77,21 @@ namespace IRIS.BCK.Core.Application.Business.ShipmentProcessing.Commands.CreateG
                 {
                     var shipment = await _shipmentRepository.GetShipmentByWayBillNumber(grp.Waybill);
                     grp.ShipmentId = shipment.ShipmentId;
-                    grp.ShipmentProcessingStatus = ShipmentProcessingStatus.Created;
+                    grp.ShipmentProcessingStatus = ShipmentProcessingStatus.Groupped;
                 }
                 
                 var result = await _groupWayBillRepository.AddRangeAsync(group);
 
                 //shipment.ShipmentProcessingStatus = ShipmentProcessingStatus.Created;
-                foreach (var grp in group)
+                var groupShipments = group.Select(e => e.Waybill).ToList();
+                var updateShipment = await _shipmentRepository.GetShipmentByWayBillUsingListWaybills(groupShipments);
+
+                foreach (var grp in updateShipment)
                 {
-                    var updateShipment = await _shipmentRepository.GetShipmentByWayBill(grp.Waybill);
-                    updateShipment.ShipmentProcessingStatus = ShipmentProcessingStatus.Groupped;
-                    await _shipmentRepository.UpdateAsync(updateShipment); 
+                    grp.ShipmentProcessingStatus = ShipmentProcessingStatus.Groupped;
                 }
+
+                await _shipmentRepository.UpdateRangeAsync(updateShipment);
 
                 try
                 {
