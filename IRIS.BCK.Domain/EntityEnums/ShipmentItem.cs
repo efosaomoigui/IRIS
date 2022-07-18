@@ -47,7 +47,7 @@ namespace IRIS.BCK.Core.Domain.EntityEnums
         public double ton { get; set; }
         public string t_shipmentDescription { get; set; }
         public ProductEnum t_shipmentType { get; set; }
-        public string t_clientWaybill { get; set; }
+        public double t_quantity { get; set; }
         public double ItemsValue { get; set; }
         public double LineTotal { get; set; }
     }
@@ -76,7 +76,9 @@ namespace IRIS.BCK.Core.Domain.EntityEnums
         public string receiverPhoneNumber { get; set; }
         public string invoiceNumber { get; set; }
         public string waybillNumber { get; set; }  
-        public string route { get; set; }
+        public string route { get; set; } 
+        public double ton { get; set; }
+        public string t_clientWaybill { get; set; }
         public List<ItemsA> itemsA { get; set; }
         public List<ItemsB> itemsB { get; set; }
         public int grandTotal { get; set; }

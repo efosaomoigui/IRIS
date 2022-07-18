@@ -145,7 +145,7 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem
         }
 
         public async Task<double> CreateShipment(RegisterShipmentCommand request, Values resultValues)
-        {
+         {
             var shipmentAmt = 0.0d;
 
             if (request.UserId.ToString() != null)
@@ -165,15 +165,15 @@ namespace IRIS.BCK.Core.Application.Business.Price.Commands.PriceForShipmentItem
                     for (var i = 0; i < resultValues.itemsA.Count; i++)
                     {
                         var lineItems = new ShipmentItem();
-                        lineItems.Weight = resultValues.itemsA[i].ton;
+                        lineItems.Weight = resultValues.ton;
                         lineItems.length = 0;
-                        lineItems.Weight = 0;
                         lineItems.Height = 0;
                         lineItems.ShipmentDescription = resultValues.itemsA[i].t_shipmentDescription;
                         lineItems.ShipmentProduct = resultValues.itemsA[i].t_shipmentType;
-                        lineItems.ClientWaybill = resultValues.itemsA[i].t_clientWaybill;
+                        lineItems.ClientWaybill = resultValues.t_clientWaybill;
                         lineItems.LineTotal = resultValues.itemsA[i].LineTotal;
                         lineItems.ItemsValue = resultValues.itemsA[i].ItemsValue;
+                        lineItems.Quantity = resultValues.itemsA[i].t_quantity;
                         shipmentAmt += lineItems.LineTotal;
                         shipment.ShipmentItems.Add(lineItems);
                     }
