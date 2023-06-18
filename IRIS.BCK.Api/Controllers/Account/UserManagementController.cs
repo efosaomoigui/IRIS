@@ -56,7 +56,7 @@ namespace IRIS.BCK.Api.Controllers.Account
             return Ok(response);
         }
 
-
+        [AllowAnonymous]
         [HttpGet("GetUsers")]
         public async Task<ActionResult<List<UserListViewModel>>> GetAllUsers()
         {
